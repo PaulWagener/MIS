@@ -31,6 +31,24 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public IList<TagViewModel> Tag { get; set; }
         public IList<ModuleVoorkennisViewModel> Module2 { get; set; }
 
+        public ModuleViewModel()
+        {
+            //lege lijsten aanmaken
+           ModuleCompetentie = new List<ModuleCompetentieViewModel>();
+           StudiePunten = new List<StudiePuntenViewModel>();
+           FaseModules = new List<FaseModulesViewModel>();
+           StudieBelasting = new List<StudieBelastingViewModel>();
+           ModuleWerkvorm = new List<ModuleWerkvormViewModel>();
+           Weekplanning = new List<WeekplanningViewModel>();
+           Beoordelingen = new List<BeoordelingenViewModel>();
+           Leermiddelen = new List<LeermiddelenViewModel>();
+           Leerdoelen = new List<LeerdoelenViewModel>();
+           Docent = new List<DocentViewModel>();
+           Leerlijn = new List<LeerlijnViewModel>();
+           Tag = new List<TagViewModel>();
+           Module2 = new List<ModuleVoorkennisViewModel>();
+        }
+
         public ICollection<ModuleCompetentie> MapToModuleCompetentie()
         {
             var moduleCompetenties = new List<ModuleCompetentie>();
