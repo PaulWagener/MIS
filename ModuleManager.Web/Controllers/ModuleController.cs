@@ -114,7 +114,8 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
-            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+            IGenericRepository<Module> moduleRepo = _unitOfWork.GetRepository<Module>();
+            var moduleToEdit = moduleRepo.GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
             
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
             moduleToEdit.Docent = moduleVm.Module.MapToDocent();
@@ -132,9 +133,8 @@ namespace ModuleManager.Web.Controllers
             var voorkennisModules = new List<Module>();
             foreach (var voorkennisModule in moduleVm.Module.Module2)
             {
-                var voorMod =
-                    _unitOfWork.GetRepository<Module>()
-                        .GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
+                Module voorMod = moduleRepo.GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
+
                 voorkennisModules.Add(voorMod);
             }
 
@@ -145,13 +145,11 @@ namespace ModuleManager.Web.Controllers
                 moduleToEdit.Status = "Compleet (ongecontroleerd)";
             }
 
-            _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
+             moduleRepo.Edit(moduleToEdit);
+             _unitOfWork.Context.SaveChanges();
             _unitOfWork.Dispose();
 
-
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
-            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            return View(modVm);
+            return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }
 
         //PDF Download Code
