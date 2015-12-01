@@ -65,6 +65,7 @@
     <Compile Include="Docent.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExtensionMethods\ModuleExtensionMethods.cs" />
     <Compile Include="Fase.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -107,6 +108,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleManagerDB1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ModuleWerkvorm.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
@@ -168,11 +174,13 @@
     <None Include="ModuleManagerDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
-      <LastGenOutput>ModuleManagerDB.cs</LastGenOutput>
+      <LastGenOutput>ModuleManagerDB1.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ModuleManagerDB.edmx.sql" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
@@ -84,11 +85,15 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return studiePunten;
         }
 
-        public ICollection<FaseModules> MapToFaseModules()
+        public ICollection<FaseModules> MapToFaseModules(DomainContext context)
         {
             var faseModules = new List<FaseModules>();
             foreach (var faseModule in FaseModules)
             {
+                var fase = context.Fase.First(m =>
+                    m.Naam == faseModule.FaseNaam &&
+                    m.Schooljaar == faseModule.FaseSchooljaar);
+
                 faseModules.Add(new FaseModules
                 {
                     Blok = faseModule.Blok,
@@ -112,10 +117,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                 {
                     Activiteit = studieBelasting.Activiteit,
                     ContactUren = studieBelasting.ContactUren,
-                    CursusCode = studieBelasting.CursusCode,
+
                     Duur = studieBelasting.Duur,
                     SBU = studieBelasting.SBU,
-                    Schooljaar = studieBelasting.Schooljaar,
                     Frequentie = studieBelasting.Frequentie
                 });
             }
@@ -187,14 +191,11 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Leerdoelen> MapToLeerdoelen()
         {
             var leerdoelen = new List<Leerdoelen>();
-            foreach (var leerdoel in Leerdoelen)
+            foreach (var leerdoelVM in Leerdoelen)
             {
-                leerdoelen.Add(new Leerdoelen
-                {
-                    Beschrijving = leerdoel.Beschrijving,
-                    CursusCode = leerdoel.CursusCode,
-                    Schooljaar = leerdoel.Schooljaar
-                });
+                var leerdoel = leerdoelVM.ToPoco();
+                leerdoelen.Add(leerdoel);
+                
             }
             return leerdoelen;
         }
@@ -214,30 +215,34 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return docenten;
         }
 
-        public ICollection<Leerlijn> MapToLeerlijn()
+        public ICollection<Leerlijn> MapToLeerlijn(DomainContext context)
         {
             var leerlijnen = new List<Leerlijn>();
-            foreach (var leerlijn in Leerlijn)
+            foreach (var leerlijnVM in Leerlijn)
             {
-                leerlijnen.Add(new Leerlijn
-                {
-                    Naam = leerlijn.Naam,
-                    Schooljaar = leerlijn.Schooljaar
-                });
+                Leerlijn leerlijn = context.Leerlijn
+                    .Find(new object[] { leerlijnVM.Naam, leerlijnVM.Schooljaar });
+
+                leerlijn.Module = null;
+               
+                leerlijnen.Add(leerlijn);
             }
             return leerlijnen;
         }
 
-        public ICollection<Tag> MapToTag()
+        public ICollection<Tag> MapToTag(DomainContext context)
         {
             var tags = new List<Tag>();
-            foreach (var tag in Tag)
+            foreach (var tagVM in Tag)
             {
-                tags.Add(new Tag
+                var tag = new Tag
                 {
-                    Naam = tag.Naam,
-                    Schooljaar = tag.Schooljaar
-                });
+                    Naam = tagVM.Naam,
+                    Schooljaar = tagVM.Schooljaar
+                };
+
+                context.Tag.Attach(tag);
+                tags.Add(tag);
             }
             return tags;
         }

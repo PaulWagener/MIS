@@ -98,7 +98,13 @@
                             <tr>
                                 <td></td>
                                 <td><label for="@Model.Options.Niveaus.ElementAt(i).Niveau1-select">@Model.Options.Niveaus.ElementAt(i).Niveau1</label></td>
-                                <td>@Html.DropDownList("ModuleCompetentie", new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
+                                <td>@Html.DropDownList("ModuleCompetentie", @Model.Options.Competenties, new { 
+                                   
+                                  
+                                   @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", 
+                                   @multiple = "form-control", 
+                                   @class = "form-control" })</td>
+
                             </tr>
                         }
                     </table>

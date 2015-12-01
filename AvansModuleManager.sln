@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ApplicationArchitecture", "ApplicationArchitecture\ApplicationArchitecture.modelproj", "{33167B99-3CB8-4892-8A89-C291DD88E47B}"
 EndProject
@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{02884B
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.DomainDal.Tests", "ModuleManager.DomainDal.Tests\ModuleManager.DomainDal.Tests.csproj", "{2C0456FF-5971-484B-85F1-D71C45034B6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,10 @@ Global
 		{D5A31E6D-EC7D-429B-8F98-943176C05ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5A31E6D-EC7D-429B-8F98-943176C05ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5A31E6D-EC7D-429B-8F98-943176C05ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

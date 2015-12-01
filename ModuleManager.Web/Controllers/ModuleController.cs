@@ -5,6 +5,7 @@ using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.ExtensionMethods;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.EntityViewModel;
@@ -91,12 +92,15 @@ namespace ModuleManager.Web.Controllers
                 isLockedForEdit = true;
             }
 
+            //new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
+            MultiSelectList competetentieVM = new MultiSelectList(competenties, "Code", "Naam");
+
             var moduleEditViewModel = new ModuleEditViewModel
             {
                 Module = Mapper.Map<Module, ModuleViewModel>(module),
                 Options = new ModuleEditOptionsViewModel
                 {
-                    Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
+                    Competenties = competetentieVM,
                     Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
                     Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
                     Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
@@ -116,20 +120,26 @@ namespace ModuleManager.Web.Controllers
         {
             IGenericRepository<Module> moduleRepo = _unitOfWork.GetRepository<Module>();
             var moduleToEdit = moduleRepo.GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
-            
+ 
+
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
             moduleToEdit.Docent = moduleVm.Module.MapToDocent();
-            moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
-            moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
-            moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
+            //moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules(_unitOfWork.Context);
             moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
             moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
-            moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
             moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
-            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
-            moduleToEdit.Tag = moduleVm.Module.MapToTag();
+            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten(); //zit nie meer in de view
             moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
+            moduleToEdit.Beoordelingen = moduleVm.Module.MapToBeoordelingen();
+            moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
+            moduleToEdit.Tag = moduleVm.Module.MapToTag(_unitOfWork.Context);
+            moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
 
+            
+            moduleToEdit.Leerlijn.Clear();
+            moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn(_unitOfWork.Context);
+         
+            
             var voorkennisModules = new List<Module>();
             foreach (var voorkennisModule in moduleVm.Module.Module2)
             {
@@ -145,9 +155,9 @@ namespace ModuleManager.Web.Controllers
                 moduleToEdit.Status = "Compleet (ongecontroleerd)";
             }
 
+
              moduleRepo.Edit(moduleToEdit);
              _unitOfWork.Context.SaveChanges();
-            _unitOfWork.Dispose();
 
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }
