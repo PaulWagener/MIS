@@ -30,7 +30,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public IList<DocentViewModel> Docent { get; set; }
         public IList<LeerlijnViewModel> Leerlijn { get; set; }
         public IList<TagViewModel> Tag { get; set; }
-        public IList<ModuleVoorkennisViewModel> Module2 { get; set; }
+        public IList<ModuleVoorkennisViewModel> VoorkennisModules { get; set; }
 
         public ModuleViewModel()
         {
@@ -47,7 +47,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
            Docent = new List<DocentViewModel>();
            Leerlijn = new List<LeerlijnViewModel>();
            Tag = new List<TagViewModel>();
-           Module2 = new List<ModuleVoorkennisViewModel>();
+           VoorkennisModules = new List<ModuleVoorkennisViewModel>();
         }
 
         public ICollection<ModuleCompetentie> MapToModuleCompetentie()
@@ -188,17 +188,17 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return leermiddelen;
         }
 
-        public ICollection<Leerdoelen> MapToLeerdoelen()
-        {
-            var leerdoelen = new List<Leerdoelen>();
-            foreach (var leerdoelVM in Leerdoelen)
-            {
-                var leerdoel = leerdoelVM.ToPoco();
-                leerdoelen.Add(leerdoel);
+        //public ICollection<Leerdoelen> MapToLeerdoelen()
+        //{
+        //    var leerdoelen = new List<Leerdoelen>();
+        //    foreach (var leerdoelVM in Leerdoelen)
+        //    {
+        //        var leerdoel = leerdoelVM.ToPoco();
+        //        leerdoelen.Add(leerdoel);
                 
-            }
-            return leerdoelen;
-        }
+        //    }
+        //    return leerdoelen;
+        //}
 
         public ICollection<Docent> MapToDocent()
         {
@@ -235,13 +235,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             var tags = new List<Tag>();
             foreach (var tagVM in Tag)
             {
-                var tag = new Tag
-                {
-                    Naam = tagVM.Naam,
-                    Schooljaar = tagVM.Schooljaar
-                };
+                Tag tag = context.Tag
+                    .Find(new object[] { tagVM.Naam, tagVM.Schooljaar });
 
-                context.Tag.Attach(tag);
                 tags.Add(tag);
             }
             return tags;

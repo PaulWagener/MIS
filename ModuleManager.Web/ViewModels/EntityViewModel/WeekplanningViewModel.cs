@@ -1,4 +1,6 @@
-﻿namespace ModuleManager.Web.ViewModels.EntityViewModel
+﻿using ModuleManager.DomainDAL;
+using System.Linq;
+namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class WeekplanningViewModel
     {
@@ -6,6 +8,25 @@
         public string Schooljaar { get; set; }
         public int Id { get; set; }
         public string Week { get; set; }
-        public string Onderwerp { get; set; } 
+        public string Onderwerp { get; set; }
+
+        internal DomainDAL.Weekplanning ToPoco(DomainContext context)
+        {
+            DomainDAL.Weekplanning weekPlanning = context.Weekplanning.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
+
+            if (weekPlanning == null)
+            {
+                weekPlanning = new Weekplanning();
+            }
+
+            weekPlanning.Id = Id;
+            weekPlanning.Schooljaar = Schooljaar;
+            weekPlanning.CursusCode = CursusCode;
+            weekPlanning.Week = Week;
+            weekPlanning.Onderwerp = Onderwerp;
+
+            return weekPlanning;
+        }
+
     }
 }

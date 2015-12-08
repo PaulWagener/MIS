@@ -118,46 +118,96 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
-            IGenericRepository<Module> moduleRepo = _unitOfWork.GetRepository<Module>();
-            var moduleToEdit = moduleRepo.GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
- 
+            using(var context = new DomainContext()){
 
-            moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
-            moduleToEdit.Docent = moduleVm.Module.MapToDocent();
-            //moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules(_unitOfWork.Context);
-            moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
-            moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
-            moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
-            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten(); //zit nie meer in de view
-            moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
-            moduleToEdit.Beoordelingen = moduleVm.Module.MapToBeoordelingen();
-            moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
-            moduleToEdit.Tag = moduleVm.Module.MapToTag(_unitOfWork.Context);
-            moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
+                //Ophalen originele module
+                var module = context.Module.Find(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+
+                //simpel fields
+                module.Beschrijving = moduleVm.Module.Beschrijving;
+
+                //### many to many ###
+                //#leerlijnen
+                module.Leerlijn.Clear();
+                var leerlijnen = new List<Leerlijn>();
+                foreach(var leerlijn in moduleVm.Module.Leerlijn)
+                {
+                    leerlijnen.Add(context.Leerlijn.Find(new object[] { leerlijn.Naam,leerlijn.Schooljaar }));
+                }
+                module.Leerlijn = leerlijnen;
+
+                //#tags
+                module.Tag.Clear();
+                var tags = new List<Tag>();
+                foreach (var tag in moduleVm.Module.Tag)
+                {
+                    tags.Add(context.Tag.Find(new object[] { tag.Naam, tag.Schooljaar }));
+                }
+                module.Tag = tags;
+
+                //#modules voorkennis
+                module.Voorkennis.Clear();
+                var voorkennis = new List<Module>();
+                foreach (var moduleVoorkennis in moduleVm.Module.VoorkennisModules)
+                {
+                    voorkennis.Add(context.Module.Find(moduleVoorkennis.CursusCode, moduleVoorkennis.Schooljaar));
+                }
+                module.Voorkennis = voorkennis;
+                
+                module.Leerdoelen.Clear();
+                module.Leerdoelen = moduleVm.Module.Leerdoelen.Select(l => l.ToPoco(context)).ToList();
+                module.Leermiddelen.Clear();
+                module.Leermiddelen = moduleVm.Module.Leermiddelen.Select(l => l.ToPoco(context)).ToList();
+                module.StudieBelasting.Clear();
+                module.StudieBelasting = moduleVm.Module.StudieBelasting.Select(s => s.ToPoco(context)).ToList();
+                module.Weekplanning.Clear();
+                module.Weekplanning = moduleVm.Module.Weekplanning.Select(w => w.ToPoco(context)).ToList();
+                module.ModuleWerkvorm.Clear();
+                module.ModuleWerkvorm = moduleVm.Module.ModuleWerkvorm.Select(wv => wv.ToPoco(context)).ToList();
+                module.Beoordelingen.Clear();
+                module.Beoordelingen = moduleVm.Module.Beoordelingen.Select(b => b.ToPoco(context)).ToList();
+                
+
+                context.SaveChanges();
+
+            }
+          
+            //IGenericRepository<Module> moduleRepo = _unitOfWork.GetRepository<Module>();
+            //var moduleToEdit = moduleRepo.GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+            
+            ////simple fields
+            //moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
+            
+
+
+
+
+            ////Still broken
+            ////moduleToEdit.Docent = moduleVm.Module.MapToDocent(); //Model docent is wrong 
+            ////moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules(_unitOfWork.Context); //dunno
+            ////moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie(); //Competentie view is wrong
+            ////moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten(); //zit nie meer in de view
+            
+
+            ////Todo
+            //var voorkennisModules = new List<Module>();
+            //foreach (var voorkennisModule in moduleVm.Module.Module2)
+            //{
+            //    Module voorMod = moduleRepo.GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
+
+            //    voorkennisModules.Add(voorMod);
+            //}
+
+            //moduleToEdit.Module2 = voorkennisModules;
+
+            //if (moduleVm.Module.IsCompleted)
+            //{
+            //    moduleToEdit.Status = "Compleet (ongecontroleerd)";
+            //}
+
 
             
-            moduleToEdit.Leerlijn.Clear();
-            moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn(_unitOfWork.Context);
-         
-            
-            var voorkennisModules = new List<Module>();
-            foreach (var voorkennisModule in moduleVm.Module.Module2)
-            {
-                Module voorMod = moduleRepo.GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
-
-                voorkennisModules.Add(voorMod);
-            }
-
-            moduleToEdit.Module2 = voorkennisModules;
-
-            if (moduleVm.Module.IsCompleted)
-            {
-                moduleToEdit.Status = "Compleet (ongecontroleerd)";
-            }
-
-
-             moduleRepo.Edit(moduleToEdit);
-             _unitOfWork.Context.SaveChanges();
+            //_unitOfWork.Context.SaveChanges();
 
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }

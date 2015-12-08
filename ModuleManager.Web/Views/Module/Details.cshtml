@@ -144,10 +144,10 @@
                         <tr>
                             <td>Voorkennis</td>
                             <td colspan="2">
-                                @foreach (var i in Model.Module2)
+                                @foreach (var i in Model.VoorkennisModules)
                                 {
                                     <a href="@Url.Action("Details", "Module", new {schooljaar = i.Schooljaar, cursuscode = i.CursusCode})">@i.Naam</a>
-                                    if (Model.Module2.Last().Naam != i.Naam && Model.Module2.Last().Schooljaar != i.Schooljaar && Model.Module2.Last().CursusCode != i.CursusCode)
+                                    if (Model.VoorkennisModules.Last().Naam != i.Naam && Model.VoorkennisModules.Last().Schooljaar != i.Schooljaar && Model.VoorkennisModules.Last().CursusCode != i.CursusCode)
                                     {
                                         <label>,&nbsp;</label>
                                     }

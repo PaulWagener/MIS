@@ -1,4 +1,6 @@
 ﻿using ModuleManager.DomainDAL;
+using System.Linq;
+
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class LeerdoelenViewModel
@@ -8,14 +10,19 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public int Id { get; set; }
         public string Beschrijving { get; set; }
 
-        public Leerdoelen ToPoco()
+        public Leerdoelen ToPoco(DomainContext context)
         {
-            return new Leerdoelen
-            {
-                Beschrijving = this.Beschrijving,
-                CursusCode = this.CursusCode,
-                Schooljaar = this.Schooljaar
-            };
+            Leerdoelen leerdoel = context.Leerdoelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
+
+            if (leerdoel == null)
+                leerdoel = new Leerdoelen();
+
+            leerdoel.Beschrijving = this.Beschrijving;
+            leerdoel.CursusCode = this.CursusCode;
+            leerdoel.Id = this.Id;
+            leerdoel.Schooljaar = this.Schooljaar;
+
+            return leerdoel;
 
         }
 

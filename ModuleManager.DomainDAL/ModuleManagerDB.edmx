@@ -843,8 +843,8 @@
             <PropertyRef Name="Schooljaar" />
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CursusCode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Schooljaar" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Module" Relationship="Self.FK_Docent_Module" FromRole="Docent" ToRole="Module" />
@@ -961,8 +961,8 @@
           <NavigationProperty Name="Weekplanning" Relationship="Self.FK_Weekplanning_Module" FromRole="Module" ToRole="Weekplanning" />
           <NavigationProperty Name="Leerlijn" Relationship="Self.ModuleLeerlijn" FromRole="Module" ToRole="Leerlijn" />
           <NavigationProperty Name="Tag" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
-          <NavigationProperty Name="Module1" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
-          <NavigationProperty Name="Module2" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
+          <NavigationProperty Name="Vervolg" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
+          <NavigationProperty Name="Voorkennis" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>

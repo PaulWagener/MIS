@@ -8,6 +8,7 @@ namespace ModuleManager.WebTests.controller
     public class AcountController_Test
     {
         [TestMethod]
+        [Ignore]
         public void GetSwcSH1_success()
         {
             //1. arrange

@@ -71,7 +71,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" class="form-control" id="name" placeholder="Naam" value="@Model.Module.Naam" disabled="disabled">
+                                <input type="text" class="form-control" id="Naam" placeholder="Naam" value="@Model.Module.Naam" disabled="disabled">
                             </td>
                         </tr>
                     </table>
@@ -82,7 +82,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <textarea class="form-control" id="description" placeholder="Beschrijving">@Model.Module.Beschrijving</textarea>
+                                <textarea class="form-control" name="Module.Beschrijving" placeholder="Beschrijving">@Model.Module.Beschrijving</textarea>
                             </td>
                         </tr>
                     </table>
@@ -137,7 +137,7 @@
                         </tr>
                         <tr>
                             <td>
-                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Module2.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
+                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.VoorkennisModules.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
                             </td>
                         </tr>
                     </table>
@@ -512,9 +512,9 @@
 
         $("#voorkennis option:selected").each(function (i, selected) {
 
-            var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-            var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+            var newRow1 = "<input name='Module.VoorkennisModules[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.VoorkennisModules[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.VoorkennisModules[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
 
             $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
 
