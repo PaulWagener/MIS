@@ -62,7 +62,7 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Blokken, opt => opt.MapFrom(
                     src => (string.Join(Delimiter, src.FaseModules.Select(inSrc => inSrc.Blok).Distinct()))))
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
-                    src => string.Join(Delimiter, src.Docent.Select(inSrc => inSrc.Name))));
+                    src => string.Join(Delimiter, src.Docenten.Select(inSrc => inSrc.Naam))));
 
             Mapper.CreateMap<Module, ModuleTabelViewModel>()
                 .ForMember(dest => dest.Onderdeel, opt => opt.MapFrom(

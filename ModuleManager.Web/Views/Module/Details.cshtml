@@ -21,7 +21,7 @@
         // Docenten
         try
         {
-            docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
+            docenten = @Model.Docenten.Aggregate("", (current, docent) => current + (docent.Naam + ", "));
             docenten = docenten.Remove(docenten.Length - 2);
         }
         catch (Exception) {}

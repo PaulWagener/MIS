@@ -27,7 +27,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public IList<BeoordelingenViewModel> Beoordelingen { get; set; }
         public IList<LeermiddelenViewModel> Leermiddelen { get; set; }
         public IList<LeerdoelenViewModel> Leerdoelen { get; set; }
-        public IList<DocentViewModel> Docent { get; set; }
+        public IList<DocentViewModel> Docenten { get; set; }
         public IList<LeerlijnViewModel> Leerlijn { get; set; }
         public IList<TagViewModel> Tag { get; set; }
         public IList<ModuleVoorkennisViewModel> VoorkennisModules { get; set; }
@@ -44,7 +44,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
            Beoordelingen = new List<BeoordelingenViewModel>();
            Leermiddelen = new List<LeermiddelenViewModel>();
            Leerdoelen = new List<LeerdoelenViewModel>();
-           Docent = new List<DocentViewModel>();
+           Docenten = new List<DocentViewModel>();
            Leerlijn = new List<LeerlijnViewModel>();
            Tag = new List<TagViewModel>();
            VoorkennisModules = new List<ModuleVoorkennisViewModel>();
@@ -203,13 +203,11 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Docent> MapToDocent()
         {
             var docenten = new List<Docent>();
-            foreach (var docent in Docent)
+            foreach (var docent in Docenten)
             {
                 docenten.Add(new Docent
                 {
-                    CursusCode = docent.CursusCode,
-                    Name = docent.Name,
-                    Schooljaar = docent.Schooljaar                   
+                     Naam = docent.Naam,        
                 });
             }
             return docenten;

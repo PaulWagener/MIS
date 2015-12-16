@@ -153,13 +153,22 @@ namespace ModuleManager.Web.Controllers
                     voorkennis.Add(context.Module.Find(moduleVoorkennis.CursusCode, moduleVoorkennis.Schooljaar));
                 }
                 module.Voorkennis = voorkennis;
-                
+
+                //#modules docenten
+                module.Docenten.Clear();
+                var docenten = new List<Docent>();
+                foreach (var docent in moduleVm.Module.Docenten)
+                {
+                    docenten.Add(context.Docenten.Find(docent.Id));
+                }
+                module.Docenten = docenten;
+
                 module.Leerdoelen.Clear();
                 module.Leerdoelen = moduleVm.Module.Leerdoelen.Select(l => l.ToPoco(context)).ToList();
                 module.Leermiddelen.Clear();
                 module.Leermiddelen = moduleVm.Module.Leermiddelen.Select(l => l.ToPoco(context)).ToList();
-                module.StudieBelasting.Clear();
-                module.StudieBelasting = moduleVm.Module.StudieBelasting.Select(s => s.ToPoco(context)).ToList();
+                //module.StudieBelasting.Clear();
+                //module.StudieBelasting = moduleVm.Module.StudieBelasting.Select(s => s.ToPoco(context)).ToList();
                 module.Weekplanning.Clear();
                 module.Weekplanning = moduleVm.Module.Weekplanning.Select(w => w.ToPoco(context)).ToList();
                 module.ModuleWerkvorm.Clear();
@@ -167,6 +176,12 @@ namespace ModuleManager.Web.Controllers
                 module.Beoordelingen.Clear();
                 module.Beoordelingen = moduleVm.Module.Beoordelingen.Select(b => b.ToPoco(context)).ToList();
                 
+
+                if(moduleVm.Module.IsCompleted)
+                {
+                    //Module valideren
+                }
+
 
                 context.SaveChanges();
 

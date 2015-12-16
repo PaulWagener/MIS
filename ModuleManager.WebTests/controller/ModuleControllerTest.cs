@@ -206,6 +206,28 @@ namespace ModuleManager.WebTests
         }
 
         [TestMethod]
+        public void ModuleController_Edit_Docenten_Success()
+        {
+            //1. Arrange
+            var vm = GetModuleEditViewModel();
+            vm.Module.Docenten.Add(new DocentViewModel() { Id = 2 });
+            vm.Module.Docenten.Add(new DocentViewModel() { Id = 3 });
+
+            //2. Act
+            controller.Edit(vm);
+
+            using (var context = new DomainContext())
+            {
+                //3. Assert (alwasy in new context
+                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.Docenten.Count);
+                Assert.IsTrue(module.Docenten.Any(l => l.Id == 2));
+                Assert.IsTrue(module.Docenten.Any(l => l.Id == 3));
+            }
+        }
+
+
+        [TestMethod]
         public void ModuleController_Edit_ModuleWerkvorm_Success()
         {
             //1. Arrange

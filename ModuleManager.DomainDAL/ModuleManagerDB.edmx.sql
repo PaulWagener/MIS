@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/24/2015 14:10:40
+-- Date Created: 12/15/2015 15:36:46
 -- Generated from EDMX file: C:\TFS\studiegids\ModuleManager.DomainDAL\ModuleManagerDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [DomainDal.Test];
+USE [amm_Domain];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -25,9 +25,6 @@ IF OBJECT_ID(N'[dbo].[FK_FaseModules_Blok]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ModuleCompetentie_Competentie]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ModuleCompetentie] DROP CONSTRAINT [FK_ModuleCompetentie_Competentie];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Docent_Module]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Docent] DROP CONSTRAINT [FK_Docent_Module];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Fase_FaseType]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Fase] DROP CONSTRAINT [FK_Fase_FaseType];
@@ -101,6 +98,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Voorkennis_Module1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Voorkennis] DROP CONSTRAINT [FK_Voorkennis_Module1];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ModuleDocent_Docent]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ModuleDocent] DROP CONSTRAINT [FK_ModuleDocent_Docent];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ModuleDocent_Module]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ModuleDocent] DROP CONSTRAINT [FK_ModuleDocent_Module];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -114,9 +117,6 @@ IF OBJECT_ID(N'[dbo].[Blok]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Competentie]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Competentie];
-GO
-IF OBJECT_ID(N'[dbo].[Docent]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Docent];
 GO
 IF OBJECT_ID(N'[dbo].[Fase]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Fase];
@@ -181,6 +181,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Werkvorm]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Werkvorm];
 GO
+IF OBJECT_ID(N'[dbo].[Docenten]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Docenten];
+GO
 IF OBJECT_ID(N'[dbo].[ModuleLeerlijn]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ModuleLeerlijn];
 GO
@@ -189,6 +192,9 @@ IF OBJECT_ID(N'[dbo].[ModuleTag]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Voorkennis]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Voorkennis];
+GO
+IF OBJECT_ID(N'[dbo].[ModuleDocent]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ModuleDocent];
 GO
 
 -- --------------------------------------------------
@@ -216,15 +222,6 @@ CREATE TABLE [dbo].[Competentie] (
     [Schooljaar] varchar(8)  NOT NULL,
     [Naam] varchar(50)  NOT NULL,
     [Beschrijving] varchar(max)  NOT NULL
-);
-GO
-
--- Creating table 'Docent'
-CREATE TABLE [dbo].[Docent] (
-    [CursusCode] varchar(50)  NOT NULL,
-    [Schooljaar] varchar(8)  NOT NULL,
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] varchar(50)  NOT NULL
 );
 GO
 
@@ -405,6 +402,13 @@ CREATE TABLE [dbo].[Werkvorm] (
 );
 GO
 
+-- Creating table 'Docenten'
+CREATE TABLE [dbo].[Docenten] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Naam] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'ModuleLeerlijn'
 CREATE TABLE [dbo].[ModuleLeerlijn] (
     [Leerlijn_Naam] varchar(50)  NOT NULL,
@@ -425,10 +429,18 @@ GO
 
 -- Creating table 'Voorkennis'
 CREATE TABLE [dbo].[Voorkennis] (
-    [Module2_CursusCode] varchar(50)  NOT NULL,
-    [Module2_Schooljaar] varchar(8)  NOT NULL,
-    [Module1_CursusCode] varchar(50)  NOT NULL,
-    [Module1_Schooljaar] varchar(8)  NOT NULL
+    [Voorkennis_CursusCode] varchar(50)  NOT NULL,
+    [Voorkennis_Schooljaar] varchar(8)  NOT NULL,
+    [Vervolg_CursusCode] varchar(50)  NOT NULL,
+    [Vervolg_Schooljaar] varchar(8)  NOT NULL
+);
+GO
+
+-- Creating table 'ModuleDocent'
+CREATE TABLE [dbo].[ModuleDocent] (
+    [Docenten_Id] int  NOT NULL,
+    [Module_CursusCode] varchar(50)  NOT NULL,
+    [Module_Schooljaar] varchar(8)  NOT NULL
 );
 GO
 
@@ -452,12 +464,6 @@ GO
 ALTER TABLE [dbo].[Competentie]
 ADD CONSTRAINT [PK_Competentie]
     PRIMARY KEY CLUSTERED ([Code], [Schooljaar] ASC);
-GO
-
--- Creating primary key on [CursusCode], [Schooljaar], [Id] in table 'Docent'
-ALTER TABLE [dbo].[Docent]
-ADD CONSTRAINT [PK_Docent]
-    PRIMARY KEY CLUSTERED ([CursusCode], [Schooljaar], [Id] ASC);
 GO
 
 -- Creating primary key on [Naam], [Schooljaar], [OpleidingNaam], [OpleidingSchooljaar] in table 'Fase'
@@ -586,6 +592,12 @@ ADD CONSTRAINT [PK_Werkvorm]
     PRIMARY KEY CLUSTERED ([Type] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Docenten'
+ALTER TABLE [dbo].[Docenten]
+ADD CONSTRAINT [PK_Docenten]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Leerlijn_Naam], [Leerlijn_Schooljaar], [Module_CursusCode], [Module_Schooljaar] in table 'ModuleLeerlijn'
 ALTER TABLE [dbo].[ModuleLeerlijn]
 ADD CONSTRAINT [PK_ModuleLeerlijn]
@@ -598,10 +610,16 @@ ADD CONSTRAINT [PK_ModuleTag]
     PRIMARY KEY CLUSTERED ([Module_CursusCode], [Module_Schooljaar], [Tag_Naam], [Tag_Schooljaar] ASC);
 GO
 
--- Creating primary key on [Module2_CursusCode], [Module2_Schooljaar], [Module1_CursusCode], [Module1_Schooljaar] in table 'Voorkennis'
+-- Creating primary key on [Voorkennis_CursusCode], [Voorkennis_Schooljaar], [Vervolg_CursusCode], [Vervolg_Schooljaar] in table 'Voorkennis'
 ALTER TABLE [dbo].[Voorkennis]
 ADD CONSTRAINT [PK_Voorkennis]
-    PRIMARY KEY CLUSTERED ([Module2_CursusCode], [Module2_Schooljaar], [Module1_CursusCode], [Module1_Schooljaar] ASC);
+    PRIMARY KEY CLUSTERED ([Voorkennis_CursusCode], [Voorkennis_Schooljaar], [Vervolg_CursusCode], [Vervolg_Schooljaar] ASC);
+GO
+
+-- Creating primary key on [Docenten_Id], [Module_CursusCode], [Module_Schooljaar] in table 'ModuleDocent'
+ALTER TABLE [dbo].[ModuleDocent]
+ADD CONSTRAINT [PK_ModuleDocent]
+    PRIMARY KEY CLUSTERED ([Docenten_Id], [Module_CursusCode], [Module_Schooljaar] ASC);
 GO
 
 -- --------------------------------------------------
@@ -645,15 +663,6 @@ GO
 CREATE INDEX [IX_FK_ModuleCompetentie_Competentie]
 ON [dbo].[ModuleCompetentie]
     ([CompetentieCode], [CompetentieSchooljaar]);
-GO
-
--- Creating foreign key on [CursusCode], [Schooljaar] in table 'Docent'
-ALTER TABLE [dbo].[Docent]
-ADD CONSTRAINT [FK_Docent_Module]
-    FOREIGN KEY ([CursusCode], [Schooljaar])
-    REFERENCES [dbo].[Module]
-        ([CursusCode], [Schooljaar])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [FaseType] in table 'Fase'
@@ -932,19 +941,19 @@ ON [dbo].[ModuleTag]
     ([Tag_Naam], [Tag_Schooljaar]);
 GO
 
--- Creating foreign key on [Module2_CursusCode], [Module2_Schooljaar] in table 'Voorkennis'
+-- Creating foreign key on [Voorkennis_CursusCode], [Voorkennis_Schooljaar] in table 'Voorkennis'
 ALTER TABLE [dbo].[Voorkennis]
 ADD CONSTRAINT [FK_Voorkennis_Module]
-    FOREIGN KEY ([Module2_CursusCode], [Module2_Schooljaar])
+    FOREIGN KEY ([Voorkennis_CursusCode], [Voorkennis_Schooljaar])
     REFERENCES [dbo].[Module]
         ([CursusCode], [Schooljaar])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Module1_CursusCode], [Module1_Schooljaar] in table 'Voorkennis'
+-- Creating foreign key on [Vervolg_CursusCode], [Vervolg_Schooljaar] in table 'Voorkennis'
 ALTER TABLE [dbo].[Voorkennis]
 ADD CONSTRAINT [FK_Voorkennis_Module1]
-    FOREIGN KEY ([Module1_CursusCode], [Module1_Schooljaar])
+    FOREIGN KEY ([Vervolg_CursusCode], [Vervolg_Schooljaar])
     REFERENCES [dbo].[Module]
         ([CursusCode], [Schooljaar])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -953,7 +962,31 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_Voorkennis_Module1'
 CREATE INDEX [IX_FK_Voorkennis_Module1]
 ON [dbo].[Voorkennis]
-    ([Module1_CursusCode], [Module1_Schooljaar]);
+    ([Vervolg_CursusCode], [Vervolg_Schooljaar]);
+GO
+
+-- Creating foreign key on [Docenten_Id] in table 'ModuleDocent'
+ALTER TABLE [dbo].[ModuleDocent]
+ADD CONSTRAINT [FK_ModuleDocent_Docent]
+    FOREIGN KEY ([Docenten_Id])
+    REFERENCES [dbo].[Docenten]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Module_CursusCode], [Module_Schooljaar] in table 'ModuleDocent'
+ALTER TABLE [dbo].[ModuleDocent]
+ADD CONSTRAINT [FK_ModuleDocent_Module]
+    FOREIGN KEY ([Module_CursusCode], [Module_Schooljaar])
+    REFERENCES [dbo].[Module]
+        ([CursusCode], [Schooljaar])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ModuleDocent_Module'
+CREATE INDEX [IX_FK_ModuleDocent_Module]
+ON [dbo].[ModuleDocent]
+    ([Module_CursusCode], [Module_Schooljaar]);
 GO
 
 -- --------------------------------------------------

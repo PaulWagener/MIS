@@ -150,6 +150,7 @@
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Utility\DomainConstants.cs" />
+    <Compile Include="Utility\MyDbInitializer.cs" />
     <Compile Include="Weekplanning.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -158,7 +159,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="ModuleManagerDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModuleManagerDB.Designer.cs</LastGenOutput>

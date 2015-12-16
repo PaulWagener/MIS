@@ -144,11 +144,11 @@
 
                     <table class="table">
                         <tr>
-                            <td><label for="voorkennis">Docenten</label></td>
+                            <td><label for="docenten">Docenten</label></td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.DropDownList("Docenten", new MultiSelectList(Model.Options.Docenten, "Name", "Name", Model.Module.Docent.Select(m => m.Name)), new { @id = "docenten", @multiple = "multiple", @class = "form-control" })
+                                @Html.DropDownList("Docenten", new MultiSelectList(Model.Options.Docenten, "Id", "Naam", Model.Module.Docenten.Select(m => m.Id)), new { @id = "docenten", @multiple = "multiple", @class = "form-control" })
                             </td>
                         </tr>
                     </table>
@@ -525,11 +525,8 @@
 
         $("#docenten option:selected").each(function (i, selected) {
 
-            var newRow1 = "<input name='Module.Docent[" + index + "].Name' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Docent[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-            var newRow3 = "<input name='Module.Docent[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-
-            $hidden_docenten.append(newRow1 + newRow2 + newRow3);
+            var newRow1 = "<input name='Module.Docenten[" + index + "].Id' type='hidden' value=" + $(selected).val() + ">";
+            $hidden_docenten.append(newRow1);
 
             ++index;
         });
