@@ -93,6 +93,11 @@ namespace ModuleManager.WebTests
                     {
                        new ModuleWerkvorm() { WerkvormType = "WS", Organisatie = "2 workshops", CursusCode = "Test1", Schooljaar = "1516" },
                     },
+                    StudieBelasting = new List<StudieBelasting>()
+                    {
+                        new StudieBelasting() { Activiteit = "A1", ContactUren = 11, Duur = "1 weken", Frequentie = "1x per week",  Schooljaar = "1516" },
+                        new StudieBelasting() { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week",  Schooljaar = "1516" },
+                    }
 
                 };
 

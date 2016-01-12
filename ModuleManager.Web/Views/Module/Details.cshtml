@@ -178,12 +178,14 @@
                     <tbody>
                         <tr>
                             <th>Competentie</th>
+                            <th>Niveau</th>
                             <th>Omschrijving</th>
                         </tr>
                         @foreach (ModuleCompetentieViewModel moduleCompetentie in Model.ModuleCompetentie)
                         {
                             <tr>
                                 <td>@moduleCompetentie.Competentie.Naam</td>
+                                <td>@moduleCompetentie.Niveau</td>
                                 @{
                             string[] competenties = null;
                             competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);

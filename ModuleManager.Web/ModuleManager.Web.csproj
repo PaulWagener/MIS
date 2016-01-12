@@ -231,6 +231,9 @@
     <Content Include="Images\Help\ModuleOverzichtWeergave.png" />
     <Content Include="Images\select2-spinner.gif" />
     <Content Include="Images\select2.png" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\controllers\CompetentieCtrl.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dataTables.dutch.alt.js" />
@@ -265,6 +268,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\dataTables.dutch.js" />
+    <None Include="Properties\PublishProfiles\Studiegids - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Studiegids - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -387,14 +392,11 @@
     <Content Include="Views\Help\ModuleDetails.cshtml" />
     <Content Include="Views\Help\ModuleEdit.cshtml" />
     <Content Include="Views\Help\ModuleOverview.cshtml" />
-    <Content Include="Views\Help\UserAdd.cshtml" />
-    <Content Include="Views\Help\UserEdit.cshtml" />
     <Content Include="Views\Help\UserOverview.cshtml" />
     <Content Include="Views\Help\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
     <Content Include="Views\Export\ModuleOverview.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\Delete.cshtml" />
-    <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\StudieGids\Index.cshtml" />
