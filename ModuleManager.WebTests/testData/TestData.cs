@@ -29,6 +29,10 @@ namespace ModuleManager.WebTests
                 var docent_bart = new Docent() { Id = 2, Naam = "Bart Mutsaers" };
                 var docent_ger = new Docent() { Id = 3, Naam = "Ger Saris" };
 
+                var competentie_bc1 = new Competentie() { Schooljaar = "1516", Code = "BC1", Naam = "Procesanalyse uitvoeren", Beschrijving = "Stelt de student in staat.. " };
+                var competentie_bc2 = new Competentie() { Schooljaar = "1516", Code = "BC2", Naam = "Testplan opzetten", Beschrijving = "Stelt de student in staat.. " };
+                var competentie_bc3 = new Competentie() { Schooljaar = "1516", Code = "BC3", Naam = "Technisch ontwerp", Beschrijving = "Stelt de student in staat.. " };
+
                 var prog1 = new DomainDAL.Module()
                  {
                      CursusCode = "PROG1", //key
@@ -97,10 +101,18 @@ namespace ModuleManager.WebTests
                     {
                         new StudieBelasting() { Activiteit = "A1", ContactUren = 11, Duur = "1 weken", Frequentie = "1x per week",  Schooljaar = "1516" },
                         new StudieBelasting() { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week",  Schooljaar = "1516" },
+                    },
+                    ModuleCompetentie = new List<ModuleCompetentie>()
+                    {
+                        new ModuleCompetentie() { CompetentieCode = "BC1", Niveau = "Beginner", Schooljaar = "1516", CompetentieSchooljaar = "1516" },
+                        new ModuleCompetentie() { CompetentieCode = "BC2", Niveau = "Expert", Schooljaar = "1516" ,  CompetentieSchooljaar = "1516"}
                     }
 
                 };
 
+                context.Competentie.Add(competentie_bc1);
+                context.Competentie.Add(competentie_bc2);
+                context.Competentie.Add(competentie_bc3);
                 context.Leerlijn.Add(leerlijn_prog);
                 context.Leerlijn.Add(leerlijn_mod);
                 context.Leerlijn.Add(leerlijn_arch);
@@ -138,6 +150,7 @@ namespace ModuleManager.WebTests
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE Beoordelingen"); //r
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE ModuleTag"); //r
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE ModuleWerkvorm"); //r
+                context.Database.ExecuteSqlCommand("TRUNCATE TABLE ModuleCompetentie"); //r
 
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE Leerdoelen"); //r
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE Leermiddelen"); //r
@@ -151,6 +164,7 @@ namespace ModuleManager.WebTests
                 context.Database.ExecuteSqlCommand("DELETE FROM Docenten");
                 context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Docenten', RESEED, 0)");
                 context.Database.ExecuteSqlCommand("DELETE FROM Tag");
+                context.Database.ExecuteSqlCommand("DELETE FROM Competentie");
                 context.Database.ExecuteSqlCommand("DELETE FROM Leerlijn");
                 context.Database.ExecuteSqlCommand("DELETE FROM Module");
      

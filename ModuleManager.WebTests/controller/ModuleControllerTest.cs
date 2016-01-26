@@ -226,6 +226,27 @@ namespace ModuleManager.WebTests
             }
         }
 
+        [TestMethod]
+        public void ModuleController_Edit_Competenties_Success()
+        {
+            //1. Arrange
+            var vm = GetModuleEditViewModel();
+            vm.Module.ModuleCompetentie.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC2", Niveau = "Beginner" });
+            vm.Module.ModuleCompetentie.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC3", Niveau = "Expert" });
+
+            //2. Act
+            controller.Edit(vm);
+
+            using (var context = new DomainContext())
+            {
+                //3. Assert (alwasy in new context
+                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.ModuleCompetentie.Count);
+                Assert.IsTrue(module.ModuleCompetentie.Any(l => l.CompetentieCode == "BC2"));
+                Assert.IsTrue(module.ModuleCompetentie.Any(l => l.CompetentieCode == "BC3"));
+            }
+        }
+
 
         [TestMethod]
         public void ModuleController_Edit_ModuleWerkvorm_Success()
