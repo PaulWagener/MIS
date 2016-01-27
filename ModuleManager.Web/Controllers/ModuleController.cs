@@ -208,7 +208,7 @@ namespace ModuleManager.Web.Controllers
         }
 
 
-        [HttpPost, Route("Module/ExportAll")]
+        [HttpPost]
         public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
@@ -218,43 +218,15 @@ namespace ModuleManager.Web.Controllers
                 modules = modules.Where(element => element.Status.Equals("Compleet (gecontroleerd)"));
             }
 
-            ICollection<string> competentieFilters = null;
-            if (value.Filters.Competenties.First() != null)
-                competentieFilters = value.Filters.Competenties;
-
-            ICollection<string> tagFilters = null;
-            if (value.Filters.Tags.First() != null)
-                tagFilters = value.Filters.Tags;
-
-            ICollection<string> leerlijnFilters = null;
-            if (value.Filters.Leerlijnen.First() != null)
-                leerlijnFilters = value.Filters.Leerlijnen;
-
-            ICollection<string> faseFilters = null;
-            if (value.Filters.Fases.First() != null)
-                faseFilters = value.Filters.Fases;
-
-            ICollection<string> blokFilters = null;
-            if (value.Filters.Blokken.First() != null)
-                blokFilters = value.Filters.Blokken;
-
-            string zoektermFilter = null;
-            if (value.Filters.Zoekterm != null)
-                zoektermFilter = value.Filters.Zoekterm;
-
-            string leerjaarFilter = null;
-            if (value.Filters.Leerjaar != null)
-                leerjaarFilter = value.Filters.Leerjaar;
-
             var arguments = new ModuleFilterSorterArguments
             {
-                CompetentieFilters = competentieFilters,
-                TagFilters = tagFilters,
-                LeerlijnFilters = leerlijnFilters,
-                FaseFilters = faseFilters,
-                BlokFilters = blokFilters,
-                ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter
+                CompetentieFilters = value.Filters.Competenties,
+                TagFilters = value.Filters.Tags,
+                LeerlijnFilters = value.Filters.Leerlijnen,
+                FaseFilters = value.Filters.Fases,
+                BlokFilters = value.Filters.Blokken,
+                ZoektermFilter = value.Filters.Zoekterm,
+                LeerjaarFilter = value.Filters.Leerjaar
             };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
@@ -287,24 +259,11 @@ namespace ModuleManager.Web.Controllers
                 expByName = "download";
             }
 
-            string saveTo = DateTime.Now.ToString("yyyy-MM-dd") + "_" + expByName;
-            Session[saveTo] = fStream;
-
-            //Return the filename under which you can retrieve it from Session data.
-            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/All/{saveTo}
-            //This redirect will be caught in the controller action below here.
-            return Json(saveTo);
-        }
-
-        [HttpGet, Route("Module/Export/All/{loadFrom}")]
-        public FileStreamResult GetExportAllModules(string loadFrom)
-        {
-            BufferedStream fStream = Session[loadFrom] as BufferedStream;
-            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
-            Session[loadFrom] = null;
-
             return new FileStreamResult(fStream, "application/pdf");
+
+        
         }
+
 
         protected override void Dispose(bool disposing)
         {

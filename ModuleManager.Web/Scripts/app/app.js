@@ -1,5 +1,4 @@
-﻿var studiegidsApp = angular.module('studiegidsApp', []);
+﻿
+var studiegidsApp = angular.module('studiegidsApp', []);
 
-studiegidsApp.controller('CompetentieCtrl', function ($scope) {
-    $scope.test = "kip";
-}); 
+//Controllers worden automatisch toegevoegd. 

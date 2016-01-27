@@ -72,7 +72,7 @@
             <div class="col-md-12">
                 <div class="pull-right">
                     <a class="btn btn-default" href="@Url.Action("Overview", "Module")">Terug</a>
-                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>               
+                    <a class="btn btn-success" target="_blank" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>               
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             <a class="btn btn-warning" href="/module/edit/@Model.Schooljaar/@Model.CursusCode" ><i class="fa fa-edit"></i> Bewerken</a>

@@ -9,85 +9,88 @@
                 <h4 class="modal-title" id="Help">Module(s) Exporten</h4>
             </div>
             <div class="modal-body">
-                <div id="exportAlert"></div>
 
-                <form id="exportForm" role="form">
+                @Html.BeginForm("ExportAllModules", "Module", FormMethod.Post, new { id = "exportForm", onsubmit = "exportOnSubmit()" }){
+              
+
+                    <div id="exportAlert"></div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input name="CursusCode" type="checkbox"> Cursuscode
+                                    <input name="Export.CursusCode" type="checkbox" value="true"> Cursuscode
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Naam" type="checkbox"> Naam
+                                    <input name="Export.Naam" type="checkbox" value="true"> Naam
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Beschrijving" type="checkbox"> Beschrijving
+                                    <input name="Export.Beschrijving" type="checkbox" value="true"> Beschrijving
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="AlgemeneInformatie" type="checkbox"> Algemene Informatie
+                                    <input name="Export.AlgemeneInformatie" type="checkbox" value="true"> Algemene Informatie
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Studiebelasting" type="checkbox"> Studiebelasting
+                                    <input name="Export.Studiebelasting" type="checkbox" value="true"> Studiebelasting
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Organisatie" type="checkbox"> Organisatie
+                                    <input name="Export.Organisatie" type="checkbox" value="true"> Organisatie
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Weekplanning" type="checkbox"> Weekplanning
+                                    <input name="Export.Weekplanning" type="checkbox" value="true"> Weekplanning
                                 </label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input name="Beoordeling" type="checkbox"> Beoordeling
+                                    <input name="Export.Beoordeling" type="checkbox" value="true"> Beoordeling
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Leermiddelen" type="checkbox"> Leermiddelen
+                                    <input name="Export.Leermiddelen" type="checkbox" value="true"> Leermiddelen
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Leerdoelen" type="checkbox"> Leerdoelen
+                                    <input name="Export.Leerdoelen" type="checkbox" value="true"> Leerdoelen
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Competenties" type="checkbox"> Competenties
+                                    <input name="Export.Competenties" type="checkbox" value="true"> Competenties
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Leerlijnen" type="checkbox"> Leerlijnen
+                                    <input name="Export.Leerlijnen" type="checkbox" value="true"> Leerlijnen
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="Tags" type="checkbox"> Tags
+                                    <input name="Export.Tags" type="checkbox" value="true"> Tags
                                 </label>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <button id="exportModules" type="button" class="btn btn-success"><i class="fa fa-download"></i> Exporteren</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                        <button type="submit" id="exportModules" type="button" class="btn btn-success"><i class="fa fa-download"></i> Exporteren</button>
+                    </div>
+                }
+
             </div>
         </div>
     </div>
