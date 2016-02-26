@@ -1,7 +1,7 @@
 ﻿@using ModuleManager.DomainDAL
 @model ModuleManager.Web.ViewModels.ModuleOverviewViewModel
 
-<div class="container">
+<div class="container" ng-controller="OverviewCtrl">
     <div class="row">
 
         <div class="col-md-12">
@@ -15,205 +15,208 @@
             <h2>Zoekresultaten</h2>
         </div>
 
-        <div id="primary" class="col-md-3">
+        <form id="filterForm">
 
-            <div class="filters">
-                <div id="search" class="input-group">
-                    <input id="Zoekterm" name="search" type="text" class="form-control search-query ajax" placeholder="Zoekterm" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default btn-search" type="button"><i class="fa fa-search"></i></button>
-                    </span>
+            <div id="primary" class="col-md-3">
+
+                <div class="filters">
+                    <div id="search" class="input-group">
+                        <input id="Zoekterm" name="filters.Zoekterm" type="text" class="form-control search-query ajax" placeholder="Zoekterm" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-search" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#competentie">
+                                        Competentie
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="competentie" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <select name="filters.competenties" class="form-control ajax" id="FilterCompetenties" multiple>
+                                        @foreach (var competentie in Model.FilterOptions.CompetentieFilter)
+                                        {
+                                            <option value="@competentie">@competentie</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#fase">
+                                        Fases
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="fase" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <select class="form-control ajax" id="FilterFases" name="filters.Fases" multiple>
+                                        <optgroup label="Major">
+                                            @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Major")))
+                                            {
+                                                <option>@fases.Naam</option>
+                                            }
+                                        </optgroup>
+                                        <optgroup label="Minor">
+                                            @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Minor")))
+                                            {
+                                                <option>@fases.Naam</option>
+                                            }
+                                        </optgroup>
+                                        <optgroup label="Opleidingsfase">
+                                            @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Fase")))
+                                            {
+                                                <option>@fases.Naam</option>
+                                            }
+                                        </optgroup>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#leerlijnen">
+                                        Leerlijnen
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="leerlijnen" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <select name="filters.Leerlijnen" class="form-control ajax" id="FilterLeerlijnen" multiple>
+                                        @foreach (var leerlijn in Model.FilterOptions.LeerlijnFilter)
+                                        {
+                                            <option>@leerlijn</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#year">
+                                        Leerjaar
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="year" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <select name="filters.year" class="form-control ajax" id="FilterLeerjaar">
+                                        <option></option>
+                                        @{
+                                            int i = 1;
+                                        }
+
+                                        @foreach (var leerjaren in Model.FilterOptions.Leerjaren)
+                                        {
+                                            <option @(Model.FilterOptions.Leerjaren.Count() == i ? "selected" : "")>@leerjaren</option>
+                                            i++;
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#ec">
+                                        EC
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="ec" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <select name="filters.ec" class="form-control ajax" id="FilterEc">
+                                        <option></option>
+                                        @foreach (var ecs in Model.FilterOptions.ECs)
+                                        {
+                                            <option>@ecs</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#block">
+                                        Blokken
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="block" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <select name="filters.blokken" class="form-control ajax" id="FilterBlokken" multiple>
+                                        @foreach (var blokken in Model.FilterOptions.Blokken)
+                                        {
+                                            <option>@blokken</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#tag">
+                                        Tags
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="tag" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <select name="filters.tags" class="form-control ajax" id="FilterTags" multiple>
+                                        @foreach (var tag in Model.FilterOptions.TagFilter)
+                                        {
+                                            <option>@tag</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="false" href="#reset">
+                                        Acties
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="reset" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <a id="FilterTable" href="#" class="btn btn-success btn-block">Filter</a>
+                                    <a id="ResetFilters" href="#" class="btn btn-danger btn-block">Reset</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#competentie">
-                                    Competentie
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="competentie" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <select name="competentie" class="form-control ajax" id="FilterCompetenties" multiple>
-                                    @foreach (var competentie in Model.FilterOptions.CompetentieFilter)
-                                    {
-                                        <option>@competentie</option>
-                                    }
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#fase">
-                                    Fases
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="fase" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select class="form-control ajax" id="FilterFases" multiple>
-                                    <optgroup label="Major">
-                                        @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Major")))
-                                        {
-                                            <option>@fases.Naam</option>
-                                        }
-                                    </optgroup>
-                                    <optgroup label="Minor">
-                                        @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Minor")))
-                                        {
-                                            <option>@fases.Naam</option>
-                                        }
-                                    </optgroup>
-                                    <optgroup label="Opleidingsfase">
-                                        @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Fase")))
-                                        {
-                                            <option>@fases.Naam</option>
-                                        }
-                                    </optgroup>
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#leerlijnen">
-                                    Leerlijnen
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="leerlijnen" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select class="form-control ajax" id="FilterLeerlijnen" multiple>
-                                    @foreach (var leerlijn in Model.FilterOptions.LeerlijnFilter)
-                                    {
-                                        <option>@leerlijn</option>
-                                    }
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#year">
-                                    Leerjaar
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="year" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select name="year" class="form-control ajax" id="FilterLeerjaar">
-                                    <option></option>
-                                    @{
-                                        int i = 1;
-                                    }
-
-                                    @foreach (var leerjaren in Model.FilterOptions.Leerjaren)
-                                    {
-                                        <option @(Model.FilterOptions.Leerjaren.Count() == i ? "selected" : "")>@leerjaren</option>
-                                        i++;
-                                    }
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#ec">
-                                    EC
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="ec" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select name="ec" class="form-control ajax" id="FilterEc">
-                                    <option></option>
-                                    @foreach (var ecs in Model.FilterOptions.ECs)
-                                    {
-                                        <option>@ecs</option>
-                                    }
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#block">
-                                    Blokken
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="block" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select name="block" class="form-control ajax" id="FilterBlokken" multiple>
-                                    @foreach (var blokken in Model.FilterOptions.Blokken)
-                                    {
-                                        <option>@blokken</option>
-                                    }
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#tag">
-                                    Tags
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="tag" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select name="tag" class="form-control ajax" id="FilterTags" multiple>
-                                    @foreach (var tag in Model.FilterOptions.TagFilter)
-                                    {
-                                        <option>@tag</option>
-                                    }
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#reset">
-                                    Acties
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="reset" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <a id="FilterTable" href="#" class="btn btn-success btn-block">Filter</a>
-                                <a id="ResetFilters" href="#" class="btn btn-danger btn-block">Reset</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-        </div>
+        </form>
 
         <div id="secondary" class="col-md-9">
 

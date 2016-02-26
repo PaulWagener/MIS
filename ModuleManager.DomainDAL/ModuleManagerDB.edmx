@@ -4,808 +4,829 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IN06SOb_ModuleManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Beoordelingen">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Blok">
-          <Key>
-            <PropertyRef Name="BlokId" />
-          </Key>
-          <Property Name="BlokId" Type="varchar" MaxLength="5" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Competentie">
-          <Key>
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Schooljaar" />
-          </Key>
-          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Docent">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Fase">
-          <Key>
-            <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="OpleidingNaam" />
-            <PropertyRef Name="OpleidingSchooljaar" />
-          </Key>
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar" MaxLength="500" />
-          <Property Name="FaseType" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OpleidingNaam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OpleidingSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FaseModules">
-          <Key>
-            <PropertyRef Name="FaseNaam" />
-            <PropertyRef Name="FaseSchooljaar" />
-            <PropertyRef Name="ModuleCursusCode" />
-            <PropertyRef Name="ModuleSchooljaar" />
-            <PropertyRef Name="OpleidingNaam" />
-            <PropertyRef Name="OpleidingSchooljaar" />
-          </Key>
-          <Property Name="FaseNaam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FaseSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="ModuleCursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModuleSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Blok" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="OpleidingNaam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OpleidingSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FaseType">
-          <Key>
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Icons">
-          <Key>
-            <PropertyRef Name="Icon" />
-          </Key>
-          <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Leerdoelen">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Leerlijn">
-          <Key>
-            <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
-          </Key>
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Leermiddelen">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Module">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar(max)" />
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Verantwoordelijke" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ModuleCompetentie">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="CompetentieCode" />
-            <PropertyRef Name="CompetentieSchooljaar" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="CompetentieCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CompetentieSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Niveau" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ModuleLeerlijn">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="LeerlijnNaam" />
-            <PropertyRef Name="LeerlijnSchooljaar" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="LeerlijnNaam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="LeerlijnSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ModuleTag">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="TagNaam" />
-            <PropertyRef Name="TagSchooljaar" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="TagNaam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TagSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ModuleWerkvorm">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="WerkvormType" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="WerkvormType" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="Organisatie" Type="varchar(max)" />
-        </EntityType>
-        <EntityType Name="Niveau">
-          <Key>
-            <PropertyRef Name="Niveau" />
-          </Key>
-          <Property Name="Niveau" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Onderdeel">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Opleiding">
-          <Key>
-            <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
-          </Key>
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="Schooljaar">
-          <Key>
-            <PropertyRef Name="JaarId" />
-          </Key>
-          <Property Name="JaarId" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Status">
-          <Key>
-            <PropertyRef Name="Status" />
-          </Key>
-          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="StudieBelasting">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Activiteit" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Activiteit" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ContactUren" Type="int" />
-          <Property Name="Duur" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Frequentie" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SBU" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="StudiePunten">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="ToetsCode" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="ToetsCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Toetsvorm" Type="varchar" MaxLength="50" />
-          <Property Name="EC" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Minimum" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Tag">
-          <Key>
-            <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
-          </Key>
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Toetsvorm">
-          <Key>
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Voorkennis">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Voorkennis_CursusCode" />
-            <PropertyRef Name="Voorkennis_Schooljaar" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Voorkennis_CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Voorkennis_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Weekplanning">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Week" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Onderwerp" Type="varchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Werkvorm">
-          <Key>
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Type" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="Omschrijving" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Beoordelingen_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Beoordelingen" Type="Self.Beoordelingen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Beoordelingen">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Docent_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Docent" Type="Self.Docent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Docent">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Fase_FaseType">
-          <End Role="FaseType" Type="Self.FaseType" Multiplicity="1" />
-          <End Role="Fase" Type="Self.Fase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FaseType">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="Fase">
-              <PropertyRef Name="FaseType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Fase_Opleiding">
-          <End Role="Opleiding" Type="Self.Opleiding" Multiplicity="1" />
-          <End Role="Fase" Type="Self.Fase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Opleiding">
-              <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Fase">
-              <PropertyRef Name="OpleidingNaam" />
-              <PropertyRef Name="OpleidingSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FaseModules_Blok">
-          <End Role="Blok" Type="Self.Blok" Multiplicity="1" />
-          <End Role="FaseModules" Type="Self.FaseModules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Blok">
-              <PropertyRef Name="BlokId" />
-            </Principal>
-            <Dependent Role="FaseModules">
-              <PropertyRef Name="Blok" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FaseModules_Fase">
-          <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
-          <End Role="FaseModules" Type="Self.FaseModules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fase">
-              <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
-              <PropertyRef Name="OpleidingNaam" />
-              <PropertyRef Name="OpleidingSchooljaar" />
-            </Principal>
-            <Dependent Role="FaseModules">
-              <PropertyRef Name="FaseNaam" />
-              <PropertyRef Name="FaseSchooljaar" />
-              <PropertyRef Name="OpleidingNaam" />
-              <PropertyRef Name="OpleidingSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FaseModules_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="FaseModules" Type="Self.FaseModules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="FaseModules">
-              <PropertyRef Name="ModuleCursusCode" />
-              <PropertyRef Name="ModuleSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leerdoelen_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Leerdoelen" Type="Self.Leerdoelen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Leerdoelen">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leermiddelen_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Leermiddelen" Type="Self.Leermiddelen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Leermiddelen">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Module_Icons">
-          <End Role="Icons" Type="Self.Icons" Multiplicity="1" />
-          <End Role="Module" Type="Self.Module" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Icons">
-              <PropertyRef Name="Icon" />
-            </Principal>
-            <Dependent Role="Module">
-              <PropertyRef Name="Icon" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Module_Onderdeel">
-          <End Role="Onderdeel" Type="Self.Onderdeel" Multiplicity="1" />
-          <End Role="Module" Type="Self.Module" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Onderdeel">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="Module">
-              <PropertyRef Name="OnderdeelCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Module_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Module" Type="Self.Module" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="Status" />
-            </Principal>
-            <Dependent Role="Module">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Competentie">
-          <End Role="Competentie" Type="Self.Competentie" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Competentie">
-              <PropertyRef Name="Code" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="CompetentieCode" />
-              <PropertyRef Name="CompetentieSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Niveau">
-          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Niveau">
-              <PropertyRef Name="Niveau" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="Niveau" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleLeerlijn_Leerlijn1">
-          <End Role="Leerlijn" Type="Self.Leerlijn" Multiplicity="1" />
-          <End Role="ModuleLeerlijn" Type="Self.ModuleLeerlijn" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Leerlijn">
-              <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleLeerlijn">
-              <PropertyRef Name="LeerlijnNaam" />
-              <PropertyRef Name="LeerlijnSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleLeerlijn_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleLeerlijn" Type="Self.ModuleLeerlijn" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleLeerlijn">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleTag_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleTag" Type="Self.ModuleTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleTag">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleTag_Tag1">
-          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
-          <End Role="ModuleTag" Type="Self.ModuleTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleTag">
-              <PropertyRef Name="TagNaam" />
-              <PropertyRef Name="TagSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleWerkvorm_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleWerkvorm" Type="Self.ModuleWerkvorm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleWerkvorm">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleWerkvorm_Werkvorm">
-          <End Role="Werkvorm" Type="Self.Werkvorm" Multiplicity="1" />
-          <End Role="ModuleWerkvorm" Type="Self.ModuleWerkvorm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Werkvorm">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="ModuleWerkvorm">
-              <PropertyRef Name="WerkvormType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Opleiding_Schooljaar">
-          <End Role="Schooljaar" Type="Self.Schooljaar" Multiplicity="1" />
-          <End Role="Opleiding" Type="Self.Opleiding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schooljaar">
-              <PropertyRef Name="JaarId" />
-            </Principal>
-            <Dependent Role="Opleiding">
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudieBelasting_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="StudieBelasting" Type="Self.StudieBelasting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="StudieBelasting">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudiePunten_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="StudiePunten">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudiePunten_Toetsvorm">
-          <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="0..1" />
-          <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Toetsvorm">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="StudiePunten">
-              <PropertyRef Name="Toetsvorm" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Voorkennis_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Voorkennis" Type="Self.Voorkennis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Voorkennis">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Voorkennis_Module1">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Voorkennis" Type="Self.Voorkennis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Voorkennis">
-              <PropertyRef Name="Voorkennis_CursusCode" />
-              <PropertyRef Name="Voorkennis_Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Weekplanning_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Weekplanning" Type="Self.Weekplanning" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Weekplanning">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Function Name="SP_ArchiveYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="IN06SOb_ModuleManagerModelStoreContainer">
-          <EntitySet Name="Beoordelingen" EntityType="Self.Beoordelingen" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Blok" EntityType="Self.Blok" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Competentie" EntityType="Self.Competentie" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Docent" EntityType="Self.Docent" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Fase" EntityType="Self.Fase" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FaseModules" EntityType="Self.FaseModules" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FaseType" EntityType="Self.FaseType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Icons" EntityType="Self.Icons" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Leerdoelen" EntityType="Self.Leerdoelen" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Leerlijn" EntityType="Self.Leerlijn" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Leermiddelen" EntityType="Self.Leermiddelen" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ModuleCompetentie" EntityType="Self.ModuleCompetentie" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ModuleLeerlijn" EntityType="Self.ModuleLeerlijn" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ModuleTag" EntityType="Self.ModuleTag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ModuleWerkvorm" EntityType="Self.ModuleWerkvorm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Niveau" EntityType="Self.Niveau" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Onderdeel" EntityType="Self.Onderdeel" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Opleiding" EntityType="Self.Opleiding" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Schooljaar" EntityType="Self.Schooljaar" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StudieBelasting" EntityType="Self.StudieBelasting" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StudiePunten" EntityType="Self.StudiePunten" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Toetsvorm" EntityType="Self.Toetsvorm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Voorkennis" EntityType="Self.Voorkennis" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Weekplanning" EntityType="Self.Weekplanning" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Werkvorm" EntityType="Self.Werkvorm" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Beoordelingen_Module" Association="Self.FK_Beoordelingen_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Beoordelingen" EntitySet="Beoordelingen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Docent_Module" Association="Self.FK_Docent_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Docent" EntitySet="Docent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Fase_FaseType" Association="Self.FK_Fase_FaseType">
-            <End Role="FaseType" EntitySet="FaseType" />
-            <End Role="Fase" EntitySet="Fase" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Fase_Opleiding" Association="Self.FK_Fase_Opleiding">
-            <End Role="Opleiding" EntitySet="Opleiding" />
-            <End Role="Fase" EntitySet="Fase" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Blok" Association="Self.FK_FaseModules_Blok">
-            <End Role="Blok" EntitySet="Blok" />
-            <End Role="FaseModules" EntitySet="FaseModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Fase" Association="Self.FK_FaseModules_Fase">
-            <End Role="Fase" EntitySet="Fase" />
-            <End Role="FaseModules" EntitySet="FaseModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Module" Association="Self.FK_FaseModules_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="FaseModules" EntitySet="FaseModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leerdoelen_Module" Association="Self.FK_Leerdoelen_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Leerdoelen" EntitySet="Leerdoelen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leermiddelen_Module" Association="Self.FK_Leermiddelen_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Leermiddelen" EntitySet="Leermiddelen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Module_Icons" Association="Self.FK_Module_Icons">
-            <End Role="Icons" EntitySet="Icons" />
-            <End Role="Module" EntitySet="Module" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Module_Onderdeel" Association="Self.FK_Module_Onderdeel">
-            <End Role="Onderdeel" EntitySet="Onderdeel" />
-            <End Role="Module" EntitySet="Module" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Module_Status" Association="Self.FK_Module_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Module" EntitySet="Module" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="Self.FK_ModuleCompetentie_Competentie">
-            <End Role="Competentie" EntitySet="Competentie" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Module" Association="Self.FK_ModuleCompetentie_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Niveau" Association="Self.FK_ModuleCompetentie_Niveau">
-            <End Role="Niveau" EntitySet="Niveau" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleLeerlijn_Leerlijn1" Association="Self.FK_ModuleLeerlijn_Leerlijn1">
-            <End Role="Leerlijn" EntitySet="Leerlijn" />
-            <End Role="ModuleLeerlijn" EntitySet="ModuleLeerlijn" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleLeerlijn_Module" Association="Self.FK_ModuleLeerlijn_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="ModuleLeerlijn" EntitySet="ModuleLeerlijn" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleTag_Module" Association="Self.FK_ModuleTag_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="ModuleTag" EntitySet="ModuleTag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleTag_Tag1" Association="Self.FK_ModuleTag_Tag1">
-            <End Role="Tag" EntitySet="Tag" />
-            <End Role="ModuleTag" EntitySet="ModuleTag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleWerkvorm_Module" Association="Self.FK_ModuleWerkvorm_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvorm" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleWerkvorm_Werkvorm" Association="Self.FK_ModuleWerkvorm_Werkvorm">
-            <End Role="Werkvorm" EntitySet="Werkvorm" />
-            <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvorm" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Opleiding_Schooljaar" Association="Self.FK_Opleiding_Schooljaar">
-            <End Role="Schooljaar" EntitySet="Schooljaar" />
-            <End Role="Opleiding" EntitySet="Opleiding" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudieBelasting_Module" Association="Self.FK_StudieBelasting_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="StudieBelasting" EntitySet="StudieBelasting" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudiePunten_Module" Association="Self.FK_StudiePunten_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="StudiePunten" EntitySet="StudiePunten" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Self.FK_StudiePunten_Toetsvorm">
-            <End Role="Toetsvorm" EntitySet="Toetsvorm" />
-            <End Role="StudiePunten" EntitySet="StudiePunten" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Voorkennis_Module" Association="Self.FK_Voorkennis_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Voorkennis" EntitySet="Voorkennis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Voorkennis_Module1" Association="Self.FK_Voorkennis_Module1">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Voorkennis" EntitySet="Voorkennis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Weekplanning_Module" Association="Self.FK_Weekplanning_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Weekplanning" EntitySet="Weekplanning" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="IN06SOb_ModuleManagerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="IN06SOb_ModuleManagerModelStoreContainer">
+    <EntitySet Name="Beoordelingen" EntityType="IN06SOb_ModuleManagerModel.Store.Beoordelingen" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Blok" EntityType="IN06SOb_ModuleManagerModel.Store.Blok" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Competentie" EntityType="IN06SOb_ModuleManagerModel.Store.Competentie" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Fase" EntityType="IN06SOb_ModuleManagerModel.Store.Fase" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FaseModules" EntityType="IN06SOb_ModuleManagerModel.Store.FaseModules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FaseType" EntityType="IN06SOb_ModuleManagerModel.Store.FaseType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Icons" EntityType="IN06SOb_ModuleManagerModel.Store.Icons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Leerdoelen" EntityType="IN06SOb_ModuleManagerModel.Store.Leerdoelen" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Leerlijn" EntityType="IN06SOb_ModuleManagerModel.Store.Leerlijn" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Leermiddelen" EntityType="IN06SOb_ModuleManagerModel.Store.Leermiddelen" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Module" EntityType="IN06SOb_ModuleManagerModel.Store.Module" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleCompetentie" EntityType="IN06SOb_ModuleManagerModel.Store.ModuleCompetentie" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleWerkvorm" EntityType="IN06SOb_ModuleManagerModel.Store.ModuleWerkvorm" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Niveau" EntityType="IN06SOb_ModuleManagerModel.Store.Niveau" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Onderdeel" EntityType="IN06SOb_ModuleManagerModel.Store.Onderdeel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Opleiding" EntityType="IN06SOb_ModuleManagerModel.Store.Opleiding" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Schooljaar" EntityType="IN06SOb_ModuleManagerModel.Store.Schooljaar" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Status" EntityType="IN06SOb_ModuleManagerModel.Store.Status" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudieBelasting" EntityType="IN06SOb_ModuleManagerModel.Store.StudieBelasting" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudiePunten" EntityType="IN06SOb_ModuleManagerModel.Store.StudiePunten" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tag" EntityType="IN06SOb_ModuleManagerModel.Store.Tag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Toetsvorm" EntityType="IN06SOb_ModuleManagerModel.Store.Toetsvorm" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Weekplanning" EntityType="IN06SOb_ModuleManagerModel.Store.Weekplanning" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Werkvorm" EntityType="IN06SOb_ModuleManagerModel.Store.Werkvorm" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Docenten" EntityType="IN06SOb_ModuleManagerModel.Store.Docenten" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleLeerlijn" EntityType="IN06SOb_ModuleManagerModel.Store.ModuleLeerlijn" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleTag" EntityType="IN06SOb_ModuleManagerModel.Store.ModuleTag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Voorkennis" EntityType="IN06SOb_ModuleManagerModel.Store.Voorkennis" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleDocent" EntityType="IN06SOb_ModuleManagerModel.Store.ModuleDocent" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Beoordelingen_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_Beoordelingen_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Beoordelingen" EntitySet="Beoordelingen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FaseModules_Blok" Association="IN06SOb_ModuleManagerModel.Store.FK_FaseModules_Blok">
+      <End Role="Blok" EntitySet="Blok" />
+      <End Role="FaseModules" EntitySet="FaseModules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleCompetentie_Competentie">
+      <End Role="Competentie" EntitySet="Competentie" />
+      <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fase_FaseType" Association="IN06SOb_ModuleManagerModel.Store.FK_Fase_FaseType">
+      <End Role="FaseType" EntitySet="FaseType" />
+      <End Role="Fase" EntitySet="Fase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fase_Opleiding" Association="IN06SOb_ModuleManagerModel.Store.FK_Fase_Opleiding">
+      <End Role="Opleiding" EntitySet="Opleiding" />
+      <End Role="Fase" EntitySet="Fase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FaseModules_Fase" Association="IN06SOb_ModuleManagerModel.Store.FK_FaseModules_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="FaseModules" EntitySet="FaseModules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FaseModules_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_FaseModules_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="FaseModules" EntitySet="FaseModules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Module_Icons" Association="IN06SOb_ModuleManagerModel.Store.FK_Module_Icons">
+      <End Role="Icons" EntitySet="Icons" />
+      <End Role="Module" EntitySet="Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leerdoelen_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_Leerdoelen_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Leerdoelen" EntitySet="Leerdoelen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leermiddelen_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_Leermiddelen_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Leermiddelen" EntitySet="Leermiddelen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Module_Onderdeel" Association="IN06SOb_ModuleManagerModel.Store.FK_Module_Onderdeel">
+      <End Role="Onderdeel" EntitySet="Onderdeel" />
+      <End Role="Module" EntitySet="Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Module_Status" Association="IN06SOb_ModuleManagerModel.Store.FK_Module_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Module" EntitySet="Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleCompetentie_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleCompetentie_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleWerkvorm_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleWerkvorm_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvorm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudieBelasting_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_StudieBelasting_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="StudieBelasting" EntitySet="StudieBelasting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudiePunten_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_StudiePunten_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="StudiePunten" EntitySet="StudiePunten" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Weekplanning_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_Weekplanning_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Weekplanning" EntitySet="Weekplanning" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleCompetentie_Niveau" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleCompetentie_Niveau">
+      <End Role="Niveau" EntitySet="Niveau" />
+      <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleWerkvorm_Werkvorm" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleWerkvorm_Werkvorm">
+      <End Role="Werkvorm" EntitySet="Werkvorm" />
+      <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvorm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Opleiding_Schooljaar" Association="IN06SOb_ModuleManagerModel.Store.FK_Opleiding_Schooljaar">
+      <End Role="Schooljaar" EntitySet="Schooljaar" />
+      <End Role="Opleiding" EntitySet="Opleiding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="IN06SOb_ModuleManagerModel.Store.FK_StudiePunten_Toetsvorm">
+      <End Role="Toetsvorm" EntitySet="Toetsvorm" />
+      <End Role="StudiePunten" EntitySet="StudiePunten" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleLeerlijn_Leerlijn" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleLeerlijn_Leerlijn">
+      <End Role="Leerlijn" EntitySet="Leerlijn" />
+      <End Role="ModuleLeerlijn" EntitySet="ModuleLeerlijn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleLeerlijn_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleLeerlijn_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ModuleLeerlijn" EntitySet="ModuleLeerlijn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleTag_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleTag_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ModuleTag" EntitySet="ModuleTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleTag_Tag" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="ModuleTag" EntitySet="ModuleTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Voorkennis_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_Voorkennis_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Voorkennis" EntitySet="Voorkennis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Voorkennis_Module1" Association="IN06SOb_ModuleManagerModel.Store.FK_Voorkennis_Module1">
+      <End Role="Module1" EntitySet="Module" />
+      <End Role="Voorkennis" EntitySet="Voorkennis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleDocent_Docent" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleDocent_Docent">
+      <End Role="Docent" EntitySet="Docenten" />
+      <End Role="ModuleDocent" EntitySet="ModuleDocent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuleDocent_Module" Association="IN06SOb_ModuleManagerModel.Store.FK_ModuleDocent_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ModuleDocent" EntitySet="ModuleDocent" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Beoordelingen">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Beschrijving" Type="varchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Blok">
+    <Key>
+      <PropertyRef Name="BlokId" />
+    </Key>
+    <Property Name="BlokId" Type="varchar" Nullable="false" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Competentie">
+    <Key>
+      <PropertyRef Name="Code" />
+      <PropertyRef Name="Schooljaar" />
+    </Key>
+    <Property Name="Code" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Beschrijving" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fase">
+    <Key>
+      <PropertyRef Name="Naam" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="OpleidingNaam" />
+      <PropertyRef Name="OpleidingSchooljaar" />
+    </Key>
+    <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Beschrijving" Type="varchar" Nullable="true" MaxLength="500" />
+    <Property Name="FaseType" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="OpleidingNaam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="OpleidingSchooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="FaseModules">
+    <Key>
+      <PropertyRef Name="FaseNaam" />
+      <PropertyRef Name="FaseSchooljaar" />
+      <PropertyRef Name="ModuleCursusCode" />
+      <PropertyRef Name="ModuleSchooljaar" />
+      <PropertyRef Name="OpleidingNaam" />
+      <PropertyRef Name="OpleidingSchooljaar" />
+    </Key>
+    <Property Name="FaseNaam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="FaseSchooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="ModuleCursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ModuleSchooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Blok" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="OpleidingNaam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="OpleidingSchooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="FaseType">
+    <Key>
+      <PropertyRef Name="Type" />
+    </Key>
+    <Property Name="Type" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Icons">
+    <Key>
+      <PropertyRef Name="Icon" />
+    </Key>
+    <Property Name="Icon" Type="char" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Leerdoelen">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Beschrijving" Type="varchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Leerlijn">
+    <Key>
+      <PropertyRef Name="Naam" />
+      <PropertyRef Name="Schooljaar" />
+    </Key>
+    <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="Leermiddelen">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Beschrijving" Type="varchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Beschrijving" Type="varchar(max)" Nullable="true" />
+    <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Verantwoordelijke" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="OnderdeelCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Icon" Type="char" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="ModuleCompetentie">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="CompetentieCode" />
+      <PropertyRef Name="CompetentieSchooljaar" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="CompetentieCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CompetentieSchooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Niveau" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ModuleWerkvorm">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="WerkvormType" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="WerkvormType" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="Organisatie" Type="varchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Niveau">
+    <Key>
+      <PropertyRef Name="Niveau1" />
+    </Key>
+    <Property Name="Niveau1" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Onderdeel">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Opleiding">
+    <Key>
+      <PropertyRef Name="Naam" />
+      <PropertyRef Name="Schooljaar" />
+    </Key>
+    <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Beschrijving" Type="varchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Schooljaar">
+    <Key>
+      <PropertyRef Name="JaarId" />
+    </Key>
+    <Property Name="JaarId" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Status1" />
+    </Key>
+    <Property Name="Status1" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="StudieBelasting">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="Activiteit" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Activiteit" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ContactUren" Type="int" Nullable="true" />
+    <Property Name="Duur" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Frequentie" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SBU" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudiePunten">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="ToetsCode" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="ToetsCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Toetsvorm" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="EC" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Minimum" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="Naam" />
+      <PropertyRef Name="Schooljaar" />
+    </Key>
+    <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="Toetsvorm">
+    <Key>
+      <PropertyRef Name="Type" />
+    </Key>
+    <Property Name="Type" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Weekplanning">
+    <Key>
+      <PropertyRef Name="CursusCode" />
+      <PropertyRef Name="Schooljaar" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Week" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="Onderwerp" Type="varchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Werkvorm">
+    <Key>
+      <PropertyRef Name="Type" />
+    </Key>
+    <Property Name="Type" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="Omschrijving" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Docenten">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Naam" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ModuleLeerlijn">
+    <Key>
+      <PropertyRef Name="Leerlijn_Naam" />
+      <PropertyRef Name="Leerlijn_Schooljaar" />
+      <PropertyRef Name="Module_CursusCode" />
+      <PropertyRef Name="Module_Schooljaar" />
+    </Key>
+    <Property Name="Leerlijn_Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Leerlijn_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Module_CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Module_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="ModuleTag">
+    <Key>
+      <PropertyRef Name="Module_CursusCode" />
+      <PropertyRef Name="Module_Schooljaar" />
+      <PropertyRef Name="Tag_Naam" />
+      <PropertyRef Name="Tag_Schooljaar" />
+    </Key>
+    <Property Name="Module_CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Module_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Tag_Naam" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Tag_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="Voorkennis">
+    <Key>
+      <PropertyRef Name="Voorkennis_CursusCode" />
+      <PropertyRef Name="Voorkennis_Schooljaar" />
+      <PropertyRef Name="Vervolg_CursusCode" />
+      <PropertyRef Name="Vervolg_Schooljaar" />
+    </Key>
+    <Property Name="Voorkennis_CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Voorkennis_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Vervolg_CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Vervolg_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="ModuleDocent">
+    <Key>
+      <PropertyRef Name="Docenten_Id" />
+      <PropertyRef Name="Module_CursusCode" />
+      <PropertyRef Name="Module_Schooljaar" />
+    </Key>
+    <Property Name="Docenten_Id" Type="int" Nullable="false" />
+    <Property Name="Module_CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Module_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
+  </EntityType>
+  <Association Name="FK_Beoordelingen_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="Beoordelingen" Type="IN06SOb_ModuleManagerModel.Store.Beoordelingen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Beoordelingen">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FaseModules_Blok">
+    <End Role="Blok" Type="IN06SOb_ModuleManagerModel.Store.Blok" Multiplicity="1" />
+    <End Role="FaseModules" Type="IN06SOb_ModuleManagerModel.Store.FaseModules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blok">
+        <PropertyRef Name="BlokId" />
+      </Principal>
+      <Dependent Role="FaseModules">
+        <PropertyRef Name="Blok" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleCompetentie_Competentie">
+    <End Role="Competentie" Type="IN06SOb_ModuleManagerModel.Store.Competentie" Multiplicity="1" />
+    <End Role="ModuleCompetentie" Type="IN06SOb_ModuleManagerModel.Store.ModuleCompetentie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competentie">
+        <PropertyRef Name="Code" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleCompetentie">
+        <PropertyRef Name="CompetentieCode" />
+        <PropertyRef Name="CompetentieSchooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fase_FaseType">
+    <End Role="FaseType" Type="IN06SOb_ModuleManagerModel.Store.FaseType" Multiplicity="1" />
+    <End Role="Fase" Type="IN06SOb_ModuleManagerModel.Store.Fase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FaseType">
+        <PropertyRef Name="Type" />
+      </Principal>
+      <Dependent Role="Fase">
+        <PropertyRef Name="FaseType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fase_Opleiding">
+    <End Role="Opleiding" Type="IN06SOb_ModuleManagerModel.Store.Opleiding" Multiplicity="1" />
+    <End Role="Fase" Type="IN06SOb_ModuleManagerModel.Store.Fase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Opleiding">
+        <PropertyRef Name="Naam" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Fase">
+        <PropertyRef Name="OpleidingNaam" />
+        <PropertyRef Name="OpleidingSchooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FaseModules_Fase">
+    <End Role="Fase" Type="IN06SOb_ModuleManagerModel.Store.Fase" Multiplicity="1" />
+    <End Role="FaseModules" Type="IN06SOb_ModuleManagerModel.Store.FaseModules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="Naam" />
+        <PropertyRef Name="Schooljaar" />
+        <PropertyRef Name="OpleidingNaam" />
+        <PropertyRef Name="OpleidingSchooljaar" />
+      </Principal>
+      <Dependent Role="FaseModules">
+        <PropertyRef Name="FaseNaam" />
+        <PropertyRef Name="FaseSchooljaar" />
+        <PropertyRef Name="OpleidingNaam" />
+        <PropertyRef Name="OpleidingSchooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FaseModules_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="FaseModules" Type="IN06SOb_ModuleManagerModel.Store.FaseModules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="FaseModules">
+        <PropertyRef Name="ModuleCursusCode" />
+        <PropertyRef Name="ModuleSchooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Module_Icons">
+    <End Role="Icons" Type="IN06SOb_ModuleManagerModel.Store.Icons" Multiplicity="1" />
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Icons">
+        <PropertyRef Name="Icon" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="Icon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leerdoelen_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="Leerdoelen" Type="IN06SOb_ModuleManagerModel.Store.Leerdoelen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Leerdoelen">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leermiddelen_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="Leermiddelen" Type="IN06SOb_ModuleManagerModel.Store.Leermiddelen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Leermiddelen">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Module_Onderdeel">
+    <End Role="Onderdeel" Type="IN06SOb_ModuleManagerModel.Store.Onderdeel" Multiplicity="1" />
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Onderdeel">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="OnderdeelCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Module_Status">
+    <End Role="Status" Type="IN06SOb_ModuleManagerModel.Store.Status" Multiplicity="1" />
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Status1" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleCompetentie_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="ModuleCompetentie" Type="IN06SOb_ModuleManagerModel.Store.ModuleCompetentie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleCompetentie">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleWerkvorm_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="ModuleWerkvorm" Type="IN06SOb_ModuleManagerModel.Store.ModuleWerkvorm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleWerkvorm">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudieBelasting_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="StudieBelasting" Type="IN06SOb_ModuleManagerModel.Store.StudieBelasting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="StudieBelasting">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudiePunten_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="StudiePunten" Type="IN06SOb_ModuleManagerModel.Store.StudiePunten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="StudiePunten">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Weekplanning_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="Weekplanning" Type="IN06SOb_ModuleManagerModel.Store.Weekplanning" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Weekplanning">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleCompetentie_Niveau">
+    <End Role="Niveau" Type="IN06SOb_ModuleManagerModel.Store.Niveau" Multiplicity="1" />
+    <End Role="ModuleCompetentie" Type="IN06SOb_ModuleManagerModel.Store.ModuleCompetentie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Niveau">
+        <PropertyRef Name="Niveau1" />
+      </Principal>
+      <Dependent Role="ModuleCompetentie">
+        <PropertyRef Name="Niveau" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleWerkvorm_Werkvorm">
+    <End Role="Werkvorm" Type="IN06SOb_ModuleManagerModel.Store.Werkvorm" Multiplicity="1" />
+    <End Role="ModuleWerkvorm" Type="IN06SOb_ModuleManagerModel.Store.ModuleWerkvorm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Werkvorm">
+        <PropertyRef Name="Type" />
+      </Principal>
+      <Dependent Role="ModuleWerkvorm">
+        <PropertyRef Name="WerkvormType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Opleiding_Schooljaar">
+    <End Role="Schooljaar" Type="IN06SOb_ModuleManagerModel.Store.Schooljaar" Multiplicity="1" />
+    <End Role="Opleiding" Type="IN06SOb_ModuleManagerModel.Store.Opleiding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schooljaar">
+        <PropertyRef Name="JaarId" />
+      </Principal>
+      <Dependent Role="Opleiding">
+        <PropertyRef Name="Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudiePunten_Toetsvorm">
+    <End Role="Toetsvorm" Type="IN06SOb_ModuleManagerModel.Store.Toetsvorm" Multiplicity="0..1" />
+    <End Role="StudiePunten" Type="IN06SOb_ModuleManagerModel.Store.StudiePunten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Toetsvorm">
+        <PropertyRef Name="Type" />
+      </Principal>
+      <Dependent Role="StudiePunten">
+        <PropertyRef Name="Toetsvorm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleLeerlijn_Leerlijn">
+    <End Role="Leerlijn" Type="IN06SOb_ModuleManagerModel.Store.Leerlijn" Multiplicity="1" />
+    <End Role="ModuleLeerlijn" Type="IN06SOb_ModuleManagerModel.Store.ModuleLeerlijn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leerlijn">
+        <PropertyRef Name="Naam" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleLeerlijn">
+        <PropertyRef Name="Leerlijn_Naam" />
+        <PropertyRef Name="Leerlijn_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleLeerlijn_Module">
+    <End Role="ModuleLeerlijn" Type="IN06SOb_ModuleManagerModel.Store.ModuleLeerlijn" Multiplicity="*" />
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleLeerlijn">
+        <PropertyRef Name="Module_CursusCode" />
+        <PropertyRef Name="Module_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleTag_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="ModuleTag" Type="IN06SOb_ModuleManagerModel.Store.ModuleTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleTag">
+        <PropertyRef Name="Module_CursusCode" />
+        <PropertyRef Name="Module_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleTag_Tag">
+    <End Role="ModuleTag" Type="IN06SOb_ModuleManagerModel.Store.ModuleTag" Multiplicity="*" />
+    <End Role="Tag" Type="IN06SOb_ModuleManagerModel.Store.Tag" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Naam" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleTag">
+        <PropertyRef Name="Tag_Naam" />
+        <PropertyRef Name="Tag_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Voorkennis_Module">
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <End Role="Voorkennis" Type="IN06SOb_ModuleManagerModel.Store.Voorkennis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Voorkennis">
+        <PropertyRef Name="Voorkennis_CursusCode" />
+        <PropertyRef Name="Voorkennis_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Voorkennis_Module1">
+    <End Role="Voorkennis" Type="IN06SOb_ModuleManagerModel.Store.Voorkennis" Multiplicity="*" />
+    <End Role="Module1" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Module1">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="Voorkennis">
+        <PropertyRef Name="Vervolg_CursusCode" />
+        <PropertyRef Name="Vervolg_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleDocent_Docent">
+    <End Role="Docent" Type="IN06SOb_ModuleManagerModel.Store.Docenten" Multiplicity="1" />
+    <End Role="ModuleDocent" Type="IN06SOb_ModuleManagerModel.Store.ModuleDocent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Docent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleDocent">
+        <PropertyRef Name="Docenten_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuleDocent_Module">
+    <End Role="ModuleDocent" Type="IN06SOb_ModuleManagerModel.Store.ModuleDocent" Multiplicity="*" />
+    <End Role="Module" Type="IN06SOb_ModuleManagerModel.Store.Module" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="CursusCode" />
+        <PropertyRef Name="Schooljaar" />
+      </Principal>
+      <Dependent Role="ModuleDocent">
+        <PropertyRef Name="Module_CursusCode" />
+        <PropertyRef Name="Module_Schooljaar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IN06SOb_ModuleManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -838,18 +859,6 @@
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ModuleCompetentie" Relationship="Self.FK_ModuleCompetentie_Competentie" FromRole="Competentie" ToRole="ModuleCompetentie" />
-        </EntityType>
-        <EntityType Name="Docent">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_Docent_Module" FromRole="Docent" ToRole="Module" />
         </EntityType>
         <EntityType Name="Fase">
           <Key>
@@ -949,7 +958,6 @@
           <Property Name="OnderdeelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Icon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Beoordelingen" Relationship="Self.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordelingen" />
-          <NavigationProperty Name="Docent" Relationship="Self.FK_Docent_Module" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="FaseModules" Relationship="Self.FK_FaseModules_Module" FromRole="Module" ToRole="FaseModules" />
           <NavigationProperty Name="Icons" Relationship="Self.FK_Module_Icons" FromRole="Module" ToRole="Icons" />
           <NavigationProperty Name="Leerdoelen" Relationship="Self.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoelen" />
@@ -963,8 +971,9 @@
           <NavigationProperty Name="Weekplanning" Relationship="Self.FK_Weekplanning_Module" FromRole="Module" ToRole="Weekplanning" />
           <NavigationProperty Name="Leerlijn" Relationship="Self.ModuleLeerlijn" FromRole="Module" ToRole="Leerlijn" />
           <NavigationProperty Name="Tag" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
-          <NavigationProperty Name="Module1" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
-          <NavigationProperty Name="Module2" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
+          <NavigationProperty Name="Vervolg" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
+          <NavigationProperty Name="Voorkennis" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
+          <NavigationProperty Name="Docenten" Relationship="IN06SOb_ModuleManagerModel.ModuleDocent" FromRole="Module" ToRole="Docent" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -1138,20 +1147,6 @@
             <Dependent Role="ModuleCompetentie">
               <PropertyRef Name="CompetentieCode" />
               <PropertyRef Name="CompetentieSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Docent_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Docent" Type="Self.Docent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Docent">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1411,7 +1406,6 @@
           <EntitySet Name="Beoordelingen" EntityType="Self.Beoordelingen" />
           <EntitySet Name="Blok" EntityType="Self.Blok" />
           <EntitySet Name="Competentie" EntityType="Self.Competentie" />
-          <EntitySet Name="Docent" EntityType="Self.Docent" />
           <EntitySet Name="Fase" EntityType="Self.Fase" />
           <EntitySet Name="FaseModules" EntityType="Self.FaseModules" />
           <EntitySet Name="FaseType" EntityType="Self.FaseType" />
@@ -1444,10 +1438,6 @@
           <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="Self.FK_ModuleCompetentie_Competentie">
             <End Role="Competentie" EntitySet="Competentie" />
             <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Docent_Module" Association="Self.FK_Docent_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="Docent" EntitySet="Docent" />
           </AssociationSet>
           <AssociationSet Name="FK_Fase_FaseType" Association="Self.FK_Fase_FaseType">
             <End Role="FaseType" EntitySet="FaseType" />
@@ -1534,282 +1524,304 @@
             <End Role="Module1" EntitySet="Module" />
           </AssociationSet>
           <FunctionImport Name="SP_ArchiveYear" />
+          <EntitySet Name="Docenten" EntityType="IN06SOb_ModuleManagerModel.Docent" />
+          <AssociationSet Name="ModuleDocent" Association="IN06SOb_ModuleManagerModel.ModuleDocent">
+            <End Role="Docent" EntitySet="Docenten" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Docent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Module" Relationship="IN06SOb_ModuleManagerModel.ModuleDocent" FromRole="Docent" ToRole="Module" />
+          <Property Name="Naam" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="ModuleDocent">
+          <End Type="IN06SOb_ModuleManagerModel.Docent" Role="Docent" Multiplicity="*" />
+          <End Type="IN06SOb_ModuleManagerModel.Module" Role="Module" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="IN06SOb_ModuleManagerModelStoreContainer" CdmEntityContainer="DomainContext">
-          <EntitySetMapping Name="Beoordelingen">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Beoordelingen">
-              <MappingFragment StoreEntitySet="Beoordelingen">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Blok">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Blok">
-              <MappingFragment StoreEntitySet="Blok">
-                <ScalarProperty Name="BlokId" ColumnName="BlokId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Competentie">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Competentie">
-              <MappingFragment StoreEntitySet="Competentie">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Docent">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Docent">
-              <MappingFragment StoreEntitySet="Docent">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Fase">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Fase">
-              <MappingFragment StoreEntitySet="Fase">
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-                <ScalarProperty Name="FaseType" ColumnName="FaseType" />
-                <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
-                <ScalarProperty Name="OpleidingSchooljaar" ColumnName="OpleidingSchooljaar" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FaseModules">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.FaseModules">
-              <MappingFragment StoreEntitySet="FaseModules">
-                <ScalarProperty Name="FaseNaam" ColumnName="FaseNaam" />
-                <ScalarProperty Name="FaseSchooljaar" ColumnName="FaseSchooljaar" />
-                <ScalarProperty Name="ModuleCursusCode" ColumnName="ModuleCursusCode" />
-                <ScalarProperty Name="ModuleSchooljaar" ColumnName="ModuleSchooljaar" />
-                <ScalarProperty Name="Blok" ColumnName="Blok" />
-                <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
-                <ScalarProperty Name="OpleidingSchooljaar" ColumnName="OpleidingSchooljaar" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FaseType">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.FaseType">
-              <MappingFragment StoreEntitySet="FaseType">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Icons">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Icons">
-              <MappingFragment StoreEntitySet="Icons">
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Leerdoelen">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Leerdoelen">
-              <MappingFragment StoreEntitySet="Leerdoelen">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Leerlijn">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Leerlijn">
-              <MappingFragment StoreEntitySet="Leerlijn">
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Leermiddelen">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Leermiddelen">
-              <MappingFragment StoreEntitySet="Leermiddelen">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Module">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Module">
-              <MappingFragment StoreEntitySet="Module">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Verantwoordelijke" ColumnName="Verantwoordelijke" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OnderdeelCode" ColumnName="OnderdeelCode" />
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ModuleCompetentie">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.ModuleCompetentie">
-              <MappingFragment StoreEntitySet="ModuleCompetentie">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="CompetentieCode" ColumnName="CompetentieCode" />
-                <ScalarProperty Name="CompetentieSchooljaar" ColumnName="CompetentieSchooljaar" />
-                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ModuleWerkvorm">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.ModuleWerkvorm">
-              <MappingFragment StoreEntitySet="ModuleWerkvorm">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="WerkvormType" ColumnName="WerkvormType" />
-                <ScalarProperty Name="Organisatie" ColumnName="Organisatie" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Niveau">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Niveau">
-              <MappingFragment StoreEntitySet="Niveau">
-                <ScalarProperty Name="Niveau1" ColumnName="Niveau" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Onderdeel">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Onderdeel">
-              <MappingFragment StoreEntitySet="Onderdeel">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Opleiding">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Opleiding">
-              <MappingFragment StoreEntitySet="Opleiding">
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schooljaar">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Schooljaar">
-              <MappingFragment StoreEntitySet="Schooljaar">
-                <ScalarProperty Name="JaarId" ColumnName="JaarId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Status">
-              <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Status1" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StudieBelasting">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.StudieBelasting">
-              <MappingFragment StoreEntitySet="StudieBelasting">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Activiteit" ColumnName="Activiteit" />
-                <ScalarProperty Name="ContactUren" ColumnName="ContactUren" />
-                <ScalarProperty Name="Duur" ColumnName="Duur" />
-                <ScalarProperty Name="Frequentie" ColumnName="Frequentie" />
-                <ScalarProperty Name="SBU" ColumnName="SBU" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StudiePunten">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.StudiePunten">
-              <MappingFragment StoreEntitySet="StudiePunten">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
-                <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
-                <ScalarProperty Name="EC" ColumnName="EC" />
-                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tag">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Tag">
-              <MappingFragment StoreEntitySet="Tag">
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Toetsvorm">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Toetsvorm">
-              <MappingFragment StoreEntitySet="Toetsvorm">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Weekplanning">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Weekplanning">
-              <MappingFragment StoreEntitySet="Weekplanning">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Onderwerp" ColumnName="Onderwerp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Werkvorm">
-            <EntityTypeMapping TypeName="IN06SOb_ModuleManagerModel.Werkvorm">
-              <MappingFragment StoreEntitySet="Werkvorm">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Omschrijving" ColumnName="Omschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="ModuleLeerlijn" TypeName="IN06SOb_ModuleManagerModel.ModuleLeerlijn" StoreEntitySet="ModuleLeerlijn">
-            <EndProperty Name="Leerlijn">
-              <ScalarProperty Name="Naam" ColumnName="LeerlijnNaam" />
-              <ScalarProperty Name="Schooljaar" ColumnName="LeerlijnSchooljaar" />
-            </EndProperty>
-            <EndProperty Name="Module">
-              <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-              <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="ModuleTag" TypeName="IN06SOb_ModuleManagerModel.ModuleTag" StoreEntitySet="ModuleTag">
-            <EndProperty Name="Module">
-              <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-              <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-            </EndProperty>
-            <EndProperty Name="Tag">
-              <ScalarProperty Name="Naam" ColumnName="TagNaam" />
-              <ScalarProperty Name="Schooljaar" ColumnName="TagSchooljaar" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Voorkennis" TypeName="IN06SOb_ModuleManagerModel.Voorkennis" StoreEntitySet="Voorkennis">
-            <EndProperty Name="Module">
-              <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-              <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-            </EndProperty>
-            <EndProperty Name="Module1">
-              <ScalarProperty Name="CursusCode" ColumnName="Voorkennis_CursusCode" />
-              <ScalarProperty Name="Schooljaar" ColumnName="Voorkennis_Schooljaar" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="SP_ArchiveYear" FunctionName="IN06SOb_ModuleManagerModel.Store.SP_ArchiveYear" />
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IN06SOb_ModuleManagerModelStoreContainer" CdmEntityContainer="DomainContext">
+    <EntitySetMapping Name="Beoordelingen">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Beoordelingen)">
+        <MappingFragment StoreEntitySet="Beoordelingen">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Blok">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Blok)">
+        <MappingFragment StoreEntitySet="Blok">
+          <ScalarProperty Name="BlokId" ColumnName="BlokId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Competentie">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Competentie)">
+        <MappingFragment StoreEntitySet="Competentie">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fase">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Fase)">
+        <MappingFragment StoreEntitySet="Fase">
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
+          <ScalarProperty Name="OpleidingSchooljaar" ColumnName="OpleidingSchooljaar" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+          <ScalarProperty Name="FaseType" ColumnName="FaseType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FaseModules">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.FaseModules)">
+        <MappingFragment StoreEntitySet="FaseModules">
+          <ScalarProperty Name="FaseNaam" ColumnName="FaseNaam" />
+          <ScalarProperty Name="FaseSchooljaar" ColumnName="FaseSchooljaar" />
+          <ScalarProperty Name="ModuleCursusCode" ColumnName="ModuleCursusCode" />
+          <ScalarProperty Name="ModuleSchooljaar" ColumnName="ModuleSchooljaar" />
+          <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
+          <ScalarProperty Name="OpleidingSchooljaar" ColumnName="OpleidingSchooljaar" />
+          <ScalarProperty Name="Blok" ColumnName="Blok" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FaseType">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.FaseType)">
+        <MappingFragment StoreEntitySet="FaseType">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Icons">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Icons)">
+        <MappingFragment StoreEntitySet="Icons">
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leerdoelen">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Leerdoelen)">
+        <MappingFragment StoreEntitySet="Leerdoelen">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leerlijn">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Leerlijn)">
+        <MappingFragment StoreEntitySet="Leerlijn">
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leermiddelen">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Leermiddelen)">
+        <MappingFragment StoreEntitySet="Leermiddelen">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Module">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Module)">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Verantwoordelijke" ColumnName="Verantwoordelijke" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OnderdeelCode" ColumnName="OnderdeelCode" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleCompetentie">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.ModuleCompetentie)">
+        <MappingFragment StoreEntitySet="ModuleCompetentie">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="CompetentieCode" ColumnName="CompetentieCode" />
+          <ScalarProperty Name="CompetentieSchooljaar" ColumnName="CompetentieSchooljaar" />
+          <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleWerkvorm">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.ModuleWerkvorm)">
+        <MappingFragment StoreEntitySet="ModuleWerkvorm">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="WerkvormType" ColumnName="WerkvormType" />
+          <ScalarProperty Name="Organisatie" ColumnName="Organisatie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Niveau">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Niveau)">
+        <MappingFragment StoreEntitySet="Niveau">
+          <ScalarProperty Name="Niveau1" ColumnName="Niveau1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Onderdeel">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Onderdeel)">
+        <MappingFragment StoreEntitySet="Onderdeel">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Opleiding">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Opleiding)">
+        <MappingFragment StoreEntitySet="Opleiding">
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schooljaar">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Schooljaar)">
+        <MappingFragment StoreEntitySet="Schooljaar">
+          <ScalarProperty Name="JaarId" ColumnName="JaarId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Status)">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="Status1" ColumnName="Status1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudieBelasting">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.StudieBelasting)">
+        <MappingFragment StoreEntitySet="StudieBelasting">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Activiteit" ColumnName="Activiteit" />
+          <ScalarProperty Name="ContactUren" ColumnName="ContactUren" />
+          <ScalarProperty Name="Duur" ColumnName="Duur" />
+          <ScalarProperty Name="Frequentie" ColumnName="Frequentie" />
+          <ScalarProperty Name="SBU" ColumnName="SBU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudiePunten">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.StudiePunten)">
+        <MappingFragment StoreEntitySet="StudiePunten">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
+          <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
+          <ScalarProperty Name="EC" ColumnName="EC" />
+          <ScalarProperty Name="Minimum" ColumnName="Minimum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tag">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Tag)">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Toetsvorm">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Toetsvorm)">
+        <MappingFragment StoreEntitySet="Toetsvorm">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Weekplanning">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Weekplanning)">
+        <MappingFragment StoreEntitySet="Weekplanning">
+          <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Onderwerp" ColumnName="Onderwerp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Werkvorm">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Werkvorm)">
+        <MappingFragment StoreEntitySet="Werkvorm">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Omschrijving" ColumnName="Omschrijving" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Docenten">
+      <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Docent)">
+        <MappingFragment StoreEntitySet="Docenten">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ModuleLeerlijn" TypeName="IN06SOb_ModuleManagerModel.ModuleLeerlijn" StoreEntitySet="ModuleLeerlijn">
+      <EndProperty Name="Leerlijn">
+        <ScalarProperty Name="Naam" ColumnName="Leerlijn_Naam" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Leerlijn_Schooljaar" />
+      </EndProperty>
+      <EndProperty Name="Module">
+        <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ModuleTag" TypeName="IN06SOb_ModuleManagerModel.ModuleTag" StoreEntitySet="ModuleTag">
+      <EndProperty Name="Module">
+        <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
+      </EndProperty>
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="Naam" ColumnName="Tag_Naam" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Tag_Schooljaar" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Voorkennis" TypeName="IN06SOb_ModuleManagerModel.Voorkennis" StoreEntitySet="Voorkennis">
+      <EndProperty Name="Module">
+        <ScalarProperty Name="CursusCode" ColumnName="Voorkennis_CursusCode" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Voorkennis_Schooljaar" />
+      </EndProperty>
+      <EndProperty Name="Module1">
+        <ScalarProperty Name="CursusCode" ColumnName="Vervolg_CursusCode" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Vervolg_Schooljaar" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ModuleDocent" TypeName="IN06SOb_ModuleManagerModel.ModuleDocent" StoreEntitySet="ModuleDocent">
+      <EndProperty Name="Docent">
+        <ScalarProperty Name="Id" ColumnName="Docenten_Id" />
+      </EndProperty>
+      <EndProperty Name="Module">
+        <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
+        <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -1823,7 +1835,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

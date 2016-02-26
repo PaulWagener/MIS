@@ -71,7 +71,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" class="form-control" id="name" placeholder="Naam" value="@Model.Module.Naam" disabled="disabled">
+                                <input type="text" class="form-control" id="Naam" placeholder="Naam" value="@Model.Module.Naam" disabled="disabled">
                             </td>
                         </tr>
                     </table>
@@ -82,26 +82,54 @@
                         </tr>
                         <tr>
                             <td>
-                                <textarea class="form-control" id="description" placeholder="Beschrijving">@Model.Module.Beschrijving</textarea>
+                                <textarea class="form-control" name="Module.Beschrijving" placeholder="Beschrijving">@Model.Module.Beschrijving</textarea>
                             </td>
                         </tr>
                     </table>
 
-                    <table style="width:100%;" class="table" id="comp-table" data-niveaus='@Html.Raw(Json.Encode(from n in Model.Options.Niveaus select n.Niveau1))'>
-                        <tr>
-                            <td><label>Competentie</label></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        @for (int i = 0; i < Model.Options.Niveaus.Count; i++)
-                        {
+ 
+    
+                    var moduleCompetenties = Html.Raw(Json.Encode(Model.Module.ModuleCompetentie));
+                    var options = Html.Raw(Json.Encode(Model.Options));    
+                    
+                    <section ng-controller="CompetentieCtrl" ng-init='init(@moduleCompetenties, @options)'>
+                        <h2>Competentie</h2>
+                        <table class="table">
+                            <tr>
+                                <td>niveau</td>
+                                <td>werkvorm</td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="comp in moduleCompetenties">
+                                <td>
+                                    <select name="Module.ModuleCompetentie[{{$index}}].niveau" class="form-control" ng-model="comp.Niveau">
+                                        <option ng-repeat="niveau in niveaus" value="{{niveau.Niveau1}}">{{niveau.Niveau1}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="Module.ModuleCompetentie[{{$index}}].CompetentieCode" class="form-control" ng-model="comp.CompetentieCode">
+                                        <option ng-repeat=" competentie in competenties" value="{{competentie['Value']}}">
+                                            {{competentie["Text"]}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button ng-click="removeCompetentie($index)" class="btn btn-danger btn-sm" type="button">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
                             <tr>
                                 <td></td>
-                                <td><label for="@Model.Options.Niveaus.ElementAt(i).Niveau1-select">@Model.Options.Niveaus.ElementAt(i).Niveau1</label></td>
-                                <td>@Html.DropDownList("ModuleCompetentie", new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
-                            </tr>
-                        }
-                    </table>
+                                <td></td>
+                                <td style="width: 90px">
+                                    <button ng-click="addCompetentie()" class="btn btn-success btn-sm" type="button">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </td>
+                             </tr>
+                        </table>
+                    </section>
 
                     <table class="table">
                         <tr>
@@ -131,18 +159,18 @@
                         </tr>
                         <tr>
                             <td>
-                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Module2.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
+                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.VoorkennisModules.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
                             </td>
                         </tr>
                     </table>
 
                     <table class="table">
                         <tr>
-                            <td><label for="voorkennis">Docenten</label></td>
+                            <td><label for="docenten">Docenten</label></td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.DropDownList("Docenten", new MultiSelectList(Model.Options.Docenten, "Name", "Name", Model.Module.Docent.Select(m => m.Name)), new { @id = "docenten", @multiple = "multiple", @class = "form-control" })
+                                @Html.DropDownList("Docenten", new MultiSelectList(Model.Options.Docenten, "Id", "Naam", Model.Module.Docenten.Select(m => m.Id)), new { @id = "docenten", @multiple = "multiple", @class = "form-control" })
                             </td>
                         </tr>
                     </table>
@@ -152,7 +180,7 @@
                         <table class="table table-bordered table-center table-striped">
                             <tbody>
                                 <tr>
-                                    <th style="min-width: 250px;"><label for="werkvorm">Werkvorm</label></th>
+                                    <th><label for="werkvorm">Werkvorm</label></th>
                                     <td>
                                         <select name="werkvorm" class="form-control" id="werkvorm" multiple>
                                             @foreach (var werkvorm in Model.Module.ModuleWerkvorm)
@@ -211,13 +239,13 @@
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
-                                                    </td>
-                                                    <td style="width: 90px; text-align:center">
-                                                        <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
                                                 }
                                                 <tr>
                                                     <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
@@ -387,8 +415,8 @@
                     <button type="submit" class="btn btn-success btn-lg">Opslaan</button>
                     <a href="@Url.Action("Overview_Teacher_Temp", "Module")" class="btn btn-default">Annuleren</a>
 
-                }
-            </div>
+                    }
+</div>
 
         </div>
     </div>
@@ -506,9 +534,9 @@
 
         $("#voorkennis option:selected").each(function (i, selected) {
 
-            var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-            var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+            var newRow1 = "<input name='Module.VoorkennisModules[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.VoorkennisModules[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.VoorkennisModules[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
 
             $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
 
@@ -519,11 +547,8 @@
 
         $("#docenten option:selected").each(function (i, selected) {
 
-            var newRow1 = "<input name='Module.Docent[" + index + "].Name' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Docent[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-            var newRow3 = "<input name='Module.Docent[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-
-            $hidden_docenten.append(newRow1 + newRow2 + newRow3);
+            var newRow1 = "<input name='Module.Docenten[" + index + "].Id' type='hidden' value=" + $(selected).val() + ">";
+            $hidden_docenten.append(newRow1);
 
             ++index;
         });

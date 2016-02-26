@@ -107,13 +107,10 @@ namespace ModuleManager.Web.Controllers
                 int? result;
                 try
                 {
-                    var resultlist = context.spAuthenticateUser(username, hashedPassword);
-                    var list = new List<int?>();
-
-                    list = (from element in resultlist select element).ToList();
-                    result = list.SingleOrDefault();
+                    var resultlist = context.spAuthenticateUser(username, hashedPassword).ToList();
+                    result = resultlist.SingleOrDefault();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     result = -3;
                 }

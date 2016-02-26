@@ -17,7 +17,6 @@ namespace ModuleManager.DomainDAL
         public Module()
         {
             this.Beoordelingen = new HashSet<Beoordelingen>();
-            this.Docent = new HashSet<Docent>();
             this.FaseModules = new HashSet<FaseModules>();
             this.Leerdoelen = new HashSet<Leerdoelen>();
             this.Leermiddelen = new HashSet<Leermiddelen>();
@@ -28,8 +27,9 @@ namespace ModuleManager.DomainDAL
             this.Weekplanning = new HashSet<Weekplanning>();
             this.Leerlijn = new HashSet<Leerlijn>();
             this.Tag = new HashSet<Tag>();
-            this.Module1 = new HashSet<Module>();
-            this.Module2 = new HashSet<Module>();
+            this.Vervolg = new HashSet<Module>();
+            this.Voorkennis = new HashSet<Module>();
+            this.Docenten = new HashSet<Docent>();
         }
     
         public string CursusCode { get; set; }
@@ -42,7 +42,6 @@ namespace ModuleManager.DomainDAL
         public string Icon { get; set; }
     
         public virtual ICollection<Beoordelingen> Beoordelingen { get; set; }
-        public virtual ICollection<Docent> Docent { get; set; }
         public virtual ICollection<FaseModules> FaseModules { get; set; }
         public virtual Icons Icons { get; set; }
         public virtual ICollection<Leerdoelen> Leerdoelen { get; set; }
@@ -56,7 +55,8 @@ namespace ModuleManager.DomainDAL
         public virtual ICollection<Weekplanning> Weekplanning { get; set; }
         public virtual ICollection<Leerlijn> Leerlijn { get; set; }
         public virtual ICollection<Tag> Tag { get; set; }
-        public virtual ICollection<Module> Module1 { get; set; }
-        public virtual ICollection<Module> Module2 { get; set; }
+        public virtual ICollection<Module> Vervolg { get; set; }
+        public virtual ICollection<Module> Voorkennis { get; set; }
+        public virtual ICollection<Docent> Docenten { get; set; }
     }
 }

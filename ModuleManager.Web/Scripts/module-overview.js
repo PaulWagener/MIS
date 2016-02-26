@@ -12,10 +12,10 @@ $(function () {
     initToggleColumns();
     initSelectAll();
 
-    $("#exportModules").on("click", function(e) {
-        e.preventDefault();
-        exportModules();
-    });
+    //$("#exportModules").on("click", function(e) {
+    //    e.preventDefault();
+    //    exportModules();
+    //});
 
 
     $("#modules").on("click", "tbody tr", function () {
@@ -278,3 +278,10 @@ function exportModules() {
     });
 
 }
+
+function exportOnSubmit() {
+  
+    $('#filterForm :input').not(':submit').clone().hide().appendTo('#exportForm');
+
+    return true;
+};

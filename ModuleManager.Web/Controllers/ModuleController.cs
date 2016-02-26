@@ -5,6 +5,7 @@ using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.ExtensionMethods;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.EntityViewModel;
@@ -23,11 +24,14 @@ namespace ModuleManager.Web.Controllers
         private readonly IExporterService<Module> _moduleExporterService;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
+        private Api.ModuleController _moduleApi { get; set; }
+
         public ModuleController(IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
             _moduleExporterService = moduleExporterService;
             _filterSorterService = filterSorterService;
             _unitOfWork = unitOfWork;
+            _moduleApi = new Api.ModuleController(filterSorterService, unitOfWork);
         }
 
         /// <summary>
@@ -37,8 +41,10 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
+
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
             //Collect the possible filter options the user can choose.
+
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
             filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
@@ -48,10 +54,12 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
             filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
 
+
             //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                FilterOptions = filterOptions
+                FilterOptions = filterOptions,
+                ModuleViewModels = _moduleApi.GetAll(),
             };
 
             return View(moduleOverviewVm);
@@ -91,12 +99,15 @@ namespace ModuleManager.Web.Controllers
                 isLockedForEdit = true;
             }
 
+            //new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
+            MultiSelectList competetentieVM = new MultiSelectList(competenties, "Code", "Naam");
+
             var moduleEditViewModel = new ModuleEditViewModel
             {
                 Module = Mapper.Map<Module, ModuleViewModel>(module),
                 Options = new ModuleEditOptionsViewModel
                 {
-                    Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
+                    Competenties = competetentieVM,
                     Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
                     Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
                     Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
@@ -114,44 +125,81 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
-            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
-            
-            moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
-            moduleToEdit.Docent = moduleVm.Module.MapToDocent();
-            moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
-            moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
-            moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
-            moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
-            moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
-            moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
-            moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
-            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
-            moduleToEdit.Tag = moduleVm.Module.MapToTag();
-            moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
+            using(var context = new DomainContext()){
 
-            var voorkennisModules = new List<Module>();
-            foreach (var voorkennisModule in moduleVm.Module.Module2)
-            {
-                var voorMod =
-                    _unitOfWork.GetRepository<Module>()
-                        .GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
-                voorkennisModules.Add(voorMod);
+                //Ophalen originele module
+                var module = context.Module.Find(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+
+                //simpel fields
+                module.Beschrijving = moduleVm.Module.Beschrijving;
+
+                //### many to many ###
+                //#leerlijnen
+                module.Leerlijn.Clear();
+                var leerlijnen = new List<Leerlijn>();
+                foreach(var leerlijn in moduleVm.Module.Leerlijn)
+                {
+                    leerlijnen.Add(context.Leerlijn.Find(new object[] { leerlijn.Naam,leerlijn.Schooljaar }));
+                }
+                module.Leerlijn = leerlijnen;
+
+                //#tags
+                module.Tag.Clear();
+                var tags = new List<Tag>();
+                foreach (var tag in moduleVm.Module.Tag)
+                {
+                    tags.Add(context.Tag.Find(new object[] { tag.Naam, tag.Schooljaar }));
+                }
+                module.Tag = tags;
+
+                //#modules voorkennis
+                module.Voorkennis.Clear();
+                var voorkennis = new List<Module>();
+                foreach (var moduleVoorkennis in moduleVm.Module.VoorkennisModules)
+                {
+                    voorkennis.Add(context.Module.Find(moduleVoorkennis.CursusCode, moduleVoorkennis.Schooljaar));
+                }
+                module.Voorkennis = voorkennis;
+
+                //#modules docenten
+                module.Docenten.Clear();
+                var docenten = new List<Docent>();
+                foreach (var docent in moduleVm.Module.Docenten)
+                {
+                    docenten.Add(context.Docenten.Find(docent.Id));
+                }
+                module.Docenten = docenten;
+
+  
+
+                module.Leerdoelen.Clear();
+                module.Leerdoelen = moduleVm.Module.Leerdoelen.Select(l => l.ToPoco(context)).ToList();
+                module.Leermiddelen.Clear();
+                module.Leermiddelen = moduleVm.Module.Leermiddelen.Select(l => l.ToPoco(context)).ToList();
+                module.StudieBelasting.Clear();
+                context.SaveChanges(); //jammer maar nodig
+                module.StudieBelasting = moduleVm.Module.StudieBelasting.Select(s => s.ToPoco(context)).ToList();
+                module.Weekplanning.Clear();
+                module.Weekplanning = moduleVm.Module.Weekplanning.Select(w => w.ToPoco(context)).ToList();
+                module.Beoordelingen.Clear();
+                module.Beoordelingen = moduleVm.Module.Beoordelingen.Select(b => b.ToPoco(context)).ToList();
+
+                //koppel tabellen
+                module.ModuleWerkvorm.Clear();
+                module.ModuleWerkvorm = moduleVm.Module.ModuleWerkvorm.Select(wv => wv.ToPoco(context)).ToList();
+                module.ModuleCompetentie.Clear();
+                module.ModuleCompetentie = moduleVm.Module.ModuleCompetentie.Select(mc => mc.ToPoco(context, module)).ToList();
+
+                if(moduleVm.Module.IsCompleted)
+                {
+                    //Module valideren
+                    module.Status = "Compleet (gecontroleerd)";
+                }
+
+                context.SaveChanges();
             }
 
-            moduleToEdit.Module2 = voorkennisModules;
-
-            if (moduleVm.Module.IsCompleted)
-            {
-                moduleToEdit.Status = "Compleet (ongecontroleerd)";
-            }
-
-            _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
-            _unitOfWork.Dispose();
-
-
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
-            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            return View(modVm);
+            return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }
 
         //PDF Download Code
@@ -167,7 +215,7 @@ namespace ModuleManager.Web.Controllers
         }
 
 
-        [HttpPost, Route("Module/ExportAll")]
+        [HttpPost]
         public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
@@ -177,43 +225,15 @@ namespace ModuleManager.Web.Controllers
                 modules = modules.Where(element => element.Status.Equals("Compleet (gecontroleerd)"));
             }
 
-            ICollection<string> competentieFilters = null;
-            if (value.Filters.Competenties.First() != null)
-                competentieFilters = value.Filters.Competenties;
-
-            ICollection<string> tagFilters = null;
-            if (value.Filters.Tags.First() != null)
-                tagFilters = value.Filters.Tags;
-
-            ICollection<string> leerlijnFilters = null;
-            if (value.Filters.Leerlijnen.First() != null)
-                leerlijnFilters = value.Filters.Leerlijnen;
-
-            ICollection<string> faseFilters = null;
-            if (value.Filters.Fases.First() != null)
-                faseFilters = value.Filters.Fases;
-
-            ICollection<string> blokFilters = null;
-            if (value.Filters.Blokken.First() != null)
-                blokFilters = value.Filters.Blokken;
-
-            string zoektermFilter = null;
-            if (value.Filters.Zoekterm != null)
-                zoektermFilter = value.Filters.Zoekterm;
-
-            string leerjaarFilter = null;
-            if (value.Filters.Leerjaar != null)
-                leerjaarFilter = value.Filters.Leerjaar;
-
             var arguments = new ModuleFilterSorterArguments
             {
-                CompetentieFilters = competentieFilters,
-                TagFilters = tagFilters,
-                LeerlijnFilters = leerlijnFilters,
-                FaseFilters = faseFilters,
-                BlokFilters = blokFilters,
-                ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter
+                CompetentieFilters = value.Filters.Competenties,
+                TagFilters = value.Filters.Tags,
+                LeerlijnFilters = value.Filters.Leerlijnen,
+                FaseFilters = value.Filters.Fases,
+                BlokFilters = value.Filters.Blokken,
+                ZoektermFilter = value.Filters.Zoekterm,
+                LeerjaarFilter = value.Filters.Leerjaar
             };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
@@ -246,24 +266,11 @@ namespace ModuleManager.Web.Controllers
                 expByName = "download";
             }
 
-            string saveTo = DateTime.Now.ToString("yyyy-MM-dd") + "_" + expByName;
-            Session[saveTo] = fStream;
-
-            //Return the filename under which you can retrieve it from Session data.
-            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/All/{saveTo}
-            //This redirect will be caught in the controller action below here.
-            return Json(saveTo);
-        }
-
-        [HttpGet, Route("Module/Export/All/{loadFrom}")]
-        public FileStreamResult GetExportAllModules(string loadFrom)
-        {
-            BufferedStream fStream = Session[loadFrom] as BufferedStream;
-            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
-            Session[loadFrom] = null;
-
             return new FileStreamResult(fStream, "application/pdf");
+
+        
         }
+
 
         protected override void Dispose(bool disposing)
         {

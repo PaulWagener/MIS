@@ -9,6 +9,7 @@ using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.Web.ViewModels.RequestViewModels;
+using AutoMapper;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -17,11 +18,14 @@ namespace ModuleManager.Web.Controllers.Api
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
+
         public ModuleController(IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
             _filterSorterService = filterSorterService;
             _unitOfWork = unitOfWork;
         }
+
+
 
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
@@ -60,9 +64,7 @@ namespace ModuleManager.Web.Controllers.Api
             string columnName;
             switch (column)
             {
-                case 1:
-                    columnName = "Naam";
-                    break;
+                case 1:columnName = "Naam";break;
                 case 2:
                     columnName = "CursusCode";
                     break;
@@ -139,6 +141,18 @@ namespace ModuleManager.Web.Controllers.Api
         {
             _unitOfWork.Dispose();
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Get all the modules via the Module Repository
+        /// </summary>
+        /// <returns>List of ModulePartialViewModel</returns>
+        [HttpGet, Route("api/Module/GetAll")]
+        public IEnumerable<ModulePartialViewModel> GetAll()
+        {
+            return _unitOfWork.GetRepository<Module>().GetAll()
+                .Select(Mapper.Map<Module, ModulePartialViewModel>)
+                .ToList();
         }
     }
 }

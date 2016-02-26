@@ -20,7 +20,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                               (
                               (m.Beschrijving ?? "").Contains(args.ZoektermFilter.ToLower()) ||
                               (m.CursusCode ?? "").ToLower().Contains(args.ZoektermFilter.ToLower()) ||
-                              (from d in m.Docent select (d.Name ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||
+                              (from d in m.Docenten select (d.Naam ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||
                               (from l in m.Leerdoelen select (l.Beschrijving ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||
                               (from l in m.Leerdoelen select (l.CursusCode ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||
                               (from l in m.Leerlijn select (l.Naam ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||

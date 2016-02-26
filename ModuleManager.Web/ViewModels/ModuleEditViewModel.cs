@@ -7,5 +7,16 @@ namespace ModuleManager.Web.ViewModels
     {
         public ModuleViewModel Module { get; set; }
         public ModuleEditOptionsViewModel Options { get; set; }
+
+        public ModuleEditViewModel()
+        {
+
+        }
+
+        public ModuleEditViewModel(ModuleViewModel _module)
+        {
+            this.Module = _module;
+        }
+
     }
 }

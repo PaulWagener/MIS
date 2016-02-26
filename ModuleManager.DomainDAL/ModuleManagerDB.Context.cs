@@ -30,7 +30,6 @@ namespace ModuleManager.DomainDAL
         public virtual DbSet<Beoordelingen> Beoordelingen { get; set; }
         public virtual DbSet<Blok> Blok { get; set; }
         public virtual DbSet<Competentie> Competentie { get; set; }
-        public virtual DbSet<Docent> Docent { get; set; }
         public virtual DbSet<Fase> Fase { get; set; }
         public virtual DbSet<FaseModules> FaseModules { get; set; }
         public virtual DbSet<FaseType> FaseType { get; set; }
@@ -52,6 +51,7 @@ namespace ModuleManager.DomainDAL
         public virtual DbSet<Toetsvorm> Toetsvorm { get; set; }
         public virtual DbSet<Weekplanning> Weekplanning { get; set; }
         public virtual DbSet<Werkvorm> Werkvorm { get; set; }
+        public virtual DbSet<Docent> Docenten { get; set; }
     
         public virtual int SP_ArchiveYear()
         {

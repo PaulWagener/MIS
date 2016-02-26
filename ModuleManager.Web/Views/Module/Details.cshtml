@@ -21,7 +21,7 @@
         // Docenten
         try
         {
-            docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
+            docenten = @Model.Docenten.Aggregate("", (current, docent) => current + (docent.Naam + ", "));
             docenten = docenten.Remove(docenten.Length - 2);
         }
         catch (Exception) {}
@@ -72,7 +72,7 @@
             <div class="col-md-12">
                 <div class="pull-right">
                     <a class="btn btn-default" href="@Url.Action("Overview", "Module")">Terug</a>
-                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>               
+                    <a class="btn btn-success" target="_blank" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>               
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             <a class="btn btn-warning" href="/module/edit/@Model.Schooljaar/@Model.CursusCode" ><i class="fa fa-edit"></i> Bewerken</a>
@@ -144,10 +144,10 @@
                         <tr>
                             <td>Voorkennis</td>
                             <td colspan="2">
-                                @foreach (var i in Model.Module2)
+                                @foreach (var i in Model.VoorkennisModules)
                                 {
                                     <a href="@Url.Action("Details", "Module", new {schooljaar = i.Schooljaar, cursuscode = i.CursusCode})">@i.Naam</a>
-                                    if (Model.Module2.Last().Naam != i.Naam && Model.Module2.Last().Schooljaar != i.Schooljaar && Model.Module2.Last().CursusCode != i.CursusCode)
+                                    if (Model.VoorkennisModules.Last().Naam != i.Naam && Model.VoorkennisModules.Last().Schooljaar != i.Schooljaar && Model.VoorkennisModules.Last().CursusCode != i.CursusCode)
                                     {
                                         <label>,&nbsp;</label>
                                     }
@@ -178,12 +178,14 @@
                     <tbody>
                         <tr>
                             <th>Competentie</th>
+                            <th>Niveau</th>
                             <th>Omschrijving</th>
                         </tr>
                         @foreach (ModuleCompetentieViewModel moduleCompetentie in Model.ModuleCompetentie)
                         {
                             <tr>
                                 <td>@moduleCompetentie.Competentie.Naam</td>
+                                <td>@moduleCompetentie.Niveau</td>
                                 @{
                             string[] competenties = null;
                             competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
