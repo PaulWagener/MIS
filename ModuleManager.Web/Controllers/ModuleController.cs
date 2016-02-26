@@ -198,7 +198,7 @@ namespace ModuleManager.Web.Controllers
                 module.ModuleWerkvorm.Clear();
                 module.ModuleWerkvorm = moduleVm.Module.ModuleWerkvorm.Select(wv => wv.ToPoco(context)).ToList();
                 module.ModuleCompetentie.Clear();
-                module.ModuleCompetentie = moduleVm.Module.ModuleCompetentie.Select(mc => mc.ToPoco(context, module)).ToList();
+                module.ModuleCompetentie = moduleVm.Module.ModuleCompetentie.Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
 
                 if(moduleVm.Module.IsCompleted)
                 {
