@@ -17,6 +17,6 @@
     }
 
     $scope.addCompetentie = function () {
-        $scope.moduleCompetenties.push({ nivea: "Beginner" });
+        $scope.moduleCompetenties.push({ Niveau: "Beginner" });
     }
 });
