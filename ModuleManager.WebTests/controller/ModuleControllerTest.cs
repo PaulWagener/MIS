@@ -247,6 +247,24 @@ namespace ModuleManager.WebTests
             }
         }
 
+        [TestMethod]
+        public void ModuleController_Edit_IncompleteCompetentie_Ignore()
+        {
+            //1. Arrange
+            var vm = GetModuleEditViewModel();
+            vm.Module.ModuleCompetentie.Add(new ModuleCompetentieViewModel() { CompetentieCode = null, Niveau = "Beginner" });
+
+            //2. Act
+            controller.Edit(vm);
+
+            using (var context = new DomainContext())
+            {
+                //3. Assert (alwasy in new context
+                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(0, module.ModuleCompetentie.Count);
+            }
+        }
+
 
         [TestMethod]
         public void ModuleController_Edit_ModuleWerkvorm_Success()

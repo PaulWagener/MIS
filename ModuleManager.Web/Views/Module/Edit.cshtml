@@ -108,7 +108,8 @@
                                 </td>
                                 <td>
                                     <select name="Module.ModuleCompetentie[{{$index}}].CompetentieCode" class="form-control" ng-model="comp.CompetentieCode">
-                                        <option ng-repeat=" competentie in competenties" value="{{competentie['Value']}}">
+                                        <option style="display:none" value="">&lt;Kies een competentie&gt;</option>
+                                        <option ng-repeat="competentie in competenties" value="{{competentie['Value']}}">
                                             {{competentie["Text"]}}
                                         </option>
                                     </select>
