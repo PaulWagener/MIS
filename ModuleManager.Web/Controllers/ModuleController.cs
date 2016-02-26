@@ -24,11 +24,14 @@ namespace ModuleManager.Web.Controllers
         private readonly IExporterService<Module> _moduleExporterService;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
+        private Api.ModuleController _moduleApi { get; set; }
+
         public ModuleController(IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
             _moduleExporterService = moduleExporterService;
             _filterSorterService = filterSorterService;
             _unitOfWork = unitOfWork;
+            _moduleApi = new Api.ModuleController(filterSorterService, unitOfWork);
         }
 
         /// <summary>
@@ -38,8 +41,20 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
+
+            /*** 
+             * I AM THE EVIL COMMIT! 
+             * FEAR ME MORTALS
+             * FOR I HAVE COME TO CLAIM YOU'RE SOUL
+             * 
+             * (\_/)
+             * (O.0)
+             * (")(")
+             * 
+             * **/
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
             //Collect the possible filter options the user can choose.
+
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
             filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
@@ -49,10 +64,12 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
             filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
 
+
             //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                FilterOptions = filterOptions
+                FilterOptions = filterOptions,
+                ModuleViewModels = _moduleApi.GetAll(),
             };
 
             return View(moduleOverviewVm);
