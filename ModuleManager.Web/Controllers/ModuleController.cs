@@ -42,16 +42,6 @@ namespace ModuleManager.Web.Controllers
         public ActionResult Overview()
         {
 
-            /*** 
-             * I AM THE EVIL COMMIT! 
-             * FEAR ME MORTALS
-             * FOR I HAVE COME TO CLAIM YOU'RE SOUL
-             * 
-             * (\_/)
-             * (O.0)
-             * (")(")
-             * 
-             * **/
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
             //Collect the possible filter options the user can choose.
 
