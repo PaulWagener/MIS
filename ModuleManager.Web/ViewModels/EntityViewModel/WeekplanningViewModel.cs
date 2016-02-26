@@ -13,18 +13,19 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         internal DomainDAL.Weekplanning ToPoco(DomainContext context)
         {
             DomainDAL.Weekplanning weekPlanning = context.Weekplanning.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
+          // controleer eerst of beide velden gevuld zijn
+          if (Week != null && Onderwerp != null) {
 
             if (weekPlanning == null)
             {
                 weekPlanning = new Weekplanning();
             }
-
-            weekPlanning.Id = Id;
-            weekPlanning.Schooljaar = Schooljaar;
-            weekPlanning.CursusCode = CursusCode;
-            weekPlanning.Week = Week;
-            weekPlanning.Onderwerp = Onderwerp;
-
+              weekPlanning.Id = Id;
+              weekPlanning.Schooljaar = Schooljaar;
+              weekPlanning.CursusCode = CursusCode;
+              weekPlanning.Week = Week;
+              weekPlanning.Onderwerp = Onderwerp;
+            }
             return weekPlanning;
         }
 
