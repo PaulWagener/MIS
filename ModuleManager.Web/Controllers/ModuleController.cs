@@ -198,7 +198,7 @@ namespace ModuleManager.Web.Controllers
                 context.SaveChanges();
             }
 
-            if (moduleVm.AfterSubmit.Equals("stay"))
+            if (moduleVm.AfterSubmit == "stay")
             {
                 return RedirectToAction("Edit/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
             }
