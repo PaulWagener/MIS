@@ -59,7 +59,6 @@ namespace ModuleManager.Web.Controllers
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
                 FilterOptions = filterOptions,
-                ModuleViewModels = _moduleApi.GetAll(),
             };
 
             return View(moduleOverviewVm);
@@ -199,6 +198,11 @@ namespace ModuleManager.Web.Controllers
                 context.SaveChanges();
             }
 
+            if (moduleVm.AfterSubmit.Equals("stay"))
+            {
+                return RedirectToAction("Edit/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
+            }
+                
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }
 
