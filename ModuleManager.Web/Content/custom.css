@@ -329,3 +329,9 @@ body.modal-open {
 #modules_filter label {
     float: none;
 }
+
+
+/** Module Edit */
+#wp td:first-child{
+    width:80px;
+}
