@@ -59,7 +59,6 @@ namespace ModuleManager.Web.Controllers
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
                 FilterOptions = filterOptions,
-                ModuleViewModels = _moduleApi.GetAll(),
             };
 
             return View(moduleOverviewVm);

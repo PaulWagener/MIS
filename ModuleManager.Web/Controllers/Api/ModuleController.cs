@@ -32,78 +32,82 @@ namespace ModuleManager.Web.Controllers.Api
         {
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
-            ICollection<string> competentieFilters = null;
-            if (value.Filter.Competenties.First() != null)
-                competentieFilters = value.Filter.Competenties;
-
-            ICollection<string> tagFilters = null;
-            if (value.Filter.Tags.First() != null)
-                tagFilters = value.Filter.Tags;
-
-            ICollection<string> leerlijnFilters = null;
-            if (value.Filter.Leerlijnen.First() != null)
-                leerlijnFilters = value.Filter.Leerlijnen;
-
-            ICollection<string> faseFilters = null;
-            if (value.Filter.Fases.First() != null)
-                faseFilters = value.Filter.Fases;
-
-            ICollection<string> blokFilters = null;
-            if (value.Filter.Blokken.First() != null)
-                blokFilters = value.Filter.Blokken.ToArray();
-
-            string zoektermFilter = null;
-            if (value.Filter.Zoekterm != null)
-                zoektermFilter = value.Filter.Zoekterm;
-
-            string leerjaarFilter = null;
-            if (value.Filter.Leerjaar != null)
-                leerjaarFilter = value.Filter.Leerjaar;
-
-            int column = value.OrderBy.Column;
-            string columnName;
-            switch (column)
+            if (value != null)
             {
-                case 1:columnName = "Naam";break;
-                case 2:
-                    columnName = "CursusCode";
-                    break;
-                case 3:
-                    columnName = "Schooljaar";
-                    break;
-                case 7:
-                    columnName = "Verantwoordelijke";
-                    break;
-                default:
-                    columnName = "Naam";
-                    break;
+                ICollection<string> competentieFilters = null;
+                if (value.Filter.Competenties.First() != null)
+                    competentieFilters = value.Filter.Competenties;
+
+                ICollection<string> tagFilters = null;
+                if (value.Filter.Tags.First() != null)
+                    tagFilters = value.Filter.Tags;
+
+                ICollection<string> leerlijnFilters = null;
+                if (value.Filter.Leerlijnen.First() != null)
+                    leerlijnFilters = value.Filter.Leerlijnen;
+
+                ICollection<string> faseFilters = null;
+                if (value.Filter.Fases.First() != null)
+                    faseFilters = value.Filter.Fases;
+
+                ICollection<string> blokFilters = null;
+                if (value.Filter.Blokken.First() != null)
+                    blokFilters = value.Filter.Blokken.ToArray();
+
+                string zoektermFilter = null;
+                if (value.Filter.Zoekterm != null)
+                    zoektermFilter = value.Filter.Zoekterm;
+
+                string leerjaarFilter = null;
+                if (value.Filter.Leerjaar != null)
+                    leerjaarFilter = value.Filter.Leerjaar;
+
+                int column = value.OrderBy.Column;
+                string columnName;
+                switch (column)
+                {
+                    case 1: columnName = "Naam"; break;
+                    case 2:
+                        columnName = "CursusCode";
+                        break;
+                    case 3:
+                        columnName = "Schooljaar";
+                        break;
+                    case 7:
+                        columnName = "Verantwoordelijke";
+                        break;
+                    default:
+                        columnName = "Naam";
+                        break;
+                }
+
+                bool dir;
+                if (value.OrderBy.Dir == "desc")
+                {
+                    dir = true;
+                }
+                else
+                {
+                    dir = false;
+                }
+
+                var arguments = new ModuleFilterSorterArguments
+                {
+                    CompetentieFilters = competentieFilters,
+                    TagFilters = tagFilters,
+                    LeerlijnFilters = leerlijnFilters,
+                    FaseFilters = faseFilters,
+                    BlokFilters = blokFilters,
+                    ZoektermFilter = zoektermFilter,
+                    LeerjaarFilter = leerjaarFilter,
+                    SortBy = columnName,
+                    SortDesc = dir
+                };
+
+                var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
+                modules = _filterSorterService.ProcessData(queryPack);
+
             }
-
-            bool dir;
-            if (value.OrderBy.Dir == "desc")
-            {
-                dir = true;
-            }
-            else
-            {
-                dir = false;
-            }
-
-            var arguments = new ModuleFilterSorterArguments
-            {
-                CompetentieFilters = competentieFilters,
-                TagFilters = tagFilters,
-                LeerlijnFilters = leerlijnFilters,
-                FaseFilters = faseFilters,
-                BlokFilters = blokFilters,
-                ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter,
-                SortBy = columnName,
-                SortDesc = dir
-            };
-
-            var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-            modules = _filterSorterService.ProcessData(queryPack);
 
             var enumerable = modules as Module[] ?? modules.ToArray();
             var modArray = enumerable.ToArray().Where(m => m.Status.Equals("Compleet (gecontroleerd)"));
@@ -114,6 +118,7 @@ namespace ModuleManager.Web.Controllers.Api
             var moduleList = modArray as Module[] ?? modArray.ToArray();
             var moduleListVm = new ModuleListViewModel(moduleList.Count());
             moduleListVm.AddModules(moduleList);
+            
 
             return moduleListVm;
         }
@@ -143,16 +148,5 @@ namespace ModuleManager.Web.Controllers.Api
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Get all the modules via the Module Repository
-        /// </summary>
-        /// <returns>List of ModulePartialViewModel</returns>
-        [HttpGet, Route("api/Module/GetAll")]
-        public IEnumerable<ModulePartialViewModel> GetAll()
-        {
-            return _unitOfWork.GetRepository<Module>().GetAll()
-                .Select(Mapper.Map<Module, ModulePartialViewModel>)
-                .ToList();
-        }
     }
 }
