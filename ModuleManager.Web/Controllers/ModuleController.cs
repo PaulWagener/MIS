@@ -116,6 +116,7 @@ namespace ModuleManager.Web.Controllers
                     Docenten = docenten.Select(Mapper.Map<Docent, DocentViewModel>).ToList()
                 }
             };
+            moduleEditViewModel.Module.IsCompleted = isComplete;
 
             return View(moduleEditViewModel);
         }
@@ -192,7 +193,10 @@ namespace ModuleManager.Web.Controllers
                 if(moduleVm.Module.IsCompleted)
                 {
                     //Module valideren
-                    module.Status = "Compleet (gecontroleerd)";
+                    module.Status = "Compleet (ongecontroleerd)";
+                } else
+                {
+                    module.Status = "Incompleet";
                 }
 
                 context.SaveChanges();

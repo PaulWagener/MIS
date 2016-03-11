@@ -400,15 +400,7 @@
                         <label for="status">Status</label>
                         <div id="status" class="checkbox" style="padding-left: 10px;">
                             <label>
-                                @if (Model.Module.IsCompleted)
-                                {
-                                    <input name="status" type="checkbox" checked="checked">
-                                }
-                                else
-                                {
-                                    <input name="status" type="checkbox">
-                                }
-                                Compleet?
+                                <input name="Module.IsCompleted" type="checkbox" @(Model.Module.IsCompleted ? "checked" : "") value="true">Compleet?
                             </label>
                         </div>
                     </div>
