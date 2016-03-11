@@ -110,7 +110,7 @@ namespace ModuleManager.Web.Controllers
                     var resultlist = context.spAuthenticateUser(username, hashedPassword).ToList();
                     result = resultlist.SingleOrDefault();
                 }
-                catch (Exception e)
+                catch 
                 {
                     result = -3;
                 }

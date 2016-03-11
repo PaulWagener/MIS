@@ -92,12 +92,6 @@ namespace ModuleManager.Web.Controllers
                 isComplete = false;
             }
 
-            var isLockedForEdit = false;
-            if (module.Status == "Compleet (gecontroleerd)")
-            {
-                isLockedForEdit = true;
-            }
-
             //new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
             MultiSelectList competetentieVM = new MultiSelectList(competenties, "Code", "Naam");
 
