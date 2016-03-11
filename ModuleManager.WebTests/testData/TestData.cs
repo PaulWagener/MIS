@@ -130,9 +130,9 @@ namespace ModuleManager.WebTests
                 {
                     context.SaveChanges();
                 }
-                catch (DbEntityValidationException ex)
+                catch 
                 {
-
+                    //Krijg je Entity errors? Kijk even hier, dat is gemakkelijker. 
                 }
             }
           
