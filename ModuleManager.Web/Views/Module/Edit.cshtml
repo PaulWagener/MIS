@@ -13,7 +13,7 @@
         <div id="primary">
             <div class="col-md-12">
                 <ol class="breadcrumb">
-                    <li><a href="@Url.Action("Overview_Teacher_Temp", "Module")">Home</a></li>
+                    <li><a href="@Url.Action("Overview", "Module")">Home</a></li>
                     <li class="active">Module bewerken</li>
                 </ol>
             </div>
@@ -318,7 +318,7 @@
                                                 }
                                                 <tr>
                                                     <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
-                                                        <button data-target="beoordelingen" data-columns="1" data-collectionname="Weekplanning" data-properties='["Beschrijving"]' data-nextindex="@Model.Module.Beoordelingen.Count" class="btn btn-success row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                        <button data-target="beoordelingen" data-columns="1" data-collectionname="Beoordelingen" data-properties='["Beschrijving"]' data-nextindex="@Model.Module.Beoordelingen.Count" class="btn btn-success row_add" type="button"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -400,22 +400,14 @@
                         <label for="status">Status</label>
                         <div id="status" class="checkbox" style="padding-left: 10px;">
                             <label>
-                                @if (Model.Module.IsCompleted)
-                                {
-                                    <input name="status" type="checkbox" checked="checked">
-                                }
-                                else
-                                {
-                                    <input name="status" type="checkbox">
-                                }
-                                Compleet?
+                                <input name="Module.IsCompleted" type="checkbox" @(Model.Module.IsCompleted ? "checked" : "") value="true">Compleet?
                             </label>
                         </div>
                     </div>
 
                     <button name="afterSubmit" value="stay" type="submit" class="btn btn-success btn-lg">Opslaan</button>
                     <button name="afterSubmit" value="close" class="btn btn-success btn-lg">Opslaan & Sluiten</button>
-                    <a href="@Url.Action("Overview_Teacher_Temp", "Module")" class="btn btn-default">Annuleren</a>
+                    <a href="@Url.Action("Overview", "Module")" class="btn btn-default">Annuleren</a>
 
                     }
 </div>
