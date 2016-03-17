@@ -204,7 +204,8 @@
                                         <td>@item.Verantwoordelijke</td>
                                         <td>@item.CursusCode</td>
                                         <td>@item.Status</td>
-                                        <td class="actions" style="width:45px;">
+                                        <td class="actions" style="width:90px;">
+                                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
                                             @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                         </td>
                                     </tr>
@@ -285,6 +286,9 @@
             $("#ModuleAddBlock").select2({
                 placeholder: "Blok"
             });
+
+
+
 
 
             // GLOBAL DATATABLES SETTINGS

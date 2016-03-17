@@ -1,0 +1,122 @@
+﻿@using ModuleManager.DomainDAL
+@model  ModuleManager.Web.ViewModels.PartialViewModel.ModuleCrudViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="ModuleAdd">Module wijzigen</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Naam)
+            @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CursusCode)
+            @Html.EditorFor(model => model.CursusCode, new { htmlAttributes = new { @class = "form-control" , disabled = "disabled"} })
+        </div>
+        
+        <div class="form-group">
+            <label for="Toetscodes">Toetscodes & Studiepunten</label>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Toetscode1, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Toetscode 1" } })
+                    @Html.ValidationMessageFor(model => model.Toetscode1, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Ec1, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Studiepunten 1" } })
+                    @Html.ValidationMessageFor(model => model.Ec1, "", new { @class = "text-danger" })
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Toetscode2, new { htmlAttributes = new { @class = "form-control", placeholder = "Toetscode 2" } })
+                    @Html.ValidationMessageFor(model => model.Toetscode2, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Ec2, new { htmlAttributes = new { @class = "form-control",  placeholder = "Studiepunten 2" } })
+                    @Html.ValidationMessageFor(model => model.Ec2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Verantwoordelijke)
+            @Html.EditorFor(model => model.Verantwoordelijke, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Verantwoordelijke, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fases)
+            <select name="SelectedFases" class="form-control ajax" id="SelectedFases" multiple>
+                @foreach (var faseType in Model.Fases)
+                {
+                    var selectedText = Model.SelectedFases.Any(f => faseType.Naam == f) ? "selected" : "";
+                    <option value="@faseType.Naam,@faseType.Schooljaar,@faseType.OpleidingNaam,@faseType.OpleidingSchooljaar" @selectedText>@faseType.Naam</option>
+                }              
+            </select>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Blokken)
+            <select name="Blok" class="form-control ajax" id="Blok">
+                @foreach (var blok in Model.Blokken)
+                {
+                    var selectedText = Model.Blok == blok.BlokId ? "selected" : "";
+                    <option @selectedText>@blok.BlokId</option>
+                }
+            </select>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Onderdelen)
+            <select name="Onderdeel" class="form-control ajax" id="Onderdeel">
+                @foreach (var onderdeel in Model.Onderdelen)
+                {
+                    var selectedText = Model.Onderdeel == onderdeel.Code ? "selected" : "";
+                    <option @selectedText>@onderdeel.Code</option>
+                }
+            </select>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Icons)
+                    <select name="Icon" class="form-control ajax" id="Icon">
+                        @foreach (var icon in Model.Icons)
+                        {
+                            var selectedText = Model.Icon == icon.Icon ? "selected" : "";
+                            <option @selectedText>@icon.Icon</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <i id="iconPlaceholder" class="fa fa-3x"></i>
+            </div>
+        </div>
+
+        
+
+        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+        <input class="btn btn-success" type="submit" value="Opslaan" />
+    </div>
+}
+
+
+    <script>
+        $("#SelectedFases").select2({
+            placeholder: "Fases"
+        });
+    </script>
+

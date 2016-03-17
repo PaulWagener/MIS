@@ -39,7 +39,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             var module = new ModuleCrudViewModel()
             {
                 Fases = fases,
-                Blokken = blokken,
+                Blokken = blokken.OrderBy(B => B.BlokId),
                 Icons = icons,
                 Onderdelen = onderdelen
             };
@@ -119,6 +119,122 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             {
                 return Json(new { success = false });
             }
+        }
+
+        [HttpGet, Route("Modules/Edit")]
+        public ActionResult Edit(string cursusCode, string schooljaar)
+        {
+            if (cursusCode == null || schooljaar == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+
+            if (module == null)
+            {
+                return HttpNotFound();
+            }
+
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(x => x.Schooljaar == schooljaar).ToList();
+            var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToList();
+            var icons = _unitOfWork.GetRepository<Icons>().GetAll().ToList();
+            var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToList();
+
+            var moduleVM = new ModuleCrudViewModel()
+            {
+                Schooljaar = module.Schooljaar,
+                CursusCode = module.CursusCode,
+                Naam = module.Naam,
+                Icon = module.Icon,
+                Verantwoordelijke = module.Verantwoordelijke,
+                Onderdeel = module.Onderdeel.Code,
+                Toetscode1 = module.StudiePunten.Count > 0 != null ? module.StudiePunten.ElementAt(0).ToetsCode : null,
+                Ec1 = module.StudiePunten.Count > 0 ? module.StudiePunten.ElementAt(0).EC : 0,
+                Toetscode2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).ToetsCode : null,
+                Ec2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).EC : 0,
+                SelectedFases = module.FaseModules.Select(f => f.FaseNaam).ToArray(),
+
+                Fases = fases,
+                Blokken = blokken.OrderBy(B => B.BlokId),
+                Icons = icons,
+                Onderdelen = onderdelen
+            };
+
+
+            return PartialView("~/Views/Admin/Curriculum/Module/_Edit.cshtml", moduleVM);
+        }
+
+        [HttpPost, Route("Modules/Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ModuleCrudViewModel entity)
+        {
+            try
+            {
+                 Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
+
+
+                /* Studie Punten */
+                ICollection<StudiePunten> studiepuntenList = new List<StudiePunten>();
+                var studiepunt1 = new StudiePunten()
+                {
+                    ToetsCode = entity.Toetscode1,
+                    EC = entity.Ec1
+                };
+                studiepuntenList.Add(studiepunt1);
+
+                if (entity.Toetscode2 != null || entity.Toetscode1 == entity.Toetscode2)
+                {
+                    var studiepunt2 = new StudiePunten()
+                    {
+                        ToetsCode = entity.Toetscode2,
+                        EC = entity.Ec2
+                    };
+                    studiepuntenList.Add(studiepunt2);
+                }
+
+
+                /* Fases */
+                ICollection<FaseModules> fasesList = new List<FaseModules>();
+                foreach (var _fase in entity.SelectedFases)
+                {
+                    var faseSplitted = _fase.Split(',');
+
+                    var faseModule = new FaseModules()
+                    {
+                        FaseNaam = faseSplitted[0],
+                        FaseSchooljaar = faseSplitted[1],
+                        OpleidingNaam = faseSplitted[2],
+                        OpleidingSchooljaar = faseSplitted[3],
+                        ModuleSchooljaar = entity.Schooljaar,
+                        ModuleCursusCode = entity.CursusCode,
+                        Blok = entity.Blok
+                    };
+
+                    fasesList.Add(faseModule);
+                }
+
+
+                module.Naam = entity.Naam;
+                module.Icon = entity.Icon;
+                module.Status = "Nieuw";
+                module.Verantwoordelijke = entity.Verantwoordelijke;
+                module.OnderdeelCode = entity.Onderdeel;
+                
+                module.StudiePunten.Clear();
+                module.FaseModules.Clear();
+                var value = _unitOfWork.GetRepository<Module>().Edit(module);
+
+                module.FaseModules = fasesList;
+                module.StudiePunten = studiepuntenList;
+                value = _unitOfWork.GetRepository<Module>().Edit(module);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false });
+            }
+
         }
 
         [HttpGet, Route("Modules/Delete")]

@@ -7,9 +7,11 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
     public class ModuleCrudViewModel
     {
+        public string Schooljaar { get; set; }
+        public string CursusCode { get; set; }
+
         public string Naam { get; set; }
         public string Verantwoordelijke { get; set; }
-        public string CursusCode { get; set; }
         public string Blok { get; set; }
         public string Icon { get; set; }
         public string Onderdeel { get; set; }
