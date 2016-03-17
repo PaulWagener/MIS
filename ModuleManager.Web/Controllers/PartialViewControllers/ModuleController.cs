@@ -8,6 +8,7 @@ using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.Web.Helpers;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
@@ -39,7 +40,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             var module = new ModuleCrudViewModel()
             {
                 Fases = fases,
-                Blokken = blokken.OrderBy(B => B.BlokId),
+                Blokken = blokken.OrderBy(B => B.BlokId, new NumberWordComparer()),
                 Icons = icons,
                 Onderdelen = onderdelen
             };
@@ -156,7 +157,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 SelectedFases = module.FaseModules.Select(f => f.FaseNaam).ToArray(),
 
                 Fases = fases,
-                Blokken = blokken.OrderBy(B => B.BlokId),
+                Blokken = blokken.OrderBy(B => B.BlokId, new NumberWordComparer()),
                 Icons = icons,
                 Onderdelen = onderdelen
             };
