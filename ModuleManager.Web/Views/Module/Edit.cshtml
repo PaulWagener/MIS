@@ -256,20 +256,24 @@
                                                             @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].ContactUren)
                                                         </td>
                                                         <td>
-                                                            @Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
                                                             @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].SBU)
 
-
-                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].isDeleted, new { @class = "form-control isDeleted" } )
+                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new {  @class = "form-control" } )
+                                                            @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new {  @class = "form-control" } )
                                                         </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 }
+
                                                 <tr>
-                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="6">
+                                                    <td colspan="3"></td>
+                                                    <th>Totaal</th>
+                                                    <td><span id="SBUTotal"></span></td>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" >
                                                         <button data-target="sb" data-columns="5" data-collectionname="StudieBelasting" data-properties='["Activiteit", "Duur", "Frequentie", "ContactUren", "SBU"]' data-nextindex="@Model.Module.StudieBelasting.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                 </tr>
@@ -295,6 +299,7 @@
                                                         <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanning[i].Week, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Weekplanning[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Weekplanning[i].isDeleted, new { @class = "form-control isDeleted" })
                                                             @Html.HiddenFor(item => Model.Module.Weekplanning[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                                             @Html.HiddenFor(item => Model.Module.Weekplanning[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                                         </td>
@@ -328,6 +333,7 @@
                                                     <tr>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Beoordelingen[i].isDeleted, new { @class = "form-control isDeleted" })
                                                             @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                                             @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                                         </td>
@@ -361,6 +367,7 @@
                                                     <tr>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leermiddelen[i].isDeleted, new { @class = "form-control isDeleted" })
                                                             @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                                             @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                                         </td>
@@ -394,6 +401,7 @@
                                                     <tr>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leerdoelen[i].isDeleted, new { @class = "form-control isDeleted" })
                                                             @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                                             @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                                         </td>
@@ -486,9 +494,27 @@
         UpdateOrganisatie();
     }
 
+    function calulcateTotal(columnName) {
+        var sum = 0;
+        $('.' + columnName).each(function () {
+            sum += parseInt($(this).val()) || 0;
+        });
+        $('#' + columnName + 'Total').html(sum)
+    }
+
+    //initial count
+    calulcateTotal('SBU');
+
+    //after change
+    $('body').on('change', '.SBU', function () {
+        calulcateTotal('SBU');
+    });
+
+
     $("#werkvorm").on("change", function (e) {
         UpdateOrganisatie();
     })
+
 
     $("#module_edit_form").submit(function () {
         $hidden_leerlijnen = $("#hidden-leerlijnen");
@@ -627,7 +653,7 @@
             }
             else {
                 for (var i = 0; i < columns; i++) {
-                    newRow += "<td><input class='form-control' id='Module_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Module." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'>"
+                    newRow += "<td><input class='form-control " + properties[i] + "' id='Module_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Module." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'>"
 
                     if (i != (columns - 1))
                         newRow += "</td>";
@@ -647,10 +673,12 @@
         $("#" + target + " tr:last").before(newRow);
 
         $(this).data("nextindex", newIndex + 1);
+
     });
 
     $(document).on("click", ".remove_row", function () {
-        $(this).closest("tr").remove()
+        $(this).closest("tr").hide();
+        $(this).closest("tr").hide().find('.isDeleted').val(true);
     });
 
     $(function () {

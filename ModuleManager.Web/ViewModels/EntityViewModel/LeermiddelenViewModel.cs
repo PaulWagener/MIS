@@ -10,6 +10,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public int Id { get; set; }
         public string Beschrijving { get; set; }
 
+        public bool? isDeleted { get; set; }
+
         internal Leermiddelen ToPoco(DomainContext context)
         {
             Leermiddelen leermiddel = context.Leermiddelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);

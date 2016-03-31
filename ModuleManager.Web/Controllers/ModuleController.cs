@@ -147,16 +147,16 @@ namespace ModuleManager.Web.Controllers
   
 
                 module.Leerdoelen.Clear();
-                module.Leerdoelen = moduleVm.Module.Leerdoelen.Select(l => l.ToPoco(context)).ToList();
+                module.Leerdoelen = moduleVm.Module.Leerdoelen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(l => l.ToPoco(context)).ToList();
                 module.Leermiddelen.Clear();
-                module.Leermiddelen = moduleVm.Module.Leermiddelen.Select(l => l.ToPoco(context)).ToList();
+                module.Leermiddelen = moduleVm.Module.Leermiddelen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(l => l.ToPoco(context)).ToList();
                 module.StudieBelasting.Clear();
                 context.SaveChanges(); //jammer maar nodig
-                module.StudieBelasting = moduleVm.Module.StudieBelasting.Select(s => s.ToPoco(context)).ToList();
+                module.StudieBelasting = moduleVm.Module.StudieBelasting.Where(s => !s.isDeleted.GetValueOrDefault()).Select(s => s.ToPoco(context)).ToList();
                 module.Weekplanning.Clear();
-                module.Weekplanning = moduleVm.Module.Weekplanning.Select(w => w.ToPoco(context)).ToList();
+                module.Weekplanning = moduleVm.Module.Weekplanning.Where(s => !s.isDeleted.GetValueOrDefault()).Select(w => w.ToPoco(context)).ToList();
                 module.Beoordelingen.Clear();
-                module.Beoordelingen = moduleVm.Module.Beoordelingen.Select(b => b.ToPoco(context)).ToList();
+                module.Beoordelingen = moduleVm.Module.Beoordelingen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(b => b.ToPoco(context)).ToList();
 
                 //koppel tabellen
                 module.ModuleWerkvorm.Clear();

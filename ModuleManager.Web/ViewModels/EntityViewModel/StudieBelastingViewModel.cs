@@ -25,6 +25,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         [Required(ErrorMessage = "Verplicht")]
         public int SBU { get; set; }
 
+        public bool? isDeleted { get; set; }
+
 
         internal DomainDAL.StudieBelasting ToPoco(DomainContext context)
         {
@@ -44,6 +46,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             studieBelasting.SBU = SBU;
 
             return studieBelasting;
-        }
+        }   
     }
 }

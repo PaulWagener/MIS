@@ -10,6 +10,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string Week { get; set; }
         public string Onderwerp { get; set; }
 
+        public bool? isDeleted { get; set; }
+
         internal DomainDAL.Weekplanning ToPoco(DomainContext context)
         {
             DomainDAL.Weekplanning weekPlanning = context.Weekplanning.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
@@ -28,6 +30,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             }
             return weekPlanning;
         }
-
+    
     }
 }
