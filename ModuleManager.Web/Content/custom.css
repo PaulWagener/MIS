@@ -342,3 +342,9 @@ body.modal-open {
     color:red;
     font-size:12px;
 }
+
+.validation-summary{
+    padding:5px;
+    border:1px solid red;
+    margin-bottom:10px;
+}
