@@ -15,6 +15,7 @@ using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
 using WebGrease;
 
+
 namespace ModuleManager.Web.Controllers
 {
 
@@ -77,41 +78,14 @@ namespace ModuleManager.Web.Controllers
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll();
-            var tags = _unitOfWork.GetRepository<Tag>().GetAll();
-            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
-            var werkvormen = _unitOfWork.GetRepository<Werkvorm>().GetAll();
-            var toetsvormen = _unitOfWork.GetRepository<Toetsvorm>().GetAll();
-            var modules = _unitOfWork.GetRepository<Module>().GetAll();
-            var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
-            var docenten = _unitOfWork.GetRepository<Docent>().GetAll();
-
-            var isComplete = true;
-            if (module.Status != "Compleet (ongecontroleerd)")
-            {
-                isComplete = false;
-            }
-
-            //new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
-            MultiSelectList competetentieVM = new MultiSelectList(competenties, "Code", "Naam");
 
             var moduleEditViewModel = new ModuleEditViewModel
             {
                 Module = Mapper.Map<Module, ModuleViewModel>(module),
-                Options = new ModuleEditOptionsViewModel
-                {
-                    Competenties = competetentieVM,
-                    Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
-                    Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
-                    Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
-                    VoorkennisModules = modules.Select(Mapper.Map<Module, ModuleVoorkennisViewModel>).ToList(),
-                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
-                    Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList(),
-                    Docenten = docenten.Select(Mapper.Map<Docent, DocentViewModel>).ToList()
-                }
+                Options = new ModuleEditOptionsViewModel(_unitOfWork)
             };
-            moduleEditViewModel.Module.IsCompleted = isComplete;
 
+            moduleEditViewModel.Module.IsCompleted = (module.Status != "Compleet (ongecontroleerd)");
             return View(moduleEditViewModel);
         }
 
@@ -119,6 +93,12 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
+            if (!ModelState.IsValid)
+            {
+                moduleVm.Options = new ModuleEditOptionsViewModel(_unitOfWork);
+                return View(moduleVm);
+            }
+
             using(var context = new DomainContext()){
 
                 //Ophalen originele module

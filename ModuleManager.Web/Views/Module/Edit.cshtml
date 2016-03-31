@@ -226,6 +226,7 @@
                                                     <th>Activiteit</th>
                                                     <th>Duur</th>
                                                     <th>Frequentie</th>
+                                                    <th>Contacturen</th>
                                                     <th>SBU</th>
                                                     <th></th>
                                                 </tr>
@@ -235,11 +236,23 @@
                                                 @for (int i = 0; i < Model.Module.StudieBelasting.Count; i++)
                                                 {
                                                     <tr>
-                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Duur, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].Activiteit)
+                                                        </td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Duur, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].Duur)
+                                                        </td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].Frequentie)
+                                                        </td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].ContactUren, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].ContactUren)
+                                                        </td>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelasting[i].SBU)
+
+
                                                             @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                                             @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                                         </td>
@@ -250,7 +263,7 @@
                                                 }
                                                 <tr>
                                                     <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
-                                                        <button data-target="sb" data-columns="4" data-collectionname="StudieBelasting" data-properties='["Activiteit", "Duur", "Frequentie", "SBU"]' data-nextindex="@Model.Module.Leermiddelen.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                        <button data-target="sb" data-columns="5" data-collectionname="StudieBelasting" data-properties='["Activiteit", "Duur", "Frequentie", "ContactUren", "SBU"]' data-nextindex="@Model.Module.Leermiddelen.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>

@@ -1,5 +1,6 @@
 ﻿using ModuleManager.DomainDAL;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
@@ -8,11 +9,22 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
     {
         public string CursusCode { get; set; }
         public string Schooljaar { get; set; }
+
+        [Required(ErrorMessage="Verplicht")]
         public string Activiteit { get; set; }
+
+        [Required(ErrorMessage = "Verplicht")]
         public Nullable<int> ContactUren { get; set; }
+
+        [Required(ErrorMessage = "Verplicht")]
         public string Duur { get; set; }
+
+        [Required(ErrorMessage = "Verplicht")]
         public string Frequentie { get; set; }
+
+        [Required(ErrorMessage = "Verplicht")]
         public int SBU { get; set; }
+
 
         internal DomainDAL.StudieBelasting ToPoco(DomainContext context)
         {

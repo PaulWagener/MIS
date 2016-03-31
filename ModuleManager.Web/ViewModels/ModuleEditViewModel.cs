@@ -1,5 +1,9 @@
-﻿using ModuleManager.Web.ViewModels.EntityViewModel;
+﻿using AutoMapper;
+using ModuleManager.DomainDAL;
+using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using System.Web.Mvc;
+using System.Linq;
 
 namespace ModuleManager.Web.ViewModels
 {
@@ -23,6 +27,8 @@ namespace ModuleManager.Web.ViewModels
         {
             this.Module = _module;
         }
+
+
 
     }
 }

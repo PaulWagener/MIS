@@ -208,6 +208,7 @@
                             <th>Activiteit</th>
                             <th>Duur</th>
                             <th>Frequentie</th>
+                            <th>Contacturen</th>
                             <th>SBU</th>
                         </tr>
                         @{ var studieBelastingTotaal = 0; }
@@ -217,11 +218,13 @@
                                 <td>@studieBelasting.Activiteit</td>
                                 <td>@studieBelasting.Duur</td>
                                 <td>@studieBelasting.Frequentie</td>
+                                <td>@studieBelasting.ContactUren</td>
                                 <td>@studieBelasting.SBU</td>
                             </tr>
                             studieBelastingTotaal = studieBelastingTotaal + studieBelasting.SBU;
                         }
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <th>Totaal</th>
