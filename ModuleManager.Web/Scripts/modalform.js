@@ -22,10 +22,11 @@ $(function () {
 
 function bindForm(dialog) {
     $('form', dialog).submit(function () {
+        var data = $(this).serialize();
         $.ajax({
             url: this.action,
             type: this.method,
-            data: $(this).serialize(),
+            data: data,
             success: function (result) {
                 console.log(result);
                 if (result.success) {

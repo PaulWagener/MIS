@@ -300,6 +300,7 @@
     <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
     <Compile Include="Controllers\Api\Interfaces\IModuleApiController.cs" />
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
+    <Compile Include="Controllers\Api\DocentController.cs" />
     <Compile Include="Controllers\Api\OnderdeelController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
@@ -310,6 +311,7 @@
     <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
     <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
     <Compile Include="Controllers\PartialViewControllers\ModuleController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\DocentController.cs" />
     <Compile Include="Controllers\PartialViewControllers\OnderdeelController.cs" />
     <Compile Include="Controllers\PartialViewControllers\TagController.cs" />
     <Compile Include="Controllers\StudieGidsController.cs" />
@@ -425,6 +427,8 @@
     <Content Include="Views\Admin\Curriculum\Module\_Delete.cshtml" />
     <Content Include="Views\Help\StudieGids.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Docent\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Docent\_Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -35,9 +35,17 @@ namespace ModuleManager.Web.ViewModels
         /// Module-informatie zichtbaar in het overview
         /// </summary>
         public IEnumerable<Module> Modules { get; set; }
+
+        /// <summary>
+        /// Bevat alle docenten
+        /// </summary>
+        public IEnumerable<Docent> Docenten { get; set; }
+
         /// <summary>
         /// Bevat configuratie/argumenten/instellingen voor de filters en de sortering van het moduleoverzicht
         /// </summary>
         public FilterOptionsViewModel FilterOptions { get; set; }
+
+      
     }
 }

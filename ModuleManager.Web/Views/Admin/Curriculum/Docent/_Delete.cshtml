@@ -1,15 +1,15 @@
 ﻿@using ModuleManager.DomainDAL
-@model  ModuleManager.DomainDAL.Onderdeel
+@model  ModuleManager.DomainDAL.Docent
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="OnderdeelDelete">Onderdeel verwijderen</h4>
+    <h4 class="modal-title" id="OnderdeelDelete">Docent verwijderen</h4>
 </div>
 
 @using (Html.BeginForm())
 {
     <div class="modal-body">
-        Weet uw zeker dat uw de volgende onderdeel: <b>@Model.Code</b> wilt verwijderen?
+        Weet uw zeker dat uw de volgende docent: <b>@Model.Naam</b> wilt verwijderen?
     </div>
 
     <div class="modal-footer">
