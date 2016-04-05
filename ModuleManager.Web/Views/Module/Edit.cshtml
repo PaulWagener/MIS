@@ -545,12 +545,14 @@
                     if (findAttempt != "")
                         organisatie = findAttempt;
                 }
+                
             })
 
-            var newRow1 = "<input name='Module.ModuleWerkvorm[" + index + "].Organisatie' type='hidden' value=" + organisatie + ">";
+            var newRow1 = "<input name='Module.ModuleWerkvorm[" + index + "].Organisatie' type='hidden' value='" + organisatie + "'>";
             var newRow2 = "<input name='Module.ModuleWerkvorm[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
             var newRow3 = "<input name='Module.ModuleWerkvorm[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-            var newRow4 = "<input name='Module.ModuleWerkvorm[" + index + "].WerkvormType' type='hidden' value='" + wvType + "'>";
+          var newRow4 = "<input name='Module.ModuleWerkvorm[" + index + "].WerkvormType' type='hidden' value='" + wvType + "'>";
+
 
 
             $hidden_werkvormen.append(newRow1 + newRow2 + newRow3 + newRow4);
