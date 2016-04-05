@@ -429,6 +429,7 @@
     <Content Include="Views\Admin\Curriculum\Module\_Edit.cshtml" />
     <Content Include="Views\Admin\Curriculum\Docent\_Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Docent\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Docent\_Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
