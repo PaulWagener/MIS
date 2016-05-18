@@ -399,7 +399,6 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Admin\Curriculum.cshtml" />
     <Content Include="Views\Admin\UserOverview.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Module\Overview.cshtml" />
@@ -418,7 +417,6 @@
     <Content Include="Views\Help\ModuleEdit.cshtml" />
     <Content Include="Views\Help\ModuleOverview.cshtml" />
     <Content Include="Views\Help\UserOverview.cshtml" />
-    <Content Include="Views\Help\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
     <Content Include="Views\Export\ModuleOverview.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\Delete.cshtml" />

@@ -117,6 +117,11 @@ namespace ModuleManager.Web.Controllers
                 var email = (string)avansDetails["emails"][0];
                 var username = (string)avansDetails["accounts"]["username"];
 
+                if(!isEmployee)
+                {
+                    throw new Exception("Alleen docenten mogen inloggen!");
+                }
+
                 using (var context = new UserContext())
                 {
                     var user = context.User.FirstOrDefault(u => u.UserNaam == username);
@@ -127,9 +132,10 @@ namespace ModuleManager.Web.Controllers
                         user = context.User.Create();
                         user.UserNaam = username;
                         user.email = email;
-                        user.Blocked = false;
                         user.naam = name;
-                        user.SysteemRol = "";
+                        user.SysteemRol = "Docent";
+                        user.Wachtwoord = ""; // Obsolete
+                        context.User.Add(user);
                         context.SaveChanges();
                     }
 
