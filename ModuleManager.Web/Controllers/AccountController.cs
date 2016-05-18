@@ -1,13 +1,10 @@
 ﻿using ModuleManager.UserDAL;
 using ModuleManager.UserDAL.Interfaces;
-using ModuleManager.UserDAL.Repositories;
 using ModuleManager.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.Entity.Core.Objects;
-using System.Data.SqlClient;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -16,7 +13,10 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Linq;
 using System.Web.WebPages;
-using Microsoft.Ajax.Utilities;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OAuth;
+using DotNetOpenAuth.OAuth.ChannelElements;
+using DotNetOpenAuth.OAuth.Messages;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -29,10 +29,89 @@ namespace ModuleManager.Web.Controllers
             _systeemRolRepository = systeemRolRepository;
         }
 
+        private ServiceProviderDescription AvansServiceDescription
+        {
+            get
+            {
+                return new ServiceProviderDescription
+                {
+                    AccessTokenEndpoint = new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/access_token", HttpDeliveryMethods.GetRequest),
+                    RequestTokenEndpoint = new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/request_token", HttpDeliveryMethods.GetRequest),
+                    UserAuthorizationEndpoint = new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/saml.php", HttpDeliveryMethods.GetRequest),
+                    TamperProtectionElements = new ITamperProtectionChannelBindingElement[] { new HmacSha1SigningBindingElement() },
+                    ProtocolVersion = ProtocolVersion.V10a
+                };
+            }
+        }
+
+        /**
+         * Save tokens in the session
+         */
+        public class AvansTokenManager : IConsumerTokenManager
+        {
+            public string ConsumerKey
+            {
+                get
+                {
+                    return ConfigurationManager.AppSettings["avansConsumerKey"];
+                }
+            }
+
+            public string ConsumerSecret
+            {
+                get
+                {
+                    return ConfigurationManager.AppSettings["avansConsumerSecret"];
+                }
+            }
+            private HttpSessionStateBase Session;
+
+            public AvansTokenManager(HttpSessionStateBase session)
+            {
+                this.Session = session;
+            }
+
+            public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret)
+            {
+                Session.Remove("oauth_" + requestToken);
+                Session["oauth_" + accessToken] = accessTokenSecret;
+            }
+
+            public string GetTokenSecret(string token)
+            {
+                return Session["oauth_" + token] as string;
+            }
+
+            public TokenType GetTokenType(string token)
+            {
+                throw new NotImplementedException("should not be called");
+            }
+
+            public void StoreNewRequestToken(UnauthorizedTokenRequest request, ITokenSecretContainingMessage response)
+            {
+                Session["oauth_" + response.Token] = response.TokenSecret;
+            }
+        }
+
         [HttpGet]
         public ActionResult LogIn()
-        {
-            return View();
+        {   
+            var consumer = new WebConsumer(AvansServiceDescription, new AvansTokenManager(Session));
+            var accessToken = consumer.ProcessUserAuthorization();
+            
+            if(accessToken == null)
+            {
+                // Send to login page
+                consumer.Channel.Send(consumer.PrepareRequestUserAuthorization());
+            } else
+            {
+                var responseStream = consumer.PrepareAuthorizedRequestAndSend(new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/studentnummer/", HttpDeliveryMethods.GetRequest), accessToken.AccessToken).ResponseStream;
+                var response = new StreamReader(responseStream).ReadToEnd();
+                var lol = JsonValue.Parse("");
+                Console.WriteLine(accessToken.AccessToken);
+            }
+            
+            return null;
         }
         [HttpPost]
         public ActionResult LogIn(LoginVM loginVM)
