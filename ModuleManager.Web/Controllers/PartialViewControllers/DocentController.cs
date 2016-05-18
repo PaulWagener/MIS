@@ -42,6 +42,38 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             }
         }
 
+        [HttpGet, Route("Docent/Edit")]
+        public ActionResult Edit(int id) {
+          if (id <= 0 ) {
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+          }
+          var docent = _unitOfWork.GetRepository<Docent>().GetOne(new object[] { id });
+
+          if (docent == null) {
+            return HttpNotFound();
+          }
+
+          return PartialView("~/Views/Admin/Curriculum/Docent/_Edit.cshtml", docent);
+        }
+
+        [HttpPost, Route("Docent/Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Docent entity) {
+          try {
+            var value = _unitOfWork.GetRepository<Docent>().Edit(entity);
+            return value != null ? Json(new {
+              success = false,
+              strError = value
+            }) : Json(new {
+              success = true
+            });
+          } catch (Exception) {
+            return Json(new {
+              success = false
+            });
+          }
+        }
+
         [HttpGet, Route("Docent/Delete")]
         public ActionResult Delete(int? id)
         {
