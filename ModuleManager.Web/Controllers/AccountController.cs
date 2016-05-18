@@ -129,16 +129,16 @@ namespace ModuleManager.Web.Controllers
                         user.email = email;
                         user.Blocked = false;
                         user.naam = name;
+                        user.SysteemRol = "";
                         context.SaveChanges();
                     }
 
                     // Save role of the user in ticket
-                    string role = GetRole(user.UserNaam);
-                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, user.UserNaam, DateTime.Now, DateTime.Now.AddYears(10), true, role, "/");
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, user.UserNaam, DateTime.Now, DateTime.Now.AddYears(10), true, user.SysteemRol, "/");
                     HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
                     Response.Cookies.Add(cookie);
 
-                    FormsAuthentication.RedirectFromLoginPage(user.UserNaam, true);
+                    return RedirectToAction("Index", "Home");
                 }
             }    
             return null;
@@ -149,29 +149,5 @@ namespace ModuleManager.Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
-        
-        public String GetRole(String username)
-        {
-            using (var context = new UserContext())
-            {
-
-                String result;
-                try
-                {
-                    var resultlist = context.spGetRol(username);
-                    var list = new List<string>();
-
-                    list = (from element in resultlist select element).ToList();
-                    result = list.SingleOrDefault();
-                }
-                catch (Exception)
-                {
-                    result = String.Empty;
-                }
-
-                return result;
-            }
-        }
-        
     }
 }
