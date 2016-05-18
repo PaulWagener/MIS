@@ -24,22 +24,13 @@ namespace ModuleManager.Web
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-            if (HttpContext.Current.User != null)
+            HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
             {
-                if (HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    if (HttpContext.Current.User.Identity is FormsIdentity)
-                    {
-                        FormsIdentity id =
-                            (FormsIdentity)HttpContext.Current.User.Identity;
-                        FormsAuthenticationTicket ticket = id.Ticket;
-
-                        // Get the stored user-data, in this case, our roles
-                        string userData = ticket.UserData;
-                        string[] roles = userData.Split(',');
-                        HttpContext.Current.User = new GenericPrincipal(id, roles);
-                    }
-                }
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                string[] roles = authTicket.UserData.Split(new Char[] { ',' });
+                GenericPrincipal userPrincipal = new GenericPrincipal(new GenericIdentity(authTicket.Name), roles);
+                Context.User = userPrincipal;
             }
         }
 

@@ -17,6 +17,8 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using DotNetOpenAuth.OAuth.Messages;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -105,68 +107,41 @@ namespace ModuleManager.Web.Controllers
                 consumer.Channel.Send(consumer.PrepareRequestUserAuthorization());
             } else
             {
-                var responseStream = consumer.PrepareAuthorizedRequestAndSend(new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/studentnummer/", HttpDeliveryMethods.GetRequest), accessToken.AccessToken).ResponseStream;
+                var responseStream = consumer.PrepareAuthorizedRequestAndSend(new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/people/@me", HttpDeliveryMethods.GetRequest), accessToken.AccessToken).ResponseStream;
                 var response = new StreamReader(responseStream).ReadToEnd();
-                var lol = JsonValue.Parse("");
-                Console.WriteLine(accessToken.AccessToken);
-            }
-            
-            return null;
-        }
-        [HttpPost]
-        public ActionResult LogIn(LoginVM loginVM)
-        {
-            if (ModelState.IsValid)
-            {
-                var ReturnValue = AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord);
-                if (ReturnValue == 1)
+
+                var avansDetails = JObject.Parse(response);
+
+                var name = (string)avansDetails["nickname"];
+                var isEmployee = (string)avansDetails["employee"] == "true";
+                var email = (string)avansDetails["emails"][0];
+                var username = (string)avansDetails["accounts"]["username"];
+
+                using (var context = new UserContext())
                 {
-                    // Create the authentication cookie and redirect the user to welcome page
-                    FormsAuthentication.RedirectFromLoginPage(loginVM.UserNaam, loginVM.Remember);
-                    //FormsAuthentication.SetAuthCookie()
-                    String role = GetRole(loginVM.UserNaam);
-                    if (!role.IsEmpty())
+                    var user = context.User.FirstOrDefault(u => u.UserNaam == username);
+
+                    if(user == null)
                     {
-                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-                            1, // Ticket version
-                            loginVM.UserNaam, // Username associated with ticket
-                            DateTime.Now, // Date/time issued
-                            DateTime.Now.AddMinutes(30), // Date/time to expire
-                            true, // "true" for a persistent user cookie
-                            role, // User-data, in this case the roles
-                            FormsAuthentication.FormsCookiePath);
-
-                        // Encrypt the cookie using the machine key for secure transport
-                        string hash = FormsAuthentication.Encrypt(ticket);
-                        HttpCookie cookie = new HttpCookie(
-                            FormsAuthentication.FormsCookieName, // Name of auth cookie
-                            hash); // Hashed ticket
-                        FormsAuthentication.SetAuthCookie(loginVM.UserNaam, loginVM.Remember);
-
-                        // Set the cookie's expiration time to the tickets expiration time
-                        if (ticket.IsPersistent)
-                        {
-                            cookie.Expires = ticket.Expiration;
-                        }
-
-                        Response.Cookies.Add(cookie);
-                        return RedirectToAction("Index", "Home");
+                        // Create new user
+                        user = context.User.Create();
+                        user.UserNaam = username;
+                        user.email = email;
+                        user.Blocked = false;
+                        user.naam = name;
+                        context.SaveChanges();
                     }
+
+                    // Save role of the user in ticket
+                    string role = GetRole(user.UserNaam);
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, user.UserNaam, DateTime.Now, DateTime.Now.AddYears(10), true, role, "/");
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                    Response.Cookies.Add(cookie);
+
+                    FormsAuthentication.RedirectFromLoginPage(user.UserNaam, true);
                 }
-                if (ReturnValue == -2)
-                {
-                    ViewBag.LoginError = "Deze gebruikersnaam is geblokeerd";
-                }
-                else if (ReturnValue == -1)
-                {
-                    ViewBag.LoginError = "Ongeldige gebruikersnaam en/of wachtwoord";
-                }
-                else
-                {
-                    ViewBag.LoginError = "Probeer het later opnieuw";
-                }
-            }
-            return View(loginVM);
+            }    
+            return null;
         }
 
         public ActionResult LogOff()
@@ -174,31 +149,7 @@ namespace ModuleManager.Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-        private int? AuthenticateUser(String username, String password)
-        {
-
-            using (var context = new UserContext())
-            {
-
-                String hashedPassword = GetSwcSH1(password);
-
-                int? result;
-                try
-                {
-                    var resultlist = context.spAuthenticateUser(username, hashedPassword).ToList();
-                    result = resultlist.SingleOrDefault();
-                }
-                catch 
-                {
-                    result = -3;
-                }
-
-                return result;
-            }
-
-        }
-
+        
         public String GetRole(String username)
         {
             using (var context = new UserContext())
@@ -221,18 +172,6 @@ namespace ModuleManager.Web.Controllers
                 return result;
             }
         }
-
-        public static string GetSwcSH1(string value)
-        {
-            SHA1 algorithm = SHA1.Create();
-            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            string sh1 = "";
-            for (int i = 0; i < data.Length; i++)
-            {
-                sh1 += data[i].ToString("x2").ToUpperInvariant();
-            }
-            return sh1;
-        }
-
+        
     }
 }
