@@ -101,7 +101,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="controller\AcountController_Test.cs" />
     <Compile Include="controller\partial\ModulesControllerTest.cs" />
     <Compile Include="testData\TestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
