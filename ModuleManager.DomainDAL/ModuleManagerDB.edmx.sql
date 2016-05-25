@@ -2,13 +2,15 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/15/2015 15:36:46
--- Generated from EDMX file: C:\TFS\studiegids\ModuleManager.DomainDAL\ModuleManagerDB.edmx
+-- Date Created: 05/25/2016 14:21:38
+-- Generated from EDMX file: C:\Users\Linksonder\Source\Repos\Studiegids\ModuleManager.DomainDAL\ModuleManagerDB.edmx
 -- --------------------------------------------------
+
+
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [amm_Domain];
+USE [DomainDal];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -374,8 +376,7 @@ GO
 
 -- Creating table 'Tag'
 CREATE TABLE [dbo].[Tag] (
-    [Naam] varchar(50)  NOT NULL,
-    [Schooljaar] varchar(8)  NOT NULL
+    [Naam] varchar(50)  NOT NULL
 );
 GO
 
@@ -422,8 +423,7 @@ GO
 CREATE TABLE [dbo].[ModuleTag] (
     [Module_CursusCode] varchar(50)  NOT NULL,
     [Module_Schooljaar] varchar(8)  NOT NULL,
-    [Tag_Naam] varchar(50)  NOT NULL,
-    [Tag_Schooljaar] varchar(8)  NOT NULL
+    [Tag_Naam] varchar(50)  NOT NULL
 );
 GO
 
@@ -568,10 +568,10 @@ ADD CONSTRAINT [PK_StudiePunten]
     PRIMARY KEY CLUSTERED ([CursusCode], [Schooljaar], [ToetsCode] ASC);
 GO
 
--- Creating primary key on [Naam], [Schooljaar] in table 'Tag'
+-- Creating primary key on [Naam] in table 'Tag'
 ALTER TABLE [dbo].[Tag]
 ADD CONSTRAINT [PK_Tag]
-    PRIMARY KEY CLUSTERED ([Naam], [Schooljaar] ASC);
+    PRIMARY KEY CLUSTERED ([Naam] ASC);
 GO
 
 -- Creating primary key on [Type] in table 'Toetsvorm'
@@ -604,10 +604,10 @@ ADD CONSTRAINT [PK_ModuleLeerlijn]
     PRIMARY KEY CLUSTERED ([Leerlijn_Naam], [Leerlijn_Schooljaar], [Module_CursusCode], [Module_Schooljaar] ASC);
 GO
 
--- Creating primary key on [Module_CursusCode], [Module_Schooljaar], [Tag_Naam], [Tag_Schooljaar] in table 'ModuleTag'
+-- Creating primary key on [Module_CursusCode], [Module_Schooljaar], [Tag_Naam] in table 'ModuleTag'
 ALTER TABLE [dbo].[ModuleTag]
 ADD CONSTRAINT [PK_ModuleTag]
-    PRIMARY KEY CLUSTERED ([Module_CursusCode], [Module_Schooljaar], [Tag_Naam], [Tag_Schooljaar] ASC);
+    PRIMARY KEY CLUSTERED ([Module_CursusCode], [Module_Schooljaar], [Tag_Naam] ASC);
 GO
 
 -- Creating primary key on [Voorkennis_CursusCode], [Voorkennis_Schooljaar], [Vervolg_CursusCode], [Vervolg_Schooljaar] in table 'Voorkennis'
@@ -926,19 +926,19 @@ ADD CONSTRAINT [FK_ModuleTag_Module]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Tag_Naam], [Tag_Schooljaar] in table 'ModuleTag'
+-- Creating foreign key on [Tag_Naam] in table 'ModuleTag'
 ALTER TABLE [dbo].[ModuleTag]
 ADD CONSTRAINT [FK_ModuleTag_Tag]
-    FOREIGN KEY ([Tag_Naam], [Tag_Schooljaar])
+    FOREIGN KEY ([Tag_Naam])
     REFERENCES [dbo].[Tag]
-        ([Naam], [Schooljaar])
+        ([Naam])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ModuleTag_Tag'
 CREATE INDEX [IX_FK_ModuleTag_Tag]
 ON [dbo].[ModuleTag]
-    ([Tag_Naam], [Tag_Schooljaar]);
+    ([Tag_Naam]);
 GO
 
 -- Creating foreign key on [Voorkennis_CursusCode], [Voorkennis_Schooljaar] in table 'Voorkennis'

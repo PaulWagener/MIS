@@ -21,9 +21,9 @@ namespace ModuleManager.WebTests
                 var leerlijn_mod = new Leerlijn() { Naam = "Modelleren", Schooljaar = "1516" };
                 var leerlijn_arch = new Leerlijn() { Naam = "Architectuur", Schooljaar = "1516" };
 
-                var tag_mvc = new Tag() { Naam = "MVC", Schooljaar = "1516" };
-                var tag_mvvm = new Tag() { Naam = "MVVM", Schooljaar = "1516" };
-                var tag_wcf = new Tag() { Naam = "WCF", Schooljaar = "1516" };
+                var tag_mvc = new Tag() { Naam = "MVC"};
+                var tag_mvvm = new Tag() { Naam = "MVVM"};
+                var tag_wcf = new Tag() { Naam = "WCF" };
 
                 var docent_stijn = new Docent() { Id = 1, Naam = "Stijn Smulders" };
                 var docent_bart = new Docent() { Id = 2, Naam = "Bart Mutsaers" };

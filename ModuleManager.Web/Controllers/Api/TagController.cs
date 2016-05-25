@@ -20,14 +20,14 @@ namespace ModuleManager.Web.Controllers.Api
         public IEnumerable<Tag> GetAll()
         {
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            var tags = _unitOfWork.GetRepository<Tag>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)).ToArray();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             return tags;
         }
 
-        [HttpGet, Route("api/Tag/Get/{schooljaar}/{key}")]
+        [HttpGet, Route("api/Tag/Get/{key}")]
         public Tag GetOne(string schooljaar, string key)
         {
-            var tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { key, schooljaar });
+            var tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { key });
             return tag;
         }
 

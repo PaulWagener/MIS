@@ -25,7 +25,7 @@
         <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Status" Width="1.5" PointX="0.75" PointY="23" IsExpanded="true" />
         <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.StudieBelasting" Width="1.5" PointX="1.125" PointY="24.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.StudiePunten" Width="1.5" PointX="11.625" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Tag" Width="1.5" PointX="5.25" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Tag" Width="1.5" PointX="2.625" PointY="27.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Toetsvorm" Width="1.5" PointX="11.625" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Weekplanning" Width="1.5" PointX="5.25" PointY="38.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Werkvorm" Width="1.5" PointX="6" PointY="26.625" IsExpanded="true" />

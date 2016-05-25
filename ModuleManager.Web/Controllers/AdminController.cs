@@ -50,7 +50,7 @@ namespace ModuleManager.Web.Controllers
 
             var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
-            var tags = _unitOfWork.GetRepository<Tag>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToArray();
             var docenten = _unitOfWork.GetRepository<Docent>().GetAll().ToArray();

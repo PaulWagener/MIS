@@ -20,7 +20,6 @@ namespace ModuleManager.DomainDAL
         }
     
         public string Naam { get; set; }
-        public string Schooljaar { get; set; }
     
         public virtual ICollection<Module> Module { get; set; }
     }

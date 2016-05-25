@@ -31,22 +31,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Tag entity)
         {
-            try
-            {
-                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any())
-                    return Json(new { success = false });
-                var schooljaar = schooljaren.Last();
-
-                entity.Schooljaar = schooljaar.JaarId;
-
-                var value = _unitOfWork.GetRepository<Tag>().Create(entity);
-                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
-            }
-            catch (Exception)
-            {
-                return Json(new { success = false });
-            }
+            var value = _unitOfWork.GetRepository<Tag>().Create(entity);
+            return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
         }
 
         [HttpGet, Route("Tags/Delete")]

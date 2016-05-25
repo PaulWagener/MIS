@@ -53,7 +53,7 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
             filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
             filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
-            filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
+            filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll());
 
 
             //Construct the ViewModel.

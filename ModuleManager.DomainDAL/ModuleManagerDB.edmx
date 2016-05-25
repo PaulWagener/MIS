@@ -353,10 +353,8 @@
   <EntityType Name="Tag">
     <Key>
       <PropertyRef Name="Naam" />
-      <PropertyRef Name="Schooljaar" />
     </Key>
     <Property Name="Naam" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
   </EntityType>
   <EntityType Name="Toetsvorm">
     <Key>
@@ -407,12 +405,10 @@
       <PropertyRef Name="Module_CursusCode" />
       <PropertyRef Name="Module_Schooljaar" />
       <PropertyRef Name="Tag_Naam" />
-      <PropertyRef Name="Tag_Schooljaar" />
     </Key>
     <Property Name="Module_CursusCode" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Module_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
     <Property Name="Tag_Naam" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Tag_Schooljaar" Type="varchar" Nullable="false" MaxLength="8" />
   </EntityType>
   <EntityType Name="Voorkennis">
     <Key>
@@ -764,11 +760,9 @@
     <ReferentialConstraint>
       <Principal Role="Tag">
         <PropertyRef Name="Naam" />
-        <PropertyRef Name="Schooljaar" />
       </Principal>
       <Dependent Role="ModuleTag">
         <PropertyRef Name="Tag_Naam" />
-        <PropertyRef Name="Tag_Schooljaar" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1076,10 +1070,8 @@
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Module" Relationship="Self.ModuleTag" FromRole="Tag" ToRole="Module" />
         </EntityType>
         <EntityType Name="Toetsvorm">
@@ -1743,7 +1735,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(IN06SOb_ModuleManagerModel.Tag)">
         <MappingFragment StoreEntitySet="Tag">
           <ScalarProperty Name="Naam" ColumnName="Naam" />
-          <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1798,7 +1789,6 @@
       </EndProperty>
       <EndProperty Name="Tag">
         <ScalarProperty Name="Naam" ColumnName="Tag_Naam" />
-        <ScalarProperty Name="Schooljaar" ColumnName="Tag_Schooljaar" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="Voorkennis" TypeName="IN06SOb_ModuleManagerModel.Voorkennis" StoreEntitySet="Voorkennis">
