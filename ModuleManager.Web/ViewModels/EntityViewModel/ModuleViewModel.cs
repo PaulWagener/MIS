@@ -234,7 +234,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             foreach (var tagVM in Tag)
             {
                 Tag tag = context.Tag
-                    .Find(new object[] { tagVM.Naam, tagVM.Schooljaar });
+                    .Find(new object[] { tagVM.Naam });
 
                 tags.Add(tag);
             }

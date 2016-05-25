@@ -2,7 +2,8 @@
 /** Door: Stijn Smulders **/
 /** Sprint: Dev ready **/
 /** Datum: 12/15/2015 **/
-use [DomainDal]
+use [Studiegids.Domain.Dev]
+
 INSERT INTO SCHOOLJAAR (JaarId) values ('1416'), ('1516')
 INSERT INTO Blok (BlokId) values (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16)
 INSERT INTO FaseType  values ('Major'),('Minor'),('Properdeuse')

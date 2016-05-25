@@ -122,7 +122,7 @@ namespace ModuleManager.Web.Controllers
                 var tags = new List<Tag>();
                 foreach (var tag in moduleVm.Module.Tag)
                 {
-                    tags.Add(context.Tag.Find(new object[] { tag.Naam, tag.Schooljaar }));
+                    tags.Add(context.Tag.Find(new object[] { tag.Naam }));
                 }
                 module.Tag = tags;
 
