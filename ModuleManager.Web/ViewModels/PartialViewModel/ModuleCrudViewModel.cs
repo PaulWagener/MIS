@@ -31,10 +31,12 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public IEnumerable<Fase> Fases { get; set; }
 
+        [Display(Name = "Blok")]
         public IEnumerable<Blok> Blokken { get; set; }
 
         public IEnumerable<Icons> Icons { get; set; }
 
+        [Display(Name = "Onderdeel")]
         public IEnumerable<Onderdeel> Onderdelen { get; set; }
 
         //public IEnumerable<StudiePunten> StudiePunten { get; set; }
