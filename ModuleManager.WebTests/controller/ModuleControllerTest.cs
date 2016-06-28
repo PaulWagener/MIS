@@ -98,8 +98,8 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.Tag.Add(new TagViewModel() { Naam = "WCF", Schooljaar = "1516" });
-            vm.Module.Tag.Add(new TagViewModel() { Naam = "MVVM", Schooljaar = "1516" });
+            vm.Module.Tag.Add(new TagViewModel() { Naam = "WCF",  });
+            vm.Module.Tag.Add(new TagViewModel() { Naam = "MVVM", });
 
             //2. Act
             controller.Edit(vm);
@@ -411,8 +411,8 @@ namespace ModuleManager.WebTests
                 //},
                 Tag = new List<TagViewModel>()
                 {
-                    new TagViewModel(){ Naam = "MVC", Schooljaar = "1516"  },
-                    new TagViewModel(){ Naam = "Architectuur", Schooljaar = "1516"  }
+                    new TagViewModel(){ Naam = "MVC" },
+                    new TagViewModel(){ Naam = "Architectuur" }
                     
                 },
                 Verantwoordelijke = "E. Test",
