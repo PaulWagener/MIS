@@ -17,7 +17,6 @@ Je zult de volgende databases moeten deployen
 
 Hier vind je de verschillende omgevingen terug:
 * [development - studiegids-dev](http://studiegids-dev.azurewebsites.net)
-* [test - studiegids-test](http://studiegids-test.azurewebsites.net)
 * [productie - studiegids](http://studiegids.azurewebsites.net)
 
 
