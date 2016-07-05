@@ -348,3 +348,19 @@ body.modal-open {
     border:1px solid red;
     margin-bottom:10px;
 }
+
+
+/** custom styling forms*/
+.form-group-prefix{
+    width:100%;
+}
+.form-group-prefix .prefix{
+    width:50px;
+}
+.form-group-prefix .prefix input{
+    width:100%;
+}
+.form-group-prefix .dash{
+    width:20px;
+    text-align:center;
+}

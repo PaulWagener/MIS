@@ -7,8 +7,10 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
     public class ModuleCrudViewModel
     {
-        public string Schooljaar { get; set; }
+        public string OpleidingsPrefix { get; set; }
         public string CursusCode { get; set; }
+
+        public string Schooljaar { get; set; }
 
         public string Naam { get; set; }
         public string Verantwoordelijke { get; set; }
@@ -18,7 +20,9 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         [Required]
         //[DisplayName("Toetscode")]
+        public string Toetscode1Prefix { get; set; }
         public string Toetscode1 { get; set; }
+        public string Toetscode2Prefix { get; set; }
         public string Toetscode2 { get; set; }
 
         [Required]
