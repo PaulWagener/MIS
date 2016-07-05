@@ -39,6 +39,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
             var module = new ModuleCrudViewModel()
             {
+                OpleidingsPrefix = "IIIN",
                 Fases = fases,
                 Blokken = blokken.OrderBy(B => B.BlokId, new NumberWordComparer()),
                 Icons = icons,
@@ -64,7 +65,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 ICollection<StudiePunten> studiepuntenList = new List<StudiePunten>();
                 var studiepunt1 = new StudiePunten()
                 {
-                    ToetsCode = entity.Toetscode1,
+                    ToetsCode = String.Format("{0}-{1}", entity.Toetscode1Prefix, entity.Toetscode1),
                     EC = entity.Ec1
                 };
                 studiepuntenList.Add(studiepunt1);
@@ -73,7 +74,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 {
                     var studiepunt2 = new StudiePunten()
                     {
-                        ToetsCode = entity.Toetscode2,
+                        ToetsCode = String.Format("{0}-{1}", entity.Toetscode2Prefix, entity.Toetscode2),
                         EC = entity.Ec2
                     };
                     studiepuntenList.Add(studiepunt2);
@@ -106,7 +107,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                     FaseModules = fasesList,
 
                     Naam = entity.Naam,
-                    CursusCode = entity.CursusCode,
+                    CursusCode = String.Format("{0}-{1}", entity.OpleidingsPrefix, entity.CursusCode),
                     Icon = entity.Icon,
                     Status = "Nieuw",
                     Verantwoordelijke = entity.Verantwoordelijke,
