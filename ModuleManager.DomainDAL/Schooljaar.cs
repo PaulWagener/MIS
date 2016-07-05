@@ -14,13 +14,6 @@ namespace ModuleManager.DomainDAL
     
     public partial class Schooljaar
     {
-        public Schooljaar()
-        {
-            this.Opleiding = new HashSet<Opleiding>();
-        }
-    
         public string JaarId { get; set; }
-    
-        public virtual ICollection<Opleiding> Opleiding { get; set; }
     }
 }

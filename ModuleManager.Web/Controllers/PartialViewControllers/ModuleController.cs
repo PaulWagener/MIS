@@ -81,30 +81,30 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 }
 
                 /* Fases */
-                ICollection<FaseModules> fasesList = new List<FaseModules>();
-                foreach (var _fase in entity.SelectedFases)
-                {
-                    var faseSplitted = _fase.Split(',');
+                //ICollection<FaseModules> fasesList = new List<FaseModules>();
+                //foreach (var _fase in entity.FaseModules)
+                //{
+                //    var faseSplitted = _fase.Split(',');
 
-                    var faseModule = new FaseModules()
-                    {
-                        FaseNaam = faseSplitted[0],
-                        FaseSchooljaar = faseSplitted[1],
-                        OpleidingNaam = faseSplitted[2],
-                        OpleidingSchooljaar = faseSplitted[3],
-                        ModuleSchooljaar = schooljaar.JaarId,
-                        ModuleCursusCode = entity.CursusCode,
-                        Blok = entity.Blok
-                    };
+                //    var faseModule = new FaseModules()
+                //    {
+                //        FaseNaam = faseSplitted[0],
+                //        FaseSchooljaar = faseSplitted[1],
+                //        OpleidingNaam = faseSplitted[2],
+                //        OpleidingSchooljaar = faseSplitted[3],
+                //        ModuleSchooljaar = schooljaar.JaarId,
+                //        ModuleCursusCode = entity.CursusCode,
+                //        Blok = entity.Blok
+                //    };
 
-                    fasesList.Add(faseModule);
-                }
+                //    fasesList.Add(faseModule);
+                //}
 
                 var module = new Module()
                 {
                     Schooljaar = schooljaar.JaarId,
                     StudiePunten = studiepuntenList,
-                    FaseModules = fasesList,
+                    //FaseModules = fasesList,
 
                     Naam = entity.Naam,
                     CursusCode = String.Format("{0}-{1}", entity.OpleidingsPrefix, entity.CursusCode),
@@ -155,7 +155,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 Ec1 = module.StudiePunten.Count > 0 ? module.StudiePunten.ElementAt(0).EC : 0,
                 Toetscode2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).ToetsCode : null,
                 Ec2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).EC : 0,
-                SelectedFases = module.FaseModules.Select(f => f.FaseNaam).ToArray(),
+                FaseModules = module.FaseModules,
                 Fases = fases,
                 Blokken = blokken.OrderBy(B => B.BlokId, new NumberWordComparer()),
                 Icons = icons,
@@ -195,24 +195,24 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
 
                 /* Fases */
-                ICollection<FaseModules> fasesList = new List<FaseModules>();
-                foreach (var _fase in entity.SelectedFases)
-                {
-                    var faseSplitted = _fase.Split(',');
+                //ICollection<FaseModules> fasesList = new List<FaseModules>();
+                //foreach (var _fase in entity.SelectedFases)
+                //{
+                //    var faseSplitted = _fase.Split(',');
 
-                    var faseModule = new FaseModules()
-                    {
-                        FaseNaam = faseSplitted[0],
-                        FaseSchooljaar = faseSplitted[1],
-                        OpleidingNaam = faseSplitted[2],
-                        OpleidingSchooljaar = faseSplitted[3],
-                        ModuleSchooljaar = entity.Schooljaar,
-                        ModuleCursusCode = entity.CursusCode,
-                        Blok = entity.Blok
-                    };
+                //    var faseModule = new FaseModules()
+                //    {
+                //        FaseNaam = faseSplitted[0],
+                //        FaseSchooljaar = faseSplitted[1],
+                //        OpleidingNaam = faseSplitted[2],
+                //        OpleidingSchooljaar = faseSplitted[3],
+                //        ModuleSchooljaar = entity.Schooljaar,
+                //        ModuleCursusCode = entity.CursusCode,
+                //        Blok = entity.Blok
+                //    };
 
-                    fasesList.Add(faseModule);
-                }
+                //    fasesList.Add(faseModule);
+                //}
 
 
                 module.Naam = entity.Naam;
@@ -225,7 +225,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 module.FaseModules.Clear();
                 var value = _unitOfWork.GetRepository<Module>().Edit(module);
 
-                module.FaseModules = fasesList;
+                //module.FaseModules = fasesList;
                 module.StudiePunten = studiepuntenList;
                 value = _unitOfWork.GetRepository<Module>().Edit(module);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });

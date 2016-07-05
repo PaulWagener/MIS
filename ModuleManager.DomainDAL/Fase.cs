@@ -20,13 +20,10 @@ namespace ModuleManager.DomainDAL
         }
     
         public string Naam { get; set; }
-        public string Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string FaseType { get; set; }
         public string OpleidingNaam { get; set; }
-        public string OpleidingSchooljaar { get; set; }
     
-        public virtual FaseType FaseType1 { get; set; }
         public virtual Opleiding Opleiding { get; set; }
         public virtual ICollection<FaseModules> FaseModules { get; set; }
     }
