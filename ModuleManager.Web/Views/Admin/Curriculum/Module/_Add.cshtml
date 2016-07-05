@@ -115,12 +115,11 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/modalform")
 
-    <script>
-        $(function() {
-
-            
-
-        });
-    </script>
 
 }
+
+<script>
+    $("#SelectedFases").select2({
+        placeholder: "Fases"
+    });
+</script>

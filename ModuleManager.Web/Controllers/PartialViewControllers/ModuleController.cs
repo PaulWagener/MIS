@@ -150,18 +150,16 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 Icon = module.Icon,
                 Verantwoordelijke = module.Verantwoordelijke,
                 Onderdeel = module.Onderdeel.Code,
-                Toetscode1 = module.StudiePunten.Count > 0 != null ? module.StudiePunten.ElementAt(0).ToetsCode : null,
+                Toetscode1 = module.StudiePunten.Count > 0 ? module.StudiePunten.ElementAt(0).ToetsCode : null,
                 Ec1 = module.StudiePunten.Count > 0 ? module.StudiePunten.ElementAt(0).EC : 0,
                 Toetscode2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).ToetsCode : null,
                 Ec2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).EC : 0,
                 SelectedFases = module.FaseModules.Select(f => f.FaseNaam).ToArray(),
-
                 Fases = fases,
                 Blokken = blokken.OrderBy(B => B.BlokId, new NumberWordComparer()),
                 Icons = icons,
                 Onderdelen = onderdelen
             };
-
 
             return PartialView("~/Views/Admin/Curriculum/Module/_Edit.cshtml", moduleVM);
         }
@@ -271,74 +269,6 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             }
 
         }
-
-
-        /*
-        [HttpGet, Route("Modules/Edit")]
-        public ActionResult Edit(string code, string schooljaar)
-        {
-            if (code == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { code, schooljaar });
-
-            if (module == null)
-            {
-                return HttpNotFound();
-            }
-
-            return PartialView("~/Views/Admin/Curriculum/Module/_Edit.cshtml", module);
-        }
-
-        [HttpPost, Route("Modules/Edit")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Module entity)
-        {
-            try
-            {
-                _unitOfWork.GetRepository<Module>().Edit(entity);
-                return Json(new { success = true });
-            }
-            catch (Exception)
-            {
-                return Json(new { success = false });
-            }
-        }
-
-        [HttpGet, Route("Modules/Delete")]
-        public ActionResult Delete(string code, string schooljaar)
-        {
-            if (code == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { code, schooljaar });
-
-            if (module == null)
-            {
-                return HttpNotFound();
-            }
-
-            return PartialView("~/Views/Admin/Curriculum/Module/_Delete.cshtml", module);
-        }
-
-        [HttpPost, Route("Modules/Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Module entity)
-        {
-            try
-            {
-                _unitOfWork.GetRepository<Module>().Delete(entity);
-                return Json(new { success = true });
-            }
-            catch (Exception)
-            {
-                return Json(new { success = false });
-            }
-
-        }*/
 
         protected override void Dispose(bool disposing)
         {

@@ -407,7 +407,6 @@
     <Content Include="Views\Module\Details_Teacher_Temp.cshtml" />
     <Content Include="Views\Module\Edit.cshtml" />
     <Content Include="Views\Admin\Archive.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Module\Add.cshtml" />
     <Content Include="Views\Help\Curriculum.cshtml" />
     <Content Include="Views\Help\Admin.cshtml" />
     <Content Include="Views\Help\Archive.cshtml" />
@@ -419,7 +418,6 @@
     <Content Include="Views\Help\UserOverview.cshtml" />
     <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
     <Content Include="Views\Export\ModuleOverview.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Module\Delete.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\StudieGids\Index.cshtml" />
