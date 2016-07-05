@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Domain;
+using ModuleManager.Domain.Interfaces;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 

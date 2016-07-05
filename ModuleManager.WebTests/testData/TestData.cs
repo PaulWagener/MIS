@@ -1,4 +1,4 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -15,7 +15,7 @@ namespace ModuleManager.WebTests
 
         public void CreateTestData()
         {
-            using(var context = new DomainContext())
+            using(var context = new DomainDalEntities())
             {
                 var leerlijn_prog = new Leerlijn() { Naam = "Programmeren", Schooljaar = "1516" };
                 var leerlijn_mod = new Leerlijn() { Naam = "Modelleren", Schooljaar = "1516" };
@@ -33,7 +33,7 @@ namespace ModuleManager.WebTests
                 var competentie_bc2 = new Competentie() { Schooljaar = "1516", Code = "BC2", Naam = "Testplan opzetten", Beschrijving = "Stelt de student in staat.. " };
                 var competentie_bc3 = new Competentie() { Schooljaar = "1516", Code = "BC3", Naam = "Technisch ontwerp", Beschrijving = "Stelt de student in staat.. " };
 
-                var prog1 = new DomainDAL.Module()
+                var prog1 = new Domain.Module()
                  {
                      CursusCode = "PROG1", //key
                      Schooljaar = "1516", //key
@@ -46,7 +46,7 @@ namespace ModuleManager.WebTests
                      
                  };
 
-                var db1 = new DomainDAL.Module()
+                var db1 = new Domain.Module()
                 {
                     CursusCode = "DB1", //key
                     Schooljaar = "1516", //key
@@ -58,7 +58,7 @@ namespace ModuleManager.WebTests
                     Status = "Nieuw",
                 };
 
-                Module = new DomainDAL.Module()
+                Module = new Domain.Module()
                 {
                     CursusCode = "Test1", //key
                     Schooljaar = "1516", //key
@@ -142,7 +142,7 @@ namespace ModuleManager.WebTests
         public void DeleteTestData()
         {
             //Emtpy the table module and restraints
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE StudiePunten"); //r
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE FaseModules"); //r

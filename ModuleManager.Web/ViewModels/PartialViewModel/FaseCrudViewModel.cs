@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 
 namespace ModuleManager.Web.ViewModels.PartialViewModel

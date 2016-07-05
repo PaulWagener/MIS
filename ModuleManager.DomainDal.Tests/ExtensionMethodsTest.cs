@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.ExtensionMethods;
+using ModuleManager.Domain;
+using ModuleManager.Domain.ExtensionMethods;
 using System.Collections.Generic;
 
-namespace ModuleManager.DomainDal.Tests
+namespace ModuleManager.Domain.Tests
 {
     [TestClass]
     [Ignore]

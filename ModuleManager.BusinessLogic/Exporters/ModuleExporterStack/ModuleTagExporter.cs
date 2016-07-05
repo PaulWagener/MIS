@@ -1,6 +1,6 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             p.AddLineBreak();
 
             p = sect.AddParagraph();
-            foreach (Tag t in toExport.Tag) 
+            foreach (Tag t in toExport.Tags) 
             {
                 p.AddText(" - " + (t.Naam ?? ""));
                 p.AddLineBreak();

@@ -5,10 +5,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Domain.Interfaces;
 using ModuleManager.UserDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {

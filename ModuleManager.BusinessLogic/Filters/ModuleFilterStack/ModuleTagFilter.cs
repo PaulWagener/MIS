@@ -1,6 +1,6 @@
 ﻿using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Filters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                     var selectedModule = 
                         from m in toQuery
                             where
-                                m.Tag.Any(
+                                m.Tags.Any(
                                 element => (element.Naam ?? "").ToLower().Contains((arg ?? "").ToLower())
                                 )
                         select m;

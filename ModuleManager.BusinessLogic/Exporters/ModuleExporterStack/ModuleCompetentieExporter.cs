@@ -1,7 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             Paragraph p = sect.AddParagraph("Competenties", "Heading2");
             p.AddLineBreak();
 
-            foreach (ModuleCompetentie cp in toExport.ModuleCompetentie) 
+            foreach (ModuleCompetentie cp in toExport.ModuleCompetenties) 
             {
                 Table table = sect.AddTable();
                 Column codeCol = table.AddColumn();

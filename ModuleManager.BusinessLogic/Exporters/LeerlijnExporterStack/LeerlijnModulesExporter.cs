@@ -1,6 +1,6 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +36,7 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
             p.AddLineBreak();
             p.AddLineBreak();
 
-            foreach (Module m in toExport.Module) 
+            foreach (Module m in toExport.Modules) 
             {
                 p.AddFormattedText((m.Naam ?? "Data niet gevonden")).Font.Bold = true;
                 p.AddLineBreak();
@@ -44,7 +44,7 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
                 p.AddFormattedText("Komt ook voor in:").Font.Color = Colors.DarkGray;
                 p.AddLineBreak();
 
-                List<Leerlijn> otherLines = m.Leerlijn.ToList();
+                List<Leerlijn> otherLines = m.Leerlijnen.ToList();
                 foreach (Leerlijn l in otherLines) 
                 {
                     if(!l.Naam.Equals(toExport.Naam))

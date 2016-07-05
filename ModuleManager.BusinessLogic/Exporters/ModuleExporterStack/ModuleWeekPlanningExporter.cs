@@ -1,7 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +43,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             row.Cells[0].AddParagraph("Week").Format.Font.Bold = true;
             row.Cells[1].AddParagraph("Onderwerpen").Format.Font.Bold = true;
 
-            foreach (Weekplanning wp in toExport.Weekplanning) 
+            foreach (Weekplanning wp in toExport.Weekplanningen) 
             {
                 row = table.AddRow();
                 row.Cells[0].AddParagraph(wp.Week ?? "");

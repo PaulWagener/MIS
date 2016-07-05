@@ -5,9 +5,9 @@
         public string Naam { get; set; }
         public string Schooljaar { get; set; }
 
-        internal DomainDAL.Leerlijn ToPoco()
+        internal Domain.Leerlijn ToPoco()
         {
-            return new DomainDAL.Leerlijn()
+            return new Domain.Leerlijn()
             {
                 Naam = this.Naam,
                 Schooljaar = this.Schooljaar

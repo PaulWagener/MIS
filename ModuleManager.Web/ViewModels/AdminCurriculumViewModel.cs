@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using ModuleManager.Web.ViewModels.PartialViewModel;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 
 
 namespace ModuleManager.Web.ViewModels

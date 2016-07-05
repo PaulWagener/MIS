@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Linq;
 
@@ -85,9 +85,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return studiePunten;
         }
 
-        public ICollection<FaseModules> MapToFaseModules(DomainContext context)
+        public ICollection<FaseModule> MapToFaseModules(Domain.DomainDalEntities context)
         {
-            var faseModules = new List<FaseModules>();
+            var faseModules = new List<FaseModule>();
             foreach (var faseModule in FaseModules)
             {
                 var fase = context.Fase.First(m =>
@@ -213,7 +213,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return docenten;
         }
 
-        public ICollection<Leerlijn> MapToLeerlijn(DomainContext context)
+        public ICollection<Leerlijn> MapToLeerlijn(DomainDalEntities context)
         {
             var leerlijnen = new List<Leerlijn>();
             foreach (var leerlijnVM in Leerlijn)
@@ -228,7 +228,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return leerlijnen;
         }
 
-        public ICollection<Tag> MapToTag(DomainContext context)
+        public ICollection<Tag> MapToTag(DomainDalEntities context)
         {
             var tags = new List<Tag>();
             foreach (var tagVM in Tag)

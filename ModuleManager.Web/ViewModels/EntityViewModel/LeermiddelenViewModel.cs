@@ -1,4 +1,4 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.Domain;
 using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
@@ -12,7 +12,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool? isDeleted { get; set; }
 
-        internal Leermiddelen ToPoco(DomainContext context)
+        internal Leermiddelen ToPoco(DomainDalEntities context)
         {
             Leermiddelen leermiddel = context.Leermiddelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
             

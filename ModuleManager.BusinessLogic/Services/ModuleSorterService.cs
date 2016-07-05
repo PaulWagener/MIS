@@ -14,9 +14,9 @@ namespace ModuleManager.BusinessLogic.Services
     /// <summary>
     /// Sorting class for use with Modules
     /// </summary>
-    public class ModuleSorterService : ISorterService<DomainDAL.Module>
+    public class ModuleSorterService : ISorterService<Domain.Module>
     {
-        ISorter<DomainDAL.Module> moduleSorterStrategy;
+        ISorter<Domain.Module> moduleSorterStrategy;
 
         /// <summary>
         /// Constructor: Builds the contained Strategy
@@ -29,14 +29,14 @@ namespace ModuleManager.BusinessLogic.Services
             var types = from t in Assembly.GetExecutingAssembly().GetTypes()
                         where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Sorters.ModuleSorterStack" && !t.IsDefined(typeof(CompilerGeneratedAttribute), false)
                         select t;
-            Type[] typeArgs = { typeof(ISorter<DomainDAL.Module>) };
+            Type[] typeArgs = { typeof(ISorter<Domain.Module>) };
             foreach (Type t in types) 
             {
                 var ctor = t.GetConstructor(typeArgs);
                 if (ctor != null) 
                 {
                     object[] parameters = { moduleSorterStrategy };
-                    moduleSorterStrategy = ctor.Invoke(parameters) as ISorter<DomainDAL.Module>;
+                    moduleSorterStrategy = ctor.Invoke(parameters) as ISorter<Domain.Module>;
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="qPack">Pack with Data and required Arguments</param>
         /// <returns>List of Sorted Modules</returns>
-        public IEnumerable<DomainDAL.Module> Sort(Interfaces.IQueryablePack<DomainDAL.Module> qPack)
+        public IEnumerable<Domain.Module> Sort(Interfaces.IQueryablePack<Domain.Module> qPack)
         {
             if (qPack.Args.SortBy != null)
             {

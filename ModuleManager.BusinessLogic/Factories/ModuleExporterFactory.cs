@@ -38,14 +38,14 @@ namespace ModuleManager.BusinessLogic.Factories
         /// </summary>
         /// <param name="opt">Pre-defined options</param>
         /// <returns>Decorator pattern for exporting</returns>
-        public IExporter<DomainDAL.Module> GetStrategy(ModuleExportArguments opt) 
+        public IExporter<Domain.Module> GetStrategy(ModuleExportArguments opt) 
         {
             //make sure you keep the ExportOptions in Sync with the Stack. That way, you can just use ifs here.
-            IExporter<DomainDAL.Module> strategy = new ModulePassiveExporter();
+            IExporter<Domain.Module> strategy = new ModulePassiveExporter();
 
             opt.ExportNaam = true; //Always Needed, table of contents is filled with this
 
-            Type[] typeArgs = { typeof(IExporter<DomainDAL.Module>) };
+            Type[] typeArgs = { typeof(IExporter<Domain.Module>) };
 
             if (opt.ExportAll || opt.ExportNaam)
             {
@@ -54,7 +54,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -65,7 +65,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null) 
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -76,7 +76,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -87,7 +87,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -98,7 +98,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -109,7 +109,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -120,7 +120,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -131,7 +131,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -142,7 +142,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -153,7 +153,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -164,7 +164,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -175,7 +175,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 
@@ -186,7 +186,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
                 }
             }
 

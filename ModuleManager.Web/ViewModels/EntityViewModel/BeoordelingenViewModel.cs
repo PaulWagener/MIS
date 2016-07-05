@@ -12,12 +12,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public bool? isDeleted { get; set; }
 
 
-        internal DomainDAL.Beoordelingen ToPoco(DomainDAL.DomainContext context)
+        internal Domain.Beoordelingen ToPoco(Domain.DomainDalEntities context)
         {
-            DomainDAL.Beoordelingen beoordeling = context.Beoordelingen.FirstOrDefault(b => b.CursusCode == CursusCode && b.Schooljaar == Schooljaar && b.Id == Id);
+            Domain.Beoordelingen beoordeling = context.Beoordelingen.FirstOrDefault(b => b.CursusCode == CursusCode && b.Schooljaar == Schooljaar && b.Id == Id);
 
             if (beoordeling == null)
-                beoordeling = new DomainDAL.Beoordelingen();
+                beoordeling = new Domain.Beoordelingen();
 
 
             beoordeling.CursusCode = CursusCode;

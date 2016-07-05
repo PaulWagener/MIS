@@ -6,7 +6,7 @@ using ModuleManager.BusinessLogic.Factories;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace ModuleManager.BusinessLogic.Services
     public class LeerlijnExporterService : AbstractExporterService, IExporterService<Leerlijn>
     {
 
-        IExporter<DomainDAL.Leerlijn> leerlijnExporterStrategy;
+        IExporter<Domain.Leerlijn> leerlijnExporterStrategy;
 
         /// <summary>
         /// Constructor
@@ -86,7 +86,7 @@ namespace ModuleManager.BusinessLogic.Services
             LeerlijnExporterFactory lef = new LeerlijnExporterFactory();
             leerlijnExporterStrategy = lef.GetStrategy(pack.Options as LeerlijnExportArguments);
 
-            foreach (DomainDAL.Leerlijn l in pack.ToExport)
+            foreach (Domain.Leerlijn l in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
                 try

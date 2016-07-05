@@ -3,7 +3,7 @@ using ModuleManager.BusinessLogic.Filters;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Filters;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +17,9 @@ namespace ModuleManager.BusinessLogic.Services
     /// <summary>
     /// Filtering class for use with Modules
     /// </summary>
-    public class ModuleFilterService : IFilterService<DomainDAL.Module>
+    public class ModuleFilterService : IFilterService<Domain.Module>
     {
-        IFilter<DomainDAL.Module> moduleFilterStrategy;
+        IFilter<Domain.Module> moduleFilterStrategy;
 
         /// <summary>
         /// Constructor: Builds the contained Strategy
@@ -32,7 +32,7 @@ namespace ModuleManager.BusinessLogic.Services
             var types = from t in Assembly.GetExecutingAssembly().GetTypes()
                         where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Filters.ModuleFilterStack" && !t.IsDefined(typeof (CompilerGeneratedAttribute), false)
                         select t;
-            Type[] typeArgs = {typeof(IFilter<DomainDAL.Module>)};
+            Type[] typeArgs = {typeof(IFilter<Domain.Module>)};
 
             foreach (Type t in types) 
             {
@@ -40,7 +40,7 @@ namespace ModuleManager.BusinessLogic.Services
                 if (ctor != null)
                 {
                     object[] parameters = { moduleFilterStrategy };
-                    moduleFilterStrategy = ctor.Invoke(parameters) as IFilter<DomainDAL.Module>;
+                    moduleFilterStrategy = ctor.Invoke(parameters) as IFilter<Domain.Module>;
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="qPack">Pack with Data and required Arguments</param>
         /// <returns>List of Filtered Modules</returns>
-        public IEnumerable<DomainDAL.Module> Filter(IQueryablePack<DomainDAL.Module> qPack)
+        public IEnumerable<Domain.Module> Filter(IQueryablePack<Domain.Module> qPack)
         {
             var temp = moduleFilterStrategy.Filter(qPack.Data, qPack.Args);
             return temp.ToList();

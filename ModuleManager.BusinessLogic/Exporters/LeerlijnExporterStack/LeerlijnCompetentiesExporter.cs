@@ -1,6 +1,6 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +35,10 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
 
             List<Competentie> accumulatedCompetences = new List<Competentie>();
 
-            foreach (Module m in toExport.Module) 
+            foreach (Module m in toExport.Modules) 
             {
                 accumulatedCompetences = new List<Competentie>();
-                foreach(ModuleCompetentie mc in m.ModuleCompetentie)
+                foreach(ModuleCompetentie mc in m.ModuleCompetenties)
                 {
                     if(!accumulatedCompetences.Contains(mc.Competentie))
                     {

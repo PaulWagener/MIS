@@ -1,6 +1,6 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             p.AddLineBreak();
 
             p = sect.AddParagraph();
-            foreach (ModuleWerkvorm wv in toExport.ModuleWerkvorm) 
+            foreach (ModuleWerkvorm wv in toExport.ModuleWerkvormen) 
             {
                 p.AddText((wv.WerkvormType ?? "NOT FOUND") + ": " + (wv.Organisatie ?? ""));
                 p.AddLineBreak();

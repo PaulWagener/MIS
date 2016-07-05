@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModuleManager.WebTests</RootNamespace>
     <AssemblyName>ModuleManager.WebTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -18,6 +18,7 @@
     <TestProjectType>UnitTest</TestProjectType>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -114,10 +115,6 @@
     <ProjectReference Include="..\ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj">
       <Project>{89c16482-39d4-4861-928d-d59a7db808e9}</Project>
       <Name>ModuleManager.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">
-      <Project>{ac5d926e-de8a-41a5-aed4-8e60dffa7b1d}</Project>
-      <Name>ModuleManager.DomainDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModuleManager.LoggingDAL\ModuleManager.LoggingDAL.csproj">
       <Project>{3876c338-ab98-463e-92c4-45494a7c13cb}</Project>

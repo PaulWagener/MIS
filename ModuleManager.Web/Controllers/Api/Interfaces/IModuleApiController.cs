@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 

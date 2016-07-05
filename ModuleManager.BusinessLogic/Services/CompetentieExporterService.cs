@@ -5,7 +5,7 @@ using ModuleManager.BusinessLogic.Exporters;
 using ModuleManager.BusinessLogic.Factories;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace ModuleManager.BusinessLogic.Services
 {
     public class CompetentieExporterService : AbstractExporterService, IExporterService<Competentie>
     {
-        IExporter<DomainDAL.Competentie> competentieExporterStrategy;
+        IExporter<Competentie> competentieExporterStrategy;
 
         /// <summary>
         /// Constructor
@@ -84,7 +84,7 @@ namespace ModuleManager.BusinessLogic.Services
             CompetentieExporterFactory cef = new CompetentieExporterFactory();
             competentieExporterStrategy = cef.GetStrategy(pack.Options as CompetentieExportArguments);
 
-            foreach (DomainDAL.Competentie c in pack.ToExport)
+            foreach (Domain.Competentie c in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
                 try

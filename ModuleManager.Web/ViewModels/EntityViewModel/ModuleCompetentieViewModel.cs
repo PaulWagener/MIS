@@ -1,4 +1,4 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.Domain;
 using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
@@ -13,15 +13,15 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public CompetentieViewModel Competentie { get; set; }
 
-        internal ModuleCompetentie ToPoco(DomainContext context, Module module)
+        internal ModuleCompetentie ToPoco(DomainDalEntities context, Module module)
         {
-            DomainDAL.ModuleCompetentie moduleCompetentie = context.ModuleCompetentie.
+            Domain.ModuleCompetentie moduleCompetentie = context.ModuleCompetentie.
                 FirstOrDefault(l => l.CursusCode == CursusCode &&
                 l.Schooljaar == Schooljaar && 
                 l.CompetentieCode == CompetentieCode);
 
             if (moduleCompetentie == null)
-                moduleCompetentie = new DomainDAL.ModuleCompetentie();
+                moduleCompetentie = new Domain.ModuleCompetentie();
 
 
             moduleCompetentie.CursusCode = module.CursusCode;

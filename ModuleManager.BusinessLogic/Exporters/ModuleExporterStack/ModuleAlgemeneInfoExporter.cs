@@ -1,7 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +53,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             bool notFirstIteration = false;
 
-            foreach(FaseModules fm in toExport.FaseModules)
+            foreach(FaseModule fm in toExport.FaseModules)
             {
                 if (notFirstIteration) { pCell.AddText(", "); }
                 pCell.AddText("Blok " + (fm.Blok ?? ""));
@@ -75,7 +75,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             row.Cells[0].AddParagraph("Werkvormen");
             pCell = row.Cells[1].AddParagraph();
             notFirstIteration = false;
-            foreach(ModuleWerkvorm wv in toExport.ModuleWerkvorm)
+            foreach(ModuleWerkvorm wv in toExport.ModuleWerkvormen)
             {
                 if (notFirstIteration) { pCell.AddText("+"); }
                 pCell.AddText(wv.WerkvormType ?? "NOT FOUND");

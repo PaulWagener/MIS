@@ -53,136 +53,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beoordelingen.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Blok.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Competentie.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Docent.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="ExtensionMethods\ModuleExtensionMethods.cs" />
-    <Compile Include="Fase.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FaseModules.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FaseType.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Icons.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Leerdoelen.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Leerlijn.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Leermiddelen.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Module.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleCompetentie.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleManagerDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleManagerDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleManagerDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleManagerDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleManagerDB1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleWerkvorm.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Niveau.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Onderdeel.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Opleiding.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
-    <Compile Include="Schooljaar.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Status.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="StudieBelasting.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="StudiePunten.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Tag.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Toetsvorm.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Utility\DomainConstants.cs" />
     <Compile Include="Utility\MyDbInitializer.cs" />
-    <Compile Include="Weekplanning.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Werkvorm.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="ModuleManagerDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModuleManagerDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ModuleManagerDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
-      <LastGenOutput>ModuleManagerDB.Context.cs</LastGenOutput>
-    </None>
-    <None Include="ModuleManagerDB.edmx.diagram">
-      <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
-    </None>
-    <None Include="ModuleManagerDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
-      <LastGenOutput>ModuleManagerDB1.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ModuleManagerDB.edmx.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

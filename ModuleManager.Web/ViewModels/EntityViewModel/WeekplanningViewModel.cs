@@ -1,4 +1,4 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.Domain;
 using System.Linq;
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
@@ -12,9 +12,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool? isDeleted { get; set; }
 
-        internal DomainDAL.Weekplanning ToPoco(DomainContext context)
+        internal Domain.Weekplanning ToPoco(DomainDalEntities context)
         {
-            DomainDAL.Weekplanning weekPlanning = context.Weekplanning.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
+            Domain.Weekplanning weekPlanning = context.Weekplanning.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
           // controleer eerst of beide velden gevuld zijn
           if (Week != null && Onderwerp != null) {
 

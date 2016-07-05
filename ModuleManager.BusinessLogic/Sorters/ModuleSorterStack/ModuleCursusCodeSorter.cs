@@ -1,6 +1,6 @@
 ﻿using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Sorters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

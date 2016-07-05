@@ -1,6 +1,7 @@
 ﻿using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Exporters;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,14 +39,14 @@ namespace ModuleManager.BusinessLogic.Factories
         /// </summary>
         /// <param name="opt">Pre-defined options</param>
         /// <returns>Decorator pattern for exporting</returns>
-        public IExporter<DomainDAL.Competentie> GetStrategy(CompetentieExportArguments opt) 
+        public IExporter<Competentie> GetStrategy(CompetentieExportArguments opt) 
         {
             //make sure you keep the ExportOptions in Sync with the Stack. That way, you can just use ifs here.
-            IExporter<DomainDAL.Competentie> strategy = new CompetentiePassiveExporter();
+            IExporter<Competentie> strategy = new CompetentiePassiveExporter();
 
             opt.ExportNaam = true; //Always Needed, table of contents is filled with this
 
-            Type[] typeArgs = { typeof(IExporter<DomainDAL.Competentie>) };
+            Type[] typeArgs = { typeof(IExporter<Competentie>) };
 
             
             if (opt.ExportAll || opt.ExportNaam)
@@ -55,7 +56,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Competentie>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Competentie>;
                 }
             }
 
@@ -66,7 +67,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Competentie>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Competentie>;
                 }
             }
 
@@ -77,7 +78,7 @@ namespace ModuleManager.BusinessLogic.Factories
                 if (ctor != null)
                 {
                     object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Competentie>;
+                    strategy = ctor.Invoke(parameters) as IExporter<Competentie>;
                 }
             }
 

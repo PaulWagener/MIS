@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Domain;
+using ModuleManager.Domain.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api

@@ -1,7 +1,7 @@
 ﻿using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

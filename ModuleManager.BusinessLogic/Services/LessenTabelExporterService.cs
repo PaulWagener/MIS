@@ -6,7 +6,7 @@ using ModuleManager.BusinessLogic.Factories;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;

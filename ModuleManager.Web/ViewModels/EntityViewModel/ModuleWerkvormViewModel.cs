@@ -9,13 +9,13 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string WerkvormType { get; set; }
         public string Organisatie { get; set; }
 
-        public DomainDAL.ModuleWerkvorm ToPoco(DomainDAL.DomainContext context)
+        public Domain.ModuleWerkvorm ToPoco(Domain.DomainDalEntities context)
         {
-            DomainDAL.ModuleWerkvorm moduleWerkvorm = context.ModuleWerkvorm.FirstOrDefault(l => l.CursusCode == CursusCode && 
+            Domain.ModuleWerkvorm moduleWerkvorm = context.ModuleWerkvorm.FirstOrDefault(l => l.CursusCode == CursusCode && 
                 l.Schooljaar == Schooljaar && l.WerkvormType == WerkvormType);
 
             if (moduleWerkvorm == null)
-                moduleWerkvorm = new DomainDAL.ModuleWerkvorm();
+                moduleWerkvorm = new Domain.ModuleWerkvorm();
 
 
             moduleWerkvorm.CursusCode = CursusCode;

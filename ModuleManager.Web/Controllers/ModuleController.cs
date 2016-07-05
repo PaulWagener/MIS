@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.ExtensionMethods;
-using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Domain;
+using ModuleManager.Domain.ExtensionMethods;
+using ModuleManager.Domain.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
@@ -99,7 +99,7 @@ namespace ModuleManager.Web.Controllers
                 return View(moduleVm);
             }
 
-            using(var context = new DomainContext()){
+            using(var context = new DomainDalEntities()){
 
                 //Ophalen originele module
                 var module = context.Module.Find(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });

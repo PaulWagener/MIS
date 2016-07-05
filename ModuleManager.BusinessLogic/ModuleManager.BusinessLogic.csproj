@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModuleManager.BusinessLogic</RootNamespace>
     <AssemblyName>ModuleManager.BusinessLogic</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -149,9 +150,9 @@
     <Compile Include="Sorters\ModuleSorterStack\ModuleVerantwoordelijkeSorter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">
-      <Project>{ac5d926e-de8a-41a5-aed4-8e60dffa7b1d}</Project>
-      <Name>ModuleManager.DomainDAL</Name>
+    <ProjectReference Include="..\ModuleManager.Domain\ModuleManager.Domain.csproj">
+      <Project>{bd56b86a-f3b6-4cc8-8bed-e318bf5d62da}</Project>
+      <Name>ModuleManager.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModuleManager.LoggingSysteem\ModuleManager.LoggingSysteem.csproj">
       <Project>{bc407b28-8305-43a9-b2e4-7efc912ad51e}</Project>

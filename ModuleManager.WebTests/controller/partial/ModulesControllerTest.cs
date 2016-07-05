@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.Domain;
+using ModuleManager.Domain.Interfaces;
+using ModuleManager.Domain.Repositories;
 using ModuleManager.Web.Controllers.PartialViewControllers;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using Moq;

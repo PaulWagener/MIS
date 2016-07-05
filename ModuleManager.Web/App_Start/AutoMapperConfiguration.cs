@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using AutoMapper;

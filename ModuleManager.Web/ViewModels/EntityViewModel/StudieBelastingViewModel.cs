@@ -1,4 +1,4 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.Domain;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,9 +28,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public bool? isDeleted { get; set; }
 
 
-        internal DomainDAL.StudieBelasting ToPoco(DomainContext context)
+        internal Domain.StudieBelasting ToPoco(DomainDalEntities context)
         {
-            DomainDAL.StudieBelasting studieBelasting = context.StudieBelasting.Find(CursusCode, Schooljaar, Activiteit);
+            Domain.StudieBelasting studieBelasting = context.StudieBelasting.Find(CursusCode, Schooljaar, Activiteit);
 
             if (studieBelasting == null)
             {

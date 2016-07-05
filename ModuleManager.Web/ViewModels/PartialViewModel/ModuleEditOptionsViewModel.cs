@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using System.Web.Mvc;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain.Interfaces;
+using ModuleManager.Domain;
 using AutoMapper;
 
 namespace ModuleManager.Web.ViewModels.PartialViewModel

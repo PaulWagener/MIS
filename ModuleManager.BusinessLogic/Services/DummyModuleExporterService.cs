@@ -3,7 +3,7 @@ using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using PdfSharp.Pdf;
 
 namespace ModuleManager.BusinessLogic.Services

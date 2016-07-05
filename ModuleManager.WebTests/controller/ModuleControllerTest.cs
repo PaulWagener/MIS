@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.Web.Controllers;
-using ModuleManager.DomainDAL.Repositories;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain.Repositories;
+using ModuleManager.Domain.Interfaces;
+using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels;
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
            
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                //3. Assert (alwasy in new context
                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -83,7 +83,7 @@ namespace ModuleManager.WebTests
             controller.Edit(vm);
 
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -104,7 +104,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -126,7 +126,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -148,7 +148,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -172,7 +172,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -194,7 +194,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -226,7 +226,7 @@ namespace ModuleManager.WebTests
           //2. Act
           controller.Edit(vm);
 
-          using (var context = new DomainContext()) {
+          using (var context = new DomainDalEntities()) {
             //3. Assert (always in new context
             Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "DB1");
             Assert.AreEqual(0, module.Weekplanning.Count);
@@ -244,7 +244,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -265,7 +265,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -285,7 +285,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -305,7 +305,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -326,7 +326,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
@@ -347,7 +347,7 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 //3. Assert (alwasy in new context
                 Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");

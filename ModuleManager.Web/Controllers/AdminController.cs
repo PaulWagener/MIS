@@ -2,8 +2,8 @@
 using System.Web.Mvc;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Domain;
+using ModuleManager.Domain.Interfaces;
 using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
@@ -137,7 +137,7 @@ namespace ModuleManager.Web.Controllers
 
             //ViewBag.Message = "code: " + code;
 
-            using (var context = new DomainContext())
+            using (var context = new DomainDalEntities())
             {
                 context.SP_ArchiveYear();
             }

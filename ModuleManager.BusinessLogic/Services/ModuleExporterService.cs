@@ -8,7 +8,7 @@ using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.BusinessLogic.Properties;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
@@ -20,9 +20,9 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Services
 {
-    public class ModuleExporterService : AbstractExporterService, IExporterService<DomainDAL.Module>
+    public class ModuleExporterService : AbstractExporterService, IExporterService<Domain.Module>
     {
-        IExporter<DomainDAL.Module> moduleExporterStrategy;
+        IExporter<Domain.Module> moduleExporterStrategy;
         
 
         public ModuleExporterService() 
@@ -36,7 +36,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="toExport">element to export</param>
         /// <returns>A PDF Document</returns>
-        public PdfDocument Export(DomainDAL.Module toExport)
+        public PdfDocument Export(Domain.Module toExport)
         {
             Document prePdf = new Document();
 
@@ -72,7 +72,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
         /// <returns>A PDF Document</returns>
-        public PdfDocument ExportAll(IExportablePack<DomainDAL.Module> pack)
+        public PdfDocument ExportAll(IExportablePack<Domain.Module> pack)
         {
             Document prePdf = new Document();
 
@@ -86,7 +86,7 @@ namespace ModuleManager.BusinessLogic.Services
             ModuleExporterFactory mef = new ModuleExporterFactory();
             moduleExporterStrategy = mef.GetStrategy(pack.Options as ModuleExportArguments);
             
-            foreach(DomainDAL.Module m in pack.ToExport)
+            foreach(Domain.Module m in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
                 try
@@ -116,7 +116,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="toExport">element to export</param>
         /// <returns>Stream to offer as download</returns>
-        public BufferedStream ExportAsStream(DomainDAL.Module toExport)
+        public BufferedStream ExportAsStream(Domain.Module toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -133,7 +133,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack"></param>
         /// <returns>Stream to offer as download</returns>
-        public BufferedStream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
+        public BufferedStream ExportAllAsStream(IExportablePack<Domain.Module> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);

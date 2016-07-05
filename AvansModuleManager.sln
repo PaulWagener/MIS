@@ -1,14 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.Web", "ModuleManager.Web\ModuleManager.Web.csproj", "{A8AD9299-BD13-419A-8843-22F798FA1A00}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D} = {AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.DomainDAL", "ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj", "{AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.LoggingDAL", "ModuleManager.LoggingDAL\ModuleManager.LoggingDAL.csproj", "{3876C338-AB98-463E-92C4-45494A7C13CB}"
 EndProject
@@ -33,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{02884B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.DomainDal.Tests", "ModuleManager.DomainDal.Tests\ModuleManager.DomainDal.Tests.csproj", "{2C0456FF-5971-484B-85F1-D71C45034B6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.Domain", "ModuleManager.Domain\ModuleManager.Domain.csproj", "{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,10 +40,6 @@ Global
 		{A8AD9299-BD13-419A-8843-22F798FA1A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8AD9299-BD13-419A-8843-22F798FA1A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8AD9299-BD13-419A-8843-22F798FA1A00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC5D926E-DE8A-41A5-AED4-8E60DFFA7B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3876C338-AB98-463E-92C4-45494A7C13CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3876C338-AB98-463E-92C4-45494A7C13CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3876C338-AB98-463E-92C4-45494A7C13CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,6 +72,10 @@ Global
 		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C0456FF-5971-484B-85F1-D71C45034B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

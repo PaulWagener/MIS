@@ -1,4 +1,4 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.Domain;
 using System.Collections.Generic;
 
 namespace ModuleManager.Web.ViewModels

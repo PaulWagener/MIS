@@ -1,9 +1,9 @@
 using System;
 using System.Web;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.Domain;
+using ModuleManager.Domain.Interfaces;
+using ModuleManager.Domain.Repositories;
 using ModuleManager.Web.App_Start;
 using ModuleManager.Web.Controllers.Api;
 using ModuleManager.Web.Controllers.Api.Interfaces;
@@ -81,7 +81,7 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
             kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
             kernel.Bind<IGenericRepository<FaseType>>().To<GenericRepository<FaseType>>(); //
-            kernel.Bind<IGenericRepository<FaseModules>>().To<GenericRepository<FaseModules>>(); //
+            kernel.Bind<IGenericRepository<FaseModule>>().To<GenericRepository<FaseModule>>(); //
             kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>(); //
 
             // UnitOfWork session for repositories to use:

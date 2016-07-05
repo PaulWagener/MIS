@@ -1,7 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
-using ModuleManager.DomainDAL;
+using ModuleManager.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +47,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             row.Cells[2].AddParagraph("Frequentie").Format.Font.Bold = true;
             row.Cells[3].AddParagraph("SBU").Format.Font.Bold = true;
 
-            foreach (StudieBelasting sb in toExport.StudieBelasting) 
+            foreach (StudieBelasting sb in toExport.StudieBelastingen) 
             {
                 row = table.AddRow();
                 row.Cells[0].AddParagraph(sb.Activiteit ?? "");
@@ -58,7 +58,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             row = table.AddRow();
             row.Cells[2].AddParagraph("Totaal").Format.Font.Bold = true; ;
-            row.Cells[3].AddParagraph(toExport.StudieBelasting.Sum(x => x.SBU).ToString());
+            row.Cells[3].AddParagraph(toExport.StudieBelastingen.Sum(x => x.SBU).ToString());
 
             p = sect.AddParagraph();
             p.AddLineBreak();
