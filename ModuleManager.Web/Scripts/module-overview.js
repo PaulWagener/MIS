@@ -33,7 +33,9 @@ $(function () {
 
 function initDatatable() {
 
-    table = $("#modules").DataTable({
+
+
+    table = $("#modules").dataTable({
         dom:
             "<'row'<'col-sm-6'l><'col-sm-6 toolbar text-right'>>" +
                 "<'row'<'col-sm-12'tr>>" +

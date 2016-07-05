@@ -22,6 +22,19 @@ namespace ModuleManager.Web
 
         }
 
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            /**
+             * The line below exists to force the existence of a Session
+             * This solves a bug in AccountController.cs where tokens are stored in Session,
+             * but somehow the combination of redirects and newly created sessions can sometimes
+             * lead to crucial tokens being lost in a session, and crashing the application.
+             * If the Session exists beforehand that should not be the case and all should work fine.
+             * (note that the actual values that are used below are not important)
+             */
+            HttpContext.Current.Session["foo"] = "foo";
+        }
+
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
             HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
