@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Blok] (
+    [BlokId] VARCHAR (5) NOT NULL,
+    CONSTRAINT [PK_Blok] PRIMARY KEY CLUSTERED ([BlokId] ASC)
+);
+

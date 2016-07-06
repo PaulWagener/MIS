@@ -26,9 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{02884B
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.DomainDal.Tests", "ModuleManager.DomainDal.Tests\ModuleManager.DomainDal.Tests.csproj", "{2C0456FF-5971-484B-85F1-D71C45034B6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.Domain.Tests", "ModuleManager.DomainDal.Tests\ModuleManager.Domain.Tests.csproj", "{2C0456FF-5971-484B-85F1-D71C45034B6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.Domain", "ModuleManager.Domain\ModuleManager.Domain.csproj", "{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ModuleManager.Database", "ModuleManager.Database\ModuleManager.Database.sqlproj", "{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +78,12 @@ Global
 		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6DD01E7-8EF1-48A8-A669-C1A5042A3DA1}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

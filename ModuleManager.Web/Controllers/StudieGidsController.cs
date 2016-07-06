@@ -58,15 +58,11 @@ namespace ModuleManager.Web.Controllers
                         (a, b) => new { a, b }).ToList();
                 foreach (var random in joined
                     .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))
-                    .DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })
-                    .OrderBy(src => Math.Ceiling(Convert.ToInt32(src.a.Blok) / 2.0))
-                    .ThenBy(src => src.a.FaseNaam)
-                    .ThenBy(src => src.a.Blok))
+                    .DistinctBy(src => src.a.FaseNaam))
                 {
-                    var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
+                    var tabel = new LesTabelViewModel { FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
                     foreach (var fm2 in fasems
-                         .Where(src => src.Blok.Equals(tabel.Blok))
                          .Where(src => src.FaseNaam.Equals(tabel.FaseNaam)))
                     {
                         var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar }); //

@@ -17,7 +17,6 @@ namespace ModuleManager.Domain
         public string FaseNaam { get; set; }
         public string ModuleCursusCode { get; set; }
         public string ModuleSchooljaar { get; set; }
-        public string Blok { get; set; }
     
         public virtual Fase Fase { get; set; }
         public virtual Module Module { get; set; }

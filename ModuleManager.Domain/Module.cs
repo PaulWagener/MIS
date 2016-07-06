@@ -41,6 +41,7 @@ namespace ModuleManager.Domain
         public string Status { get; set; }
         public string OnderdeelCode { get; set; }
         public string Icon { get; set; }
+        public string Blok { get; set; }
     
         public virtual Onderdeel Onderdeel { get; set; }
         public virtual Status Status1 { get; set; }

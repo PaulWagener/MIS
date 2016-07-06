@@ -94,7 +94,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
                 faseModules.Add(new FaseModule
                 {
-                    Blok = faseModule.Blok,
                     FaseNaam = faseModule.FaseNaam,
                     ModuleCursusCode = faseModule.ModuleCursusCode,
                     ModuleSchooljaar = faseModule.ModuleSchooljaar,

@@ -56,7 +56,6 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             foreach(FaseModule fm in toExport.FaseModules)
             {
                 if (notFirstIteration) { pCell.AddText(", "); }
-                pCell.AddText("Blok " + (fm.Blok ?? ""));
                 notFirstIteration = true;
             }
 

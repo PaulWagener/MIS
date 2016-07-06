@@ -59,8 +59,6 @@ namespace ModuleManager.Web
                         .Select(sp => sp.EC).Sum()))
                 .ForMember(dest => dest.FaseNamen, opt => opt.MapFrom(
                     src => (string.Join(Delimiter, src.FaseModules.Select(inSrc => inSrc.FaseNaam)))))
-                .ForMember(dest => dest.Blokken, opt => opt.MapFrom(
-                    src => (string.Join(Delimiter, src.FaseModules.Select(inSrc => inSrc.Blok).Distinct()))))
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.Docenten.Select(inSrc => inSrc.Naam))));
 

@@ -55,12 +55,10 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             <PropertyRef Name="FaseNaam" />
             <PropertyRef Name="ModuleCursusCode" />
             <PropertyRef Name="ModuleSchooljaar" />
-            <PropertyRef Name="Blok" />
           </Key>
           <Property Name="FaseNaam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ModuleCursusCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ModuleSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Blok" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="FaseType">
           <Key>
@@ -111,12 +109,13 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar(max)" />
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Verantwoordelijke" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Beschrijving" Type="nvarchar(max)" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Verantwoordelijke" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="Blok" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -652,8 +651,7 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             <DefiningQuery>SELECT 
     [FaseModule].[FaseNaam] AS [FaseNaam], 
     [FaseModule].[ModuleCursusCode] AS [ModuleCursusCode], 
-    [FaseModule].[ModuleSchooljaar] AS [ModuleSchooljaar], 
-    [FaseModule].[Blok] AS [Blok]
+    [FaseModule].[ModuleSchooljaar] AS [ModuleSchooljaar]
     FROM [dbo].[FaseModule] AS [FaseModule]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Beoordelingen_Module" Association="Self.FK_Beoordelingen_Module">
@@ -805,9 +803,9 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           </Key>
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Verantwoordelijke" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Verantwoordelijke" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OnderdeelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Icon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
@@ -827,6 +825,7 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <NavigationProperty Name="Leermiddelen" Relationship="Domain.FK_Leermiddelen_Module1" FromRole="Module" ToRole="Leermiddel" />
           <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
+          <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -1161,12 +1160,10 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             <PropertyRef Name="FaseNaam" />
             <PropertyRef Name="ModuleCursusCode" />
             <PropertyRef Name="ModuleSchooljaar" />
-            <PropertyRef Name="Blok" />
           </Key>
           <Property Name="FaseNaam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModuleCursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModuleSchooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Fase" Relationship="Domain.FK_FaseModules_Fase" FromRole="FaseModule" ToRole="Fase" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_FaseModules_Module" FromRole="FaseModule" ToRole="Module" />
         </EntityType>
@@ -1438,6 +1435,7 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <EntitySetMapping Name="Modules">
             <EntityTypeMapping TypeName="Domain.Module">
               <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="Blok" ColumnName="Blok" />
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
@@ -1584,7 +1582,6 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <EntitySetMapping Name="FaseModules">
             <EntityTypeMapping TypeName="Domain.FaseModule">
               <MappingFragment StoreEntitySet="FaseModule">
-                <ScalarProperty Name="Blok" ColumnName="Blok" />
                 <ScalarProperty Name="ModuleSchooljaar" ColumnName="ModuleSchooljaar" />
                 <ScalarProperty Name="ModuleCursusCode" ColumnName="ModuleCursusCode" />
                 <ScalarProperty Name="FaseNaam" ColumnName="FaseNaam" />
