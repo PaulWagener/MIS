@@ -12,13 +12,16 @@ namespace ModuleManager.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Beoordelingen
+    public partial class StudiePunt
     {
         public string CursusCode { get; set; }
         public string Schooljaar { get; set; }
-        public int Id { get; set; }
-        public string Beschrijving { get; set; }
+        public string ToetsCode { get; set; }
+        public string Toetsvorm { get; set; }
+        public decimal EC { get; set; }
+        public string Minimum { get; set; }
     
         public virtual Module Module { get; set; }
+        public virtual Toetsvorm Toetsvorm1 { get; set; }
     }
 }

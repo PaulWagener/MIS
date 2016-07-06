@@ -12,12 +12,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool? isDeleted { get; set; }
 
-        public Leerdoelen ToPoco(DomainDalEntities context)
+        public Leerdoel ToPoco(DomainEntities context)
         {
-            Leerdoelen leerdoel = context.Leerdoelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
+            Leerdoel leerdoel = context.Leerdoelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
 
             if (leerdoel == null)
-                leerdoel = new Leerdoelen();
+                leerdoel = new Leerdoel();
 
             leerdoel.Beschrijving = this.Beschrijving;
             leerdoel.CursusCode = this.CursusCode;

@@ -20,7 +20,7 @@ namespace ModuleManager.Domain
             this.Modules = new HashSet<Module>();
         }
     
-        public string Icon1 { get; set; }
+        public string Naam { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }

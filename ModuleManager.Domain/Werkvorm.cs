@@ -17,13 +17,13 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Werkvorm()
         {
-            this.ModuleWerkvorms = new HashSet<ModuleWerkvorm>();
+            this.ModuleWerkvormen = new HashSet<ModuleWerkvorm>();
         }
     
         public string Type { get; set; }
         public string Omschrijving { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ModuleWerkvorm> ModuleWerkvorms { get; set; }
+        public virtual ICollection<ModuleWerkvorm> ModuleWerkvormen { get; set; }
     }
 }

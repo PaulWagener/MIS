@@ -15,7 +15,7 @@ namespace ModuleManager.WebTests
 
         public void CreateTestData()
         {
-            using(var context = new DomainDalEntities())
+            using(var context = new DomainEntities())
             {
                 var leerlijn_prog = new Leerlijn() { Naam = "Programmeren", Schooljaar = "1516" };
                 var leerlijn_mod = new Leerlijn() { Naam = "Modelleren", Schooljaar = "1516" };
@@ -69,40 +69,40 @@ namespace ModuleManager.WebTests
                     OnderdeelCode = "ABV1",
                     Status = "Nieuw",
                     /** Many to Many **/
-                    Leerlijn = new List<Leerlijn>() { leerlijn_prog, leerlijn_mod },
-                    Tag = new List<Tag>() { tag_mvc, tag_mvvm },
+                    Leerlijnen = new List<Leerlijn>() { leerlijn_prog, leerlijn_mod },
+                    Tags = new List<Tag>() { tag_mvc, tag_mvvm },
                     Voorkennis = new List<Module>{ db1 },
                     Docenten = new List<Docent>() {  docent_stijn, docent_bart },
                     /** One to Many **/
-                    Leerdoelen = new List<Leerdoelen>(){ 
-                        new Leerdoelen(){ Beschrijving = "Leerdoel 1", Schooljaar = "1516"},
-                        new Leerdoelen(){ Beschrijving = "Leerdoel 2", Schooljaar = "1516"}
+                    Leerdoelen = new List<Leerdoel>(){ 
+                        new Leerdoel(){ Beschrijving = "Leerdoel 1", Schooljaar = "1516"},
+                        new Leerdoel(){ Beschrijving = "Leerdoel 2", Schooljaar = "1516"}
                     },
-                    Leermiddelen = new List<Leermiddelen>()
+                    Leermiddelen = new List<Leermiddel>()
                     {
-                        new Leermiddelen(){ Beschrijving = "Leermiddel 1", Schooljaar = "1516"},
-                        new Leermiddelen(){ Beschrijving = "Leermiddel 2", Schooljaar = "1516"}
+                        new Leermiddel(){ Beschrijving = "Leermiddel 1", Schooljaar = "1516"},
+                        new Leermiddel(){ Beschrijving = "Leermiddel 2", Schooljaar = "1516"}
                     },
-                    Weekplanning = new List<Weekplanning>()
+                    Weekplanningen = new List<Weekplanning>()
                     {
                         new Weekplanning() { Schooljaar = "1516", Week = "1", Onderwerp = "een" },
                         new Weekplanning() { Schooljaar = "1516", Week = "2", Onderwerp = "twee" },
                     },
-                    Beoordelingen = new List<Beoordelingen>()
+                    Beoordelingen = new List<Beoordeling>()
                     {
-                        new Beoordelingen() {Schooljaar = "1516", Beschrijving = "b1" },
-                        new Beoordelingen() {Schooljaar = "1516", Beschrijving = "b2" },
+                        new Beoordeling() {Schooljaar = "1516", Beschrijving = "b1" },
+                        new Beoordeling() {Schooljaar = "1516", Beschrijving = "b2" },
                     },
-                    ModuleWerkvorm = new List<ModuleWerkvorm>()
+                    ModuleWerkvormen = new List<ModuleWerkvorm>()
                     {
                        new ModuleWerkvorm() { WerkvormType = "WS", Organisatie = "2 workshops", CursusCode = "Test1", Schooljaar = "1516" },
                     },
-                    StudieBelasting = new List<StudieBelasting>()
+                    StudieBelastingen = new List<StudieBelasting>()
                     {
                         new StudieBelasting() { Activiteit = "A1", ContactUren = 11, Duur = "1 weken", Frequentie = "1x per week",  Schooljaar = "1516" },
                         new StudieBelasting() { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week",  Schooljaar = "1516" },
                     },
-                    ModuleCompetentie = new List<ModuleCompetentie>()
+                    ModuleCompetenties = new List<ModuleCompetentie>()
                     {
                         new ModuleCompetentie() { CompetentieCode = "BC1", Niveau = "Beginner", Schooljaar = "1516", CompetentieSchooljaar = "1516" },
                         new ModuleCompetentie() { CompetentieCode = "BC2", Niveau = "Expert", Schooljaar = "1516" ,  CompetentieSchooljaar = "1516"}
@@ -110,18 +110,18 @@ namespace ModuleManager.WebTests
 
                 };
 
-                context.Competentie.Add(competentie_bc1);
-                context.Competentie.Add(competentie_bc2);
-                context.Competentie.Add(competentie_bc3);
-                context.Leerlijn.Add(leerlijn_prog);
-                context.Leerlijn.Add(leerlijn_mod);
-                context.Leerlijn.Add(leerlijn_arch);
-                context.Tag.Add(tag_mvc);
-                context.Tag.Add(tag_mvvm);
-                context.Tag.Add(tag_wcf);
-                context.Module.Add(prog1);
-                context.Module.Add(db1);
-                context.Module.Add(Module);
+                context.Competenties.Add(competentie_bc1);
+                context.Competenties.Add(competentie_bc2);
+                context.Competenties.Add(competentie_bc3);
+                context.Leerlijnen.Add(leerlijn_prog);
+                context.Leerlijnen.Add(leerlijn_mod);
+                context.Leerlijnen.Add(leerlijn_arch);
+                context.Tags.Add(tag_mvc);
+                context.Tags.Add(tag_mvvm);
+                context.Tags.Add(tag_wcf);
+                context.Modules.Add(prog1);
+                context.Modules.Add(db1);
+                context.Modules.Add(Module);
                 context.Docenten.Add(docent_bart);
                 context.Docenten.Add(docent_ger);
                 context.Docenten.Add(docent_stijn);
@@ -142,7 +142,7 @@ namespace ModuleManager.WebTests
         public void DeleteTestData()
         {
             //Emtpy the table module and restraints
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE StudiePunten"); //r
                 context.Database.ExecuteSqlCommand("TRUNCATE TABLE FaseModules"); //r

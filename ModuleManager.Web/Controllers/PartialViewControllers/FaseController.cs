@@ -50,9 +50,6 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                     return Json(new { success = false });
                 var opleiding = opleidingen.Last();
 
-                entity.Schooljaar = schooljaar.JaarId;
-                entity.Opleiding = opleiding;
-
                 var value = _unitOfWork.GetRepository<Fase>().Create(entity);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
@@ -80,7 +77,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
             var faseVM = new FaseCrudViewModel()
             {
-                FaseType = Mapper.Map<FaseType, FaseTypeViewModel>(fase.FaseType1),
+                FaseType = fase.FaseType,
                 Naam = fase.Naam,
                 Beschrijving = fase.Beschrijving,
                 FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList()
@@ -105,10 +102,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                     return Json(new { success = false });
                 var opleiding = opleidingen.Last();
 
-                entity.Schooljaar = schooljaar.JaarId;
-                entity.Opleiding = opleiding;
+
                 entity.OpleidingNaam = opleiding.Naam;
-                entity.OpleidingSchooljaar = opleiding.Schooljaar;
 
                 var value = _unitOfWork.GetRepository<Fase>().Edit(entity);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });

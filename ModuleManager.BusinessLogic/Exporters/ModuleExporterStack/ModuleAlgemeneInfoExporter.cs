@@ -66,7 +66,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             row = table.AddRow();
             row.Cells[0].AddParagraph("Toetsen");
-            foreach (StudiePunten sp in toExport.StudiePunten) 
+            foreach (StudiePunt sp in toExport.StudiePunten) 
             {
                 row.Cells[1].AddParagraph(" - " + (sp.ToetsCode ?? "") + ": " + sp.EC + " EC");
             }

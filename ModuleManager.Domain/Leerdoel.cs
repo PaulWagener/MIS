@@ -12,7 +12,7 @@ namespace ModuleManager.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Leermiddelen
+    public partial class Leerdoel
     {
         public string CursusCode { get; set; }
         public string Schooljaar { get; set; }

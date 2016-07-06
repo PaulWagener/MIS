@@ -116,6 +116,10 @@
       <Project>{89c16482-39d4-4861-928d-d59a7db808e9}</Project>
       <Name>ModuleManager.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModuleManager.Domain\ModuleManager.Domain.csproj">
+      <Project>{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}</Project>
+      <Name>ModuleManager.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModuleManager.LoggingDAL\ModuleManager.LoggingDAL.csproj">
       <Project>{3876c338-ab98-463e-92c4-45494a7c13cb}</Project>
       <Name>ModuleManager.LoggingDAL</Name>

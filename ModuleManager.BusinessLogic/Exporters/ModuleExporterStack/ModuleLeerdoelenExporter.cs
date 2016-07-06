@@ -33,7 +33,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             p = sect.AddParagraph();
 
-            foreach (Leerdoelen ld in toExport.Leerdoelen) 
+            foreach (Leerdoel ld in toExport.Leerdoelen) 
             {
                 p.AddText(" - " + (ld.Beschrijving ?? "NOT FOUND"));
                 p.AddLineBreak();

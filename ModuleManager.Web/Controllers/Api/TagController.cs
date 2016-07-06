@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using ModuleManager.Domain;
 using ModuleManager.Web.Controllers.Api.Interfaces;
+using ModuleManager.Domain.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {

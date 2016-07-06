@@ -17,12 +17,12 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Toetsvorm()
         {
-            this.StudiePuntens = new HashSet<StudiePunten>();
+            this.StudiePunts = new HashSet<StudiePunt>();
         }
     
         public string Type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudiePunten> StudiePuntens { get; set; }
+        public virtual ICollection<StudiePunt> StudiePunts { get; set; }
     }
 }

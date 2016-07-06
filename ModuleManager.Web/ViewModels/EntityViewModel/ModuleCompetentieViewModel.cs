@@ -13,10 +13,10 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public CompetentieViewModel Competentie { get; set; }
 
-        internal ModuleCompetentie ToPoco(DomainDalEntities context, Module module)
+        internal ModuleCompetentie ToPoco(DomainEntities context, Module module)
         {
-            Domain.ModuleCompetentie moduleCompetentie = context.ModuleCompetentie.
-                FirstOrDefault(l => l.CursusCode == CursusCode &&
+            Domain.ModuleCompetentie moduleCompetentie = context.ModuleCompetenties.FirstOrDefault(l => 
+                l.CursusCode == CursusCode &&
                 l.Schooljaar == Schooljaar && 
                 l.CompetentieCode == CompetentieCode);
 

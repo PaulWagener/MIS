@@ -12,9 +12,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool? isDeleted { get; set; }
 
-        internal Domain.Weekplanning ToPoco(DomainDalEntities context)
+        internal Domain.Weekplanning ToPoco(DomainEntities context)
         {
-            Domain.Weekplanning weekPlanning = context.Weekplanning.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
+            Domain.Weekplanning weekPlanning = context.Weekplannings.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);
           // controleer eerst of beide velden gevuld zijn
           if (Week != null && Onderwerp != null) {
 

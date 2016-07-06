@@ -33,16 +33,16 @@ namespace ModuleManager.WebTests.controller.partial
                 Verantwoordelijke = "c",
                 Status = "d",
                 Icon = "e",
-                FaseModules = new List<FaseModules>()
+                FaseModules = new List<FaseModule>()
                 {
-                    new FaseModules() { FaseNaam = "f" },
-                    new FaseModules() { FaseNaam = "g" },
+                    new FaseModule() { FaseNaam = "f" },
+                    new FaseModule() { FaseNaam = "g" },
                 },
                 Onderdeel = new Onderdeel() {  Code = "h" },
-                StudiePunten = new List<StudiePunten>()
+                StudiePunten = new List<StudiePunt>()
                 {
-                    new StudiePunten() { ToetsCode = "i", EC = 1},
-                    new StudiePunten() { ToetsCode = "j", EC = 2}
+                    new StudiePunt() { ToetsCode = "i", EC = 1},
+                    new StudiePunt() { ToetsCode = "j", EC = 2}
                 },
                 Naam = "k",
 
@@ -56,7 +56,6 @@ namespace ModuleManager.WebTests.controller.partial
                 Ec1 = 1,
                 Ec2 = 3,
                 Verantwoordelijke = "o",
-                SelectedFases = new string[] { "g,b,c,b", "p,b,c,b" },
                 Onderdeel = "q",
                 Icon = "r"
             };

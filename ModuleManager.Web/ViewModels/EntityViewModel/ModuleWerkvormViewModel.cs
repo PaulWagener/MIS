@@ -9,9 +9,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string WerkvormType { get; set; }
         public string Organisatie { get; set; }
 
-        public Domain.ModuleWerkvorm ToPoco(Domain.DomainDalEntities context)
+        public Domain.ModuleWerkvorm ToPoco(Domain.DomainEntities context)
         {
-            Domain.ModuleWerkvorm moduleWerkvorm = context.ModuleWerkvorm.FirstOrDefault(l => l.CursusCode == CursusCode && 
+            Domain.ModuleWerkvorm moduleWerkvorm = context.ModuleWerkvormen.FirstOrDefault(l => l.CursusCode == CursusCode && 
                 l.Schooljaar == Schooljaar && l.WerkvormType == WerkvormType);
 
             if (moduleWerkvorm == null)

@@ -12,6 +12,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public string Omschrijving { get; set; }
         public string Contacturen { get; set; }
         public string Werkvormen { get; set; }
-        public ICollection<StudiePunten> Studiepunten { get; set; }
+        public ICollection<StudiePunt> Studiepunten { get; set; }
     }
 }

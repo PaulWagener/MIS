@@ -12,13 +12,18 @@ namespace ModuleManager.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Leerdoelen
+    public partial class Docent
     {
-        public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
-        public int Id { get; set; }
-        public string Beschrijving { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Docent()
+        {
+            this.Modules = new HashSet<Module>();
+        }
     
-        public virtual Module Module { get; set; }
+        public int Id { get; set; }
+        public string Naam { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Module> Modules { get; set; }
     }
 }

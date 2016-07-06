@@ -29,13 +29,13 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public decimal Ec1 { get; set; }
         public decimal Ec2 { get; set; }
 
-        public IEnumerable<FaseModules> FaseModules { get; set; }
+        public IEnumerable<FaseModule> FaseModules { get; set; }
 
         public IEnumerable<Fase> Fases { get; set; }
 
         public IEnumerable<Blok> Blokken { get; set; }
 
-        public IEnumerable<Icons> Icons { get; set; }
+        public IEnumerable<Icon> Icons { get; set; }
 
         public IEnumerable<Onderdeel> Onderdelen { get; set; }
 
@@ -43,7 +43,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public ModuleCrudViewModel()
         {
-            this.FaseModules = new List<FaseModules>();
+            this.FaseModules = new List<FaseModule>();
         }
 
     }

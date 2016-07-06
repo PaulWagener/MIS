@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DomainDalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Beoordelingen">
+        <EntityType Name="Beoordeling">
           <Key>
             <PropertyRef Name="CursusCode" />
             <PropertyRef Name="Schooljaar" />
@@ -32,7 +32,7 @@
           <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="Docenten">
+        <EntityType Name="Docent">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -49,7 +49,7 @@
           <Property Name="OpleidingNaam" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FaseModule">
           <Key>
             <PropertyRef Name="FaseNaam" />
@@ -68,13 +68,13 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </Key>
           <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="Icons">
+        <EntityType Name="Icon">
           <Key>
-            <PropertyRef Name="Icon" />
+            <PropertyRef Name="Naam" />
           </Key>
-          <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="Naam" Type="char" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="Leerdoelen">
+        <EntityType Name="Leerdoel">
           <Key>
             <PropertyRef Name="CursusCode" />
             <PropertyRef Name="Schooljaar" />
@@ -93,7 +93,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
-        <EntityType Name="Leermiddelen">
+        <EntityType Name="Leermiddel">
           <Key>
             <PropertyRef Name="CursusCode" />
             <PropertyRef Name="Schooljaar" />
@@ -219,7 +219,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="Frequentie" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SBU" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="StudiePunten">
+        <EntityType Name="StudiePunt">
           <Key>
             <PropertyRef Name="CursusCode" />
             <PropertyRef Name="Schooljaar" />
@@ -277,13 +277,13 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
         </EntityType>
         <Association Name="FK_Beoordelingen_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Beoordelingen" Type="Self.Beoordelingen" Multiplicity="*" />
+          <End Role="Beoordeling" Type="Self.Beoordeling" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Principal>
-            <Dependent Role="Beoordelingen">
+            <Dependent Role="Beoordeling">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
@@ -329,13 +329,13 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
         </Association>
         <Association Name="FK_Leerdoelen_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Leerdoelen" Type="Self.Leerdoelen" Multiplicity="*" />
+          <End Role="Leerdoel" Type="Self.Leerdoel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Principal>
-            <Dependent Role="Leerdoelen">
+            <Dependent Role="Leerdoel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
@@ -343,24 +343,24 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
         </Association>
         <Association Name="FK_Leermiddelen_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Leermiddelen" Type="Self.Leermiddelen" Multiplicity="*" />
+          <End Role="Leermiddel" Type="Self.Leermiddel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Principal>
-            <Dependent Role="Leermiddelen">
+            <Dependent Role="Leermiddel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Module_Icons">
-          <End Role="Icons" Type="Self.Icons" Multiplicity="1" />
+          <End Role="Icon" Type="Self.Icon" Multiplicity="1" />
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Icons">
-              <PropertyRef Name="Icon" />
+            <Principal Role="Icon">
+              <PropertyRef Name="Naam" />
             </Principal>
             <Dependent Role="Module">
               <PropertyRef Name="Icon" />
@@ -432,10 +432,10 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ModuleDocent_Docent">
-          <End Role="Docenten" Type="Self.Docenten" Multiplicity="1" />
+          <End Role="Docent" Type="Self.Docent" Multiplicity="1" />
           <End Role="ModuleDocent" Type="Self.ModuleDocent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Docenten">
+            <Principal Role="Docent">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ModuleDocent">
@@ -553,13 +553,13 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
         </Association>
         <Association Name="FK_StudiePunten_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
+          <End Role="StudiePunt" Type="Self.StudiePunt" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Principal>
-            <Dependent Role="StudiePunten">
+            <Dependent Role="StudiePunt">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
@@ -567,12 +567,12 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
         </Association>
         <Association Name="FK_StudiePunten_Toetsvorm">
           <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="0..1" />
-          <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
+          <End Role="StudiePunt" Type="Self.StudiePunt" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Toetsvorm">
               <PropertyRef Name="Type" />
             </Principal>
-            <Dependent Role="StudiePunten">
+            <Dependent Role="StudiePunt">
               <PropertyRef Name="Toetsvorm" />
             </Dependent>
           </ReferentialConstraint>
@@ -620,16 +620,16 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DomainDalModelStoreContainer">
-          <EntitySet Name="Beoordelingen" EntityType="Self.Beoordelingen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beoordeling" EntityType="Self.Beoordeling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blok" EntityType="Self.Blok" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Competentie" EntityType="Self.Competentie" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Docenten" EntityType="Self.Docenten" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Docent" EntityType="Self.Docent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fase" EntityType="Self.Fase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FaseType" EntityType="Self.FaseType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Icons" EntityType="Self.Icons" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Leerdoelen" EntityType="Self.Leerdoelen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Icon" EntityType="Self.Icon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leerdoel" EntityType="Self.Leerdoel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leerlijn" EntityType="Self.Leerlijn" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Leermiddelen" EntityType="Self.Leermiddelen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leermiddel" EntityType="Self.Leermiddel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleCompetentie" EntityType="Self.ModuleCompetentie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDocent" EntityType="Self.ModuleDocent" Schema="dbo" store:Type="Tables" />
@@ -642,7 +642,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <EntitySet Name="Schooljaar" EntityType="Self.Schooljaar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudieBelasting" EntityType="Self.StudieBelasting" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StudiePunten" EntityType="Self.StudiePunten" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudiePunt" EntityType="Self.StudiePunt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Toetsvorm" EntityType="Self.Toetsvorm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voorkennis" EntityType="Self.Voorkennis" Schema="dbo" store:Type="Tables" />
@@ -658,7 +658,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </EntitySet>
           <AssociationSet Name="FK_Beoordelingen_Module" Association="Self.FK_Beoordelingen_Module">
             <End Role="Module" EntitySet="Module" />
-            <End Role="Beoordelingen" EntitySet="Beoordelingen" />
+            <End Role="Beoordeling" EntitySet="Beoordeling" />
           </AssociationSet>
           <AssociationSet Name="FK_Fase_FaseType" Association="Self.FK_Fase_FaseType">
             <End Role="FaseType" EntitySet="FaseType" />
@@ -674,14 +674,14 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_Leerdoelen_Module" Association="Self.FK_Leerdoelen_Module">
             <End Role="Module" EntitySet="Module" />
-            <End Role="Leerdoelen" EntitySet="Leerdoelen" />
+            <End Role="Leerdoel" EntitySet="Leerdoel" />
           </AssociationSet>
           <AssociationSet Name="FK_Leermiddelen_Module" Association="Self.FK_Leermiddelen_Module">
             <End Role="Module" EntitySet="Module" />
-            <End Role="Leermiddelen" EntitySet="Leermiddelen" />
+            <End Role="Leermiddel" EntitySet="Leermiddel" />
           </AssociationSet>
           <AssociationSet Name="FK_Module_Icons" Association="Self.FK_Module_Icons">
-            <End Role="Icons" EntitySet="Icons" />
+            <End Role="Icon" EntitySet="Icon" />
             <End Role="Module" EntitySet="Module" />
           </AssociationSet>
           <AssociationSet Name="FK_Module_Onderdeel" Association="Self.FK_Module_Onderdeel">
@@ -705,7 +705,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
           </AssociationSet>
           <AssociationSet Name="FK_ModuleDocent_Docent" Association="Self.FK_ModuleDocent_Docent">
-            <End Role="Docenten" EntitySet="Docenten" />
+            <End Role="Docent" EntitySet="Docent" />
             <End Role="ModuleDocent" EntitySet="ModuleDocent" />
           </AssociationSet>
           <AssociationSet Name="FK_ModuleDocent_Module" Association="Self.FK_ModuleDocent_Module">
@@ -742,11 +742,11 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_StudiePunten_Module" Association="Self.FK_StudiePunten_Module">
             <End Role="Module" EntitySet="Module" />
-            <End Role="StudiePunten" EntitySet="StudiePunten" />
+            <End Role="StudiePunt" EntitySet="StudiePunt" />
           </AssociationSet>
           <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Self.FK_StudiePunten_Toetsvorm">
             <End Role="Toetsvorm" EntitySet="Toetsvorm" />
-            <End Role="StudiePunten" EntitySet="StudiePunten" />
+            <End Role="StudiePunt" EntitySet="StudiePunt" />
           </AssociationSet>
           <AssociationSet Name="FK_Voorkennis_Module" Association="Self.FK_Voorkennis_Module">
             <End Role="Module" EntitySet="Module" />
@@ -764,19 +764,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DomainDalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Beoordelingen">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_Beoordelingen_Module" FromRole="Beoordelingen" ToRole="Module" />
-        </EntityType>
+      <Schema Namespace="Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Blok">
           <Key>
             <PropertyRef Name="BlokId" />
@@ -792,41 +780,14 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ModuleCompetenties" Relationship="Self.FK_ModuleCompetentie_Competentie" FromRole="Competentie" ToRole="ModuleCompetentie" />
-        </EntityType>
-        <EntityType Name="Docenten">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Naam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Modules" Relationship="Self.ModuleDocent" FromRole="Docenten" ToRole="Module" />
+          <NavigationProperty Name="ModuleCompetenties" Relationship="Domain.FK_ModuleCompetenties_Competentie" FromRole="Competentie" ToRole="ModuleCompetenties" />
         </EntityType>
         <EntityType Name="FaseType">
           <Key>
             <PropertyRef Name="Type" />
           </Key>
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Fases" Relationship="DomainDalModel.FK_Fase_FaseType" FromRole="FaseType" ToRole="Fase" />
-        </EntityType>
-        <EntityType Name="Icon">
-          <Key>
-            <PropertyRef Name="Icon1" />
-          </Key>
-          <Property Name="Icon1" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Modules" Relationship="Self.FK_Module_Icons" FromRole="Icons" ToRole="Module" />
-        </EntityType>
-        <EntityType Name="Leerdoelen">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_Leerdoelen_Module" FromRole="Leerdoelen" ToRole="Module" />
+          <NavigationProperty Name="Fases" Relationship="Domain.FK_Fase_FaseType" FromRole="FaseType" ToRole="Fase" />
         </EntityType>
         <EntityType Name="Leerlijn">
           <Key>
@@ -836,18 +797,6 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Modules" Relationship="Self.ModuleLeerlijn" FromRole="Leerlijn" ToRole="Module" />
-        </EntityType>
-        <EntityType Name="Leermiddelen">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_Leermiddelen_Module" FromRole="Leermiddelen" ToRole="Module" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -862,23 +811,22 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OnderdeelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Icon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Beoordelingen" Relationship="Self.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordelingen" />
-          <NavigationProperty Name="Icon1" Relationship="Self.FK_Module_Icons" FromRole="Module" ToRole="Icons" />
-          <NavigationProperty Name="Leerdoelen" Relationship="Self.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoelen" />
-          <NavigationProperty Name="Leermiddelen" Relationship="Self.FK_Leermiddelen_Module" FromRole="Module" ToRole="Leermiddelen" />
           <NavigationProperty Name="Onderdeel" Relationship="Self.FK_Module_Onderdeel" FromRole="Module" ToRole="Onderdeel" />
           <NavigationProperty Name="Status1" Relationship="Self.FK_Module_Status" FromRole="Module" ToRole="Status" />
-          <NavigationProperty Name="ModuleCompetenties" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="Module" ToRole="ModuleCompetentie" />
-          <NavigationProperty Name="ModuleWerkvormen" Relationship="Self.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
+          <NavigationProperty Name="ModuleCompetenties" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="Module" ToRole="ModuleCompetenties" />
           <NavigationProperty Name="StudieBelastingen" Relationship="Self.FK_StudieBelasting_Module" FromRole="Module" ToRole="StudieBelasting" />
-          <NavigationProperty Name="StudiePunten" Relationship="Self.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunten" />
           <NavigationProperty Name="Weekplanningen" Relationship="Self.FK_Weekplanning_Module" FromRole="Module" ToRole="Weekplanning" />
-          <NavigationProperty Name="Docenten" Relationship="Self.ModuleDocent" FromRole="Module" ToRole="Docenten" />
           <NavigationProperty Name="Leerlijnen" Relationship="Self.ModuleLeerlijn" FromRole="Module" ToRole="Leerlijn" />
           <NavigationProperty Name="Tags" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
-          <NavigationProperty Name="Module1" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
+          <NavigationProperty Name="Voorkennis" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
           <NavigationProperty Name="Modules" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
-          <NavigationProperty Name="FaseModules" Relationship="DomainDalModel.FK_FaseModules_Module" FromRole="Module" ToRole="FaseModule" />
+          <NavigationProperty Name="FaseModules" Relationship="Domain.FK_FaseModules_Module" FromRole="Module" ToRole="FaseModule" />
+          <NavigationProperty Name="Docenten" Relationship="Domain.ModuleDocent" FromRole="Module" ToRole="Docent" />
+          <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
+          <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />
+          <NavigationProperty Name="Leermiddelen" Relationship="Domain.FK_Leermiddelen_Module1" FromRole="Module" ToRole="Leermiddel" />
+          <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
+          <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -892,22 +840,8 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="CompetentieCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CompetentieSchooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Niveau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Competentie" Relationship="Self.FK_ModuleCompetentie_Competentie" FromRole="ModuleCompetentie" ToRole="Competentie" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="ModuleCompetentie" ToRole="Module" />
-          <NavigationProperty Name="Niveau1" Relationship="Self.FK_ModuleCompetentie_Niveau" FromRole="ModuleCompetentie" ToRole="Niveau" />
-        </EntityType>
-        <EntityType Name="ModuleWerkvorm">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="WerkvormType" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="WerkvormType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Organisatie" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleWerkvorm_Module" FromRole="ModuleWerkvorm" ToRole="Module" />
-          <NavigationProperty Name="Werkvorm" Relationship="Self.FK_ModuleWerkvorm_Werkvorm" FromRole="ModuleWerkvorm" ToRole="Werkvorm" />
+          <NavigationProperty Name="Competentie" Relationship="Domain.FK_ModuleCompetenties_Competentie" FromRole="ModuleCompetenties" ToRole="Competentie" />
+          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="ModuleCompetenties" ToRole="Module" />
         </EntityType>
         <EntityType Name="Niveau">
           <Key>
@@ -958,21 +892,6 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="SBU" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Module" Relationship="Self.FK_StudieBelasting_Module" FromRole="StudieBelasting" ToRole="Module" />
         </EntityType>
-        <EntityType Name="StudiePunten">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="ToetsCode" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ToetsCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EC" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Minimum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_StudiePunten_Module" FromRole="StudiePunten" ToRole="Module" />
-          <NavigationProperty Name="Toetsvorm1" Relationship="Self.FK_StudiePunten_Toetsvorm" FromRole="StudiePunten" ToRole="Toetsvorm" />
-        </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="Naam" />
@@ -985,7 +904,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             <PropertyRef Name="Type" />
           </Key>
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="StudiePuntens" Relationship="Self.FK_StudiePunten_Toetsvorm" FromRole="Toetsvorm" ToRole="StudiePunten" />
+          <NavigationProperty Name="StudiePunts" Relationship="Domain.FK_StudiePunten_Toetsvorm" FromRole="Toetsvorm" ToRole="StudiePunt" />
         </EntityType>
         <EntityType Name="Weekplanning">
           <Key>
@@ -1006,73 +925,19 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </Key>
           <Property Name="Type" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Omschrijving" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ModuleWerkvorms" Relationship="Self.FK_ModuleWerkvorm_Werkvorm" FromRole="Werkvorm" ToRole="ModuleWerkvorm" />
+          <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Werkvorm" FromRole="Werkvorm" ToRole="ModuleWerkvorm" />
         </EntityType>
-        <Association Name="FK_Beoordelingen_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Beoordelingen" Type="Self.Beoordelingen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Beoordelingen">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Competentie">
+        <Association Name="FK_ModuleCompetenties_Competentie">
           <End Role="Competentie" Type="Self.Competentie" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
+          <End Role="ModuleCompetenties" Type="Self.ModuleCompetentie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Competentie">
               <PropertyRef Name="Code" />
               <PropertyRef Name="Schooljaar" />
             </Principal>
-            <Dependent Role="ModuleCompetentie">
+            <Dependent Role="ModuleCompetenties">
               <PropertyRef Name="CompetentieCode" />
               <PropertyRef Name="CompetentieSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Module_Icons">
-          <End Role="Icons" Type="Self.Icon" Multiplicity="1" />
-          <End Role="Module" Type="Self.Module" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Icons">
-              <PropertyRef Name="Icon1" />
-            </Principal>
-            <Dependent Role="Module">
-              <PropertyRef Name="Icon" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leerdoelen_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Leerdoelen" Type="Self.Leerdoelen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Leerdoelen">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leermiddelen_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="Leermiddelen" Type="Self.Leermiddelen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Leermiddelen">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1102,27 +967,13 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
         </Association>
         <Association Name="FK_ModuleCompetentie_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
+          <End Role="ModuleCompetenties" Type="Self.ModuleCompetentie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleWerkvorm_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleWerkvorm" Type="Self.ModuleWerkvorm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleWerkvorm">
+            <Dependent Role="ModuleCompetenties">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
@@ -1137,20 +988,6 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               <PropertyRef Name="Schooljaar" />
             </Principal>
             <Dependent Role="StudieBelasting">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudiePunten_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="StudiePunten">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
@@ -1182,34 +1019,6 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ModuleWerkvorm_Werkvorm">
-          <End Role="Werkvorm" Type="Self.Werkvorm" Multiplicity="1" />
-          <End Role="ModuleWerkvorm" Type="Self.ModuleWerkvorm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Werkvorm">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="ModuleWerkvorm">
-              <PropertyRef Name="WerkvormType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudiePunten_Toetsvorm">
-          <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="0..1" />
-          <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Toetsvorm">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="StudiePunten">
-              <PropertyRef Name="Toetsvorm" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ModuleDocent">
-          <End Role="Docenten" Type="Self.Docenten" Multiplicity="*" />
-          <End Role="Module" Type="Self.Module" Multiplicity="*" />
-        </Association>
         <Association Name="ModuleLeerlijn">
           <End Role="Leerlijn" Type="Self.Leerlijn" Multiplicity="*" />
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
@@ -1222,49 +1031,26 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
           <End Role="Module1" Type="Self.Module" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="DomainDalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Beoordelingens" EntityType="Self.Beoordelingen" />
+        <EntityContainer Name="DomainEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bloks" EntityType="Self.Blok" />
           <EntitySet Name="Competenties" EntityType="Self.Competentie" />
-          <EntitySet Name="Docentens" EntityType="Self.Docenten" />
           <EntitySet Name="FaseTypes" EntityType="Self.FaseType" />
-          <EntitySet Name="Icons" EntityType="Self.Icon" />
-          <EntitySet Name="Leerdoelens" EntityType="Self.Leerdoelen" />
-          <EntitySet Name="Leerlijns" EntityType="Self.Leerlijn" />
-          <EntitySet Name="Leermiddelens" EntityType="Self.Leermiddelen" />
+          <EntitySet Name="Leerlijnen" EntityType="Self.Leerlijn" />
           <EntitySet Name="Modules" EntityType="Self.Module" />
           <EntitySet Name="ModuleCompetenties" EntityType="Self.ModuleCompetentie" />
-          <EntitySet Name="ModuleWerkvorms" EntityType="Self.ModuleWerkvorm" />
           <EntitySet Name="Niveaux" EntityType="Self.Niveau" />
           <EntitySet Name="Onderdeels" EntityType="Self.Onderdeel" />
           <EntitySet Name="Opleidings" EntityType="Self.Opleiding" />
           <EntitySet Name="Schooljaars" EntityType="Self.Schooljaar" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="StudieBelastings" EntityType="Self.StudieBelasting" />
-          <EntitySet Name="StudiePuntens" EntityType="Self.StudiePunten" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="Toetsvorms" EntityType="Self.Toetsvorm" />
           <EntitySet Name="Weekplannings" EntityType="Self.Weekplanning" />
-          <EntitySet Name="Werkvorms" EntityType="Self.Werkvorm" />
-          <AssociationSet Name="FK_Beoordelingen_Module" Association="Self.FK_Beoordelingen_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="Beoordelingen" EntitySet="Beoordelingens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="Self.FK_ModuleCompetentie_Competentie">
+          <EntitySet Name="Werkvormen" EntityType="Self.Werkvorm" />
+          <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="Domain.FK_ModuleCompetenties_Competentie">
             <End Role="Competentie" EntitySet="Competenties" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetenties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Module_Icons" Association="Self.FK_Module_Icons">
-            <End Role="Icons" EntitySet="Icons" />
-            <End Role="Module" EntitySet="Modules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leerdoelen_Module" Association="Self.FK_Leerdoelen_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="Leerdoelen" EntitySet="Leerdoelens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leermiddelen_Module" Association="Self.FK_Leermiddelen_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="Leermiddelen" EntitySet="Leermiddelens" />
+            <End Role="ModuleCompetenties" EntitySet="ModuleCompetenties" />
           </AssociationSet>
           <AssociationSet Name="FK_Module_Onderdeel" Association="Self.FK_Module_Onderdeel">
             <End Role="Onderdeel" EntitySet="Onderdeels" />
@@ -1276,19 +1062,11 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_ModuleCompetentie_Module" Association="Self.FK_ModuleCompetentie_Module">
             <End Role="Module" EntitySet="Modules" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetenties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleWerkvorm_Module" Association="Self.FK_ModuleWerkvorm_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvorms" />
+            <End Role="ModuleCompetenties" EntitySet="ModuleCompetenties" />
           </AssociationSet>
           <AssociationSet Name="FK_StudieBelasting_Module" Association="Self.FK_StudieBelasting_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="StudieBelasting" EntitySet="StudieBelastings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudiePunten_Module" Association="Self.FK_StudiePunten_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="StudiePunten" EntitySet="StudiePuntens" />
           </AssociationSet>
           <AssociationSet Name="FK_Weekplanning_Module" Association="Self.FK_Weekplanning_Module">
             <End Role="Module" EntitySet="Modules" />
@@ -1298,20 +1076,8 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             <End Role="Niveau" EntitySet="Niveaux" />
             <End Role="ModuleCompetentie" EntitySet="ModuleCompetenties" />
           </AssociationSet>
-          <AssociationSet Name="FK_ModuleWerkvorm_Werkvorm" Association="Self.FK_ModuleWerkvorm_Werkvorm">
-            <End Role="Werkvorm" EntitySet="Werkvorms" />
-            <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvorms" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Self.FK_StudiePunten_Toetsvorm">
-            <End Role="Toetsvorm" EntitySet="Toetsvorms" />
-            <End Role="StudiePunten" EntitySet="StudiePuntens" />
-          </AssociationSet>
-          <AssociationSet Name="ModuleDocent" Association="Self.ModuleDocent">
-            <End Role="Docenten" EntitySet="Docentens" />
-            <End Role="Module" EntitySet="Modules" />
-          </AssociationSet>
           <AssociationSet Name="ModuleLeerlijn" Association="Self.ModuleLeerlijn">
-            <End Role="Leerlijn" EntitySet="Leerlijns" />
+            <End Role="Leerlijn" EntitySet="Leerlijnen" />
             <End Role="Module" EntitySet="Modules" />
           </AssociationSet>
           <AssociationSet Name="ModuleTag" Association="Self.ModuleTag">
@@ -1322,19 +1088,62 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             <End Role="Module" EntitySet="Modules" />
             <End Role="Module1" EntitySet="Modules" />
           </AssociationSet>
-          <EntitySet Name="Fases" EntityType="DomainDalModel.Fase" />
-          <EntitySet Name="FaseModules" EntityType="DomainDalModel.FaseModule" />
-          <AssociationSet Name="FK_Fase_FaseType" Association="DomainDalModel.FK_Fase_FaseType">
+          <EntitySet Name="Fases" EntityType="Domain.Fase" />
+          <EntitySet Name="FaseModules" EntityType="Domain.FaseModule" />
+          <AssociationSet Name="FK_Fase_FaseType" Association="Domain.FK_Fase_FaseType">
             <End Role="FaseType" EntitySet="FaseTypes" />
             <End Role="Fase" EntitySet="Fases" />
           </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Fase" Association="DomainDalModel.FK_FaseModules_Fase">
+          <AssociationSet Name="FK_FaseModules_Fase" Association="Domain.FK_FaseModules_Fase">
             <End Role="Fase" EntitySet="Fases" />
             <End Role="FaseModule" EntitySet="FaseModules" />
           </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Module" Association="DomainDalModel.FK_FaseModules_Module">
+          <AssociationSet Name="FK_FaseModules_Module" Association="Domain.FK_FaseModules_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="FaseModule" EntitySet="FaseModules" />
+          </AssociationSet>
+          <EntitySet Name="Docenten" EntityType="Domain.Docent" />
+          <AssociationSet Name="ModuleDocent" Association="Domain.ModuleDocent">
+            <End Role="Docent" EntitySet="Docenten" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <EntitySet Name="Beoordelingen" EntityType="Domain.Beoordeling" />
+          <EntitySet Name="Leerdoelen" EntityType="Domain.Leerdoel" />
+          <EntitySet Name="Leermiddelen" EntityType="Domain.Leermiddel" />
+          <EntitySet Name="StudiePunten" EntityType="Domain.StudiePunt" />
+          <AssociationSet Name="FK_Beoordelingen_Module" Association="Domain.FK_Beoordelingen_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Beoordeling" EntitySet="Beoordelingen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leerdoelen_Module" Association="Domain.FK_Leerdoelen_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Leerdoel" EntitySet="Leerdoelen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leermiddelen_Module1" Association="Domain.FK_Leermiddelen_Module1">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Leermiddel" EntitySet="Leermiddelen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudiePunten_Module" Association="Domain.FK_StudiePunten_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="StudiePunt" EntitySet="StudiePunten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Domain.FK_StudiePunten_Toetsvorm">
+            <End Role="Toetsvorm" EntitySet="Toetsvorms" />
+            <End Role="StudiePunt" EntitySet="StudiePunten" />
+          </AssociationSet>
+          <EntitySet Name="Icons" EntityType="Domain.Icon" />
+          <AssociationSet Name="FK_Module_Icon" Association="Domain.FK_Module_Icon">
+            <End Role="Icon" EntitySet="Icons" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <EntitySet Name="ModuleWerkvormen" EntityType="Domain.ModuleWerkvorm" />
+          <AssociationSet Name="FK_ModuleWerkvorm_Module" Association="Domain.FK_ModuleWerkvorm_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvormen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleWerkvorm_Werkvorm" Association="Domain.FK_ModuleWerkvorm_Werkvorm">
+            <End Role="Werkvorm" EntitySet="Werkvormen" />
+            <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvormen" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
@@ -1345,7 +1154,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FaseType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OpleidingNaam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FaseModules" Relationship="DomainDalModel.FK_FaseModules_Fase" FromRole="Fase" ToRole="FaseModule" />
+          <NavigationProperty Name="FaseModules" Relationship="Domain.FK_FaseModules_Fase" FromRole="Fase" ToRole="FaseModule" />
         </EntityType>
         <EntityType Name="FaseModule">
           <Key>
@@ -1358,12 +1167,12 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           <Property Name="ModuleCursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModuleSchooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Fase" Relationship="DomainDalModel.FK_FaseModules_Fase" FromRole="FaseModule" ToRole="Fase" />
-          <NavigationProperty Name="Module" Relationship="DomainDalModel.FK_FaseModules_Module" FromRole="FaseModule" ToRole="Module" />
+          <NavigationProperty Name="Fase" Relationship="Domain.FK_FaseModules_Fase" FromRole="FaseModule" ToRole="Fase" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_FaseModules_Module" FromRole="FaseModule" ToRole="Module" />
         </EntityType>
         <Association Name="FK_Fase_FaseType">
-          <End Type="DomainDalModel.FaseType" Role="FaseType" Multiplicity="1" />
-          <End Type="DomainDalModel.Fase" Role="Fase" Multiplicity="*" />
+          <End Type="Domain.FaseType" Role="FaseType" Multiplicity="1" />
+          <End Type="Domain.Fase" Role="Fase" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FaseType">
               <PropertyRef Name="Type" />
@@ -1374,8 +1183,8 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FaseModules_Fase">
-          <End Type="DomainDalModel.Fase" Role="Fase" Multiplicity="1" />
-          <End Type="DomainDalModel.FaseModule" Role="FaseModule" Multiplicity="*" />
+          <End Type="Domain.Fase" Role="Fase" Multiplicity="1" />
+          <End Type="Domain.FaseModule" Role="FaseModule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Fase">
               <PropertyRef Name="Naam" />
@@ -1386,8 +1195,8 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FaseModules_Module">
-          <End Type="DomainDalModel.Module" Role="Module" Multiplicity="1" />
-          <End Type="DomainDalModel.FaseModule" Role="FaseModule" Multiplicity="*" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.FaseModule" Role="FaseModule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
               <PropertyRef Name="CursusCode" />
@@ -1399,31 +1208,210 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Docent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Modules" Relationship="Domain.ModuleDocent" FromRole="Docent" ToRole="Module" />
+        </EntityType>
+        <Association Name="ModuleDocent">
+          <End Type="Domain.Docent" Role="Docent" Multiplicity="*" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Beoordeling">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Beoordeling" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="Leerdoel">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Leerdoel" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="Leermiddel">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_Leermiddelen_Module1" FromRole="Leermiddel" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="StudiePunt">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="ToetsCode" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ToetsCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EC" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Minimum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_StudiePunten_Module" FromRole="StudiePunt" ToRole="Module" />
+          <NavigationProperty Name="Toetsvorm1" Relationship="Domain.FK_StudiePunten_Toetsvorm" FromRole="StudiePunt" ToRole="Toetsvorm" />
+        </EntityType>
+        <Association Name="FK_Beoordelingen_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.Beoordeling" Role="Beoordeling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="Beoordeling">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leerdoelen_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.Leerdoel" Role="Leerdoel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="Leerdoel">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leermiddelen_Module1">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.Leermiddel" Role="Leermiddel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="Leermiddel">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudiePunten_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.StudiePunt" Role="StudiePunt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="StudiePunt">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudiePunten_Toetsvorm">
+          <End Type="Domain.Toetsvorm" Role="Toetsvorm" Multiplicity="0..1" />
+          <End Type="Domain.StudiePunt" Role="StudiePunt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toetsvorm">
+              <PropertyRef Name="Type" />
+            </Principal>
+            <Dependent Role="StudiePunt">
+              <PropertyRef Name="Toetsvorm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Icon">
+          <Key>
+            <PropertyRef Name="Naam" />
+          </Key>
+          <Property Name="Naam" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Modules" Relationship="Domain.FK_Module_Icon" FromRole="Icon" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_Module_Icon">
+          <End Type="Domain.Icon" Role="Icon" Multiplicity="1" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Icon">
+              <PropertyRef Name="Naam" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Icon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ModuleWerkvorm">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="WerkvormType" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="WerkvormType" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Organisatie" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="ModuleWerkvorm" ToRole="Module" />
+          <NavigationProperty Name="Werkvorm" Relationship="Domain.FK_ModuleWerkvorm_Werkvorm" FromRole="ModuleWerkvorm" ToRole="Werkvorm" />
+        </EntityType>
+        <Association Name="FK_ModuleWerkvorm_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.ModuleWerkvorm" Role="ModuleWerkvorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="ModuleWerkvorm">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleWerkvorm_Werkvorm">
+          <End Type="Domain.Werkvorm" Role="Werkvorm" Multiplicity="1" />
+          <End Type="Domain.ModuleWerkvorm" Role="ModuleWerkvorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Werkvorm">
+              <PropertyRef Name="Type" />
+            </Principal>
+            <Dependent Role="ModuleWerkvorm">
+              <PropertyRef Name="WerkvormType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DomainDalModelStoreContainer" CdmEntityContainer="DomainDalEntities">
-          <EntitySetMapping Name="Beoordelingens">
-            <EntityTypeMapping TypeName="DomainDalModel.Beoordelingen">
-              <MappingFragment StoreEntitySet="Beoordelingen">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="DomainDalModelStoreContainer" CdmEntityContainer="DomainEntities">
           <EntitySetMapping Name="Bloks">
-            <EntityTypeMapping TypeName="DomainDalModel.Blok">
+            <EntityTypeMapping TypeName="Domain.Blok">
               <MappingFragment StoreEntitySet="Blok">
                 <ScalarProperty Name="BlokId" ColumnName="BlokId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Competenties">
-            <EntityTypeMapping TypeName="DomainDalModel.Competentie">
+            <EntityTypeMapping TypeName="Domain.Competentie">
               <MappingFragment StoreEntitySet="Competentie">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
@@ -1432,58 +1420,23 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Docentens">
-            <EntityTypeMapping TypeName="DomainDalModel.Docenten">
-              <MappingFragment StoreEntitySet="Docenten">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FaseTypes">
-            <EntityTypeMapping TypeName="DomainDalModel.FaseType">
+            <EntityTypeMapping TypeName="Domain.FaseType">
               <MappingFragment StoreEntitySet="FaseType">
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Icons">
-            <EntityTypeMapping TypeName="DomainDalModel.Icon">
-              <MappingFragment StoreEntitySet="Icons">
-                <ScalarProperty Name="Icon1" ColumnName="Icon" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Leerdoelens">
-            <EntityTypeMapping TypeName="DomainDalModel.Leerdoelen">
-              <MappingFragment StoreEntitySet="Leerdoelen">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Leerlijns">
-            <EntityTypeMapping TypeName="DomainDalModel.Leerlijn">
+          <EntitySetMapping Name="Leerlijnen">
+            <EntityTypeMapping TypeName="Domain.Leerlijn">
               <MappingFragment StoreEntitySet="Leerlijn">
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Leermiddelens">
-            <EntityTypeMapping TypeName="DomainDalModel.Leermiddelen">
-              <MappingFragment StoreEntitySet="Leermiddelen">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Modules">
-            <EntityTypeMapping TypeName="DomainDalModel.Module">
+            <EntityTypeMapping TypeName="Domain.Module">
               <MappingFragment StoreEntitySet="Module">
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
@@ -1497,7 +1450,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ModuleCompetenties">
-            <EntityTypeMapping TypeName="DomainDalModel.ModuleCompetentie">
+            <EntityTypeMapping TypeName="Domain.ModuleCompetentie">
               <MappingFragment StoreEntitySet="ModuleCompetentie">
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
@@ -1507,32 +1460,22 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ModuleWerkvorms">
-            <EntityTypeMapping TypeName="DomainDalModel.ModuleWerkvorm">
-              <MappingFragment StoreEntitySet="ModuleWerkvorm">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="WerkvormType" ColumnName="WerkvormType" />
-                <ScalarProperty Name="Organisatie" ColumnName="Organisatie" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Niveaux">
-            <EntityTypeMapping TypeName="DomainDalModel.Niveau">
+            <EntityTypeMapping TypeName="Domain.Niveau">
               <MappingFragment StoreEntitySet="Niveau">
                 <ScalarProperty Name="Niveau1" ColumnName="Niveau1" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Onderdeels">
-            <EntityTypeMapping TypeName="DomainDalModel.Onderdeel">
+            <EntityTypeMapping TypeName="Domain.Onderdeel">
               <MappingFragment StoreEntitySet="Onderdeel">
                 <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Opleidings">
-            <EntityTypeMapping TypeName="DomainDalModel.Opleiding">
+            <EntityTypeMapping TypeName="Domain.Opleiding">
               <MappingFragment StoreEntitySet="Opleiding">
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
@@ -1540,21 +1483,21 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schooljaars">
-            <EntityTypeMapping TypeName="DomainDalModel.Schooljaar">
+            <EntityTypeMapping TypeName="Domain.Schooljaar">
               <MappingFragment StoreEntitySet="Schooljaar">
                 <ScalarProperty Name="JaarId" ColumnName="JaarId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="DomainDalModel.Status">
+            <EntityTypeMapping TypeName="Domain.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="Status1" ColumnName="Status1" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StudieBelastings">
-            <EntityTypeMapping TypeName="DomainDalModel.StudieBelasting">
+            <EntityTypeMapping TypeName="Domain.StudieBelasting">
               <MappingFragment StoreEntitySet="StudieBelasting">
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
@@ -1566,34 +1509,22 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StudiePuntens">
-            <EntityTypeMapping TypeName="DomainDalModel.StudiePunten">
-              <MappingFragment StoreEntitySet="StudiePunten">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
-                <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
-                <ScalarProperty Name="EC" ColumnName="EC" />
-                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tags">
-            <EntityTypeMapping TypeName="DomainDalModel.Tag">
+            <EntityTypeMapping TypeName="Domain.Tag">
               <MappingFragment StoreEntitySet="Tag">
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Toetsvorms">
-            <EntityTypeMapping TypeName="DomainDalModel.Toetsvorm">
+            <EntityTypeMapping TypeName="Domain.Toetsvorm">
               <MappingFragment StoreEntitySet="Toetsvorm">
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Weekplannings">
-            <EntityTypeMapping TypeName="DomainDalModel.Weekplanning">
+            <EntityTypeMapping TypeName="Domain.Weekplanning">
               <MappingFragment StoreEntitySet="Weekplanning">
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
@@ -1603,24 +1534,15 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Werkvorms">
-            <EntityTypeMapping TypeName="DomainDalModel.Werkvorm">
+          <EntitySetMapping Name="Werkvormen">
+            <EntityTypeMapping TypeName="Domain.Werkvorm">
               <MappingFragment StoreEntitySet="Werkvorm">
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Omschrijving" ColumnName="Omschrijving" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ModuleDocent" TypeName="DomainDalModel.ModuleDocent" StoreEntitySet="ModuleDocent">
-            <EndProperty Name="Docenten">
-              <ScalarProperty Name="Id" ColumnName="Docenten_Id" />
-            </EndProperty>
-            <EndProperty Name="Module">
-              <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
-              <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="ModuleLeerlijn" TypeName="DomainDalModel.ModuleLeerlijn" StoreEntitySet="ModuleLeerlijn">
+          <AssociationSetMapping Name="ModuleLeerlijn" TypeName="Domain.ModuleLeerlijn" StoreEntitySet="ModuleLeerlijn">
             <EndProperty Name="Leerlijn">
               <ScalarProperty Name="Naam" ColumnName="Leerlijn_Naam" />
               <ScalarProperty Name="Schooljaar" ColumnName="Leerlijn_Schooljaar" />
@@ -1630,7 +1552,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="ModuleTag" TypeName="DomainDalModel.ModuleTag" StoreEntitySet="ModuleTag">
+          <AssociationSetMapping Name="ModuleTag" TypeName="Domain.ModuleTag" StoreEntitySet="ModuleTag">
             <EndProperty Name="Module">
               <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
               <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
@@ -1639,7 +1561,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
               <ScalarProperty Name="Naam" ColumnName="Tag_Naam" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="Voorkennis" TypeName="DomainDalModel.Voorkennis" StoreEntitySet="Voorkennis">
+          <AssociationSetMapping Name="Voorkennis" TypeName="Domain.Voorkennis" StoreEntitySet="Voorkennis">
             <EndProperty Name="Module">
               <ScalarProperty Name="CursusCode" ColumnName="Voorkennis_CursusCode" />
               <ScalarProperty Name="Schooljaar" ColumnName="Voorkennis_Schooljaar" />
@@ -1650,7 +1572,7 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             </EndProperty>
           </AssociationSetMapping>
           <EntitySetMapping Name="Fases">
-            <EntityTypeMapping TypeName="DomainDalModel.Fase">
+            <EntityTypeMapping TypeName="Domain.Fase">
               <MappingFragment StoreEntitySet="Fase">
                 <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
                 <ScalarProperty Name="FaseType" ColumnName="FaseType" />
@@ -1660,12 +1582,88 @@ warning 6002: The table/view 'DomainDal.dbo.FaseModule' does not have a primary 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FaseModules">
-            <EntityTypeMapping TypeName="DomainDalModel.FaseModule">
+            <EntityTypeMapping TypeName="Domain.FaseModule">
               <MappingFragment StoreEntitySet="FaseModule">
                 <ScalarProperty Name="Blok" ColumnName="Blok" />
                 <ScalarProperty Name="ModuleSchooljaar" ColumnName="ModuleSchooljaar" />
                 <ScalarProperty Name="ModuleCursusCode" ColumnName="ModuleCursusCode" />
                 <ScalarProperty Name="FaseNaam" ColumnName="FaseNaam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Docenten">
+            <EntityTypeMapping TypeName="Domain.Docent">
+              <MappingFragment StoreEntitySet="Docent">
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ModuleDocent" TypeName="Domain.ModuleDocent" StoreEntitySet="ModuleDocent">
+            <EndProperty Name="Module">
+              <ScalarProperty Name="Schooljaar" ColumnName="Module_Schooljaar" />
+              <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
+            </EndProperty>
+            <EndProperty Name="Docent">
+              <ScalarProperty Name="Id" ColumnName="Docenten_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Beoordelingen">
+            <EntityTypeMapping TypeName="Domain.Beoordeling">
+              <MappingFragment StoreEntitySet="Beoordeling">
+                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leerdoelen">
+            <EntityTypeMapping TypeName="Domain.Leerdoel">
+              <MappingFragment StoreEntitySet="Leerdoel">
+                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leermiddelen">
+            <EntityTypeMapping TypeName="Domain.Leermiddel">
+              <MappingFragment StoreEntitySet="Leermiddel">
+                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudiePunten">
+            <EntityTypeMapping TypeName="Domain.StudiePunt">
+              <MappingFragment StoreEntitySet="StudiePunt">
+                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
+                <ScalarProperty Name="EC" ColumnName="EC" />
+                <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
+                <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Icons">
+            <EntityTypeMapping TypeName="Domain.Icon">
+              <MappingFragment StoreEntitySet="Icon">
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleWerkvormen">
+            <EntityTypeMapping TypeName="Domain.ModuleWerkvorm">
+              <MappingFragment StoreEntitySet="ModuleWerkvorm">
+                <ScalarProperty Name="Organisatie" ColumnName="Organisatie" />
+                <ScalarProperty Name="WerkvormType" ColumnName="WerkvormType" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

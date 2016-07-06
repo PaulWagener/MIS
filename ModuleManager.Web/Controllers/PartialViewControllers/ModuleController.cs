@@ -32,9 +32,9 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
             var schooljaar = schooljaren.Last();
 
-            var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(x => x.Schooljaar == schooljaar.JaarId).ToList();
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToList();
-            var icons = _unitOfWork.GetRepository<Icons>().GetAll().ToList();
+            var icons = _unitOfWork.GetRepository<Icon>().GetAll().ToList();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToList();
 
             var module = new ModuleCrudViewModel()
@@ -62,8 +62,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 var schooljaar = schooljaren.Last();
 
                 /* Studie Punten */
-                ICollection<StudiePunten> studiepuntenList = new List<StudiePunten>();
-                var studiepunt1 = new StudiePunten()
+                ICollection<StudiePunt> studiepuntenList = new List<StudiePunt>();
+                var studiepunt1 = new StudiePunt()
                 {
                     ToetsCode = String.Format("{0}-{1}", entity.Toetscode1Prefix, entity.Toetscode1),
                     EC = entity.Ec1
@@ -72,7 +72,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
                 if (entity.Toetscode2 != null || entity.Toetscode1 == entity.Toetscode2)
                 {
-                    var studiepunt2 = new StudiePunten()
+                    var studiepunt2 = new StudiePunt()
                     {
                         ToetsCode = String.Format("{0}-{1}", entity.Toetscode2Prefix, entity.Toetscode2),
                         EC = entity.Ec2
@@ -138,9 +138,9 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return HttpNotFound();
             }
 
-            var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(x => x.Schooljaar == schooljaar).ToList();
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToList();
-            var icons = _unitOfWork.GetRepository<Icons>().GetAll().ToList();
+            var icons = _unitOfWork.GetRepository<Icon>().GetAll().ToList();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToList();
 
             var moduleVM = new ModuleCrudViewModel()
@@ -175,8 +175,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
 
                 /* Studie Punten */
-                ICollection<StudiePunten> studiepuntenList = new List<StudiePunten>();
-                var studiepunt1 = new StudiePunten()
+                ICollection<StudiePunt> studiepuntenList = new List<StudiePunt>();
+                var studiepunt1 = new StudiePunt()
                 {
                     ToetsCode = entity.Toetscode1,
                     EC = entity.Ec1
@@ -185,7 +185,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
                 if (entity.Toetscode2 != null || entity.Toetscode1 == entity.Toetscode2)
                 {
-                    var studiepunt2 = new StudiePunten()
+                    var studiepunt2 = new StudiePunt()
                     {
                         ToetsCode = entity.Toetscode2,
                         EC = entity.Ec2

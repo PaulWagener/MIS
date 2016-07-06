@@ -67,12 +67,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return moduleCompetenties;
         }
 
-        public ICollection<StudiePunten> MapToStudiePunten()
+        public ICollection<StudiePunt> MapToStudiePunten()
         {
-            var studiePunten = new List<StudiePunten>();
+            var studiePunten = new List<StudiePunt>();
             foreach (var studiepunt in StudiePunten)
             {
-                studiePunten.Add(new StudiePunten
+                studiePunten.Add(new StudiePunt
                 {
                     CursusCode = studiepunt.CursusCode,
                     Schooljaar = studiepunt.Schooljaar,
@@ -85,24 +85,19 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return studiePunten;
         }
 
-        public ICollection<FaseModule> MapToFaseModules(Domain.DomainDalEntities context)
+        public ICollection<FaseModule> MapToFaseModules(Domain.DomainEntities context)
         {
             var faseModules = new List<FaseModule>();
             foreach (var faseModule in FaseModules)
             {
-                var fase = context.Fase.First(m =>
-                    m.Naam == faseModule.FaseNaam &&
-                    m.Schooljaar == faseModule.FaseSchooljaar);
+                var fase = context.Fases.First(m => m.Naam == faseModule.FaseNaam);
 
-                faseModules.Add(new FaseModules
+                faseModules.Add(new FaseModule
                 {
                     Blok = faseModule.Blok,
                     FaseNaam = faseModule.FaseNaam,
-                    FaseSchooljaar = faseModule.FaseSchooljaar,
                     ModuleCursusCode = faseModule.ModuleCursusCode,
                     ModuleSchooljaar = faseModule.ModuleSchooljaar,
-                    OpleidingNaam = faseModule.OpleidingNaam,
-                    OpleidingSchooljaar = faseModule.ModuleSchooljaar
                 });
             }
             return faseModules;
@@ -158,12 +153,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return weekplanningen;
         }
 
-        public ICollection<Beoordelingen> MapToBeoordelingen()
+        public ICollection<Beoordeling> MapToBeoordelingen()
         {
-            var beoordelingen = new List<Beoordelingen>();
+            var beoordelingen = new List<Beoordeling>();
             foreach (var beoordeling in Beoordelingen)
             {
-                beoordelingen.Add(new Beoordelingen
+                beoordelingen.Add(new Beoordeling
                 {
                     Beschrijving = beoordeling.Beschrijving,
                     CursusCode = beoordeling.CursusCode,
@@ -173,12 +168,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return beoordelingen;
         }
 
-        public ICollection<Leermiddelen> MapToLeermiddelen()
+        public ICollection<Leermiddel> MapToLeermiddelen()
         {
-            var leermiddelen = new List<Leermiddelen>();
+            var leermiddelen = new List<Leermiddel>();
             foreach (var leermiddel in Leermiddelen)
             {
-                leermiddelen.Add(new Leermiddelen
+                leermiddelen.Add(new Leermiddel
                 {
                     Beschrijving = leermiddel.Beschrijving,
                     CursusCode = leermiddel.CursusCode,
@@ -213,27 +208,27 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return docenten;
         }
 
-        public ICollection<Leerlijn> MapToLeerlijn(DomainDalEntities context)
+        public ICollection<Leerlijn> MapToLeerlijn(DomainEntities context)
         {
             var leerlijnen = new List<Leerlijn>();
             foreach (var leerlijnVM in Leerlijn)
             {
-                Leerlijn leerlijn = context.Leerlijn
+                Leerlijn leerlijn = context.Leerlijnen
                     .Find(new object[] { leerlijnVM.Naam, leerlijnVM.Schooljaar });
 
-                leerlijn.Module = null;
+                leerlijn.Modules = null;
                
                 leerlijnen.Add(leerlijn);
             }
             return leerlijnen;
         }
 
-        public ICollection<Tag> MapToTag(DomainDalEntities context)
+        public ICollection<Tag> MapToTag(DomainEntities context)
         {
             var tags = new List<Tag>();
             foreach (var tagVM in Tag)
             {
-                Tag tag = context.Tag
+                Tag tag = context.Tags
                     .Find(new object[] { tagVM.Naam });
 
                 tags.Add(tag);

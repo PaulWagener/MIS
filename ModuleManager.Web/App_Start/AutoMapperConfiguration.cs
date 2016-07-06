@@ -23,9 +23,9 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<Competentie, CompetentieViewModel>();
 
-            Mapper.CreateMap<StudiePunten, StudiePuntenViewModel>();
+            Mapper.CreateMap<StudiePunt, StudiePuntenViewModel>();
 
-            Mapper.CreateMap<FaseModules, FaseModulesViewModel>();
+            Mapper.CreateMap<FaseModule, FaseModulesViewModel>();
 
             Mapper.CreateMap<StudieBelasting, StudieBelastingViewModel>();
 
@@ -33,11 +33,11 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<Weekplanning, WeekplanningViewModel>();
 
-            Mapper.CreateMap<Beoordelingen, BeoordelingenViewModel>();
+            Mapper.CreateMap<Beoordeling, BeoordelingenViewModel>();
 
-            Mapper.CreateMap<Leermiddelen, LeermiddelenViewModel>();
+            Mapper.CreateMap<Leermiddel, LeermiddelenViewModel>();
 
-            Mapper.CreateMap<Leerdoelen, LeerdoelenViewModel>();
+            Mapper.CreateMap<Leerdoel, LeerdoelenViewModel>();
 
             Mapper.CreateMap<Docent, DocentViewModel>();
 
@@ -72,12 +72,12 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Omschrijving, opt => opt.MapFrom(
                     src => src.Naam)) // TODO:
                 .ForMember(dest => dest.Werkvormen, opt => opt.MapFrom(
-                    src => string.Join(Delimiter, src.ModuleWerkvorm
+                    src => string.Join(Delimiter, src.ModuleWerkvormen
                         .Select(inSrc => inSrc.WerkvormType))))
                 .ForMember(dest => dest.Studiepunten, opt => opt.MapFrom(
                     src => src.StudiePunten))
                 .ForMember(dest => dest.Contacturen, opt => opt.MapFrom(
-                    src => src.StudieBelasting.Sum(inSrc => inSrc.ContactUren)));
+                    src => src.StudieBelastingen.Sum(inSrc => inSrc.ContactUren)));
 
             Mapper.CreateMap<User, UserViewModel>()
                 .ForMember(dest => dest.Naam, opt => opt.MapFrom(

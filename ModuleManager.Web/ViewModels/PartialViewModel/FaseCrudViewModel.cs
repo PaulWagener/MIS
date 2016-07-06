@@ -11,7 +11,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public IEnumerable<FaseTypeViewModel> FaseTypes { get; set; }
 
-        public FaseTypeViewModel FaseType { get; set; }
+        public string FaseType { get; set; }
         public string Naam { get; set; }
         public string Beschrijving { get; set; }
 

@@ -12,12 +12,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool? isDeleted { get; set; }
 
-        internal Leermiddelen ToPoco(DomainDalEntities context)
+        internal Leermiddel ToPoco(DomainEntities context)
         {
-            Leermiddelen leermiddel = context.Leermiddelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
+            Leermiddel leermiddel = context.Leermiddelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
             
             if (leermiddel == null)
-                leermiddel = new Leermiddelen();
+                leermiddel = new Leermiddel();
           
             leermiddel.Beschrijving = this.Beschrijving;
             leermiddel.CursusCode = this.CursusCode;

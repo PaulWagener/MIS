@@ -22,6 +22,5 @@ namespace ModuleManager.Domain
     
         public virtual Competentie Competentie { get; set; }
         public virtual Module Module { get; set; }
-        public virtual Niveau Niveau1 { get; set; }
     }
 }

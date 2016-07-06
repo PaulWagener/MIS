@@ -57,10 +57,10 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
            
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                //3. Assert (alwasy in new context
-               Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+               Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
                Assert.AreEqual("a", module.Beschrijving);
             }
         }
@@ -83,13 +83,13 @@ namespace ModuleManager.WebTests
             controller.Edit(vm);
 
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(2, module.Leerlijn.Count);
-                Assert.IsTrue(module.Leerlijn.Any(l => l.Naam == "Programmeren"));
-                Assert.IsTrue(module.Leerlijn.Any(l => l.Naam == "Architectuur"));
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.Leerlijnen.Count);
+                Assert.IsTrue(module.Leerlijnen.Any(l => l.Naam == "Programmeren"));
+                Assert.IsTrue(module.Leerlijnen.Any(l => l.Naam == "Architectuur"));
             }
         }
 
@@ -104,13 +104,13 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(2, module.Tag.Count);
-                Assert.IsTrue(module.Tag.Any(l => l.Naam == "MVVM"));
-                Assert.IsTrue(module.Tag.Any(l => l.Naam == "WCF"));
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.Tags.Count);
+                Assert.IsTrue(module.Tags.Any(l => l.Naam == "MVVM"));
+                Assert.IsTrue(module.Tags.Any(l => l.Naam == "WCF"));
             }
         }
 
@@ -126,10 +126,10 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
                 Assert.AreEqual(2, module.Leerdoelen.Count);
                 Assert.IsTrue(module.Leerdoelen.Any(l => l.Id == 2));
                 Assert.IsTrue(module.Leerdoelen.Any(l => l.Beschrijving == "Leerdoel 2"));
@@ -148,10 +148,10 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
                 Assert.AreEqual(2, module.Leermiddelen.Count);
                 Assert.IsTrue(module.Leermiddelen.Any(l => l.Id == 2));
                 Assert.IsTrue(module.Leermiddelen.Any(l => l.Beschrijving == "Leermiddel 2"));
@@ -172,13 +172,13 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(2, module.StudieBelasting.Count);
-                Assert.IsTrue(module.StudieBelasting.Any(s => s.Activiteit == "A2"));
-                Assert.IsTrue(module.StudieBelasting.Any(l => l.Activiteit == "A3"));
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.StudieBelastingen.Count);
+                Assert.IsTrue(module.StudieBelastingen.Any(s => s.Activiteit == "A2"));
+                Assert.IsTrue(module.StudieBelastingen.Any(l => l.Activiteit == "A3"));
             }
         }
 
@@ -194,14 +194,14 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(2, module.Weekplanning.Count);
-                Assert.IsTrue(module.Weekplanning.Any(l => l.Id == 2));
-                Assert.IsTrue(module.Weekplanning.Any(l => l.Onderwerp == "twee"));
-                Assert.IsTrue(module.Weekplanning.Any(l => l.Onderwerp == "drie"));
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.Weekplanningen.Count);
+                Assert.IsTrue(module.Weekplanningen.Any(l => l.Id == 2));
+                Assert.IsTrue(module.Weekplanningen.Any(l => l.Onderwerp == "twee"));
+                Assert.IsTrue(module.Weekplanningen.Any(l => l.Onderwerp == "drie"));
             }
         }
 
@@ -226,10 +226,10 @@ namespace ModuleManager.WebTests
           //2. Act
           controller.Edit(vm);
 
-          using (var context = new DomainDalEntities()) {
+          using (var context = new DomainEntities()) {
             //3. Assert (always in new context
-            Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "DB1");
-            Assert.AreEqual(0, module.Weekplanning.Count);
+            Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "DB1");
+            Assert.AreEqual(0, module.Weekplanningen.Count);
           }
         }
 
@@ -244,10 +244,10 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
                 Assert.AreEqual(2, module.Docenten.Count);
                 Assert.IsTrue(module.Docenten.Any(l => l.Id == 2));
                 Assert.IsTrue(module.Docenten.Any(l => l.Id == 3));
@@ -265,13 +265,13 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(2, module.ModuleCompetentie.Count);
-                Assert.IsTrue(module.ModuleCompetentie.Any(l => l.CompetentieCode == "BC2"));
-                Assert.IsTrue(module.ModuleCompetentie.Any(l => l.CompetentieCode == "BC3"));
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.ModuleCompetenties.Count);
+                Assert.IsTrue(module.ModuleCompetenties.Any(l => l.CompetentieCode == "BC2"));
+                Assert.IsTrue(module.ModuleCompetenties.Any(l => l.CompetentieCode == "BC3"));
             }
         }
 
@@ -285,11 +285,11 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(0, module.ModuleCompetentie.Count);
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(0, module.ModuleCompetenties.Count);
             }
         }
 
@@ -305,13 +305,13 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
-                Assert.AreEqual(2, module.ModuleWerkvorm.Count);
-                Assert.IsTrue(module.ModuleWerkvorm.Any(l => l.WerkvormType == "WS"));
-                Assert.IsTrue(module.ModuleWerkvorm.Any(l => l.WerkvormType == "PR"));
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Assert.AreEqual(2, module.ModuleWerkvormen.Count);
+                Assert.IsTrue(module.ModuleWerkvormen.Any(l => l.WerkvormType == "WS"));
+                Assert.IsTrue(module.ModuleWerkvormen.Any(l => l.WerkvormType == "PR"));
             }
         }
 
@@ -326,10 +326,10 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
                 Assert.AreEqual(2, module.Beoordelingen.Count);
                 Assert.IsTrue(module.Beoordelingen.Any(l => l.Id == 2));
                 Assert.IsTrue(module.Beoordelingen.Any(l => l.Beschrijving == "b2"));
@@ -347,10 +347,10 @@ namespace ModuleManager.WebTests
             //2. Act
             controller.Edit(vm);
 
-            using (var context = new DomainDalEntities())
+            using (var context = new DomainEntities())
             {
                 //3. Assert (alwasy in new context
-                Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+                Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
                 Assert.AreEqual(1, module.Voorkennis.Count);
                 Assert.IsTrue(module.Voorkennis.Any(l => l.CursusCode == "PROG1"));
             }
@@ -430,10 +430,10 @@ namespace ModuleManager.WebTests
     
 
             //3. Assert
-            Module module = unit.Context.Module.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
+            Module module = unit.Context.Modules.First(m => m.Schooljaar == "1516" && m.CursusCode == "Test1");
             
             Assert.AreEqual("A", module.Beschrijving);
-            Assert.AreEqual(2, module.Leerlijn.Count);
+            Assert.AreEqual(2, module.Leerlijnen.Count);
 
             //Assert.AreEqual(1, module.Beoordelingen.Count);
             //Assert.AreEqual("Theorie Toets", module.Beoordelingen.First().Beschrijving);

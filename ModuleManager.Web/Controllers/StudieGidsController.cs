@@ -41,12 +41,10 @@ namespace ModuleManager.Web.Controllers
             {
                 var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
                 var tabellenlijst = new LessenTabelViewModel { FaseType = ft.Type };
-                var fasems = _unitOfWork.GetRepository<FaseModules>().GetAll()
-                    .Where(src => src.FaseSchooljaar.Equals(maxSchooljaar))
-                    .Where(src => src.Module.Status.Equals("Compleet (gecontroleerd)"))
-                    .ToList();
+                var fasems = _unitOfWork.GetRepository<FaseModule>().GetAll()
+                    .Where(src => src.Module.Status.Equals("Compleet (gecontroleerd)"));
+
                 var fases = _unitOfWork.GetRepository<Fase>().GetAll()
-                    .Where(src => src.Schooljaar.Equals(maxSchooljaar))
                     .ToList();
                 //return CollectionA
                 //  .Join(CollectionB,
@@ -55,8 +53,8 @@ namespace ModuleManager.Web.Controllers
                 //      (a, b) => new { a, b })
                 var joined = fasems
                     .Join(fases,
-                        a => new { fnaam = a.FaseNaam, fschooljaar = a.FaseSchooljaar, onaam = a.OpleidingNaam, oschooljaar = a.OpleidingSchooljaar },
-                        b => new { fnaam = b.Naam, fschooljaar = b.Schooljaar, onaam = b.OpleidingNaam, oschooljaar = b.OpleidingSchooljaar },
+                        a => new { fnaam = a.FaseNaam },
+                        b => new { fnaam = b.Naam},
                         (a, b) => new { a, b }).ToList();
                 foreach (var random in joined
                     .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))

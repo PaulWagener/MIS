@@ -13,10 +13,10 @@ namespace ModuleManager.Domain
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DomainDalEntities : DbContext
+    public partial class DomainEntities : DbContext
     {
-        public DomainDalEntities()
-            : base("name=DomainDalEntities")
+        public DomainEntities()
+            : base("name=DomainEntities")
         {
         }
     
@@ -25,30 +25,30 @@ namespace ModuleManager.Domain
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Beoordelingen> Beoordelingens { get; set; }
         public virtual DbSet<Blok> Bloks { get; set; }
         public virtual DbSet<Competentie> Competenties { get; set; }
-        public virtual DbSet<Docenten> Docentens { get; set; }
         public virtual DbSet<FaseType> FaseTypes { get; set; }
-        public virtual DbSet<Icon> Icons { get; set; }
-        public virtual DbSet<Leerdoelen> Leerdoelens { get; set; }
-        public virtual DbSet<Leerlijn> Leerlijns { get; set; }
-        public virtual DbSet<Leermiddelen> Leermiddelens { get; set; }
+        public virtual DbSet<Leerlijn> Leerlijnen { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<ModuleCompetentie> ModuleCompetenties { get; set; }
-        public virtual DbSet<ModuleWerkvorm> ModuleWerkvorms { get; set; }
         public virtual DbSet<Niveau> Niveaux { get; set; }
         public virtual DbSet<Onderdeel> Onderdeels { get; set; }
         public virtual DbSet<Opleiding> Opleidings { get; set; }
         public virtual DbSet<Schooljaar> Schooljaars { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StudieBelasting> StudieBelastings { get; set; }
-        public virtual DbSet<StudiePunten> StudiePuntens { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Toetsvorm> Toetsvorms { get; set; }
         public virtual DbSet<Weekplanning> Weekplannings { get; set; }
-        public virtual DbSet<Werkvorm> Werkvorms { get; set; }
+        public virtual DbSet<Werkvorm> Werkvormen { get; set; }
         public virtual DbSet<Fase> Fases { get; set; }
         public virtual DbSet<FaseModule> FaseModules { get; set; }
+        public virtual DbSet<Docent> Docenten { get; set; }
+        public virtual DbSet<Beoordeling> Beoordelingen { get; set; }
+        public virtual DbSet<Leerdoel> Leerdoelen { get; set; }
+        public virtual DbSet<Leermiddel> Leermiddelen { get; set; }
+        public virtual DbSet<StudiePunt> StudiePunten { get; set; }
+        public virtual DbSet<Icon> Icons { get; set; }
+        public virtual DbSet<ModuleWerkvorm> ModuleWerkvormen { get; set; }
     }
 }

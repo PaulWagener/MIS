@@ -28,9 +28,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public bool? isDeleted { get; set; }
 
 
-        internal Domain.StudieBelasting ToPoco(DomainDalEntities context)
+        internal Domain.StudieBelasting ToPoco(DomainEntities context)
         {
-            Domain.StudieBelasting studieBelasting = context.StudieBelasting.Find(CursusCode, Schooljaar, Activiteit);
+            Domain.StudieBelasting studieBelasting = context.StudieBelastings.Find(CursusCode, Schooljaar, Activiteit);
 
             if (studieBelasting == null)
             {

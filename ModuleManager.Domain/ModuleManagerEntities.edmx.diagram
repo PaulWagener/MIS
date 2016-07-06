@@ -4,54 +4,55 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="DomainDalModel.Beoordelingen" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Blok" Width="1.5" PointX="3.625" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Competentie" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Docenten" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.FaseType" Width="1.5" PointX="1.375" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Icon" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Leerdoelen" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Leerlijn" Width="1.5" PointX="0.75" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Leermiddelen" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Module" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.ModuleCompetentie" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.ModuleWerkvorm" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Niveau" Width="1.5" PointX="3" PointY="19.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Onderdeel" Width="1.5" PointX="0.75" PointY="20.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Opleiding" Width="1.5" PointX="9.125" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Schooljaar" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Status" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.StudieBelasting" Width="1.5" PointX="5.25" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.StudiePunten" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Tag" Width="1.5" PointX="5.25" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Toetsvorm" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Weekplanning" Width="1.5" PointX="5.25" PointY="30.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DomainDalModel.Werkvorm" Width="1.5" PointX="6" PointY="25.375" IsExpanded="true" />
-        <AssociationConnector Association="DomainDalModel.FK_Beoordelingen_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_ModuleCompetentie_Competentie" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_Module_Icons" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_Leerdoelen_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_Leermiddelen_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_Module_Onderdeel" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_Module_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_ModuleCompetentie_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_ModuleWerkvorm_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_StudieBelasting_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_StudiePunten_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_Weekplanning_Module" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_ModuleCompetentie_Niveau" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_ModuleWerkvorm_Werkvorm" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.FK_StudiePunten_Toetsvorm" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.ModuleDocent" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.ModuleLeerlijn" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.ModuleTag" ManuallyRouted="false" />
-        <AssociationConnector Association="DomainDalModel.Voorkennis" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DomainDalModel.Fase" Width="1.5" PointX="6" PointY="33.125" />
-        <EntityTypeShape EntityType="DomainDalModel.FaseModule" Width="1.5" PointX="8.25" PointY="18.125" />
-        <AssociationConnector Association="DomainDalModel.FK_Fase_FaseType" />
-        <AssociationConnector Association="DomainDalModel.FK_FaseModules_Fase" />
-        <AssociationConnector Association="DomainDalModel.FK_FaseModules_Module" />
+      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="78">
+        <EntityTypeShape EntityType="Domain.Blok" Width="1.5" PointX="10.625" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Competentie" Width="1.75" PointX="5.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.FaseType" Width="1.5" PointX="4.375" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Leerlijn" Width="1.5" PointX="13.375" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Module" Width="6.375" PointX="2.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.ModuleCompetentie" Width="1.875" PointX="6.875" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Niveau" Width="1.75" PointX="7.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Onderdeel" Width="1.5" PointX="12.625" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Opleiding" Width="1.5" PointX="12.375" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Schooljaar" Width="1.5" PointX="10.625" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Status" Width="1.5" PointX="14.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.StudieBelasting" Width="1.5" PointX="5.125" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Tag" Width="1.5" PointX="11.625" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Toetsvorm" Width="1.5" PointX="3.125" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Weekplanning" Width="1.5" PointX="19.375" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.Werkvorm" Width="1.75" PointX="10" PointY="24" IsExpanded="true" />
+        <AssociationConnector Association="Domain.FK_ModuleCompetenties_Competentie" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.FK_Module_Onderdeel" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.FK_Module_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.FK_ModuleCompetentie_Module" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="Domain.FK_StudieBelasting_Module" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.FK_Weekplanning_Module" ManuallyRouted="false" ></AssociationConnector>
+        <AssociationConnector Association="Domain.FK_ModuleCompetentie_Niveau" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.ModuleLeerlijn" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.ModuleTag" ManuallyRouted="false" />
+        <AssociationConnector Association="Domain.Voorkennis" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Domain.Fase" Width="1.625" PointX="3.25" PointY="24" />
+        <EntityTypeShape EntityType="Domain.FaseModule" Width="1.5" PointX="3.375" PointY="20.5" />
+        <AssociationConnector Association="Domain.FK_Fase_FaseType" />
+        <AssociationConnector Association="Domain.FK_FaseModules_Fase" />
+        <AssociationConnector Association="Domain.FK_FaseModules_Module" />
+        <EntityTypeShape EntityType="Domain.Docent" Width="1.5" PointX="15.25" PointY="18.625" />
+        <AssociationConnector Association="Domain.ModuleDocent" />
+        <EntityTypeShape EntityType="Domain.Beoordeling" Width="1.5" PointX="17.625" PointY="13" />
+        <EntityTypeShape EntityType="Domain.Leerdoel" Width="1.5" PointX="5" PointY="9.25" />
+        <EntityTypeShape EntityType="Domain.Leermiddel" Width="1.5" PointX="21.125" PointY="13" />
+        <EntityTypeShape EntityType="Domain.StudiePunt" Width="1.5" PointX="2.875" PointY="9.25" />
+        <AssociationConnector Association="Domain.FK_Beoordelingen_Module" />
+        <AssociationConnector Association="Domain.FK_Leerdoelen_Module" />
+        <AssociationConnector Association="Domain.FK_Leermiddelen_Module1" />
+        <AssociationConnector Association="Domain.FK_StudiePunten_Module" />
+        <AssociationConnector Association="Domain.FK_StudiePunten_Toetsvorm" />
+        <EntityTypeShape EntityType="Domain.Icon" Width="1.5" PointX="10.875" PointY="13" />
+        <AssociationConnector Association="Domain.FK_Module_Icon" />
+        <EntityTypeShape EntityType="Domain.ModuleWerkvorm" Width="1.5" PointX="9.375" PointY="20.5" />
+        <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Module" />
+        <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Werkvorm" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

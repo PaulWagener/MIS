@@ -17,20 +17,20 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Module()
         {
-            this.Beoordelingen = new HashSet<Beoordelingen>();
-            this.Leerdoelen = new HashSet<Leerdoelen>();
-            this.Leermiddelen = new HashSet<Leermiddelen>();
             this.ModuleCompetenties = new HashSet<ModuleCompetentie>();
-            this.ModuleWerkvormen = new HashSet<ModuleWerkvorm>();
             this.StudieBelastingen = new HashSet<StudieBelasting>();
-            this.StudiePunten = new HashSet<StudiePunten>();
             this.Weekplanningen = new HashSet<Weekplanning>();
-            this.Docenten = new HashSet<Docenten>();
             this.Leerlijnen = new HashSet<Leerlijn>();
             this.Tags = new HashSet<Tag>();
-            this.Module1 = new HashSet<Module>();
+            this.Voorkennis = new HashSet<Module>();
             this.Modules = new HashSet<Module>();
             this.FaseModules = new HashSet<FaseModule>();
+            this.Docenten = new HashSet<Docent>();
+            this.Beoordelingen = new HashSet<Beoordeling>();
+            this.Leerdoelen = new HashSet<Leerdoel>();
+            this.Leermiddelen = new HashSet<Leermiddel>();
+            this.StudiePunten = new HashSet<StudiePunt>();
+            this.ModuleWerkvormen = new HashSet<ModuleWerkvorm>();
         }
     
         public string CursusCode { get; set; }
@@ -42,36 +42,35 @@ namespace ModuleManager.Domain
         public string OnderdeelCode { get; set; }
         public string Icon { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Beoordelingen> Beoordelingen { get; set; }
-        public virtual Icon Icon1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leerdoelen> Leerdoelen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leermiddelen> Leermiddelen { get; set; }
         public virtual Onderdeel Onderdeel { get; set; }
         public virtual Status Status1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ModuleCompetentie> ModuleCompetenties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ModuleWerkvorm> ModuleWerkvormen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudieBelasting> StudieBelastingen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudiePunten> StudiePunten { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Weekplanning> Weekplanningen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Docenten> Docenten { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Leerlijn> Leerlijnen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Module> Module1 { get; set; }
+        public virtual ICollection<Module> Voorkennis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FaseModule> FaseModules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Docent> Docenten { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Beoordeling> Beoordelingen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Leerdoel> Leerdoelen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Leermiddel> Leermiddelen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudiePunt> StudiePunten { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ModuleWerkvorm> ModuleWerkvormen { get; set; }
     }
 }
