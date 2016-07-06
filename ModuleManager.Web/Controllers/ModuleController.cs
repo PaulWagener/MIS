@@ -68,8 +68,8 @@ namespace ModuleManager.Web.Controllers
         public ActionResult Details(string schooljaar, string cursusCode)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
-            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            return View(modVm);
+            var moduleVM = Mapper.Map<Module, ModuleViewModel>(module);
+            return View(moduleVM);
         }
 
         [Authorize]
@@ -110,7 +110,7 @@ namespace ModuleManager.Web.Controllers
                 //#leerlijnen
                 module.Leerlijnen.Clear();
                 var leerlijnen = new List<Leerlijn>();
-                foreach(var leerlijn in moduleVm.Module.Leerlijn)
+                foreach(var leerlijn in moduleVm.Module.Leerlijnen)
                 {
                     leerlijnen.Add(context.Leerlijnen.Find(new object[] { leerlijn.Naam,leerlijn.Schooljaar }));
                 }
@@ -119,7 +119,7 @@ namespace ModuleManager.Web.Controllers
                 //#tags
                 module.Tags.Clear();
                 var tags = new List<Tag>();
-                foreach (var tag in moduleVm.Module.Tag)
+                foreach (var tag in moduleVm.Module.Tags)
                 {
                     tags.Add(context.Tags.Find(new object[] { tag.Naam }));
                 }
@@ -128,7 +128,7 @@ namespace ModuleManager.Web.Controllers
                 //#modules voorkennis
                 module.Voorkennis.Clear();
                 var voorkennis = new List<Module>();
-                foreach (var moduleVoorkennis in moduleVm.Module.VoorkennisModules)
+                foreach (var moduleVoorkennis in moduleVm.Module.Voorkennis)
                 {
                     voorkennis.Add(context.Modules.Find(moduleVoorkennis.CursusCode, moduleVoorkennis.Schooljaar));
                 }
@@ -151,17 +151,17 @@ namespace ModuleManager.Web.Controllers
                 module.Leermiddelen = moduleVm.Module.Leermiddelen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(l => l.ToPoco(context)).ToList();
                 module.StudieBelastingen.Clear();
                 context.SaveChanges(); //jammer maar nodig
-                module.StudieBelastingen = moduleVm.Module.StudieBelasting.Where(s => !s.isDeleted.GetValueOrDefault()).Select(s => s.ToPoco(context)).ToList();
+                module.StudieBelastingen = moduleVm.Module.StudieBelastingen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(s => s.ToPoco(context)).ToList();
                 module.Weekplanningen.Clear();
-                module.Weekplanningen = moduleVm.Module.Weekplanning.Where(s => !s.isDeleted.GetValueOrDefault()).Select(w => w.ToPoco(context)).ToList();
+                module.Weekplanningen = moduleVm.Module.Weekplanningen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(w => w.ToPoco(context)).ToList();
                 module.Beoordelingen.Clear();
                 module.Beoordelingen = moduleVm.Module.Beoordelingen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(b => b.ToPoco(context)).ToList();
 
                 //koppel tabellen
                 module.ModuleWerkvormen.Clear();
-                module.ModuleWerkvormen = moduleVm.Module.ModuleWerkvorm.Select(wv => wv.ToPoco(context)).ToList();
+                module.ModuleWerkvormen = moduleVm.Module.ModuleWerkvormen.Select(wv => wv.ToPoco(context)).ToList();
                 module.ModuleCompetenties.Clear();
-                module.ModuleCompetenties = moduleVm.Module.ModuleCompetentie.Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
+                module.ModuleCompetenties = moduleVm.Module.ModuleCompetenties.Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
 
                 if(moduleVm.Module.IsCompleted)
                 {

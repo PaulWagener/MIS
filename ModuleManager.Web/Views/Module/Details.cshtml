@@ -1,6 +1,7 @@
 ﻿@using ModuleManager.Web.ViewModels.EntityViewModel
 @using ModuleManager.Web.Helpers
-@model  ModuleManager.Web.ViewModels.EntityViewModel.ModuleViewModel
+@using ModuleManager.Domain
+@model  ModuleViewModel
             
 @{
     var jaar = "";
@@ -30,7 +31,7 @@
         // Leerlijnen
         try
         {
-            leerlijnen = @Model.Leerlijn.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
+            leerlijnen = @Model.Leerlijnen.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
             leerlijnen = leerlijnen.Remove(leerlijnen.Length - 2);
         }
         catch (Exception) { }
@@ -38,7 +39,7 @@
         // Tags
         try
         {
-            tags = @Model.Tag.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
+            tags = @Model.Tags.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
             tags = tags.Remove(tags.Length - 2);
         }
         catch (Exception) { }
@@ -54,7 +55,7 @@
         // Werkvorm
         try
         {
-            werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
+            werkvorm = @Model.ModuleWerkvormen.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
             werkvorm = werkvorm.Remove(werkvorm.Length - 2);
         }
         catch (Exception) { }
@@ -109,6 +110,10 @@
                             <td colspan="2">@Model.Verantwoordelijke</td>
                         </tr>
                         <tr>
+                            <td>Blok</td>
+                            <td colspan="2">@Model.Blok</td>
+                        </tr>
+                        <tr>
                             <td>Docenten</td>
                             <td colspan="2">@docenten</td>
                         </tr>
@@ -130,7 +135,7 @@
                                 <td>@firstToetscode.EC</td>
                             }
                         </tr>
-                        @foreach (StudiePuntenViewModel studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
+                        @foreach (var studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
                         {
                             <tr>
                                 <td>@studiePunt.ToetsCode</td>
@@ -144,10 +149,10 @@
                         <tr>
                             <td>Voorkennis</td>
                             <td colspan="2">
-                                @foreach (var i in Model.VoorkennisModules)
+                                @foreach (var i in Model.Voorkennis)
                                 {
                                     <a href="@Url.Action("Details", "Module", new {schooljaar = i.Schooljaar, cursuscode = i.CursusCode})">@i.Naam</a>
-                                    if (Model.VoorkennisModules.Last().Naam != i.Naam && Model.VoorkennisModules.Last().Schooljaar != i.Schooljaar && Model.VoorkennisModules.Last().CursusCode != i.CursusCode)
+                                    if (Model.Voorkennis.Last().Naam != i.Naam && Model.Voorkennis.Last().Schooljaar != i.Schooljaar && Model.Voorkennis.Last().CursusCode != i.CursusCode)
                                     {
                                         <label>,&nbsp;</label>
                                     }
@@ -156,22 +161,21 @@
                     </tbody>
                 </table>
                 
-                <h3>Fases & Blokken</h3>
+                <h3>Fases</h3>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
                             <th>Fase</th>
-                            <th>Blok</th>
                         </tr>
-                        @foreach (FaseModulesViewModel faseModules in Model.FaseModules)
+                        @foreach (Fase faseModules in Model.Fases)
                         {
                             <tr>
-                                <td>@faseModules.FaseNaam</td>
-                                <td>@faseModules.Blok</td>
+                                <td>@faseModules.Naam</td>
                             </tr>
                         }
                     </tbody>
                 </table>
+
 
                 <h3>Competenties</h3>
                 <table class="table table-bordered">
@@ -181,7 +185,7 @@
                             <th>Niveau</th>
                             <th>Omschrijving</th>
                         </tr>
-                        @foreach (ModuleCompetentieViewModel moduleCompetentie in Model.ModuleCompetentie)
+                        @foreach (var moduleCompetentie in Model.ModuleCompetenties)
                         {
                             <tr>
                                 <td>@moduleCompetentie.Competentie.Naam</td>
@@ -212,7 +216,7 @@
                             <th>SBU</th>
                         </tr>
                         @{ var studieBelastingTotaal = 0; }
-                        @foreach (StudieBelastingViewModel studieBelasting in Model.StudieBelasting)
+                        @foreach (var studieBelasting in Model.StudieBelastingen)
                         {
                             <tr>
                                 <td>@studieBelasting.Activiteit</td>
@@ -236,7 +240,7 @@
                 <p>
                     Toelichting op de werkvormen @werkvorm:
                     <ul>
-                        @foreach (ModuleWerkvormViewModel moduleWerkvorm in Model.ModuleWerkvorm)
+                        @foreach (var moduleWerkvorm in Model.ModuleWerkvormen)
                         {
                             <li>@moduleWerkvorm.Organisatie</li>
                         }
@@ -249,7 +253,7 @@
                             <th style="width:15%;">Week</th>
                             <th>Onderwerpen</th>
                         </tr>
-                        @foreach (WeekplanningViewModel weekplanning in Model.Weekplanning)
+                        @foreach (var weekplanning in Model.Weekplanningen)
                         {
                             <tr>
                                 <td>@weekplanning.Week</td>
@@ -260,14 +264,14 @@
                 </table>
                 <h3>Beoordeling</h3>
                 <ul>
-                    @foreach (BeoordelingenViewModel beoordelingen in Model.Beoordelingen)
+                    @foreach (var beoordelingen in Model.Beoordelingen)
                     {
                         <li>@beoordelingen.Beschrijving</li>
                     }
                 </ul>
                 <h3>Leermiddelen</h3>
                 <ul>
-                    @foreach (LeermiddelenViewModel leermiddelen in Model.Leermiddelen)
+                    @foreach (var leermiddelen in Model.Leermiddelen)
                     {
                         <li>@leermiddelen.Beschrijving</li>
                     }
@@ -276,7 +280,7 @@
                 <p>
                     De student kan...
                     <ul>
-                       @foreach (LeerdoelenViewModel leerdoelen in Model.Leerdoelen)
+                       @foreach (var leerdoelen in Model.Leerdoelen)
                        {
                            <li>@leerdoelen.Beschrijving</li>
                        }
