@@ -48,8 +48,6 @@
           <Property Name="FaseType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OpleidingNaam" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FaseModule">
           <Key>
             <PropertyRef Name="FaseNaam" />
@@ -624,6 +622,7 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <EntitySet Name="Competentie" EntityType="Self.Competentie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Docent" EntityType="Self.Docent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fase" EntityType="Self.Fase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FaseModule" EntityType="Self.FaseModule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FaseType" EntityType="Self.FaseType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Icon" EntityType="Self.Icon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leerdoel" EntityType="Self.Leerdoel" Schema="dbo" store:Type="Tables" />
@@ -647,13 +646,6 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <EntitySet Name="Voorkennis" EntityType="Self.Voorkennis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weekplanning" EntityType="Self.Weekplanning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Werkvorm" EntityType="Self.Werkvorm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FaseModule" EntityType="Self.FaseModule" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FaseModule].[FaseNaam] AS [FaseNaam], 
-    [FaseModule].[ModuleCursusCode] AS [ModuleCursusCode], 
-    [FaseModule].[ModuleSchooljaar] AS [ModuleSchooljaar]
-    FROM [dbo].[FaseModule] AS [FaseModule]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Beoordelingen_Module" Association="Self.FK_Beoordelingen_Module">
             <End Role="Module" EntitySet="Module" />
             <End Role="Beoordeling" EntitySet="Beoordeling" />
@@ -818,7 +810,6 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <NavigationProperty Name="Tags" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
           <NavigationProperty Name="Voorkennis" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
           <NavigationProperty Name="Modules" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
-          <NavigationProperty Name="FaseModules" Relationship="Domain.FK_FaseModules_Module" FromRole="Module" ToRole="FaseModule" />
           <NavigationProperty Name="Docenten" Relationship="Domain.ModuleDocent" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
           <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />
@@ -826,6 +817,7 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
           <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fases" Relationship="Domain.FaseModule" FromRole="Module" ToRole="Fase" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -1088,18 +1080,9 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             <End Role="Module1" EntitySet="Modules" />
           </AssociationSet>
           <EntitySet Name="Fases" EntityType="Domain.Fase" />
-          <EntitySet Name="FaseModules" EntityType="Domain.FaseModule" />
           <AssociationSet Name="FK_Fase_FaseType" Association="Domain.FK_Fase_FaseType">
             <End Role="FaseType" EntitySet="FaseTypes" />
             <End Role="Fase" EntitySet="Fases" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Fase" Association="Domain.FK_FaseModules_Fase">
-            <End Role="Fase" EntitySet="Fases" />
-            <End Role="FaseModule" EntitySet="FaseModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FaseModules_Module" Association="Domain.FK_FaseModules_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="FaseModule" EntitySet="FaseModules" />
           </AssociationSet>
           <EntitySet Name="Docenten" EntityType="Domain.Docent" />
           <AssociationSet Name="ModuleDocent" Association="Domain.ModuleDocent">
@@ -1144,6 +1127,10 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             <End Role="Werkvorm" EntitySet="Werkvormen" />
             <End Role="ModuleWerkvorm" EntitySet="ModuleWerkvormen" />
           </AssociationSet>
+          <AssociationSet Name="FaseModule" Association="Domain.FaseModule">
+            <End Role="Fase" EntitySet="Fases" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
           <Key>
@@ -1153,19 +1140,7 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
           <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FaseType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OpleidingNaam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FaseModules" Relationship="Domain.FK_FaseModules_Fase" FromRole="Fase" ToRole="FaseModule" />
-        </EntityType>
-        <EntityType Name="FaseModule">
-          <Key>
-            <PropertyRef Name="FaseNaam" />
-            <PropertyRef Name="ModuleCursusCode" />
-            <PropertyRef Name="ModuleSchooljaar" />
-          </Key>
-          <Property Name="FaseNaam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModuleCursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModuleSchooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Fase" Relationship="Domain.FK_FaseModules_Fase" FromRole="FaseModule" ToRole="Fase" />
-          <NavigationProperty Name="Module" Relationship="Domain.FK_FaseModules_Module" FromRole="FaseModule" ToRole="Module" />
+          <NavigationProperty Name="Modules" Relationship="Domain.FaseModule" FromRole="Fase" ToRole="Module" />
         </EntityType>
         <Association Name="FK_Fase_FaseType">
           <End Type="Domain.FaseType" Role="FaseType" Multiplicity="1" />
@@ -1176,32 +1151,6 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             </Principal>
             <Dependent Role="Fase">
               <PropertyRef Name="FaseType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FaseModules_Fase">
-          <End Type="Domain.Fase" Role="Fase" Multiplicity="1" />
-          <End Type="Domain.FaseModule" Role="FaseModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fase">
-              <PropertyRef Name="Naam" />
-            </Principal>
-            <Dependent Role="FaseModule">
-              <PropertyRef Name="FaseNaam" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FaseModules_Module">
-          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
-          <End Type="Domain.FaseModule" Role="FaseModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="FaseModule">
-              <PropertyRef Name="ModuleCursusCode" />
-              <PropertyRef Name="ModuleSchooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1394,6 +1343,10 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FaseModule">
+          <End Type="Domain.Fase" Role="Fase" Multiplicity="*" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1579,15 +1532,6 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FaseModules">
-            <EntityTypeMapping TypeName="Domain.FaseModule">
-              <MappingFragment StoreEntitySet="FaseModule">
-                <ScalarProperty Name="ModuleSchooljaar" ColumnName="ModuleSchooljaar" />
-                <ScalarProperty Name="ModuleCursusCode" ColumnName="ModuleCursusCode" />
-                <ScalarProperty Name="FaseNaam" ColumnName="FaseNaam" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Docenten">
             <EntityTypeMapping TypeName="Domain.Docent">
               <MappingFragment StoreEntitySet="Docent">
@@ -1664,6 +1608,15 @@ warning 6002: The table/view 'ModuleManager.Domain.dbo.FaseModule' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="FaseModule" TypeName="Domain.FaseModule" StoreEntitySet="FaseModule">
+            <EndProperty Name="Module">
+              <ScalarProperty Name="Schooljaar" ColumnName="ModuleSchooljaar" />
+              <ScalarProperty Name="CursusCode" ColumnName="ModuleCursusCode" />
+            </EndProperty>
+            <EndProperty Name="Fase">
+              <ScalarProperty Name="Naam" ColumnName="FaseNaam" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

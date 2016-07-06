@@ -53,7 +53,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             bool notFirstIteration = false;
 
-            foreach(FaseModule fm in toExport.FaseModules)
+            foreach(Fase fm in toExport.Fases)
             {
                 if (notFirstIteration) { pCell.AddText(", "); }
                 notFirstIteration = true;

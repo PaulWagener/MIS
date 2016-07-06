@@ -25,7 +25,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                     var selectedModule = 
                         from m in toQuery
                             where
-                                m.FaseModules.Any()
+                                m.Fases.Any()
                         select m;
 
                     result.AddRange(selectedModule.Where(x => !result.Contains(x)));

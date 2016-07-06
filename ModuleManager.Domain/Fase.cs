@@ -17,7 +17,7 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Fase()
         {
-            this.FaseModules = new HashSet<FaseModule>();
+            this.Modules = new HashSet<Module>();
         }
     
         public string Naam { get; set; }
@@ -26,6 +26,6 @@ namespace ModuleManager.Domain
         public string OpleidingNaam { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FaseModule> FaseModules { get; set; }
+        public virtual ICollection<Module> Modules { get; set; }
     }
 }

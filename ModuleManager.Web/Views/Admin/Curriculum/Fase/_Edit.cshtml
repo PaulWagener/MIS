@@ -17,7 +17,7 @@
             <select name="FaseType" class="form-control ajax" id="FaseType">
                 @foreach (var faseType in Model.FaseTypes)
                 {
-                    <option @(faseType.Type == Model.FaseType.Type ? "selected=\"selected\"" : "")>@faseType.Type</option>
+                    <option @(faseType.Type == Model.FaseType ? "selected=\"selected\"" : "")>@faseType.Type</option>
                 }
             </select>
         </div>

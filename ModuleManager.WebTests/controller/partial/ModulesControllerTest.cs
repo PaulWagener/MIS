@@ -33,11 +33,6 @@ namespace ModuleManager.WebTests.controller.partial
                 Verantwoordelijke = "c",
                 Status = "d",
                 Icon = "e",
-                FaseModules = new List<FaseModule>()
-                {
-                    new FaseModule() { FaseNaam = "f" },
-                    new FaseModule() { FaseNaam = "g" },
-                },
                 Onderdeel = new Onderdeel() {  Code = "h" },
                 StudiePunten = new List<StudiePunt>()
                 {
@@ -92,10 +87,6 @@ namespace ModuleManager.WebTests.controller.partial
             Assert.AreEqual("o", resultModule.Verantwoordelijke);
             Assert.AreEqual("q", resultModule.OnderdeelCode);
             Assert.AreEqual("r", resultModule.Icon);
-            Assert.IsTrue(resultModule.FaseModules.Any(f => f.FaseNaam == "g"));
-            Assert.IsTrue(resultModule.FaseModules.Any(f => f.FaseNaam == "p"));
-            Assert.IsFalse(resultModule.FaseModules.Any(f => f.FaseNaam == "f"));
-
         }
     }
 }

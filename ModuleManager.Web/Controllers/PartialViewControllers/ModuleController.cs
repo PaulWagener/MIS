@@ -53,73 +53,55 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModuleCrudViewModel entity)
         {
-            try
-            {
-                /* Schooljaar */
-                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any())
-                    return Json(new { success = false });
-                var schooljaar = schooljaren.Last();
-
-                /* Studie Punten */
-                ICollection<StudiePunt> studiepuntenList = new List<StudiePunt>();
-                var studiepunt1 = new StudiePunt()
-                {
-                    ToetsCode = String.Format("{0}-{1}", entity.Toetscode1Prefix, entity.Toetscode1),
-                    EC = entity.Ec1
-                };
-                studiepuntenList.Add(studiepunt1);
-
-                if (entity.Toetscode2 != null || entity.Toetscode1 == entity.Toetscode2)
-                {
-                    var studiepunt2 = new StudiePunt()
-                    {
-                        ToetsCode = String.Format("{0}-{1}", entity.Toetscode2Prefix, entity.Toetscode2),
-                        EC = entity.Ec2
-                    };
-                    studiepuntenList.Add(studiepunt2);
-                }
-
-                /* Fases */
-                //ICollection<FaseModules> fasesList = new List<FaseModules>();
-                //foreach (var _fase in entity.FaseModules)
-                //{
-                //    var faseSplitted = _fase.Split(',');
-
-                //    var faseModule = new FaseModules()
-                //    {
-                //        FaseNaam = faseSplitted[0],
-                //        FaseSchooljaar = faseSplitted[1],
-                //        OpleidingNaam = faseSplitted[2],
-                //        OpleidingSchooljaar = faseSplitted[3],
-                //        ModuleSchooljaar = schooljaar.JaarId,
-                //        ModuleCursusCode = entity.CursusCode,
-                //        Blok = entity.Blok
-                //    };
-
-                //    fasesList.Add(faseModule);
-                //}
-
-                var module = new Module()
-                {
-                    Schooljaar = schooljaar.JaarId,
-                    StudiePunten = studiepuntenList,
-                    //FaseModules = fasesList,
-
-                    Naam = entity.Naam,
-                    CursusCode = String.Format("{0}-{1}", entity.OpleidingsPrefix, entity.CursusCode),
-                    Icon = entity.Icon,
-                    Status = "Nieuw",
-                    Verantwoordelijke = entity.Verantwoordelijke,
-                    OnderdeelCode = entity.Onderdeel
-                };
-
-                var value = _unitOfWork.GetRepository<Module>().Create(module);
-                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
-            }
-            catch (Exception)
-            {
+            /* Schooljaar */
+            var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+            if (!schooljaren.Any())
                 return Json(new { success = false });
+            var schooljaar = schooljaren.Last();
+
+            /* Studie Punten */
+            ICollection<StudiePunt> studiepuntenList = new List<StudiePunt>();
+            var studiepunt1 = new StudiePunt()
+            {
+                ToetsCode = String.Format("{0}-{1}", entity.Toetscode1Prefix, entity.Toetscode1),
+                EC = entity.Ec1
+            };
+            studiepuntenList.Add(studiepunt1);
+
+            if (entity.Toetscode2 != null || entity.Toetscode1 == entity.Toetscode2)
+            {
+                var studiepunt2 = new StudiePunt()
+                {
+                    ToetsCode = String.Format("{0}-{1}", entity.Toetscode2Prefix, entity.Toetscode2),
+                    EC = entity.Ec2
+                };
+                studiepuntenList.Add(studiepunt2);
+            }
+
+            var module = new Module()
+            {
+                Schooljaar = schooljaar.JaarId,
+                StudiePunten = studiepuntenList,
+                Blok = entity.Blok,
+                Naam = entity.Naam,
+                CursusCode = String.Format("{0}-{1}", entity.OpleidingsPrefix, entity.CursusCode),
+                Icon = entity.Icon,
+                Status = "Nieuw",
+                Verantwoordelijke = entity.Verantwoordelijke,
+                OnderdeelCode = entity.Onderdeel
+            };
+
+            using(var context = new DomainEntities())
+            {
+                //voeg alle fases aan module toe.
+                module.Fases.Clear();
+                foreach(var fase in context.Fases.Where(f => entity.SelectedFases.Contains(f.Naam)))
+                {
+                    module.Fases.Add(fase);
+                }
+                context.Modules.Add(module);
+                context.SaveChanges();
+                return Json(new { success = true });
             }
         }
 
@@ -155,8 +137,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 Ec1 = module.StudiePunten.Count > 0 ? module.StudiePunten.ElementAt(0).EC : 0,
                 Toetscode2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).ToetsCode : null,
                 Ec2 = module.StudiePunten.Count > 1 ? module.StudiePunten.ElementAt(1).EC : 0,
-                FaseModules = module.FaseModules,
                 Fases = fases,
+                SelectedFases = module.Fases.Select(p => p.Naam),
                 Blokken = blokken.OrderBy(B => B.BlokId, new NumberWordComparer()),
                 Icons = icons,
                 Onderdelen = onderdelen
@@ -194,27 +176,6 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 }
 
 
-                /* Fases */
-                //ICollection<FaseModules> fasesList = new List<FaseModules>();
-                //foreach (var _fase in entity.SelectedFases)
-                //{
-                //    var faseSplitted = _fase.Split(',');
-
-                //    var faseModule = new FaseModules()
-                //    {
-                //        FaseNaam = faseSplitted[0],
-                //        FaseSchooljaar = faseSplitted[1],
-                //        OpleidingNaam = faseSplitted[2],
-                //        OpleidingSchooljaar = faseSplitted[3],
-                //        ModuleSchooljaar = entity.Schooljaar,
-                //        ModuleCursusCode = entity.CursusCode,
-                //        Blok = entity.Blok
-                //    };
-
-                //    fasesList.Add(faseModule);
-                //}
-
-
                 module.Naam = entity.Naam;
                 module.Icon = entity.Icon;
                 module.Status = "Nieuw";
@@ -222,7 +183,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 module.OnderdeelCode = entity.Onderdeel;
                 
                 module.StudiePunten.Clear();
-                module.FaseModules.Clear();
+                module.Fases.Clear();
+
+                var faseRepo = _unitOfWork.GetRepository<Fase>();
+                foreach (var faseNaam in entity.SelectedFases)
+                {
+                    module.Fases.Add(faseRepo.GetOne(new object[] { faseNaam }));
+                }
+
                 var value = _unitOfWork.GetRepository<Module>().Edit(module);
 
                 //module.FaseModules = fasesList;

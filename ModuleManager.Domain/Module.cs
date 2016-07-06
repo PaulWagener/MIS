@@ -24,13 +24,13 @@ namespace ModuleManager.Domain
             this.Tags = new HashSet<Tag>();
             this.Voorkennis = new HashSet<Module>();
             this.Modules = new HashSet<Module>();
-            this.FaseModules = new HashSet<FaseModule>();
             this.Docenten = new HashSet<Docent>();
             this.Beoordelingen = new HashSet<Beoordeling>();
             this.Leerdoelen = new HashSet<Leerdoel>();
             this.Leermiddelen = new HashSet<Leermiddel>();
             this.StudiePunten = new HashSet<StudiePunt>();
             this.ModuleWerkvormen = new HashSet<ModuleWerkvorm>();
+            this.Fases = new HashSet<Fase>();
         }
     
         public string CursusCode { get; set; }
@@ -60,8 +60,6 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FaseModule> FaseModules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Docent> Docenten { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Beoordeling> Beoordelingen { get; set; }
@@ -73,5 +71,7 @@ namespace ModuleManager.Domain
         public virtual ICollection<StudiePunt> StudiePunten { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ModuleWerkvorm> ModuleWerkvormen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fase> Fases { get; set; }
     }
 }

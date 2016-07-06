@@ -22,8 +22,8 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                     var selectedModule = 
                         from m in toQuery
                             where
-                                m.FaseModules.Any(
-                                element => (element.FaseNaam ?? "").ToLower().Contains((arg ?? "").ToLower())
+                                m.Fases.Any(
+                                    element => (element.Naam ?? "").ToLower().Contains((arg ?? "").ToLower())
                                 )
                         select m;
 

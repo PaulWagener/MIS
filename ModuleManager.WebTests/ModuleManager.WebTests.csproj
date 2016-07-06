@@ -120,18 +120,6 @@
       <Project>{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}</Project>
       <Name>ModuleManager.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.LoggingDAL\ModuleManager.LoggingDAL.csproj">
-      <Project>{3876c338-ab98-463e-92c4-45494a7c13cb}</Project>
-      <Name>ModuleManager.LoggingDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.LoggingSysteemTests\ModuleManager.LoggingSysteemTests.csproj">
-      <Project>{d5a31e6d-ec7d-429b-8f98-943176c05acf}</Project>
-      <Name>ModuleManager.LoggingSysteemTests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.LoggingSysteem\ModuleManager.LoggingSysteem.csproj">
-      <Project>{bc407b28-8305-43a9-b2e4-7efc912ad51e}</Project>
-      <Name>ModuleManager.LoggingSysteem</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ModuleManager.UserDAL\ModuleManager.UserDAL.csproj">
       <Project>{0b13bfe6-aed5-49dc-85b6-b8ea460048a0}</Project>
       <Name>ModuleManager.UserDAL</Name>

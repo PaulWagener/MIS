@@ -350,7 +350,6 @@
     <Compile Include="ViewModels\EntityViewModel\BeoordelingenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\CompetentieViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\DocentViewModel.cs" />
-    <Compile Include="ViewModels\EntityViewModel\FaseModulesViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\FaseTypeViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\LeerdoelenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\LeerlijnViewModel.cs" />
@@ -470,10 +469,6 @@
     <ProjectReference Include="..\ModuleManager.Domain\ModuleManager.Domain.csproj">
       <Project>{bd56b86a-f3b6-4cc8-8bed-e318bf5d62da}</Project>
       <Name>ModuleManager.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.LoggingSysteem\ModuleManager.LoggingSysteem.csproj">
-      <Project>{bc407b28-8305-43a9-b2e4-7efc912ad51e}</Project>
-      <Name>ModuleManager.LoggingSysteem</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModuleManager.UserDAL\ModuleManager.UserDAL.csproj">
       <Project>{0b13bfe6-aed5-49dc-85b6-b8ea460048a0}</Project>

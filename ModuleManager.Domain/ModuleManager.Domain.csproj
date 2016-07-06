@@ -66,9 +66,6 @@
     <Compile Include="Fase.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="FaseModule.cs">
-      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="FaseType.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>

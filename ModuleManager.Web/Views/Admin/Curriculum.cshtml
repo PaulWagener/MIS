@@ -71,8 +71,8 @@
                                 <td class="ninety-width">@item.FaseType</td>
                                 <td>@item.Naam</td>
                                 <td class="actions ninety-width">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Fases", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar, opleidingsNaam = item.OpleidingNaam, opleidingsSchooljaar = item.OpleidingSchooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Fases", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar, opleidingsNaam = item.OpleidingNaam, opleidingsSchooljaar = item.OpleidingSchooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Fases", routeValues: new { naam = item.Naam, opleidingsNaam = item.OpleidingNaam}, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Fases", routeValues: new { naam = item.Naam, opleidingsNaam = item.OpleidingNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }

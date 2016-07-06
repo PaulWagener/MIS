@@ -58,8 +58,8 @@
             <select name="SelectedFases" class="form-control ajax" id="SelectedFases" multiple>
                 @foreach (var faseType in Model.Fases)
                 {
-                    var selectedText = Model.SelectedFases.Any(f => faseType.Naam == f) ? "selected" : "";
-                    <option value="@faseType.Naam,@faseType.Schooljaar,@faseType.OpleidingNaam,@faseType.OpleidingSchooljaar" @selectedText>@faseType.Naam</option>
+                    var selectedText = Model.SelectedFases.Any(faseNaam => faseType.Naam == faseNaam) ? "selected" : "";
+                    <option value="@faseType.Naam" @selectedText>@faseType.Naam</option>
                 }              
             </select>
         </div>
@@ -93,8 +93,8 @@
                     <select name="Icon" class="form-control ajax" id="Icon">
                         @foreach (var icon in Model.Icons)
                         {
-                            var selectedText = Model.Icon == icon.Icon ? "selected" : "";
-                            <option @selectedText>@icon.Icon</option>
+                            var selectedText = Model.Icon == icon.Naam ? "selected" : "";
+                            <option @selectedText>@icon.Naam</option>
                         }
                     </select>
                 </div>

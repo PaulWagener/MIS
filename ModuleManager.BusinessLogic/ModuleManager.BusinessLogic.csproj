@@ -154,10 +154,6 @@
       <Project>{bd56b86a-f3b6-4cc8-8bed-e318bf5d62da}</Project>
       <Name>ModuleManager.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.LoggingSysteem\ModuleManager.LoggingSysteem.csproj">
-      <Project>{bc407b28-8305-43a9-b2e4-7efc912ad51e}</Project>
-      <Name>ModuleManager.LoggingSysteem</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

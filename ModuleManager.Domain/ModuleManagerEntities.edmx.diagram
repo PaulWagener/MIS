@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="77">
+      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="Domain.Blok" Width="1.5" PointX="10.625" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Competentie" Width="1.75" PointX="5.75" PointY="24" IsExpanded="true" />
-        <EntityTypeShape EntityType="Domain.FaseType" Width="1.5" PointX="3.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Domain.FaseType" Width="1.5" PointX="3" PointY="24.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Leerlijn" Width="1.5" PointX="13.375" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Module" Width="6.375" PointX="2.75" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.ModuleCompetentie" Width="1.875" PointX="6.875" PointY="20.5" IsExpanded="true" />
@@ -32,11 +32,8 @@
         <AssociationConnector Association="Domain.ModuleLeerlijn" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.ModuleTag" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.Voorkennis" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Domain.Fase" Width="1.625" PointX="3.25" PointY="24" />
-        <EntityTypeShape EntityType="Domain.FaseModule" Width="1.5" PointX="3.375" PointY="20.5" />
+        <EntityTypeShape EntityType="Domain.Fase" Width="1.625" PointX="3" PointY="20.5" />
         <AssociationConnector Association="Domain.FK_Fase_FaseType" />
-        <AssociationConnector Association="Domain.FK_FaseModules_Fase" />
-        <AssociationConnector Association="Domain.FK_FaseModules_Module" />
         <EntityTypeShape EntityType="Domain.Docent" Width="1.5" PointX="15.25" PointY="18.625" />
         <AssociationConnector Association="Domain.ModuleDocent" />
         <EntityTypeShape EntityType="Domain.Beoordeling" Width="1.5" PointX="17.625" PointY="13" />
@@ -53,6 +50,7 @@
         <EntityTypeShape EntityType="Domain.ModuleWerkvorm" Width="1.5" PointX="9.375" PointY="20.5" />
         <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Module" />
         <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Werkvorm" />
+        <AssociationConnector Association="Domain.FaseModule" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

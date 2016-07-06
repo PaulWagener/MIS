@@ -147,18 +147,4 @@
         $("#Toetscode2Prefix").val($("#CursusCode").val());
     });
 
-    $('#fases').on('click', '.remove_row', function () {
-        $(this).closest("tr").remove();
-    });
-
-    debugger;
-    var nextFaseModuleIndex = @Model.FaseModules.Count();
-    $('#addFaseModule').on('click', function () {
-        var row =  $('<tr>');
-        row.append("<td>Kies Fase</td>");
-        row.append("<td>Kies blok</td>");
-        //Delete button
-        row.append('<td style="width: 90px; text-align:center"><a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a></td>');
-        $('#fases tr:last').before(row);
-    })
 </script>

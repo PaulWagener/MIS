@@ -25,8 +25,6 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<StudiePunt, StudiePuntenViewModel>();
 
-            Mapper.CreateMap<FaseModule, FaseModulesViewModel>();
-
             Mapper.CreateMap<StudieBelasting, StudieBelastingViewModel>();
 
             Mapper.CreateMap<ModuleWerkvorm, ModuleWerkvormViewModel>();
@@ -57,8 +55,6 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
                     src => src.StudiePunten
                         .Select(sp => sp.EC).Sum()))
-                .ForMember(dest => dest.FaseNamen, opt => opt.MapFrom(
-                    src => (string.Join(Delimiter, src.FaseModules.Select(inSrc => inSrc.FaseNaam)))))
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.Docenten.Select(inSrc => inSrc.Naam))));
 

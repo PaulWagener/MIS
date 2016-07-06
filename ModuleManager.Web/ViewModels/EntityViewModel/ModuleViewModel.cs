@@ -20,7 +20,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public IList<ModuleCompetentieViewModel> ModuleCompetentie { get; set; }
         public IList<StudiePuntenViewModel> StudiePunten { get; set; }
-        public IList<FaseModulesViewModel> FaseModules { get; set; }
         public IList<StudieBelastingViewModel> StudieBelasting { get; set; }
         public IList<ModuleWerkvormViewModel> ModuleWerkvorm { get; set; }
         public IList<WeekplanningViewModel> Weekplanning { get; set; }
@@ -37,7 +36,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             //lege lijsten aanmaken
            ModuleCompetentie = new List<ModuleCompetentieViewModel>();
            StudiePunten = new List<StudiePuntenViewModel>();
-           FaseModules = new List<FaseModulesViewModel>();
            StudieBelasting = new List<StudieBelastingViewModel>();
            ModuleWerkvorm = new List<ModuleWerkvormViewModel>();
            Weekplanning = new List<WeekplanningViewModel>();
@@ -85,22 +83,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             return studiePunten;
         }
 
-        public ICollection<FaseModule> MapToFaseModules(Domain.DomainEntities context)
-        {
-            var faseModules = new List<FaseModule>();
-            foreach (var faseModule in FaseModules)
-            {
-                var fase = context.Fases.First(m => m.Naam == faseModule.FaseNaam);
-
-                faseModules.Add(new FaseModule
-                {
-                    FaseNaam = faseModule.FaseNaam,
-                    ModuleCursusCode = faseModule.ModuleCursusCode,
-                    ModuleSchooljaar = faseModule.ModuleSchooljaar,
-                });
-            }
-            return faseModules;
-        }
 
         public ICollection<StudieBelasting> MapToStudieBelasting()
         {

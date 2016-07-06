@@ -13,7 +13,13 @@ namespace ModuleManager.Domain.Tests
             using(var context = new Domain.DomainEntities() )
             {
                 //Act
-                var modules = context.Leerlijnen.ToList();
+                var a = context.Set<Werkvorm>().ToList();
+                var b = context.Set<ModuleWerkvorm>().ToList();
+                var c = context.Set<Icon>().ToList();
+                var d = context.Set<StudiePunt>().ToList();
+                var e = context.Set<StudieBelasting>().ToList();
+
+
 
                 //Assert
             }

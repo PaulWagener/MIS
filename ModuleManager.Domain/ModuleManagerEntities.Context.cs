@@ -42,7 +42,6 @@ namespace ModuleManager.Domain
         public virtual DbSet<Weekplanning> Weekplannings { get; set; }
         public virtual DbSet<Werkvorm> Werkvormen { get; set; }
         public virtual DbSet<Fase> Fases { get; set; }
-        public virtual DbSet<FaseModule> FaseModules { get; set; }
         public virtual DbSet<Docent> Docenten { get; set; }
         public virtual DbSet<Beoordeling> Beoordelingen { get; set; }
         public virtual DbSet<Leerdoel> Leerdoelen { get; set; }

@@ -36,14 +36,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Tags/Delete")]
-        public ActionResult Delete(string naam, string schooljaar)
+        public ActionResult Delete(string naam)
         {
             if (naam == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Tag tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { naam, schooljaar });
+            Tag tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { naam });
 
             if (tag == null)
             {
