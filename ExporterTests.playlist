@@ -1,1 +1,0 @@
-<Playlist Version="1.0"><Add Test="ModuleManager.BusinessLogicTests.ModuleExporterServiceTest.TestMultiModulePdfOutput" /><Add Test="ModuleManager.BusinessLogicTests.ModuleExporterServiceTest.TestSingleModulePdfOutput" /></Playlist>
