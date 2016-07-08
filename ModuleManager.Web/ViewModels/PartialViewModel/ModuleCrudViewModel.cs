@@ -36,6 +36,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public IEnumerable<Icon> Icons { get; set; }
 
+        [Display(Name = "Onderdeel")]
         public IEnumerable<Onderdeel> Onderdelen { get; set; }
 
         //public IEnumerable<StudiePunten> StudiePunten { get; set; }
