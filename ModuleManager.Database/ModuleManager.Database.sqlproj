@@ -94,13 +94,26 @@
     <Build Include="dbo\Tables\Voorkennis.sql" />
     <Build Include="dbo\Tables\ModuleDocent.sql" />
     <Build Include="dbo\Tables\FaseModule.sql" />
-    <None Include="scripts\testData\testData.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="scripts\testData\Blok.sql" />
+    <None Include="scripts\testData\FaseType.sql" />
+    <None Include="scripts\testData\Opleiding.sql" />
+    <None Include="scripts\testData\Module.sql" />
+    <None Include="scripts\testData\Fase.sql" />
+    <None Include="scripts\testData\Niveau.sql" />
+    <None Include="scripts\testData\Onderdeel.sql" />
+    <None Include="scripts\testData\Status.sql" />
+    <None Include="scripts\testData\Leerlijn.sql" />
+    <None Include="scripts\testData\Tag.sql" />
+    <None Include="scripts\testData\Werkvorm.sql" />
+    <None Include="scripts\testData\Competentie.sql" />
+    <None Include="scripts\testData\Docent.sql" />
+    <None Include="scripts\testData\Icon.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ModuleManager.Local.Database.publish.xml" />
     <None Include="ModuleManager.Dev.Database.publish.xml" />
+    <None Include="scripts\testData\Schooljaar.sql" />
+    <None Include="ModuleManager.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="scripts\Script.PostDeployment.sql" />
