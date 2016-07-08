@@ -76,8 +76,8 @@ namespace ModuleManager.WebTests
             //1. Arrange
             var vm = GetModuleEditViewModel();
 
-            vm.Module.Leerlijn.Add( new LeerlijnViewModel(){ Naam = "Programmeren", Schooljaar = "1516" } );
-            vm.Module.Leerlijn.Add(new LeerlijnViewModel() { Naam = "Architectuur", Schooljaar = "1516" });
+            vm.Module.Leerlijnen.Add( new LeerlijnViewModel(){ Naam = "Programmeren", Schooljaar = "1516" } );
+            vm.Module.Leerlijnen.Add(new LeerlijnViewModel() { Naam = "Architectuur", Schooljaar = "1516" });
 
             //2. Act
             controller.Edit(vm);
@@ -98,8 +98,8 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.Tag.Add(new TagViewModel() { Naam = "WCF",  });
-            vm.Module.Tag.Add(new TagViewModel() { Naam = "MVVM", });
+            vm.Module.Tags.Add(new TagViewModel() { Naam = "WCF",  });
+            vm.Module.Tags.Add(new TagViewModel() { Naam = "MVVM", });
 
             //2. Act
             controller.Edit(vm);
@@ -164,9 +164,9 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.StudieBelasting.Add( new StudieBelastingViewModel()
+            vm.Module.StudieBelastingen.Add( new StudieBelastingViewModel()
                    { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week", CursusCode = "Test1", Schooljaar = "1516"});
-            vm.Module.StudieBelasting.Add( new StudieBelastingViewModel()
+            vm.Module.StudieBelastingen.Add( new StudieBelastingViewModel()
                    { Activiteit = "A3", ContactUren = 22, Duur = "3 weken", Frequentie = "3x per week", CursusCode = "Test1", Schooljaar = "1516"});
 
             //2. Act
@@ -188,8 +188,8 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.Weekplanning.Add(new WeekplanningViewModel() { Id  = 2, Onderwerp = "twee", Week = "2", CursusCode = "Test1", Schooljaar = "1516" });
-            vm.Module.Weekplanning.Add(new WeekplanningViewModel() { Onderwerp = "drie", Week = "3", CursusCode = "Test1", Schooljaar = "1516" });
+            vm.Module.Weekplanningen.Add(new WeekplanningViewModel() { Id  = 2, Onderwerp = "twee", Week = "2", CursusCode = "Test1", Schooljaar = "1516" });
+            vm.Module.Weekplanningen.Add(new WeekplanningViewModel() { Onderwerp = "drie", Week = "3", CursusCode = "Test1", Schooljaar = "1516" });
 
             //2. Act
             controller.Edit(vm);
@@ -209,14 +209,14 @@ namespace ModuleManager.WebTests
         public void ModuleController_Edit_Weekplanning_Fail() {
           //1. Arrange
           var vm = GetModuleEditViewModel();
-          vm.Module.Weekplanning.Add(new WeekplanningViewModel() {
+          vm.Module.Weekplanningen.Add(new WeekplanningViewModel() {
             //geen weeknummer
             Id = 2,
             Onderwerp = "twee",
             CursusCode = "DB1",
             Schooljaar = "1516"
           });
-          vm.Module.Weekplanning.Add(new WeekplanningViewModel() {
+          vm.Module.Weekplanningen.Add(new WeekplanningViewModel() {
             // geen onderwerp
             Week = "3",
             CursusCode = "DB1",
@@ -259,8 +259,8 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.ModuleCompetentie.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC2", Niveau = "Beginner" });
-            vm.Module.ModuleCompetentie.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC3", Niveau = "Expert" });
+            vm.Module.ModuleCompetenties.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC2", Niveau = "Beginner" });
+            vm.Module.ModuleCompetenties.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC3", Niveau = "Expert" });
 
             //2. Act
             controller.Edit(vm);
@@ -280,7 +280,7 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.ModuleCompetentie.Add(new ModuleCompetentieViewModel() { CompetentieCode = null, Niveau = "Beginner" });
+            vm.Module.ModuleCompetenties.Add(new ModuleCompetentieViewModel() { CompetentieCode = null, Niveau = "Beginner" });
 
             //2. Act
             controller.Edit(vm);
@@ -299,8 +299,8 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.ModuleWerkvorm.Add(new ModuleWerkvormViewModel() { WerkvormType = "WS", Organisatie = "2 workshops", CursusCode = "Test1", Schooljaar = "1516" });
-            vm.Module.ModuleWerkvorm.Add(new ModuleWerkvormViewModel() { WerkvormType = "PR", Organisatie = "3 Practicums", CursusCode = "Test1", Schooljaar = "1516" });
+            vm.Module.ModuleWerkvormen.Add(new ModuleWerkvormViewModel() { WerkvormType = "WS", Organisatie = "2 workshops", CursusCode = "Test1", Schooljaar = "1516" });
+            vm.Module.ModuleWerkvormen.Add(new ModuleWerkvormViewModel() { WerkvormType = "PR", Organisatie = "3 Practicums", CursusCode = "Test1", Schooljaar = "1516" });
 
             //2. Act
             controller.Edit(vm);
@@ -342,7 +342,7 @@ namespace ModuleManager.WebTests
         {
             //1. Arrange
             var vm = GetModuleEditViewModel();
-            vm.Module.VoorkennisModules.Add(new ModuleVoorkennisViewModel() { Schooljaar = "1516", CursusCode = "PROG1", });
+            vm.Module.Voorkennis.Add(new ModuleVoorkennisViewModel() { Schooljaar = "1516", CursusCode = "PROG1", });
 
             //2. Act
             controller.Edit(vm);
@@ -376,7 +376,7 @@ namespace ModuleManager.WebTests
                         Beschrijving = "Theorie Toets",
                     }
                 },
-                Leerlijn = new List<LeerlijnViewModel>()
+                Leerlijnen = new List<LeerlijnViewModel>()
                 {
                     new LeerlijnViewModel(){ Naam = "Programmeren", Schooljaar = "1516" },
                     new LeerlijnViewModel(){ Naam = "Testen", Schooljaar = "1516" }
@@ -394,12 +394,12 @@ namespace ModuleManager.WebTests
                 //{
                 //    new DocentViewModel(){ Name = "Stijn Smulders"}
                 //},
-                ModuleWerkvorm = new List<ModuleWerkvormViewModel>()
+                ModuleWerkvormen = new List<ModuleWerkvormViewModel>()
                 {
                     new ModuleWerkvormViewModel(){ WerkvormType = "WS", Organisatie = "6 workshops"}
                 },
                 Status = "Incompleet",
-                StudieBelasting = new List<StudieBelastingViewModel>()
+                StudieBelastingen = new List<StudieBelastingViewModel>()
                 {
                     new StudieBelastingViewModel() 
                     { Activiteit = "Huiswerk", ContactUren = 22, Duur = "6 weken", Frequentie = "1x per week"}
@@ -409,14 +409,14 @@ namespace ModuleManager.WebTests
                 //    new StudiePuntenViewModel() { Toetsvorm = "Assessment", EC = 2, Minimum = "5.5", ToetsCode = "PROG5PR" }
 
                 //},
-                Tag = new List<TagViewModel>()
+                Tags = new List<TagViewModel>()
                 {
                     new TagViewModel(){ Naam = "MVC" },
                     new TagViewModel(){ Naam = "Architectuur" }
                     
                 },
                 Verantwoordelijke = "E. Test",
-                Weekplanning = new List<WeekplanningViewModel>()
+                Weekplanningen = new List<WeekplanningViewModel>()
                 {
                     new WeekplanningViewModel() { Onderwerp = "C#", Week = "1" }
                 }
