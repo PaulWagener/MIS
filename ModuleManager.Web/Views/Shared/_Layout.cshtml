@@ -47,7 +47,11 @@
     </header>
 
     <div id="content" role="content">
-        @RenderBody() <!--Here is where the actual page is loaded-->
+        <div class="container">
+            <div class="primary">
+                @RenderBody() <!--Here is where the actual page is loaded-->
+            </div>
+        </div>
     </div>
 
     <footer id="footer">

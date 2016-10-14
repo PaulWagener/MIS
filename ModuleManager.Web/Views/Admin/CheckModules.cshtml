@@ -1,86 +1,63 @@
 ﻿@using ModuleManager.Web.Helpers
 @model ModuleManager.Web.ViewModels.CheckModulesViewModel
-
-<div class="container">
-    <div class="row">
-
-        <div class="col-md-12">
-            <ol class="breadcrumb">
-                <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
-                <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
-                <li class="active">Module Controle</li>
-            </ol>
-        </div>
-
-        <div class="col-md-12">
-            <h2>Zoekresultaten</h2>
-        </div>
-
-        <div id="primary" class="col-md-12">
-            <div id="items" class="row">
-                <div class="col-md-12">
-                    <table id="modules" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Icon</th>
-                                <th>Naam</th>
-                                <th>Cursuscode</th>
-                                <th>Blokken</th>
-                                <th>Fase</th>
-                                <th>Verantwoordelijke</th>
-                                <th>Status</th>
-                                <th>Bewerkingen blokeren</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Blokken</th>
-                                <th>Fase</th>
-                                <th>Status</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-
-                            @foreach (var item in @Model.ModuleViewModels.data)
-                            {
-                                <tr class="item" data-href="@Url.Action("Details", "Module", new RouteValueDictionary(new {schooljaar = @item.Schooljaar, cursusCode = @item.CursusCode}))">
-                                    <td class="icon"><i class="fa fa-paint-brush"></i></td>
-                                    <td class="information">
-                                        <p class="name">@item.Naam</p>
-                                        @*<p class="instructors">@item.Docenten</p>*@
-                                    </td>
-                                    <td class="code">@item.CursusCode</td>
-                                    <td class="block">@item.Blokken</td>
-                                    <td class="">@item.FaseNamen</td>
-                                    <td class="">@item.Verantwoordelijke</td>
-                                    <td class="status">@item.Status</td>
-
-                                    @*<td class="status">
-                                            @{ var item1 = @item; }
-                                            @Model.Users.Data.First(src => src.Naam.Equals(item1.Verantwoordelijke)).Email
-                                        </td>*@
-
-                                    <td class="actions">
-                                        @if (item.Status.Equals("Compleet (ongecontroleerd)"))
-                                        {
-                                            @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "ModuleBlock", routeValues: new { item.CursusCode, item.Schooljaar, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
-                                        }
-                                        else if (item.Status.Equals("Compleet (gecontroleerd)"))
-                                        {
-                                            @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "ModuleBlock", routeValues: new { item.CursusCode, item.Schooljaar, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
-                                        }
-
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+    <li class="active">Module Controle</li>
+</ol>
+<h2>Zoekresultaten</h2>
+<table id="modules" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Icon</th>
+            <th>Naam</th>
+            <th>Cursuscode</th>
+            <th>Blokken</th>
+            <th>Fase</th>
+            <th>Verantwoordelijke</th>
+            <th>Status</th>
+            <th>Bewerkingen blokeren</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Blokken</th>
+            <th>Fase</th>
+            <th>Status</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in @Model.ModuleViewModels.data)
+        {
+            <tr class="item" data-href="@Url.Action("Details", "Module", new RouteValueDictionary(new {schooljaar = @item.Schooljaar, cursusCode = @item.CursusCode}))">
+                <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                <td class="information">
+                    <p class="name">@item.Naam</p>
+                    @*<p class="instructors">@item.Docenten</p>*@
+                </td>
+                <td class="code">@item.CursusCode</td>
+                <td class="block">@item.Blokken</td>
+                <td class="">@item.FaseNamen</td>
+                <td class="">@item.Verantwoordelijke</td>
+                <td class="status">@item.Status</td>
+                @*<td class="status">
+                        @{ var item1 = @item; }
+                        @Model.Users.Data.First(src => src.Naam.Equals(item1.Verantwoordelijke)).Email
+                    </td>*@
+                <td class="actions">
+                    @if (item.Status.Equals("Compleet (ongecontroleerd)"))
+                    {
+                        @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "ModuleBlock", routeValues: new { item.CursusCode, item.Schooljaar, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
+                    }
+                    else if (item.Status.Equals("Compleet (gecontroleerd)"))
+                    {
+                        @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "ModuleBlock", routeValues: new { item.CursusCode, item.Schooljaar, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/CheckModules.cshtml", null);
@@ -93,15 +70,11 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
-
     @Scripts.Render("~/bundles/modalform")
-
     <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
-
     <script>
         $(function () {
             // THIS FOR ALL OVERVIEWS

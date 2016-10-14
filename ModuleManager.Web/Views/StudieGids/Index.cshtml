@@ -1,131 +1,121 @@
 ﻿@model ModuleManager.Web.ViewModels.StudiegidsViewModel
 
-<div class="container">
-    <div class="row">
-        <div id="primary">
-            <div class="col-md-12">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="active">LessenTabel</li>
-                </ol>
-            </div>
-            <div class="col-md-12">
-                <div class="pull-right">
-                    <a class="btn btn-default" href="@Url.Action("Index", "Home")">Terug</a>
-                    <a class="btn btn-success" href="@Url.Action("GetLeerlijnenExport","StudieGids")"><i class="fa fa-download"></i> Leerlijnen</a>
-                    <a class="btn btn-success" href="@Url.Action("GetCompetentiesExport", "StudieGids")"><i class="fa fa-download"></i> Competenties</a>
-                    <a class="btn btn-success" href="@Url.Action("GetLessentabelExport","StudieGids")"><i class="fa fa-download"></i> Lessentabel</a>
-                </div>
-                @{
-                    string hoofdTitle = null;
-                }
-                @foreach (var opleidingsfasen in Model.Opleidingsfasen)
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+    <li class="active">LessenTabel</li>
+</ol>
+
+<div class="pull-right">
+    <a class="btn btn-default" href="@Url.Action("Index", "Home")">Terug</a>
+    <a class="btn btn-success" href="@Url.Action("GetLeerlijnenExport","StudieGids")"><i class="fa fa-download"></i> Leerlijnen</a>
+    <a class="btn btn-success" href="@Url.Action("GetCompetentiesExport", "StudieGids")"><i class="fa fa-download"></i> Competenties</a>
+    <a class="btn btn-success" href="@Url.Action("GetLessentabelExport","StudieGids")"><i class="fa fa-download"></i> Lessentabel</a>
+</div>
+@{
+    string hoofdTitle = null;
+}
+@foreach (var opleidingsfasen in Model.Opleidingsfasen)
+{
+    
+    foreach (var tabellen in opleidingsfasen.Tabellen)
+    {
+        var hoofdTitle2 = opleidingsfasen.FaseType + " - " + tabellen.FaseNaam;
+        if (@hoofdTitle != opleidingsfasen.FaseType + " - " + tabellen.FaseNaam)
+        {
+            hoofdTitle = hoofdTitle2;
+            <h1>@hoofdTitle</h1>
+        }
+        var title = "Blok " + tabellen.Blok + " (" + tabellen.Semester + "e Semester)";
+
+        <h3>@title</h3>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr style="background: #DA0046; color: #FFFFFF;"><!-- style="background: #FDF4EA -->
+                    <td>Onderdeel</td><td>Cursus</td><td>Omschrijving</td><td>CU</td><td>WV</td><td>Toetscode</td><td>Toetsvorm</td><td>EC</td><td>Min</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var onderdeelName = ""; }
+                @foreach(var onderdeel in tabellen.Onderdelen)
                 {
-                    
-                    foreach (var tabellen in opleidingsfasen.Tabellen)
+                    var onderdeelSpan = onderdeel.Modules.Aggregate(0, (current, i) => current + i.Studiepunten.Count);
+
+                    foreach (var module in onderdeel.Modules)
                     {
-                        var hoofdTitle2 = opleidingsfasen.FaseType + " - " + tabellen.FaseNaam;
-                        if (@hoofdTitle != opleidingsfasen.FaseType + " - " + tabellen.FaseNaam)
+                        if (module.Studiepunten.Count == 1)
                         {
-                            hoofdTitle = hoofdTitle2;
-                            <h1>@hoofdTitle</h1>
-                        }
-                        var title = "Blok " + tabellen.Blok + " (" + tabellen.Semester + "e Semester)";
-
-                        <h3>@title</h3>
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr style="background: #DA0046; color: #FFFFFF;"><!-- style="background: #FDF4EA -->
-                                    <td>Onderdeel</td><td>Cursus</td><td>Omschrijving</td><td>CU</td><td>WV</td><td>Toetscode</td><td>Toetsvorm</td><td>EC</td><td>Min</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{ var onderdeelName = ""; }
-                                @foreach(var onderdeel in tabellen.Onderdelen)
+                            
+                            <tr>
+                                @if (onderdeelName != module.Onderdeel)
                                 {
-                                    var onderdeelSpan = onderdeel.Modules.Aggregate(0, (current, i) => current + i.Studiepunten.Count);
-
-                                    foreach (var module in onderdeel.Modules)
+                                    onderdeelName = module.Onderdeel;
+                                    <td rowspan="@onderdeelSpan">@module.Onderdeel</td>
+                                }
+                                <td>@module.Cursuscode</td>
+                                <td>@module.Omschrijving</td>
+                                <td>@module.Contacturen</td>
+                                <td>@module.Werkvormen</td>
+                                <td>@module.Studiepunten.First().ToetsCode</td>
+                                <td>@module.Studiepunten.First().Toetsvorm</td>
+                                <td>@module.Studiepunten.First().EC</td>
+                                <td>@module.Studiepunten.First().Minimum</td>
+                            </tr>
+                        }
+                        else if (module.Studiepunten.Count >= 2)
+                        {
+                            int count = @module.Studiepunten.Count;
+                            <tr>
+                                @if (onderdeelName != module.Onderdeel)
+                                {
+                                    onderdeelName = module.Onderdeel;
+                                    if (onderdeelSpan == 1)
                                     {
-                                        if (module.Studiepunten.Count == 1)
-                                        {
-                                            
-                                            <tr>
-                                                @if (onderdeelName != module.Onderdeel)
-                                                {
-                                                    onderdeelName = module.Onderdeel;
-                                                    <td rowspan="@onderdeelSpan">@module.Onderdeel</td>
-                                                }
-                                                <td>@module.Cursuscode</td>
-                                                <td>@module.Omschrijving</td>
-                                                <td>@module.Contacturen</td>
-                                                <td>@module.Werkvormen</td>
-                                                <td>@module.Studiepunten.First().ToetsCode</td>
-                                                <td>@module.Studiepunten.First().Toetsvorm</td>
-                                                <td>@module.Studiepunten.First().EC</td>
-                                                <td>@module.Studiepunten.First().Minimum</td>
-                                            </tr>
-                                        }
-                                        else if (module.Studiepunten.Count >= 2)
-                                        {
-                                            int count = @module.Studiepunten.Count;
-                                            <tr>
-                                                @if (onderdeelName != module.Onderdeel)
-                                                {
-                                                    onderdeelName = module.Onderdeel;
-                                                    if (onderdeelSpan == 1)
-                                                    {
-                                                        <td rowspan="@count">@module.Onderdeel</td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td rowspan="@onderdeelSpan">@module.Onderdeel</td>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <td rowspan="@count">@module.Onderdeel</td>
-                                                }
-                                                <td rowspan="@count">@module.Cursuscode</td>
-                                                <td rowspan="@count">@module.Omschrijving</td>
-                                                <td rowspan="@count">@module.Contacturen</td>
-                                                <td rowspan="@count">@module.Werkvormen</td>
-                                                <td>@module.Studiepunten.First().ToetsCode</td>
-                                                <td>@module.Studiepunten.First().Toetsvorm</td>
-                                                <td>@module.Studiepunten.First().EC</td>
-                                                <td>@module.Studiepunten.First().Minimum</td>
-                                            </tr>
-
-                                            var module1 = module;
-                                            foreach (var studiePunt in module.Studiepunten.Where(s => s != module1.Studiepunten.First()))
-                                            {
-                                                <tr>
-                                                    <td>@studiePunt.ToetsCode</td>
-                                                    <td>@studiePunt.Toetsvorm</td>
-                                                    <td>@studiePunt.EC</td>
-                                                    <td>@studiePunt.Minimum</td>
-                                                </tr>
-                                            }
-                                        }
+                                        <td rowspan="@count">@module.Onderdeel</td>
+                                    }
+                                    else
+                                    {
+                                        <td rowspan="@onderdeelSpan">@module.Onderdeel</td>
                                     }
                                 }
-                                <tr style="background: #CDEBF0;">
-                                    <td colspan="2"></td>
-                                    <th>Totaal</th>
-                                    <th>@tabellen.TotaleContactUren</th>
-                                    <td colspan="2"></td>
-                                    <th>Totaal</th>
-                                    <th>@tabellen.TotaleEcs</th>
-                                    <td></td>
+                                else
+                                {
+                                    <td rowspan="@count">@module.Onderdeel</td>
+                                }
+                                <td rowspan="@count">@module.Cursuscode</td>
+                                <td rowspan="@count">@module.Omschrijving</td>
+                                <td rowspan="@count">@module.Contacturen</td>
+                                <td rowspan="@count">@module.Werkvormen</td>
+                                <td>@module.Studiepunten.First().ToetsCode</td>
+                                <td>@module.Studiepunten.First().Toetsvorm</td>
+                                <td>@module.Studiepunten.First().EC</td>
+                                <td>@module.Studiepunten.First().Minimum</td>
+                            </tr>
+
+                            var module1 = module;
+                            foreach (var studiePunt in module.Studiepunten.Where(s => s != module1.Studiepunten.First()))
+                            {
+                                <tr>
+                                    <td>@studiePunt.ToetsCode</td>
+                                    <td>@studiePunt.Toetsvorm</td>
+                                    <td>@studiePunt.EC</td>
+                                    <td>@studiePunt.Minimum</td>
                                 </tr>
-                            </tbody>
-                        </table><br />
+                            }
+                        }
                     }
                 }
-            </div>
-        </div>
-    </div>
-</div>
-
+                <tr style="background: #CDEBF0;">
+                    <td colspan="2"></td>
+                    <th>Totaal</th>
+                    <th>@tabellen.TotaleContactUren</th>
+                    <td colspan="2"></td>
+                    <th>Totaal</th>
+                    <th>@tabellen.TotaleEcs</th>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table><br />
+    }
+}
 <!-- Help MODAL -->
 @Html.Partial("~/Views/Help/StudieGids.cshtml", null)

@@ -1,53 +1,41 @@
-﻿<div class="container">
-    <div class="row">
-        <div id="primary">
-            <div class="col-md-12">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
-                    <li class="active">Beheer</li>
-                </ol>
-            </div>
+﻿<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+    <li class="active">Beheer</li>
+</ol>
 
-            <div class="col-md-12">
-                <h2>Beheer</h2>
-            </div>
+<h2>Beheer</h2>
 
-            <div class="col-md-12">
-                <h3>Curriculum</h3>
-            </div>
+<h3>Curriculum</h3>
 
-            <div class="col-md-3 category">
-                <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Curriculum", "Admin")">
-                    <i class="fa fa-cogs"></i> Beheer
-                </a>
-            </div>
+<div class="row">
+    <div class="col-md-3 category">
+        <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Curriculum", "Admin")">
+            <i class="fa fa-cogs"></i> Beheer
+        </a>
+    </div>
 
-            <div class="col-md-3 category" style="margin-right: 50%;">
-                <a class="btn btn-lg btn-warning btn-block" href="@Url.Action("Archive", "Admin")">
-                    <i class="fa fa-archive"></i> Archiveren
-                </a>
-            </div>
+    <div class="col-md-3 category">
+        <a class="btn btn-lg btn-warning btn-block" href="@Url.Action("Archive", "Admin")">
+            <i class="fa fa-archive"></i> Archiveren
+        </a>
+    </div>
+</div>
 
-            <div class="col-md-3">
-                <h3>Gebruikers</h3>
-            </div>
+<h3>Gebruikers</h3>
 
-            <div class="col-md-9">
-                <h3>Modules</h3>
-            </div>
+<h3>Modules</h3>
 
-            <div class="col-md-3 category">
-                <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("UserOverview", "Admin")">
-                    <i class="fa fa-cogs"></i> Beheer
-                </a>
-            </div>
+<div class="row">
+    <div class="col-md-3 category">
+        <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("UserOverview", "Admin")">
+            <i class="fa fa-cogs"></i> Beheer
+        </a>
+    </div>
 
-            <div class="col-md-3 category">
-                <a class="btn btn-lg btn-success btn-block" href="@Url.Action("CheckModules", "Admin")">
-                    <i class="fa fa-cog"></i> Controle
-                </a>
-            </div>
-        </div>
+    <div class="col-md-3 category">
+        <a class="btn btn-lg btn-success btn-block" href="@Url.Action("CheckModules", "Admin")">
+            <i class="fa fa-cog"></i> Controle
+        </a>
     </div>
 </div>
 
