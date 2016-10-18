@@ -133,7 +133,7 @@
 
     <table class="table">
         <tr>
-            <td><label for="voorkennis">Tags</label></td>
+            <td><label for="Tags">Tags</label></td>
         </tr>
         <tr>
             <td>
@@ -172,13 +172,17 @@
                     <th><label for="werkvorm">Werkvorm</label></th>
                     <td>
                         <select name="werkvorm" class="form-control" id="werkvorm" multiple>
-                            @foreach (var werkvorm in Model.Module.ModuleWerkvormen)
+                            @foreach (var werkvorm in Model.Options.Werkvormen)
                             {
-                                <option class="werkvorm_option" data-type="@werkvorm.WerkvormType" selected="selected" value="@werkvorm.WerkvormType"> @Model.Options.Werkvormen.Where(w => w.Type == werkvorm.WerkvormType).Select(w => w.Omschrijving).First() (@werkvorm.WerkvormType)</option>
-                            }
-                            @foreach (var opt in Model.Options.Werkvormen)
-                            {
-                                <option class="werkvorm_option" data-type="@opt.Type" value="@opt.Type"> @opt.Omschrijving (@opt.Type)</option>
+                                if (Model.Module.ModuleWerkvormen.Any(mwv => mwv.WerkvormType == werkvorm.Type))
+                                {
+                                    <option class="werkvorm_option" data-type="@werkvorm.Type" selected="selected" value="@werkvorm.Type">@werkvorm.Omschrijving</option>
+                                }
+                                else
+                                {
+                                    <option class="werkvorm_option" data-type="@werkvorm.Type" value="@werkvorm.Type">@werkvorm.Omschrijving</option>
+
+                                }
                             }
                         </select>
                     </td>
