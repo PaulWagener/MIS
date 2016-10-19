@@ -244,7 +244,6 @@
                                             @Html.EditorFor(item => Model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
                                             @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
 
-                                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].isDeleted, new { @class = "form-control isDeleted" } )
                                             @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new {  @class = "form-control" } )
                                             @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].Schooljaar, new {  @class = "form-control" } )
                                         </td>
@@ -284,7 +283,6 @@
                                         <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanningen[i].Week, new { htmlAttributes = new { @class = "form-control" } })</td>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Weekplanningen[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.HiddenFor(item => Model.Module.Weekplanningen[i].isDeleted, new { @class = "form-control isDeleted" })
                                             @Html.HiddenFor(item => Model.Module.Weekplanningen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Weekplanningen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -318,7 +316,6 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.HiddenFor(item => Model.Module.Beoordelingen[i].isDeleted, new { @class = "form-control isDeleted" })
                                             @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -352,7 +349,6 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.HiddenFor(item => Model.Module.Leermiddelen[i].isDeleted, new { @class = "form-control isDeleted" })
                                             @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -386,7 +382,6 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.HiddenFor(item => Model.Module.Leerdoelen[i].isDeleted, new { @class = "form-control isDeleted" })
                                             @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -413,7 +408,7 @@
         <label for="status">Status</label>
         <div id="status" class="checkbox" style="padding-left: 10px;">
             <label>
-                <input name="Module.IsCompleted" type="checkbox" @(Model.Module.IsCompleted ? "checked" : "") value="true">Compleet?
+                <input name="Module.IsCompleted" type="checkbox" @(Model.Module.IsCompleted.GetValueOrDefault(false) ? "checked" : "") value="true">Compleet?
             </label>
         </div>
     </div>
@@ -659,8 +654,8 @@
     });
 
     $(document).on("click", ".remove_row", function () {
-        $(this).closest("tr").hide();
-        $(this).closest("tr").hide().find('.isDeleted').val(true);
+        var self = $(this);
+        self.closest("tr").remove();
     });
 
     $(function () {

@@ -25,9 +25,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         [Required(ErrorMessage = "Verplicht")]
         public int SBU { get; set; }
 
-        public bool? isDeleted { get; set; }
-
-
         internal Domain.StudieBelasting ToPoco(DomainEntities context)
         {
             Domain.StudieBelasting studieBelasting = context.StudieBelastings.Find(CursusCode, Schooljaar, Activiteit);

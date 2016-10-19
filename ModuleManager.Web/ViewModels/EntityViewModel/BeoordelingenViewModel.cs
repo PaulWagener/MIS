@@ -9,8 +9,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public int Id { get; set; }
         public string Beschrijving { get; set; }
 
-        public bool? isDeleted { get; set; }
-
 
         internal Domain.Beoordeling ToPoco(Domain.DomainEntities context)
         {

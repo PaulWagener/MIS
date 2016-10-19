@@ -88,6 +88,8 @@ namespace ModuleManager.Web.Controllers
             return View(moduleEditViewModel);
         }
 
+        private static IList<T> EmptyIfNull<T>(Func<IList<T>> f) => f() ?? new List<T>();
+
         [Authorize]
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
@@ -146,24 +148,23 @@ namespace ModuleManager.Web.Controllers
   
 
                 module.Leerdoelen.Clear();
-                module.Leerdoelen = moduleVm.Module.Leerdoelen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(l => l.ToPoco(context)).ToList();
+                module.Leerdoelen = EmptyIfNull(() => moduleVm.Module.Leerdoelen).Select(l => l.ToPoco(context)).ToList();
                 module.Leermiddelen.Clear();
-                module.Leermiddelen = moduleVm.Module.Leermiddelen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(l => l.ToPoco(context)).ToList();
+                module.Leermiddelen = EmptyIfNull(() => moduleVm.Module.Leermiddelen).Select(l => l.ToPoco(context)).ToList();
                 module.StudieBelastingen.Clear();
-                context.SaveChanges(); //jammer maar nodig
-                module.StudieBelastingen = moduleVm.Module.StudieBelastingen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(s => s.ToPoco(context)).ToList();
+                module.StudieBelastingen = EmptyIfNull(() => moduleVm.Module.StudieBelastingen).Select(s => s.ToPoco(context)).ToList();
                 module.Weekplanningen.Clear();
-                module.Weekplanningen = moduleVm.Module.Weekplanningen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(w => w.ToPoco(context)).ToList();
+                module.Weekplanningen = EmptyIfNull(() => moduleVm.Module.Weekplanningen).Select(w => w.ToPoco(context)).ToList();
                 module.Beoordelingen.Clear();
-                module.Beoordelingen = moduleVm.Module.Beoordelingen.Where(s => !s.isDeleted.GetValueOrDefault()).Select(b => b.ToPoco(context)).ToList();
+                module.Beoordelingen = EmptyIfNull(() => moduleVm.Module.Beoordelingen).Select(b => b.ToPoco(context)).ToList();
 
                 //koppel tabellen
                 module.ModuleWerkvormen.Clear();
-                module.ModuleWerkvormen = moduleVm.Module.ModuleWerkvormen.Select(wv => wv.ToPoco(context)).ToList();
+                module.ModuleWerkvormen = EmptyIfNull(() => moduleVm.Module.ModuleWerkvormen).Select(wv => wv.ToPoco(context)).ToList();
                 module.ModuleCompetenties.Clear();
-                module.ModuleCompetenties = moduleVm.Module.ModuleCompetenties.Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
+                module.ModuleCompetenties = EmptyIfNull(() => moduleVm.Module.ModuleCompetenties).Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
 
-                if(moduleVm.Module.IsCompleted)
+                if(moduleVm.Module.IsCompleted.GetValueOrDefault(false))
                 {
                     //Module valideren
                     module.Status = "Compleet (ongecontroleerd)";
