@@ -164,14 +164,7 @@ namespace ModuleManager.Web.Controllers
                 module.ModuleCompetenties.Clear();
                 module.ModuleCompetenties = EmptyIfNull(() => moduleVm.Module.ModuleCompetenties).Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
 
-                if(moduleVm.Module.IsCompleted.GetValueOrDefault(false))
-                {
-                    //Module valideren
-                    module.Status = "Compleet (ongecontroleerd)";
-                } else
-                {
-                    module.Status = "Incompleet";
-                }
+                module.Status1 = context.Status.SingleOrDefault(s => s.Status1 == moduleVm.Module.Status);
 
                 context.SaveChanges();
             }

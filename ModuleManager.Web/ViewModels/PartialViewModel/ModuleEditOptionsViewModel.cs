@@ -22,6 +22,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public ICollection<ModuleVoorkennisViewModel> VoorkennisModules { get; set; }
         public ICollection<NiveauViewModel> Niveaus { get; set; }
         public ICollection<DocentViewModel> Docenten { get; set; }
+
+        public ICollection<StatusViewModel> Statussen { get; set; }
         public void Filter(ModuleViewModel vm)
         {
 
@@ -41,6 +43,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
             var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
             var docenten = _unitOfWork.GetRepository<Docent>().GetAll();
+            var status = _unitOfWork.GetRepository<Status>().GetAll();
 
             MultiSelectList competetentieVM = new MultiSelectList(competenties, "Code", "Naam");
 
@@ -52,6 +55,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             this.Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList();
             this.Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList();
             this.Docenten = docenten.Select(Mapper.Map<Docent, DocentViewModel>).ToList();
+            Statussen = status.Select(Mapper.Map<Status, StatusViewModel>).ToList();
 
         }
     }

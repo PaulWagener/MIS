@@ -358,6 +358,7 @@
     <Compile Include="ViewModels\EntityViewModel\ModuleViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\ModuleWerkvormViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\NiveauViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudieBelastingViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
