@@ -14,6 +14,7 @@
     
     if (@Model != null)
     {
+        //TODO: Fix this code; this use of exceptions scares me
         // Jaartal
         var j1 = Model.Schooljaar.Remove(Model.Schooljaar.Length - 2);
         var j2 = Model.Schooljaar.Remove(0, 2);
@@ -78,7 +79,7 @@
 
 <h2 style="margin-top: 0">@Model.Naam</h2>
 <h3>Beschrijving</h3>
-<p>@Model.Beschrijving</p>
+<p>@Html.FormatLongText(Model.Beschrijving)</p>
 <h3>Algemene informatie</h3>
 <table class="table table-bordered">
     <tbody>
