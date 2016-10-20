@@ -88,6 +88,12 @@ namespace ModuleManager.Web.Controllers
         }
 
         private static IList<T> EmptyIfNull<T>(Func<IList<T>> f) => f() ?? new List<T>();
+        private static IList<T> EmptyIfNull<T>(IList<T> l) => l ?? new List<T>();
+
+        private static void UpdateModuleWerkvormenFromViewModel(DomainEntities context, ICollection<ModuleWerkvormViewModel> werkvormen, Module module)
+        {
+
+        }
 
         [Authorize]
         [HttpPost, Route("Module/Edit")]
@@ -144,23 +150,31 @@ namespace ModuleManager.Web.Controllers
                 }
                 module.Docenten = docenten;
 
-  
 
-                module.Leerdoelen.Clear();
+                // Implementation details of MS's EntityFramework have reached our code. 
+                //
+                // We need to load every navigation property before the corresponding property
+                // may be updated via assignment. If not loaded, entities that should no longer
+                // be part of a relationship will not be deleted.
+                //
+                // This was previously achieved by calling Clear on the ICollection<TEntity>.
+                // However that method is dangerous, as the ViewModels' ToPoco
+                // methods might then return a deleted object (which may no longer be used
+                // in relationships).
+                //
+                // Also, there is no type safe way to do this, I instead have to pass
+                // strings, mitigating the type system, making this code even
+                // more prone to runtime errors. 
+                var entry = context.Entry(module);
+                foreach (var navProperty in new string[] { "Leerdoelen", "Leermiddelen", "StudieBelastingen", "Weekplanningen", "Beoordelingen", "ModuleWerkvormen", "ModuleCompetenties" })
+                    entry.Collection(navProperty).Load();
+
                 module.Leerdoelen = EmptyIfNull(() => moduleVm.Module.Leerdoelen).Select(l => l.ToPoco(context)).ToList();
-                module.Leermiddelen.Clear();
                 module.Leermiddelen = EmptyIfNull(() => moduleVm.Module.Leermiddelen).Select(l => l.ToPoco(context)).ToList();
-                module.StudieBelastingen.Clear();
                 module.StudieBelastingen = EmptyIfNull(() => moduleVm.Module.StudieBelastingen).Select(s => s.ToPoco(context)).ToList();
-                module.Weekplanningen.Clear();
                 module.Weekplanningen = EmptyIfNull(() => moduleVm.Module.Weekplanningen).Select(w => w.ToPoco(context)).ToList();
-                module.Beoordelingen.Clear();
                 module.Beoordelingen = EmptyIfNull(() => moduleVm.Module.Beoordelingen).Select(b => b.ToPoco(context)).ToList();
-
-                //koppel tabellen
-                module.ModuleWerkvormen.Clear();
-                module.ModuleWerkvormen = EmptyIfNull(() => moduleVm.Module.ModuleWerkvormen).Select(wv => wv.ToPoco(context)).ToList();
-                module.ModuleCompetenties.Clear();
+                module.ModuleWerkvormen = EmptyIfNull(moduleVm.Module.ModuleWerkvormen).Select(wv => wv.ToPoco(context)).ToList();
                 module.ModuleCompetenties = EmptyIfNull(() => moduleVm.Module.ModuleCompetenties).Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
 
                 module.Status1 = context.Status.SingleOrDefault(s => s.Status1 == moduleVm.Module.Status);
