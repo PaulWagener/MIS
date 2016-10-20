@@ -17,7 +17,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string Icon { get; set; }
         public string Blok { get; set; }
 
-        public bool? IsCompleted { get; set; }
+        public bool Gecontroleerd { get; set; }
 
         public IList<ModuleCompetentieViewModel> ModuleCompetenties { get; set; }
         public IList<StudiePuntenViewModel> StudiePunten { get; set; }

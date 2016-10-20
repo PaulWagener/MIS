@@ -5,6 +5,7 @@
     [Naam]              NVARCHAR(50)  NOT NULL,
     [Verantwoordelijke] NVARCHAR(50)  NOT NULL,
     [Status]            VARCHAR(50)  NOT NULL,
+	[Gecontroleerd]		BIT NOT NULL,
     [OnderdeelCode]     VARCHAR(50)  NOT NULL,
     [Icon]              CHAR (20)     NOT NULL,
     [Blok] VARCHAR(8) NOT NULL, 

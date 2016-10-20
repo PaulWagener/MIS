@@ -1,7 +1,6 @@
 ﻿MERGE INTO [Status] AS Target  
 USING (values 
-	('Compleet (gecontroleerd)'), 
-	('Compleet (ongecontroleerd)'), 
+	('Compleet'), 
 	('Incompleet'), 
 	('Nieuw')
 ) AS Source (Status1)  

@@ -111,6 +111,7 @@
           <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Verantwoordelijke" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gecontroleerd" Type="bit" Nullable="false" />
           <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
           <Property Name="Blok" Type="varchar" MaxLength="8" Nullable="false" />
@@ -818,6 +819,7 @@
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
           <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Fases" Relationship="Domain.FaseModule" FromRole="Module" ToRole="Fase" />
+          <Property Name="Gecontroleerd" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -1388,6 +1390,7 @@
           <EntitySetMapping Name="Modules">
             <EntityTypeMapping TypeName="Domain.Module">
               <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="Gecontroleerd" ColumnName="Gecontroleerd" />
                 <ScalarProperty Name="Blok" ColumnName="Blok" />
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />

@@ -87,6 +87,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 CursusCode = String.Format("{0}-{1}", entity.OpleidingsPrefix, entity.CursusCode),
                 Icon = entity.Icon,
                 Status = "Nieuw",
+                Gecontroleerd = false,
                 Verantwoordelijke = entity.Verantwoordelijke,
                 OnderdeelCode = entity.Onderdeel
             };

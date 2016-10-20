@@ -84,7 +84,6 @@ namespace ModuleManager.Web.Controllers
                 Options = new ModuleEditOptionsViewModel(_unitOfWork)
             };
 
-            moduleEditViewModel.Module.IsCompleted = (module.Status != "Compleet (ongecontroleerd)");
             return View(moduleEditViewModel);
         }
 
