@@ -342,6 +342,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\ActionLinkHelper.cs" />
     <Compile Include="Helpers\NumberWordComparer.cs" />
+    <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountVM.cs" />
     <Compile Include="ViewModels\CheckModulesViewModel.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="ViewModels\EntityViewModel\ModuleViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\ModuleWerkvormViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\NiveauViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudieBelastingViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />

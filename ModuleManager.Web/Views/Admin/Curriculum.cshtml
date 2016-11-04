@@ -2,262 +2,245 @@
 
 @model ModuleManager.Web.ViewModels.AdminCurriculumViewModel
 
-<div class="container">
-    <div class="row">
-        <div id="primary">
-            <div class="col-md-12">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
-                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
-                    <li class="active">Curriculum beheer</li>
-                </ol>
-            </div>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+    <li class="active">Curriculum beheer</li>
+</ol>
 
-            <div class="col-md-12">
-                <h2>Curriculum beheer</h2>
-                <br /><br />
-            </div>
+<h2>Curriculum beheer</h2>
 
-            <div class="col-md-6">
-                <div id="toolbar" class="competentiesTable" style="display:none;">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Competenties", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                </div>
-                <h3 style="margin-top: 0">Competenties</h3>
-
-                <table id="competentiesTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Competenties)
-                        {
-                            <tr class="competentie-item">
-                                <td class="ninety-width">@item.Code</td>
-                                <td>@item.Naam</td>
-                                <td class="actions" style="width:118px">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br /><br />
-            </div>
-
-            <div class="col-md-6">
-                <div id="toolbar" class="fasesTable" style="display:none;">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Fases", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                </div>
-                <h3 style="margin-top: 0">Fases</h3>
-
-                <table id="fasesTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Fases)
-                        {
-                            <tr class="fase-item">
-                                <td class="ninety-width">@item.FaseType</td>
-                                <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Fases", routeValues: new { naam = item.Naam, opleidingsNaam = item.OpleidingNaam}, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Fases", routeValues: new { naam = item.Naam, opleidingsNaam = item.OpleidingNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br /><br />
-            </div>
-            
-            <div class="col-md-12">
-                <hr />
-            </div>
-
-            <div class="col-md-6">
-                <div id="toolbar" class="leerlijnenTable" style="display:none;">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Leerlijnen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                </div>
-                <h3 style="margin-top: 0">Leerlijnen</h3>
-
-                <table id="leerlijnenTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Leerlijn)
-                        {
-                            <tr class="leerlijn-item">
-                                <td>@item.Naam</td>
-                                <td class="actions" style="width:45px;">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Leerlijnen", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br /><br />
-            </div>
-
-            <div class="col-md-6">
-                <div id="toolbar" class="tagsTable" style="display:none;">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Tags", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                </div>
-                <h3 style="margin-top: 0">Tags</h3>
-
-                <table id="tagsTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Tags)
-                        {
-                            <tr class="tag-item">
-                                <td>@item.Naam</td>
-                                <td class="actions" style="width:45px;">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Tags", routeValues: new { naam = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br /><br />
-            </div>
-            
-            <div class="col-md-6">
-                <div id="toolbar" class="onderdelenTable" style="display:none;">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Onderdelen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                </div>
-                <h3 style="margin-top: 0">Onderdelen</h3>
-
-                <table id="onderdelenTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Onderdeel)
-                        {
-                            <tr class="tag-item">
-                                <td>@item.Code</td>
-                                <td class="actions" style="width:45px;">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Onderdelen", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br /><br />
-            </div>
-
-            <div class="col-md-6">
-                <div id="toolbar" class="docentenTable" style="display:none;">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Docent", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                </div>
-                <h3 style="margin-top: 0">Docenten</h3>
-
-                <table id="docentenTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var docent in @Model.Docenten)
-                        {
-                            <tr class="tag-item">
-                                <td>@docent.Naam</td>
-                                <td class="actions ninety-width">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Docent", routeValues: new {
-                                 id = docent.Id
-                               }, htmlAttributes: new {
-                                 data_modal = "",
-                                 @class = "btn btn-warning btn-sm"
-                               })
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Docent", routeValues: new {
-                                 id = docent.Id
-                               }, htmlAttributes: new {
-                                 data_modal = "",
-                                 @class = "btn btn-danger btn-sm"
-                               })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <br /><br />
-            </div>
-
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        
-                        <div id="toolbar" class="modulesTable" style="display:none;">
-                            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Modules", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-                        </div>
-
-                        <h3>Modules</h3>
-                    </div>
-                </div>
-
-                <div id="items" class="row">
-                    <div class="col-md-12">
-
-                        <table id="modulesTable" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Icon</th>
-                                    <th>Naam</th>
-                                    <th>Verantwoordelijke</th>
-                                    <th>CursusCode</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in @Model.Modules)
-                                {
-                                    <tr class="tag-item">
-                                        <td><i class="fa fa-@item.Icon fa-3x"></i></td>
-                                        <td>@item.Naam</td>
-                                        <td>@item.Verantwoordelijke</td>
-                                        <td>@item.CursusCode</td>
-                                        <td>@item.Status</td>
-                                        <td class="actions" style="width:90px;">
-                                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div> <!-- #ITEMS -->
-            </div><!-- Modules -->
+<div class="row">
+    <div class="col-md-6">
+        <div id="toolbar" class="competentiesTable" style="display:none;">
+            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Competenties", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
         </div>
+        <h3 style="margin-top: 0">Competenties</h3>
+
+        <table id="competentiesTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.Competenties)
+            {
+                    <tr class="competentie-item">
+                        <td class="ninety-width">@item.Code</td>
+                        <td>@item.Naam</td>
+                        <td class="actions" style="width:118px">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br /><br />
+    </div>
+
+    <div class="col-md-6">
+        <div id="toolbar" class="fasesTable" style="display:none;">
+            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Fases", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+        </div>
+        <h3 style="margin-top: 0">Fases</h3>
+
+        <table id="fasesTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.Fases)
+            {
+                    <tr class="fase-item">
+                        <td class="ninety-width">@item.FaseType</td>
+                        <td>@item.Naam</td>
+                        <td class="actions ninety-width">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Fases", routeValues: new { naam = item.Naam, opleidingsNaam = item.OpleidingNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Fases", routeValues: new { naam = item.Naam, opleidingsNaam = item.OpleidingNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="toolbar" class="leerlijnenTable" style="display:none;">
+            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Leerlijnen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+        </div>
+        <h3 style="margin-top: 0">Leerlijnen</h3>
+
+        <table id="leerlijnenTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.Leerlijn)
+            {
+                    <tr class="leerlijn-item">
+                        <td>@item.Naam</td>
+                        <td class="actions" style="width:45px;">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Leerlijnen", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br /><br />
+    </div>
+
+    <div class="col-md-6">
+        <div id="toolbar" class="tagsTable" style="display:none;">
+            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Tags", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+        </div>
+        <h3 style="margin-top: 0">Tags</h3>
+
+        <table id="tagsTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.Tags)
+            {
+                    <tr class="tag-item">
+                        <td>@item.Naam</td>
+                        <td class="actions" style="width:45px;">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Tags", routeValues: new { naam = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="toolbar" class="onderdelenTable" style="display:none;">
+            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Onderdelen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+        </div>
+        <h3 style="margin-top: 0">Onderdelen</h3>
+
+        <table id="onderdelenTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.Onderdeel)
+            {
+                    <tr class="tag-item">
+                        <td>@item.Code</td>
+                        <td class="actions" style="width:45px;">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Onderdelen", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br /><br />
+    </div>
+
+    <div class="col-md-6">
+        <div id="toolbar" class="docentenTable" style="display:none;">
+            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Docent", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+        </div>
+        <h3 style="margin-top: 0">Docenten</h3>
+
+        <table id="docentenTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var docent in @Model.Docenten)
+            {
+                    <tr class="tag-item">
+                        <td>@docent.Naam</td>
+                        <td class="actions ninety-width">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Docent", routeValues: new
+                   {
+                       id = docent.Id
+                   }, htmlAttributes: new
+                   {
+                       data_modal = "",
+                       @class = "btn btn-warning btn-sm"
+                   })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Docent", routeValues: new
+                   {
+                       id = docent.Id
+                   }, htmlAttributes: new
+                   {
+                       data_modal = "",
+                       @class = "btn btn-danger btn-sm"
+                   })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br /><br />
+    </div>
+</div>
+
+
+<div id="toolbar" class="modulesTable" style="display:none;">
+    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Modules", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+</div>
+
+<h3>Modules</h3>
+
+<table id="modulesTable" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Icon</th>
+            <th>Naam</th>
+            <th>Verantwoordelijke</th>
+            <th>CursusCode</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Modules)
+        {
+            <tr class="tag-item">
+                <td><i class="fa fa-@item.Icon fa-3x"></i></td>
+                <td>@item.Naam</td>
+                <td>@item.Verantwoordelijke</td>
+                <td>@item.CursusCode</td>
+                <td>@item.Status</td>
+                <td class="actions" style="width:90px;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <div id="myModal" class="modal fade in">
     <div class="modal-dialog">
@@ -282,6 +265,7 @@
         div.dataTables_filter label {
             float: left !important;
         }
+
         #iconPlaceholder {
             margin: 20px 0 0;
         }
@@ -408,7 +392,7 @@
                 },
                 iDisplayLength: 10
             });
-            
+
 
 
             $("#myModal").on("change", "#Icon", function () {

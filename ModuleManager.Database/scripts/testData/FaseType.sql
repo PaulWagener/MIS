@@ -2,7 +2,7 @@
 USING (values 
 	('Major'),
 	('Minor'),
-	('Properdeuse')
+	('Propedeuse')
 ) AS Source (Type)  
 ON Target.Type = Source.Type  
 WHEN NOT MATCHED BY TARGET THEN  

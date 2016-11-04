@@ -51,6 +51,8 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<Niveau, NiveauViewModel>();
 
+            Mapper.CreateMap<Status, StatusViewModel>();
+
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
                     src => src.StudiePunten

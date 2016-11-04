@@ -15,8 +15,8 @@ ON
 	Target.CursusCode = Source.CursusCode
 	AND Target.Schooljaar = Source.Schooljaar
 WHEN NOT MATCHED BY TARGET THEN  
-	INSERT (CursusCode, Schooljaar, Beschrijving, Naam, Verantwoordelijke, Status, OnderdeelCode, Icon, Blok) 
-	VALUES (CursusCode, Schooljaar, Beschrijving, Naam, Verantwoordelijke, Status, OnderdeelCode, Icon, Blok)
+	INSERT (CursusCode, Schooljaar, Beschrijving, Naam, Verantwoordelijke, Status, Gecontroleerd, OnderdeelCode, Icon, Blok) 
+	VALUES (CursusCode, Schooljaar, Beschrijving, Naam, Verantwoordelijke, Status, 0			,OnderdeelCode, Icon, Blok)
 WHEN MATCHED THEN
 	UPDATE SET
 		Beschrijving = Source.Beschrijving, 

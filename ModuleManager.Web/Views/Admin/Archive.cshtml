@@ -1,64 +1,50 @@
-﻿<div class="container">
-    <div class="row">
-        <div id="primary">
-            <div class="col-md-12">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
-                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
-                    <li class="active">Archiveren</li>
-                </ol>
-            </div>
-
-            <div class="col-md-12">
-                <h2>Archiveren</h2>
-                <br />
-            </div>
-
-            <div class="col-md-12">
-                @using (Html.BeginForm())
+﻿<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+    <li class="active">Archiveren</li>
+</ol>
+<h2>Archiveren</h2>
+<div>
+    @using (Html.BeginForm())
+            {
+                if (ViewBag.Message != null)
                 {
-                     if (ViewBag.Message != null)
-                     {
-                         <div class="alert alert-warning">
-                             @ViewBag.Message
-                         </div>
-                     }
-                    <div class="form-group">
-                        <label for="confirm">Weet uw zeker dat uw het huidige cohort wil achiveren? Zoja Type dan "ARCHIVEREN" in hoofdletters hieronder.</label>
-                        <input type="text" class="form-control" name="code" id="confirm" placeholder="ARCHIVEREN">
-                    </div>
-                    <button id="archiveBtn" type="submit" class="btn btn-danger btn-lg">Archiveren</button>
-                    <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>
-                }
+            <div class="alert alert-warning">
+                @ViewBag.Message
             </div>
+        }
+        <div class="form-group">
+            <label for="confirm">Weet uw zeker dat uw het huidige cohort wil achiveren? Zoja Type dan "ARCHIVEREN" in hoofdletters hieronder.</label>
+            <input type="text" class="form-control" name="code" id="confirm" placeholder="ARCHIVEREN">
         </div>
-    </div>
+                <button id="archiveBtn" type="submit" class="btn btn-danger">Archiveren</button>
+                <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>
+    }
 </div>
-
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/Archive.cshtml", null);
 
 <!-- JAVA MEUK -->
 @section Scripts {
-<script>
-    $(function () {
-        checkArchiveButton();
-        $("#confirm").on("input", function () {
-            console.log($("#confirm").val());
+    <script>
+        $(function () {
             checkArchiveButton();
-        });
+            $("#confirm").on("input", function () {
+                console.log($("#confirm").val());
+                checkArchiveButton();
+            });
 
-        function checkArchiveButton() {
-            if ($("#confirm").val() == "ARCHIVEREN") {
-                if ($("#archiveBtn").hasClass("disabled")) {
-                    $("#archiveBtn").removeClass("disabled");
-                }
-            } else {
-                if (!$("#archiveBtn").hasClass("disabled")) {
-                    $("#archiveBtn").addClass("disabled");
+            function checkArchiveButton() {
+                if ($("#confirm").val() == "ARCHIVEREN") {
+                    if ($("#archiveBtn").hasClass("disabled")) {
+                        $("#archiveBtn").removeClass("disabled");
+                    }
+                } else {
+                    if (!$("#archiveBtn").hasClass("disabled")) {
+                        $("#archiveBtn").addClass("disabled");
+                    }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 }

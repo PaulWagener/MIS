@@ -1,26 +1,17 @@
-# Studiegids!
-
-Welkom bij de studiegids. 
-
-# Databases
-
-Je zult de volgende databases moeten deployen
-* [DomainDal]
-* [UserDal]
+# Avans Module Manager!
 
 # Omgevingen
-
-Hier vind je de verschillende omgevingen terug:
 * [development - studiegids-dev](http://studiegids-dev.azurewebsites.net)
 * [productie - studiegids](http://studiegids.azurewebsites.net)
 
 
-## Getting started
+# Databases
+* ModuleManager.Domain
+* UserDal
 
-Kloon deze repository door in Visual Studio via Team explorer te verbinden met dit tfs project. 
-Het is ook mogelijk om via het koptje 'code' de code te klonen. 
-Volg hierna de handleiding in docs/T01_uitrollen_local.docx
-
-
+# Getting Started
+* Visual Studio > Team explorer > Manage Connections > Studiegids
+* Solution Explorer > ModuleManager.Database > ModuleManager.Local.Database.publish
+* docs > scripts > Run T01_UserDal_uitrollen & T01_UserDal_StoredProcedures
 
 Happy coding!

@@ -2,63 +2,51 @@
 
 @model ModuleManager.Web.ViewModels.AdminUserManagementViewModel
 
-<div class="container">
-    <div class="row">
-        <div id="primary">
-            <div class="col-md-12">
-                <ol class="breadcrumb">
-                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
-                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
-                    <li class="active">Gebruikers</li>
-                </ol>
-            </div>
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+    <li class="active">Gebruikers</li>
+</ol>
 
-            <div class="col-md-12">
-                <div class="pull-right">
-                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Nieuwe gebruiker", "Toevoegen", "Create", "Users", htmlAttributes: new { data_modal = "", @class = "btn btn-success" })
-                </div>
-                <h2 style="margin-top: 0">Gebruikers</h2>
-            </div>
-
-            <div class="col-md-12">
-                <table id="users" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Gebruikersnaam</th>
-                            <th>Naam</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Acties</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Users.Data)
-                        {
-                            <tr>
-                                <td class="name">@item.GebruikersNaam</td>
-                                <td class="name">@item.Naam</td>
-                                <td>@item.Email</td>
-                                <td>@item.SysteemRol</td>
-                                <td class="actions" style="width: 130px">
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                                    @if (!item.Blocked)
-                                    {
-                                        @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })                                        
-                                    }
-                                    else
-                                    {
-                                        @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })                                       
-                                    }
-                                   
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div><!-- /#primary -->
-    </div>
+<div class="pull-right">
+    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Nieuwe gebruiker", "Toevoegen", "Create", "Users", htmlAttributes: new { data_modal = "", @class = "btn btn-success" })
 </div>
+<h2 style="margin-top: 0">Gebruikers</h2>
+
+<table id="users" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Gebruikersnaam</th>
+            <th>Naam</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acties</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Users.Data)
+        {
+            <tr>
+                <td class="name">@item.GebruikersNaam</td>
+                <td class="name">@item.Naam</td>
+                <td>@item.Email</td>
+                <td>@item.SysteemRol</td>
+                <td class="actions" style="width: 130px">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                    @if (!item.Blocked)
+                    {
+                        @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
+                    }
+                    else
+                    {
+                        @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
@@ -75,7 +63,7 @@
 
 <!-- JAVA MEUK -->
 @section Scripts {
-    
+
     @Scripts.Render("~/bundles/modalform")
     <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
@@ -113,7 +101,7 @@
                 aoColumnDefs: [
                     { 'bSortable': false, 'aTargets': [4] }
                 ],
-                initComplete: function () { 
+                initComplete: function () {
                     var table = $('#users').DataTable();
                     var columns = [3];
                     var i = 0;

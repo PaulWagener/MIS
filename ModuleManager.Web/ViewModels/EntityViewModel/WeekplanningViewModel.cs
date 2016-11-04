@@ -10,8 +10,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string Week { get; set; }
         public string Onderwerp { get; set; }
 
-        public bool? isDeleted { get; set; }
-
         internal Domain.Weekplanning ToPoco(DomainEntities context)
         {
             Domain.Weekplanning weekPlanning = context.Weekplannings.FirstOrDefault(w => w.CursusCode == CursusCode && w.Schooljaar == Schooljaar && w.Id == Id);

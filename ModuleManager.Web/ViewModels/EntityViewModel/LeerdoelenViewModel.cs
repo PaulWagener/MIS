@@ -10,8 +10,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public int Id { get; set; }
         public string Beschrijving { get; set; }
 
-        public bool? isDeleted { get; set; }
-
         public Leerdoel ToPoco(DomainEntities context)
         {
             Leerdoel leerdoel = context.Leerdoelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
