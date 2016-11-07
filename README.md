@@ -7,11 +7,10 @@
 
 # Databases
 * ModuleManager.Domain
-* UserDal
 
 # Getting Started
 * Visual Studio > Team explorer > Manage Connections > Studiegids
 * Solution Explorer > ModuleManager.Database > ModuleManager.Local.Database.publish
-* docs > scripts > Run T01_UserDal_uitrollen & T01_UserDal_StoredProcedures
+* Solution Explorer > ModuleManager.Database > Scripts > StoredProcedures > Stored_procedures.sql
 
 Happy coding!
