@@ -364,3 +364,9 @@ body.modal-open {
     width:20px;
     text-align:center;
 }
+
+/** Tables */
+
+table#modules{
+    cursor:pointer;
+}

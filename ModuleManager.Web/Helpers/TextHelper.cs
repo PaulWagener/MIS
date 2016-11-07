@@ -26,7 +26,7 @@ namespace ModuleManager.Web.Helpers
         /// <returns></returns>
         public static MvcHtmlString FormatLongText(this HtmlHelper h, string text) =>
             MvcHtmlString.Create(
-                text.SimpleSplit("\n\n")
+                text?.SimpleSplit("\n\n")
                 .Select(paragraphText => new TagBuilder("p")
                 {
                     InnerHtml = h.Encode(paragraphText).Replace("\n", "<br>")
