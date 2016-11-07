@@ -5,6 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DomainDalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Beoordeling">
           <Key>
             <PropertyRef Name="CursusCode" />
@@ -230,6 +236,12 @@
           <Property Name="EC" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Minimum" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SysteemRol">
+          <Key>
+            <PropertyRef Name="Role" />
+          </Key>
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="Naam" />
@@ -241,6 +253,16 @@
             <PropertyRef Name="Type" />
           </Key>
           <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserNaam" />
+          </Key>
+          <Property Name="UserNaam" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SysteemRol" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="naam" Type="varchar" MaxLength="50" />
+          <Property Name="Blocked" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Voorkennis">
           <Key>
@@ -575,6 +597,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_systeemRol">
+          <End Role="SysteemRol" Type="Self.SysteemRol" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysteemRol">
+              <PropertyRef Name="Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="SysteemRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Voorkennis_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
           <End Role="Voorkennis" Type="Self.Voorkennis" Multiplicity="*" />
@@ -617,7 +651,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spAuthenticateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spEditUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OldUserNaam" Type="varchar" Mode="In" />
+          <Parameter Name="NewUserNaam" Type="varchar" Mode="In" />
+          <Parameter Name="SysteemRol" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="naam" Type="varchar" Mode="In" />
+          <Parameter Name="Blocked" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spGetRol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserNaam" Type="varchar" Mode="In" />
+          <Parameter Name="SysteemRol" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="naam" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DomainDalModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beoordeling" EntityType="Self.Beoordeling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blok" EntityType="Self.Blok" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Competentie" EntityType="Self.Competentie" Schema="dbo" store:Type="Tables" />
@@ -642,8 +698,10 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudieBelasting" EntityType="Self.StudieBelasting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudiePunt" EntityType="Self.StudiePunt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysteemRol" EntityType="Self.SysteemRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Toetsvorm" EntityType="Self.Toetsvorm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voorkennis" EntityType="Self.Voorkennis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weekplanning" EntityType="Self.Weekplanning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Werkvorm" EntityType="Self.Werkvorm" Schema="dbo" store:Type="Tables" />
@@ -738,6 +796,10 @@
           <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Self.FK_StudiePunten_Toetsvorm">
             <End Role="Toetsvorm" EntitySet="Toetsvorm" />
             <End Role="StudiePunt" EntitySet="StudiePunt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_systeemRol" Association="Self.FK_User_systeemRol">
+            <End Role="SysteemRol" EntitySet="SysteemRol" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_Voorkennis_Module" Association="Self.FK_Voorkennis_Module">
             <End Role="Module" EntitySet="Module" />
@@ -1133,6 +1195,34 @@
             <End Role="Fase" EntitySet="Fases" />
             <End Role="Module" EntitySet="Modules" />
           </AssociationSet>
+          <EntitySet Name="C__RefactorLog" EntityType="Domain.C__RefactorLog" />
+          <EntitySet Name="SysteemRol" EntityType="Domain.SysteemRol" />
+          <EntitySet Name="User" EntityType="Domain.User" />
+          <AssociationSet Name="FK_User_systeemRol" Association="Domain.FK_User_systeemRol">
+            <End Role="SysteemRol" EntitySet="SysteemRol" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <FunctionImport Name="spAuthenticateUser" ReturnType="Collection(Int32)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEditUser" ReturnType="Collection(Int32)">
+            <Parameter Name="OldUserNaam" Mode="In" Type="String" />
+            <Parameter Name="NewUserNaam" Mode="In" Type="String" />
+            <Parameter Name="SysteemRol" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="naam" Mode="In" Type="String" />
+            <Parameter Name="Blocked" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spGetRol" ReturnType="Collection(String)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spRegisterUser" ReturnType="Collection(Int32)">
+            <Parameter Name="UserNaam" Mode="In" Type="String" />
+            <Parameter Name="SysteemRol" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="naam" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Fase">
           <Key>
@@ -1348,6 +1438,42 @@
         <Association Name="FaseModule">
           <End Type="Domain.Fase" Role="Fase" Multiplicity="*" />
           <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+        </Association>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysteemRol">
+          <Key>
+            <PropertyRef Name="Role" />
+          </Key>
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Domain.FK_User_systeemRol" FromRole="SysteemRol" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserNaam" />
+          </Key>
+          <Property Name="UserNaam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SysteemRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Blocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SysteemRol1" Relationship="Domain.FK_User_systeemRol" FromRole="User" ToRole="SysteemRol" />
+        </EntityType>
+        <Association Name="FK_User_systeemRol">
+          <End Type="Domain.SysteemRol" Role="SysteemRol" Multiplicity="1" />
+          <End Type="Domain.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysteemRol">
+              <PropertyRef Name="Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="SysteemRol" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1620,6 +1746,35 @@
               <ScalarProperty Name="Naam" ColumnName="FaseNaam" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="Domain.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysteemRol">
+            <EntityTypeMapping TypeName="Domain.SysteemRol">
+              <MappingFragment StoreEntitySet="SysteemRol">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Domain.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="naam" ColumnName="naam" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="SysteemRol" ColumnName="SysteemRol" />
+                <ScalarProperty Name="UserNaam" ColumnName="UserNaam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAuthenticateUser" FunctionName="DomainDalModel.Store.spAuthenticateUser" />
+          <FunctionImportMapping FunctionImportName="spEditUser" FunctionName="DomainDalModel.Store.spEditUser" />
+          <FunctionImportMapping FunctionImportName="spGetRol" FunctionName="DomainDalModel.Store.spGetRol" />
+          <FunctionImportMapping FunctionImportName="spRegisterUser" FunctionName="DomainDalModel.Store.spRegisterUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

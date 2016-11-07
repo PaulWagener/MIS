@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ModuleManager.Domain;
+using System.Collections.Generic;
 
 namespace ModuleManager.UserDAL.Interfaces
 {

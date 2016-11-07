@@ -7,13 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL
+namespace ModuleManager.Domain
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class C__RefactorLog
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public System.Guid OperationKey { get; set; }
     }
 }

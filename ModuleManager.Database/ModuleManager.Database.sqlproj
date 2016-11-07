@@ -63,6 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="scripts" />
     <Folder Include="scripts\testData" />
+    <Folder Include="scripts\storedProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Beoordeling.sql" />
@@ -108,14 +109,20 @@
     <None Include="scripts\testData\Competentie.sql" />
     <None Include="scripts\testData\Docent.sql" />
     <None Include="scripts\testData\Icon.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\SysteemRol.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ModuleManager.Local.Database.publish.xml" />
     <None Include="ModuleManager.Dev.Database.publish.xml" />
     <None Include="scripts\testData\Schooljaar.sql" />
-    <None Include="ModuleManager.Database.publish.xml" />
+    <None Include="scripts\testData\SysteemRol.sql" />
+    <None Include="scripts\storedProcedures\stored_procedures.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ModuleManager.Database.refactorlog" />
   </ItemGroup>
 </Project>

@@ -120,10 +120,6 @@
       <Project>{BD56B86A-F3B6-4CC8-8BED-E318BF5D62DA}</Project>
       <Name>ModuleManager.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModuleManager.UserDAL\ModuleManager.UserDAL.csproj">
-      <Project>{0b13bfe6-aed5-49dc-85b6-b8ea460048a0}</Project>
-      <Name>ModuleManager.UserDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ModuleManager.Web\ModuleManager.Web.csproj">
       <Project>{a8ad9299-bd13-419a-8843-22f798fa1a00}</Project>
       <Name>ModuleManager.Web</Name>

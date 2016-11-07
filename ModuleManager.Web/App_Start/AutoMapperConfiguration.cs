@@ -3,7 +3,6 @@ using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using AutoMapper;
-using ModuleManager.UserDAL;
 
 namespace ModuleManager.Web
 {

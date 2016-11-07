@@ -1,6 +1,7 @@
 ﻿using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
+using ModuleManager.Domain;
 using ModuleManager.UserDAL;
 using ModuleManager.UserDAL.Interfaces;
 using Newtonsoft.Json.Linq;
@@ -184,7 +185,7 @@ namespace ModuleManager.Web.Controllers
                     throw new Exception("Alleen docenten mogen inloggen!");
                 }
 
-                using (var context = new UserContext())
+                using (var context = new DomainEntities())
                 {
                     var user = context.User.FirstOrDefault(u => u.UserNaam == username);
 
@@ -196,7 +197,6 @@ namespace ModuleManager.Web.Controllers
                         user.email = email;
                         user.naam = name;
                         user.SysteemRol = "Docent";
-                        user.Wachtwoord = ""; // Obsolete
                         context.User.Add(user);
                         context.SaveChanges();
                     }

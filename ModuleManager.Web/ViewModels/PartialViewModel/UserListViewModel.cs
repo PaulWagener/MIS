@@ -2,6 +2,7 @@
 using System.Linq;
 using ModuleManager.UserDAL;
 using AutoMapper;
+using ModuleManager.Domain;
 
 namespace ModuleManager.Web.ViewModels.PartialViewModel
 {

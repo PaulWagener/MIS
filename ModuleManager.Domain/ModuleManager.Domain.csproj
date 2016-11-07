@@ -60,6 +60,9 @@
     <Compile Include="Competentie.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="C__RefactorLog.cs">
+      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Docent.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
@@ -73,7 +76,9 @@
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\ISysteemRolRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Leerdoel.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
@@ -118,7 +123,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\SysteemRolRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Schooljaar.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
@@ -131,10 +138,16 @@
     <Compile Include="StudiePunt.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="SysteemRol.cs">
+      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tag.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Toetsvorm.cs">
+      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Utility\DomainConstants.cs" />

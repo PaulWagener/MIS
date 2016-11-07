@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL
+namespace ModuleManager.Domain
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class User
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string UserNaam { get; set; }
+        public string SysteemRol { get; set; }
+        public string email { get; set; }
+        public string naam { get; set; }
+        public bool Blocked { get; set; }
+    
+        public virtual SysteemRol SysteemRol1 { get; set; }
     }
 }

@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
+using ModuleManager.Domain;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -45,12 +46,12 @@ namespace ModuleManager.Web.Controllers.Api
 
             if (ModelState.IsValid)
             {
-                using (var context = new UserContext())
+                using (var context = new DomainEntities())
                 {
 
                     String hashedPassword = GetSwcSH1(registrationVM.Wachtwoord);
 
-                    var resultlist = context.spRegisterUser(registrationVM.UserNaam, hashedPassword, registrationVM.SelectedSysteemRol, registrationVM.Email, registrationVM.Naam);
+                    var resultlist = context.spRegisterUser(registrationVM.UserNaam, registrationVM.SelectedSysteemRol, registrationVM.Email, registrationVM.Naam);
                     var list = new List<int?>();
 
                     list = (from element in resultlist select element).ToList();
@@ -97,12 +98,12 @@ namespace ModuleManager.Web.Controllers.Api
         {
             if (ModelState.IsValid)
             {
-                using (var context = new UserContext())
+                using (var context = new DomainEntities())
                 {
 
                     String hashedPassword = GetSwcSH1(userEditVM.Wachtwoord);
 
-                    var resultlist = context.spEditUser(userEditVM.OudeUserNaam, userEditVM.UserNaam, hashedPassword, userEditVM.SysteemRol, userEditVM.Email, userEditVM.Naam, userEditVM.Blocked);
+                    var resultlist = context.spEditUser(userEditVM.OudeUserNaam, userEditVM.UserNaam, userEditVM.SysteemRol, userEditVM.Email, userEditVM.Naam, userEditVM.Blocked);
                     var list = new List<int?>();
 
                     list = (from element in resultlist select element).ToList();

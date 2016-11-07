@@ -7,20 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL
+namespace ModuleManager.Domain
 {
     using System;
     using System.Collections.Generic;
     
     public partial class SysteemRol
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SysteemRol()
         {
-            this.User = new HashSet<User>();
+            this.Users = new HashSet<User>();
         }
     
         public string Role { get; set; }
     
-        public virtual ICollection<User> User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

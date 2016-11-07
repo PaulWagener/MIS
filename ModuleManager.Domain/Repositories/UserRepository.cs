@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.Domain;
 
 namespace ModuleManager.UserDAL.Repositories
 {
@@ -9,7 +10,7 @@ namespace ModuleManager.UserDAL.Repositories
     {
         public User GetOne(string key)
         {
-            using (var context = new UserContext())
+            using (var context = new DomainEntities())
             {
                 return context.User.Find(key);
             }
@@ -17,7 +18,7 @@ namespace ModuleManager.UserDAL.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            using (var context = new UserContext())
+            using (var context = new DomainEntities())
             {
                 return context.User.ToList();
             }
@@ -25,7 +26,7 @@ namespace ModuleManager.UserDAL.Repositories
 
         public bool Create(User entity)
         {
-            using (var context = new UserContext())
+            using (var context = new DomainEntities())
             {
                 context.Entry(entity).State = System.Data.Entity.EntityState.Added;
                 return Convert.ToBoolean(context.SaveChanges());
@@ -34,7 +35,7 @@ namespace ModuleManager.UserDAL.Repositories
 
         public bool Edit(User entity)
         {
-            using (var context = new UserContext())
+            using (var context = new DomainEntities())
             {
                 context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                 return Convert.ToBoolean(context.SaveChanges());

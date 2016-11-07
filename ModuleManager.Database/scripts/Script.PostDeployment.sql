@@ -26,3 +26,6 @@ go
 :r .\testData\Docent.sql
 :r .\testData\Icon.sql
 :r .\testData\Module.sql
+:r .\testData\SysteemRol.sql
+
+--:r .\storedProcedures\stored_procedures.sql

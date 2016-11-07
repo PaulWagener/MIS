@@ -1,4 +1,5 @@
-﻿using ModuleManager.UserDAL.Interfaces;
+﻿using ModuleManager.Domain;
+using ModuleManager.UserDAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,7 +13,7 @@ namespace ModuleManager.UserDAL.Repositories
     {
         public IEnumerable<SysteemRol> GetAll()
         {
-            using (var context = new UserContext())
+            using (var context = new DomainEntities())
             {
                 return (from s in context.SysteemRol select s).ToList();
             }

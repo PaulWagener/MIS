@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="71">
+      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="46">
         <EntityTypeShape EntityType="Domain.Blok" Width="1.5" PointX="10.625" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Competentie" Width="1.75" PointX="5.75" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.FaseType" Width="1.5" PointX="3" PointY="24.125" IsExpanded="true" />
@@ -35,14 +35,28 @@
         <EntityTypeShape EntityType="Domain.Fase" Width="1.625" PointX="3" PointY="20.5" />
         <AssociationConnector Association="Domain.FK_Fase_FaseType" />
         <EntityTypeShape EntityType="Domain.Docent" Width="1.5" PointX="15.25" PointY="18.625" />
-        <AssociationConnector Association="Domain.ModuleDocent" />
+        <AssociationConnector Association="Domain.ModuleDocent" ></AssociationConnector>
         <EntityTypeShape EntityType="Domain.Beoordeling" Width="1.5" PointX="17.625" PointY="13" />
         <EntityTypeShape EntityType="Domain.Leerdoel" Width="1.5" PointX="5" PointY="9.25" />
         <EntityTypeShape EntityType="Domain.Leermiddel" Width="1.5" PointX="21.125" PointY="13" />
         <EntityTypeShape EntityType="Domain.StudiePunt" Width="1.5" PointX="2.875" PointY="9.25" />
         <AssociationConnector Association="Domain.FK_Beoordelingen_Module" />
         <AssociationConnector Association="Domain.FK_Leerdoelen_Module" />
-        <AssociationConnector Association="Domain.FK_Leermiddelen_Module1" />
+        <AssociationConnector Association="Domain.FK_Leermiddelen_Module1" ManuallyRouted="true" >
+          <ConnectorPoint PointX="9.125" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="10.010416666666666" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="10.010416666666666" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="10.177083333333334" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="10.177083333333334" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="12.416666666666666" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="12.416666666666666" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="12.583333333333334" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="12.583333333333334" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="16.197916666666668" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="16.364583333333332" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="21.875" PointY="18.089489145182281" />
+          <ConnectorPoint PointX="21.875" PointY="14.980286458333332" />
+        </AssociationConnector>
         <AssociationConnector Association="Domain.FK_StudiePunten_Module" />
         <AssociationConnector Association="Domain.FK_StudiePunten_Toetsvorm" />
         <EntityTypeShape EntityType="Domain.Icon" Width="1.5" PointX="10.875" PointY="13" />
@@ -51,6 +65,10 @@
         <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Module" />
         <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Werkvorm" />
         <AssociationConnector Association="Domain.FaseModule" />
+        <EntityTypeShape EntityType="Domain.C__RefactorLog" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Domain.SysteemRol" Width="1.5" PointX="18.125" PointY="7" />
+        <EntityTypeShape EntityType="Domain.User" Width="1.5" PointX="20.375" PointY="6.5" />
+        <AssociationConnector Association="Domain.FK_User_systeemRol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
