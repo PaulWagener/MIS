@@ -3,24 +3,10 @@
         <h1 style="font-size: 4em">Informatica Modules</h1><br />
         <!--<input name="search" type="text" class="form-control search-query ajax input-lg" placeholder="Zoekterm" />-->
         <div class="text-center">
-            <a class="btn btn-default fa-button-big" href="@Url.Action("Index","StudieGids")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>
+            @*<a class="btn btn-default fa-button-big" href="@Url.Action("Index","StudieGids")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>*@
             <a class="btn btn-default fa-button-big" href="@Url.Action("Overview","Module")"><i class="fa fa-search fa-big"></i><br />Module Overzicht</a>
-            <!--<br/>-->
-            <!--<a href="Url.Action("Overview", "Module")" class="btn btn-md btn-success">Module zoeken</a>-->
-            <!--<a href="Url.Action("Overview", "Module")" class="btn btn-md btn-default">Ik doe een gok</a>-->
         </div>
     </div>
 </div>
-<!--<br /><br /><br /><br />
-<div class="text-center">
-    <ul class="tags">
-        <li><a href="#">big data</a></li>
-        <li><a href="#">php</a></li>
-        <li><a href="#">javascript</a></li>
-        <li><a href="#">nodejs</a></li>
-        <li><a href="#">html</a></li>
-        <li><a href="#">csharp</a></li>
-    </ul>
-</div>-->
-<!-- Help MODAL-->
+
 @Html.Partial("~/Views/Help/Homepage.cshtml", null);
