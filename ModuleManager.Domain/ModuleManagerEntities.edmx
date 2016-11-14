@@ -18,7 +18,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
@@ -31,10 +31,8 @@
         <EntityType Name="Competentie">
           <Key>
             <PropertyRef Name="Code" />
-            <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -62,7 +60,7 @@
           </Key>
           <Property Name="FaseNaam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ModuleCursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModuleSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="ModuleSchooljaar" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FaseType">
           <Key>
@@ -83,17 +81,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Leerlijn">
           <Key>
             <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="Leermiddel">
           <Key>
@@ -102,7 +98,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
@@ -112,7 +108,7 @@
             <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Beschrijving" Type="nvarchar(max)" />
           <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Verantwoordelijke" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -121,18 +117,17 @@
           <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
           <Property Name="Blok" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="ReadOnly" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
             <PropertyRef Name="CursusCode" />
             <PropertyRef Name="Schooljaar" />
             <PropertyRef Name="CompetentieCode" />
-            <PropertyRef Name="CompetentieSchooljaar" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="CompetentieCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CompetentieSchooljaar" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="Niveau" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleDocent">
@@ -143,19 +138,17 @@
           </Key>
           <Property Name="Docenten_Id" Type="int" Nullable="false" />
           <Property Name="Module_CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Module_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Module_Schooljaar" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleLeerlijn">
           <Key>
             <PropertyRef Name="Leerlijn_Naam" />
-            <PropertyRef Name="Leerlijn_Schooljaar" />
             <PropertyRef Name="Module_CursusCode" />
             <PropertyRef Name="Module_Schooljaar" />
           </Key>
           <Property Name="Leerlijn_Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Leerlijn_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="Module_CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Module_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Module_Schooljaar" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleTag">
           <Key>
@@ -164,7 +157,7 @@
             <PropertyRef Name="Tag_Naam" />
           </Key>
           <Property Name="Module_CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Module_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Module_Schooljaar" Type="int" Nullable="false" />
           <Property Name="Tag_Naam" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleWerkvorm">
@@ -174,7 +167,7 @@
             <PropertyRef Name="WerkvormType" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="WerkvormType" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Organisatie" Type="varchar(max)" />
         </EntityType>
@@ -201,7 +194,7 @@
           <Key>
             <PropertyRef Name="JaarId" />
           </Key>
-          <Property Name="JaarId" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="JaarId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -216,7 +209,7 @@
             <PropertyRef Name="Activiteit" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Activiteit" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ContactUren" Type="int" />
           <Property Name="Duur" Type="varchar" MaxLength="50" Nullable="false" />
@@ -230,7 +223,7 @@
             <PropertyRef Name="ToetsCode" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="ToetsCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Toetsvorm" Type="varchar" MaxLength="50" />
           <Property Name="EC" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -272,9 +265,9 @@
             <PropertyRef Name="Vervolg_Schooljaar" />
           </Key>
           <Property Name="Voorkennis_CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Voorkennis_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Voorkennis_Schooljaar" Type="int" Nullable="false" />
           <Property Name="Vervolg_CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Vervolg_Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Vervolg_Schooljaar" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Weekplanning">
           <Key>
@@ -283,7 +276,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Week" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Onderwerp" Type="varchar" MaxLength="500" Nullable="false" />
@@ -399,6 +392,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Module_Schooljaar">
+          <End Role="Schooljaar" Type="Self.Schooljaar" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schooljaar">
+              <PropertyRef Name="JaarId" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Module_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
@@ -417,11 +422,9 @@
           <ReferentialConstraint>
             <Principal Role="Competentie">
               <PropertyRef Name="Code" />
-              <PropertyRef Name="Schooljaar" />
             </Principal>
             <Dependent Role="ModuleCompetentie">
               <PropertyRef Name="CompetentieCode" />
-              <PropertyRef Name="CompetentieSchooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -483,11 +486,9 @@
           <ReferentialConstraint>
             <Principal Role="Leerlijn">
               <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
             </Principal>
             <Dependent Role="ModuleLeerlijn">
               <PropertyRef Name="Leerlijn_Naam" />
-              <PropertyRef Name="Leerlijn_Schooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -651,6 +652,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_CopyCohort" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="schooljaarFrom" Type="int" Mode="In" />
+          <Parameter Name="schooljaarTo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spArchiveCohort" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="schooljaar" Type="int" Mode="In" />
+        </Function>
         <Function Name="spAuthenticateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -735,6 +743,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Module_Onderdeel" Association="Self.FK_Module_Onderdeel">
             <End Role="Onderdeel" EntitySet="Onderdeel" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Schooljaar" Association="Self.FK_Module_Schooljaar">
+            <End Role="Schooljaar" EntitySet="Schooljaar" />
             <End Role="Module" EntitySet="Module" />
           </AssociationSet>
           <AssociationSet Name="FK_Module_Status" Association="Self.FK_Module_Status">
@@ -827,10 +839,8 @@
         <EntityType Name="Competentie">
           <Key>
             <PropertyRef Name="Code" />
-            <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ModuleCompetenties" Relationship="Domain.FK_ModuleCompetenties_Competentie" FromRole="Competentie" ToRole="ModuleCompetenties" />
@@ -845,10 +855,8 @@
         <EntityType Name="Leerlijn">
           <Key>
             <PropertyRef Name="Naam" />
-            <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Modules" Relationship="Self.ModuleLeerlijn" FromRole="Leerlijn" ToRole="Module" />
         </EntityType>
         <EntityType Name="Module">
@@ -857,7 +865,7 @@
             <PropertyRef Name="Schooljaar" />
           </Key>
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Verantwoordelijke" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -876,24 +884,24 @@
           <NavigationProperty Name="Docenten" Relationship="Domain.ModuleDocent" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
           <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />
-          <NavigationProperty Name="Leermiddelen" Relationship="Domain.FK_Leermiddelen_Module1" FromRole="Module" ToRole="Leermiddel" />
           <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
           <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Fases" Relationship="Domain.FaseModule" FromRole="Module" ToRole="Fase" />
           <Property Name="Gecontroleerd" Type="Boolean" Nullable="false" />
+          <Property Name="ReadOnly" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Leermiddelen" Relationship="Domain.FK_Leermiddelen_Module" FromRole="Module" ToRole="Leermiddel" />
+          <NavigationProperty Name="SchooljaarReference" Relationship="Domain.FK_Module_Schooljaar" FromRole="Module" ToRole="Schooljaar" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
             <PropertyRef Name="CursusCode" />
             <PropertyRef Name="Schooljaar" />
             <PropertyRef Name="CompetentieCode" />
-            <PropertyRef Name="CompetentieSchooljaar" />
           </Key>
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="CompetentieCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CompetentieSchooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Niveau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Competentie" Relationship="Domain.FK_ModuleCompetenties_Competentie" FromRole="ModuleCompetenties" ToRole="Competentie" />
           <NavigationProperty Name="Module" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="ModuleCompetenties" ToRole="Module" />
@@ -919,12 +927,6 @@
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Schooljaar">
-          <Key>
-            <PropertyRef Name="JaarId" />
-          </Key>
-          <Property Name="JaarId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="Status1" />
@@ -939,7 +941,7 @@
             <PropertyRef Name="Activiteit" />
           </Key>
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Activiteit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContactUren" Type="Int32" />
           <Property Name="Duur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -968,7 +970,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Week" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Onderwerp" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
@@ -988,11 +990,9 @@
           <ReferentialConstraint>
             <Principal Role="Competentie">
               <PropertyRef Name="Code" />
-              <PropertyRef Name="Schooljaar" />
             </Principal>
             <Dependent Role="ModuleCompetenties">
               <PropertyRef Name="CompetentieCode" />
-              <PropertyRef Name="CompetentieSchooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1096,7 +1096,6 @@
           <EntitySet Name="Niveaux" EntityType="Self.Niveau" />
           <EntitySet Name="Onderdeels" EntityType="Self.Onderdeel" />
           <EntitySet Name="Opleidings" EntityType="Self.Opleiding" />
-          <EntitySet Name="Schooljaars" EntityType="Self.Schooljaar" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="StudieBelastings" EntityType="Self.StudieBelasting" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
@@ -1165,10 +1164,6 @@
             <End Role="Module" EntitySet="Modules" />
             <End Role="Leerdoel" EntitySet="Leerdoelen" />
           </AssociationSet>
-          <AssociationSet Name="FK_Leermiddelen_Module1" Association="Domain.FK_Leermiddelen_Module1">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="Leermiddel" EntitySet="Leermiddelen" />
-          </AssociationSet>
           <AssociationSet Name="FK_StudiePunten_Module" Association="Domain.FK_StudiePunten_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="StudiePunt" EntitySet="StudiePunten" />
@@ -1215,7 +1210,7 @@
             <Parameter Name="Blocked" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spGetRol" ReturnType="Collection(String)">
-            <Parameter Name="UserName" Mode="In" Type="String" />
+          <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spRegisterUser" ReturnType="Collection(Int32)">
             <Parameter Name="UserNaam" Mode="In" Type="String" />
@@ -1223,6 +1218,22 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="naam" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="spArchiveCohort">
+          <Parameter Name="schooljaar" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CopyCohort">
+            <Parameter Name="schooljaarFrom" Mode="In" Type="Int32" />
+            <Parameter Name="schooljaarTo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Schooljaren" EntityType="Domain.Schooljaar" />
+          <AssociationSet Name="FK_Leermiddelen_Module" Association="Domain.FK_Leermiddelen_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Leermiddel" EntitySet="Leermiddelen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Schooljaar" Association="Domain.FK_Module_Schooljaar">
+            <End Role="Schooljaar" EntitySet="Schooljaren" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
           <Key>
@@ -1265,7 +1276,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Beoordeling" ToRole="Module" />
@@ -1277,7 +1288,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Leerdoel" ToRole="Module" />
@@ -1289,10 +1300,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Module" Relationship="Domain.FK_Leermiddelen_Module1" FromRole="Leermiddel" ToRole="Module" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_Leermiddelen_Module" FromRole="Leermiddel" ToRole="Module" />
         </EntityType>
         <EntityType Name="StudiePunt">
           <Key>
@@ -1301,7 +1312,7 @@
             <PropertyRef Name="ToetsCode" />
           </Key>
           <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="ToetsCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EC" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
@@ -1332,20 +1343,6 @@
               <PropertyRef Name="Schooljaar" />
             </Principal>
             <Dependent Role="Leerdoel">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leermiddelen_Module1">
-          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
-          <End Type="Domain.Leermiddel" Role="Leermiddel" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Leermiddel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
             </Dependent>
@@ -1403,7 +1400,7 @@
             <PropertyRef Name="WerkvormType" />
           </Key>
           <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Schooljaar" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="WerkvormType" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="Organisatie" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="ModuleWerkvorm" ToRole="Module" />
@@ -1475,6 +1472,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Schooljaar">
+          <Key>
+            <PropertyRef Name="JaarId" />
+          </Key>
+          <Property Name="JaarId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modules" Relationship="Domain.FK_Module_Schooljaar" FromRole="Schooljaar" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_Leermiddelen_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.Leermiddel" Role="Leermiddel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="Leermiddel">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Schooljaar">
+          <End Type="Domain.Schooljaar" Role="Schooljaar" Multiplicity="1" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schooljaar">
+              <PropertyRef Name="JaarId" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1492,7 +1522,6 @@
             <EntityTypeMapping TypeName="Domain.Competentie">
               <MappingFragment StoreEntitySet="Competentie">
                 <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
               </MappingFragment>
@@ -1509,13 +1538,13 @@
             <EntityTypeMapping TypeName="Domain.Leerlijn">
               <MappingFragment StoreEntitySet="Leerlijn">
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Modules">
             <EntityTypeMapping TypeName="Domain.Module">
               <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
                 <ScalarProperty Name="Gecontroleerd" ColumnName="Gecontroleerd" />
                 <ScalarProperty Name="Blok" ColumnName="Blok" />
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
@@ -1535,7 +1564,6 @@
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="CompetentieCode" ColumnName="CompetentieCode" />
-                <ScalarProperty Name="CompetentieSchooljaar" ColumnName="CompetentieSchooljaar" />
                 <ScalarProperty Name="Niveau" ColumnName="Niveau" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1559,13 +1587,6 @@
               <MappingFragment StoreEntitySet="Opleiding">
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schooljaars">
-            <EntityTypeMapping TypeName="Domain.Schooljaar">
-              <MappingFragment StoreEntitySet="Schooljaar">
-                <ScalarProperty Name="JaarId" ColumnName="JaarId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1625,7 +1646,6 @@
           <AssociationSetMapping Name="ModuleLeerlijn" TypeName="Domain.ModuleLeerlijn" StoreEntitySet="ModuleLeerlijn">
             <EndProperty Name="Leerlijn">
               <ScalarProperty Name="Naam" ColumnName="Leerlijn_Naam" />
-              <ScalarProperty Name="Schooljaar" ColumnName="Leerlijn_Schooljaar" />
             </EndProperty>
             <EndProperty Name="Module">
               <ScalarProperty Name="CursusCode" ColumnName="Module_CursusCode" />
@@ -1775,6 +1795,15 @@
           <FunctionImportMapping FunctionImportName="spEditUser" FunctionName="DomainDalModel.Store.spEditUser" />
           <FunctionImportMapping FunctionImportName="spGetRol" FunctionName="DomainDalModel.Store.spGetRol" />
           <FunctionImportMapping FunctionImportName="spRegisterUser" FunctionName="DomainDalModel.Store.spRegisterUser" />
+          <FunctionImportMapping FunctionImportName="spArchiveCohort" FunctionName="DomainDalModel.Store.spArchiveCohort" />
+          <FunctionImportMapping FunctionImportName="sp_CopyCohort" FunctionName="DomainDalModel.Store.sp_CopyCohort" />
+          <EntitySetMapping Name="Schooljaren">
+            <EntityTypeMapping TypeName="Domain.Schooljaar">
+              <MappingFragment StoreEntitySet="Schooljaar">
+                <ScalarProperty Name="JaarId" ColumnName="JaarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

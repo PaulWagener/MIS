@@ -17,9 +17,9 @@ namespace ModuleManager.WebTests
         {
             using(var context = new DomainEntities())
             {
-                var leerlijn_prog = new Leerlijn() { Naam = "Programmeren", Schooljaar = "1516" };
-                var leerlijn_mod = new Leerlijn() { Naam = "Modelleren", Schooljaar = "1516" };
-                var leerlijn_arch = new Leerlijn() { Naam = "Architectuur", Schooljaar = "1516" };
+                var leerlijn_prog = new Leerlijn() { Naam = "Programmeren" };
+                var leerlijn_mod = new Leerlijn() { Naam = "Modelleren" };
+                var leerlijn_arch = new Leerlijn() { Naam = "Architectuur" };
 
                 var tag_mvc = new Tag() { Naam = "MVC"};
                 var tag_mvvm = new Tag() { Naam = "MVVM"};
@@ -29,14 +29,14 @@ namespace ModuleManager.WebTests
                 var docent_bart = new Docent() { Id = 2, Naam = "Bart Mutsaers" };
                 var docent_ger = new Docent() { Id = 3, Naam = "Ger Saris" };
 
-                var competentie_bc1 = new Competentie() { Schooljaar = "1516", Code = "BC1", Naam = "Procesanalyse uitvoeren", Beschrijving = "Stelt de student in staat.. " };
-                var competentie_bc2 = new Competentie() { Schooljaar = "1516", Code = "BC2", Naam = "Testplan opzetten", Beschrijving = "Stelt de student in staat.. " };
-                var competentie_bc3 = new Competentie() { Schooljaar = "1516", Code = "BC3", Naam = "Technisch ontwerp", Beschrijving = "Stelt de student in staat.. " };
+                var competentie_bc1 = new Competentie() { Code = "BC1", Naam = "Procesanalyse uitvoeren", Beschrijving = "Stelt de student in staat.. " };
+                var competentie_bc2 = new Competentie() { Code = "BC2", Naam = "Testplan opzetten", Beschrijving = "Stelt de student in staat.. " };
+                var competentie_bc3 = new Competentie() { Code = "BC3", Naam = "Technisch ontwerp", Beschrijving = "Stelt de student in staat.. " };
 
                 var prog1 = new Domain.Module()
                  {
                      CursusCode = "PROG1", //key
-                     Schooljaar = "1516", //key
+                     Schooljaar = 1516, //key
                      Verantwoordelijke = "P. Rog",
                      Naam = "Programmeren 1",
                      Beschrijving = "building software",
@@ -49,7 +49,7 @@ namespace ModuleManager.WebTests
                 var db1 = new Domain.Module()
                 {
                     CursusCode = "DB1", //key
-                    Schooljaar = "1516", //key
+                    Schooljaar = 1516, //key
                     Verantwoordelijke = "D. Atab",
                     Naam = "Databases 1",
                     Beschrijving = "building databases",
@@ -61,7 +61,7 @@ namespace ModuleManager.WebTests
                 Module = new Domain.Module()
                 {
                     CursusCode = "Test1", //key
-                    Schooljaar = "1516", //key
+                    Schooljaar = 1516, //key
                     Naam = "Testing 101",
                     Verantwoordelijke = "T. Est",
                     Beschrijving = "Testing if software works",
@@ -75,37 +75,37 @@ namespace ModuleManager.WebTests
                     Docenten = new List<Docent>() {  docent_stijn, docent_bart },
                     /** One to Many **/
                     Leerdoelen = new List<Leerdoel>(){ 
-                        new Leerdoel(){ Beschrijving = "Leerdoel 1", Schooljaar = "1516"},
-                        new Leerdoel(){ Beschrijving = "Leerdoel 2", Schooljaar = "1516"}
+                        new Leerdoel(){ Beschrijving = "Leerdoel 1", Schooljaar = 1516},
+                        new Leerdoel(){ Beschrijving = "Leerdoel 2", Schooljaar = 1516}
                     },
                     Leermiddelen = new List<Leermiddel>()
                     {
-                        new Leermiddel(){ Beschrijving = "Leermiddel 1", Schooljaar = "1516"},
-                        new Leermiddel(){ Beschrijving = "Leermiddel 2", Schooljaar = "1516"}
+                        new Leermiddel(){ Beschrijving = "Leermiddel 1", Schooljaar = 1516},
+                        new Leermiddel(){ Beschrijving = "Leermiddel 2", Schooljaar = 1516}
                     },
                     Weekplanningen = new List<Weekplanning>()
                     {
-                        new Weekplanning() { Schooljaar = "1516", Week = "1", Onderwerp = "een" },
-                        new Weekplanning() { Schooljaar = "1516", Week = "2", Onderwerp = "twee" },
+                        new Weekplanning() { Schooljaar = 1516, Week = "1", Onderwerp = "een" },
+                        new Weekplanning() { Schooljaar = 1516, Week = "2", Onderwerp = "twee" },
                     },
                     Beoordelingen = new List<Beoordeling>()
                     {
-                        new Beoordeling() {Schooljaar = "1516", Beschrijving = "b1" },
-                        new Beoordeling() {Schooljaar = "1516", Beschrijving = "b2" },
+                        new Beoordeling() {Schooljaar = 1516, Beschrijving = "b1" },
+                        new Beoordeling() {Schooljaar = 1516, Beschrijving = "b2" },
                     },
                     ModuleWerkvormen = new List<ModuleWerkvorm>()
                     {
-                       new ModuleWerkvorm() { WerkvormType = "WS", Organisatie = "2 workshops", CursusCode = "Test1", Schooljaar = "1516" },
+                       new ModuleWerkvorm() { WerkvormType = "WS", Organisatie = "2 workshops", CursusCode = "Test1", Schooljaar = 1516 },
                     },
                     StudieBelastingen = new List<StudieBelasting>()
                     {
-                        new StudieBelasting() { Activiteit = "A1", ContactUren = 11, Duur = "1 weken", Frequentie = "1x per week",  Schooljaar = "1516" },
-                        new StudieBelasting() { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week",  Schooljaar = "1516" },
+                        new StudieBelasting() { Activiteit = "A1", ContactUren = 11, Duur = "1 weken", Frequentie = "1x per week",  Schooljaar = 1516 },
+                        new StudieBelasting() { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week",  Schooljaar = 1516 },
                     },
                     ModuleCompetenties = new List<ModuleCompetentie>()
                     {
-                        new ModuleCompetentie() { CompetentieCode = "BC1", Niveau = "Beginner", Schooljaar = "1516", CompetentieSchooljaar = "1516" },
-                        new ModuleCompetentie() { CompetentieCode = "BC2", Niveau = "Expert", Schooljaar = "1516" ,  CompetentieSchooljaar = "1516"}
+                        new ModuleCompetentie() { CompetentieCode = "BC1", Niveau = "Beginner", Schooljaar = 1516 },
+                        new ModuleCompetentie() { CompetentieCode = "BC2", Niveau = "Expert", Schooljaar = 1516 }
                     }
 
                 };

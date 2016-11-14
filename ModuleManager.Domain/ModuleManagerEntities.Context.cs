@@ -36,7 +36,6 @@ namespace ModuleManager.Domain
         public virtual DbSet<Niveau> Niveaux { get; set; }
         public virtual DbSet<Onderdeel> Onderdeels { get; set; }
         public virtual DbSet<Opleiding> Opleidings { get; set; }
-        public virtual DbSet<Schooljaar> Schooljaars { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StudieBelasting> StudieBelastings { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
@@ -54,6 +53,7 @@ namespace ModuleManager.Domain
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<SysteemRol> SysteemRol { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Schooljaar> Schooljaren { get; set; }
     
         public virtual ObjectResult<Nullable<int>> spAuthenticateUser(string userName, string password)
         {
@@ -125,6 +125,28 @@ namespace ModuleManager.Domain
                 new ObjectParameter("naam", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("spRegisterUser", userNaamParameter, systeemRolParameter, emailParameter, naamParameter);
+        }
+    
+        public virtual int spArchiveCohort(Nullable<int> schooljaar)
+        {
+            var schooljaarParameter = schooljaar.HasValue ?
+                new ObjectParameter("schooljaar", schooljaar) :
+                new ObjectParameter("schooljaar", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spArchiveCohort", schooljaarParameter);
+        }
+    
+        public virtual int sp_CopyCohort(Nullable<int> schooljaarFrom, Nullable<int> schooljaarTo)
+        {
+            var schooljaarFromParameter = schooljaarFrom.HasValue ?
+                new ObjectParameter("schooljaarFrom", schooljaarFrom) :
+                new ObjectParameter("schooljaarFrom", typeof(int));
+    
+            var schooljaarToParameter = schooljaarTo.HasValue ?
+                new ObjectParameter("schooljaarTo", schooljaarTo) :
+                new ObjectParameter("schooljaarTo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CopyCohort", schooljaarFromParameter, schooljaarToParameter);
         }
     }
 }

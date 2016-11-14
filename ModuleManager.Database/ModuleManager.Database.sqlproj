@@ -115,6 +115,8 @@
     <Build Include="dbo\Stored Procedures\spEditUser.sql" />
     <Build Include="dbo\Stored Procedures\spGetRol.sql" />
     <Build Include="dbo\Stored Procedures\spRegisterUser.sql" />
+    <Build Include="dbo\Stored Procedures\spArchiveCohort.sql" />
+    <Build Include="dbo\Stored Procedures\spCopyCohort.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ModuleManager.Local.Database.publish.xml" />
@@ -122,6 +124,7 @@
     <None Include="scripts\testData\Schooljaar.sql" />
     <None Include="scripts\testData\SysteemRol.sql" />
     <None Include="ModuleManager.Prod.Database.publish.xml" />
+    <None Include="scripts\Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="scripts\Script.PostDeployment.sql" />

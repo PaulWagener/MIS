@@ -23,6 +23,7 @@
     <RestorePackages>true</RestorePackages>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <MvcBuildViews>true</MvcBuildViews>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -330,7 +331,7 @@
     <Compile Include="Controllers\PartialViewControllers\ModuleBlockController.cs" />
     <Compile Include="Controllers\PartialViewControllers\CompetentieController.cs" />
     <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
-    <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\LeerlijnenController.cs" />
     <Compile Include="Controllers\PartialViewControllers\ModuleController.cs" />
     <Compile Include="Controllers\PartialViewControllers\DocentController.cs" />
     <Compile Include="Controllers\PartialViewControllers\OnderdeelController.cs" />
@@ -346,6 +347,7 @@
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountVM.cs" />
+    <Compile Include="ViewModels\AdminArchiverenViewModel.cs" />
     <Compile Include="ViewModels\CheckModulesViewModel.cs" />
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />

@@ -15,7 +15,7 @@ namespace ModuleManager.Domain
     public partial class Leerdoel
     {
         public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public int Id { get; set; }
         public string Beschrijving { get; set; }
     

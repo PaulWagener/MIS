@@ -19,7 +19,7 @@ namespace ModuleManager.BusinessLogic.Data
         ICollection<string> _blokFilters;
         string _statusFilter;
         string _zoektermFilter;
-        string _leerjaarFilter;
+        int? _leerjaarFilter;
 
 
         public bool IsEmpty
@@ -170,12 +170,12 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke Leerjaar om op te filteren
         /// </summary>
-        public string LeerjaarFilter 
+        public int? LeerjaarFilter 
         {
             get { return _leerjaarFilter; }
             set
             {
-                if (value != null && value.Length > 0)
+                if (value != null && value > 0)
                 {
                     _leerjaarFilter = value;
                 }

@@ -28,4 +28,4 @@ go
 :r .\testData\Module.sql
 :r .\testData\SysteemRol.sql
 
---:r .\storedProcedures\stored_procedures.sql
+:r .\Users.sql

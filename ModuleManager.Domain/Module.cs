@@ -27,14 +27,14 @@ namespace ModuleManager.Domain
             this.Docenten = new HashSet<Docent>();
             this.Beoordelingen = new HashSet<Beoordeling>();
             this.Leerdoelen = new HashSet<Leerdoel>();
-            this.Leermiddelen = new HashSet<Leermiddel>();
             this.StudiePunten = new HashSet<StudiePunt>();
             this.ModuleWerkvormen = new HashSet<ModuleWerkvorm>();
             this.Fases = new HashSet<Fase>();
+            this.Leermiddelen = new HashSet<Leermiddel>();
         }
     
         public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string Naam { get; set; }
         public string Verantwoordelijke { get; set; }
@@ -43,6 +43,7 @@ namespace ModuleManager.Domain
         public string Icon { get; set; }
         public string Blok { get; set; }
         public bool Gecontroleerd { get; set; }
+        public bool ReadOnly { get; set; }
     
         public virtual Onderdeel Onderdeel { get; set; }
         public virtual Status Status1 { get; set; }
@@ -67,12 +68,13 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Leerdoel> Leerdoelen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leermiddel> Leermiddelen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudiePunt> StudiePunten { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ModuleWerkvorm> ModuleWerkvormen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fase> Fases { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Leermiddel> Leermiddelen { get; set; }
+        public virtual Schooljaar SchooljaarReference { get; set; }
     }
 }

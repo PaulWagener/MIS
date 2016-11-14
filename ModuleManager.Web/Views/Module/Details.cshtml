@@ -14,12 +14,6 @@
     
     if (@Model != null)
     {
-        //TODO: Fix this code; this use of exceptions scares me
-        // Jaartal
-        var j1 = Model.Schooljaar.Remove(Model.Schooljaar.Length - 2);
-        var j2 = Model.Schooljaar.Remove(0, 2);
-        jaar = "20" + j1 + "-20" + j2;
-
         // Docenten
         try
         {
@@ -85,7 +79,7 @@
     <tbody>
         <tr>
             <td>Schooljaar</td>
-            <td colspan="2">@jaar</td>
+            <td colspan="2">@Model.SchooljaarWeergave</td>
         </tr>
         <tr>
             <td>Cursus</td>

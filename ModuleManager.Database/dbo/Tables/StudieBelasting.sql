@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[StudieBelasting] (
     [CursusCode]  VARCHAR (50) NOT NULL,
-    [Schooljaar]  VARCHAR (8)  NOT NULL,
+    [Schooljaar]  INT		   NOT NULL,
     [Activiteit]  VARCHAR (50) NOT NULL,
     [ContactUren] INT          NULL,
     [Duur]        VARCHAR (50) NOT NULL,

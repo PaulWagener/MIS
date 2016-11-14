@@ -48,8 +48,8 @@ namespace ModuleManager.Web.Controllers
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);*/
 
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
-            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
             var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToArray();
@@ -123,13 +123,28 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Archive")]
         public ActionResult Archive()
         {
-            return View();
+            using (var context = new DomainEntities())
+            {
+                var jaren = context.Schooljaren.Select(sj => sj.JaarId).OrderByDescending(jaar => jaar).ToArray();
+                return View(new AdminArchiverenViewModel()
+                {
+                    CopyCohort = true,
+                    Cohorten = jaren,
+                    CopyToCohort = jaren.First() + 101 // bijv. 1516 => 1617
+                });
+            }
         }
 
         [HttpPost, Route("Admin/Archive")]
-        public ActionResult Archive(string code)
+        public ActionResult Archive(AdminArchiverenViewModel viewModel)
         {
-            if (code != "ARCHIVEREN")
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Message = "Er is geen geldig getal ingevuld bij het cohort. Probeer het alstublieft opnieuw.";
+                return View(viewModel);
+            }
+
+            if (viewModel.BevestigingsCode != "ARCHIVEREN")
             {
                 ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
                 return View();
@@ -139,7 +154,12 @@ namespace ModuleManager.Web.Controllers
 
             using (var context = new DomainEntities())
             {
-                //context.SP_ArchiveYear();
+                if (viewModel.CopyCohort)
+                {
+                    context.sp_CopyCohort(viewModel.TeArchiverenCohort, viewModel.CopyToCohort);
+                }
+
+                context.spArchiveCohort(viewModel.TeArchiverenCohort);
             }
 
             return View();

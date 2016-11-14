@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Weekplanning] (
     [CursusCode] VARCHAR (50)  NOT NULL,
-    [Schooljaar] VARCHAR (8)   NOT NULL,
+    [Schooljaar] INT		   NOT NULL,
     [Id]         INT           IDENTITY (1, 1) NOT NULL,
     [Week]       VARCHAR (10)  NOT NULL,
     [Onderwerp]  VARCHAR (500) NOT NULL,
