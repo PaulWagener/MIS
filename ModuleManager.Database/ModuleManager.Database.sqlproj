@@ -63,7 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="scripts" />
     <Folder Include="scripts\testData" />
-    <Folder Include="scripts\storedProcedures" />
+    <Folder Include="dbo\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Beoordeling.sql" />
@@ -111,13 +111,16 @@
     <None Include="scripts\testData\Icon.sql" />
     <Build Include="dbo\Tables\User.sql" />
     <Build Include="dbo\Tables\SysteemRol.sql" />
+    <Build Include="dbo\Stored Procedures\spAuthenticateUser.sql" />
+    <Build Include="dbo\Stored Procedures\spEditUser.sql" />
+    <Build Include="dbo\Stored Procedures\spGetRol.sql" />
+    <Build Include="dbo\Stored Procedures\spRegisterUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ModuleManager.Local.Database.publish.xml" />
     <None Include="ModuleManager.Dev.Database.publish.xml" />
     <None Include="scripts\testData\Schooljaar.sql" />
     <None Include="scripts\testData\SysteemRol.sql" />
-    <None Include="scripts\storedProcedures\stored_procedures.sql" />
     <None Include="ModuleManager.Prod.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
