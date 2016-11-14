@@ -8,7 +8,11 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
     public class ModuleViewModel
     {
         public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
+        public string SchooljaarWeergave
+        {
+            get { return "20" + Schooljaar / 100 + "-20" + Schooljaar % 100; }
+        }
         public string Beschrijving { get; set; }
         public string Naam { get; set; }
         public string Verantwoordelijke { get; set; }

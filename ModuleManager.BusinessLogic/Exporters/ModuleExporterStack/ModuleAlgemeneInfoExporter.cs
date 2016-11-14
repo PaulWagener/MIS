@@ -45,7 +45,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             Row row = table.AddRow();
             row.Cells[0].AddParagraph("Schooljaar");
-            row.Cells[1].AddParagraph("20" + toExport.Schooljaar.Substring(0, 2) + "-20" + toExport.Schooljaar.Substring(2));
+            row.Cells[1].AddParagraph("20" + (toExport.Schooljaar / 100) + "-20" + (toExport.Schooljaar % 100));
 
             row = table.AddRow();
             row.Cells[0].AddParagraph("Blokken");

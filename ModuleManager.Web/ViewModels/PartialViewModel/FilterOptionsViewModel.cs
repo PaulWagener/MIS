@@ -129,7 +129,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Mogelijke Leerjaar om op te filteren
         /// </summary>
-        public IEnumerable<string> Leerjaren { get; set; }
+        public IEnumerable<int> Leerjaren { get; set; }
         /// <summary>
         /// Mogelijke EC(s) om op te filteren
         /// </summary>

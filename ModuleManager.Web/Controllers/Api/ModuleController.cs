@@ -58,8 +58,8 @@ namespace ModuleManager.Web.Controllers.Api
                 if (value.Filter.Zoekterm != null)
                     zoektermFilter = value.Filter.Zoekterm;
 
-                string leerjaarFilter = null;
-                if (value.Filter.Leerjaar != null)
+                int? leerjaarFilter = null;
+                if (value.Filter.Leerjaar.HasValue)
                     leerjaarFilter = value.Filter.Leerjaar;
 
                 int column = value.OrderBy.Column;

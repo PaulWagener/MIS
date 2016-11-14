@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[ModuleWerkvorm] (
     [CursusCode]   VARCHAR (50)  NOT NULL,
-    [Schooljaar]   VARCHAR (8)   NOT NULL,
+    [Schooljaar]   INT			 NOT NULL,
     [WerkvormType] VARCHAR (5)   NOT NULL,
     [Organisatie]  VARCHAR (MAX) NULL,
     CONSTRAINT [PK_ModuleWerkvorm] PRIMARY KEY CLUSTERED ([CursusCode] ASC, [Schooljaar] ASC, [WerkvormType] ASC),

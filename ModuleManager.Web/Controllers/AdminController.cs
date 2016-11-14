@@ -7,6 +7,7 @@ using ModuleManager.Domain.Interfaces;
 using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using System.Collections.Generic;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -28,6 +29,11 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Index")]
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("Messages"))
+            {
+                ViewBag.Messages = TempData["Messages"];
+                ViewBag.MessageStatus = TempData["MessageStatus"];
+            }
             return View();
         }
 
@@ -48,8 +54,8 @@ namespace ModuleManager.Web.Controllers
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);*/
 
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
-            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
             var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToArray();
@@ -123,26 +129,49 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Archive")]
         public ActionResult Archive()
         {
-            return View();
+            using (var context = new DomainEntities())
+            {
+                var jaren = context.Schooljaren.Select(sj => sj.JaarId).OrderByDescending(jaar => jaar).ToArray();
+                return View(new AdminArchiverenViewModel()
+                {
+                    CopyCohort = true,
+                    Cohorten = jaren,
+                    CopyToCohort = jaren.First() + 101 // bijv. 1516 => 1617
+                });
+            }
         }
 
         [HttpPost, Route("Admin/Archive")]
-        public ActionResult Archive(string code)
+        public ActionResult Archive(AdminArchiverenViewModel viewModel)
         {
-            if (code != "ARCHIVEREN")
+            if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
-                return View();
+                ViewBag.Message = "Er is geen geldig getal ingevuld bij het cohort. Probeer het alstublieft opnieuw.";
+                return View(viewModel);
             }
 
-            //ViewBag.Message = "code: " + code;
+            if (viewModel.BevestigingsCode != "ARCHIVEREN")
+            {
+                ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
+                return View(viewModel);
+            }
 
             using (var context = new DomainEntities())
             {
-                //context.SP_ArchiveYear();
+                var messages = new List<string>();
+                if (viewModel.CopyCohort)
+                {
+                    context.sp_CopyCohort(viewModel.TeArchiverenCohort, viewModel.CopyToCohort);
+                    messages.Add(string.Format("Kopiëren van cohort {0} naar cohort {1} succesvol.", viewModel.TeArchiverenCohort, viewModel.CopyToCohort.Value));
+                }
+
+                messages.Add(string.Format("Archiveren van cohort {0} succesvol.", viewModel.TeArchiverenCohort));
+                TempData["Messages"] = messages;
+                TempData["MessageStatus"] = "success";
+                context.spArchiveCohort(viewModel.TeArchiverenCohort);
             }
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

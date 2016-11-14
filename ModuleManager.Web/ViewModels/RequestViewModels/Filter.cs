@@ -19,7 +19,7 @@ namespace ModuleManager.Web.ViewModels.RequestViewModels
         public ICollection<string> Blokken { get; set; }
         public ICollection<string> Tags { get; set; }
         public string Zoekterm { get; set; }
-        public string Leerjaar { get; set; }
+        public int? Leerjaar { get; set; }
         public string Ec { get; set; }
     }
 }

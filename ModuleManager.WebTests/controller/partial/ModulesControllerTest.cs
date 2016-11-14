@@ -29,7 +29,7 @@ namespace ModuleManager.WebTests.controller.partial
             testModule = new Module()
             {
                 CursusCode = "a",
-                Schooljaar = "b",
+                Schooljaar = 1516,
                 Verantwoordelijke = "c",
                 Status = "d",
                 Icon = "e",

@@ -8,7 +8,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
     public class StudieBelastingViewModel
     {
         public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
 
         [Required(ErrorMessage="Verplicht")]
         public string Activiteit { get; set; }

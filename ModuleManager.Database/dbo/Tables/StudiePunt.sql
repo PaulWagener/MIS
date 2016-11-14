@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[StudiePunt] (
     [CursusCode] VARCHAR (50) NOT NULL,
-    [Schooljaar] VARCHAR (8)  NOT NULL,
+    [Schooljaar] INT		  NOT NULL,
     [ToetsCode]  VARCHAR (50) NOT NULL,
     [Toetsvorm]  VARCHAR (50) NULL,
     [EC]         DECIMAL (18) NOT NULL,

@@ -2,11 +2,20 @@
     <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
     <li class="active">Beheer</li>
 </ol>
-
+@if (ViewBag.Messages != null)
+{
+    <div class="alert alert-@ViewBag.MessageStatus">
+        <ul>
+            @foreach (var message in ViewBag.Messages)
+            {
+                <li>@message</li>
+            }
+        </ul>
+    </div>
+}
 <h2>Beheer</h2>
 
 <h3>Curriculum</h3>
-
 <div class="row">
     <div class="col-md-3 category">
         <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Curriculum", "Admin")">
@@ -41,4 +50,4 @@
 </div>
 
 <!-- Help MODAL-->
-@Html.Partial("~/Views/Help/Admin.cshtml", null);
+@Html.Partial("~/Views/Help/Admin.cshtml", null)

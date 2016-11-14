@@ -15,7 +15,7 @@ namespace ModuleManager.Domain
     public partial class ModuleWerkvorm
     {
         public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public string WerkvormType { get; set; }
         public string Organisatie { get; set; }
     

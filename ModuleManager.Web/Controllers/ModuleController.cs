@@ -47,11 +47,11 @@ namespace ModuleManager.Web.Controllers
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
-            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
+            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
             filterOptions.AddECs();
             filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().ToList());
             filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
-            filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
+            filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll());
             filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll());
 
 
@@ -119,7 +119,7 @@ namespace ModuleManager.Web.Controllers
                 var leerlijnen = new List<Leerlijn>();
                 foreach(var leerlijn in moduleVm.Module.Leerlijnen)
                 {
-                    leerlijnen.Add(context.Leerlijnen.Find(new object[] { leerlijn.Naam,leerlijn.Schooljaar }));
+                    leerlijnen.Add(context.Leerlijnen.Find(new object[] { leerlijn.Naam }));
                 }
                 module.Leerlijnen = leerlijnen;
 

@@ -14,15 +14,12 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleLeerjaarFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.LeerjaarFilter != null && args.LeerjaarFilter.Length > 0)
+            if (args.LeerjaarFilter.HasValue)
             {
                 List<Module> result = new List<Module>();
-                    
-                var selectedModule = 
-                    from m in toQuery
-                        where
-                            (m.Schooljaar ?? "").ToLower().Contains(args.LeerjaarFilter.ToLower())
-                    select m;
+
+                var selectedModule = toQuery.Where(m => m.Schooljaar == args.LeerjaarFilter);
+
                 result.AddRange(selectedModule.Where(x => !result.Contains(x)));
 
                 toQuery = result.AsQueryable();

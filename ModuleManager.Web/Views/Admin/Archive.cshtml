@@ -1,4 +1,6 @@
-﻿<ol class="breadcrumb">
+﻿@model ModuleManager.Web.ViewModels.AdminArchiverenViewModel 
+        
+<ol class="breadcrumb">
     <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
     <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
     <li class="active">Archiveren</li>
@@ -14,15 +16,34 @@
             </div>
         }
         <div class="form-group">
-            <label for="confirm">Weet uw zeker dat uw het huidige cohort wil achiveren? Zoja Type dan "ARCHIVEREN" in hoofdletters hieronder.</label>
-            <input type="text" class="form-control" name="code" id="confirm" placeholder="ARCHIVEREN">
+            @Html.LabelFor(m => m.BevestigingsCode)
+            @Html.TextBoxFor(m => m.BevestigingsCode, new { @class = "form-control", placeholder = "ARCHIVEREN", id = "confirm" })
         </div>
-                <button id="archiveBtn" type="submit" class="btn btn-danger">Archiveren</button>
-                <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>
+        <div class="form-group">
+            @{
+                for (int i = 0; i < Model.Cohorten.Length; i++)
+                {
+                    @Html.HiddenFor(model => Model.Cohorten[i])
+                }
+                var cohorten = Model.Cohorten.Select(c => new SelectListItem() { Text = c.ToString(), Value = c.ToString(), Selected = c == Model.TeArchiverenCohort });
+            }
+            @Html.LabelFor(m => m.TeArchiverenCohort)
+            @Html.DropDownListFor(m => m.TeArchiverenCohort, cohorten, new { @class = "form-control" })
+        </div>
+        <div class="checkbox">
+            @Html.CheckBoxFor(m => m.CopyCohort, new { style = "margin-left: 0px;", id="btn_copyCohort" })
+            @Html.LabelFor(m => m.CopyCohort)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.CopyToCohort)
+            @Html.TextBoxFor(m => m.CopyToCohort, new { @class = "form-control txt_ToCohort" })
+        </div>
+        <button id="archiveBtn" type="submit" class="btn btn-danger">Archiveren</button>
+        <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>
     }
 </div>
 <!-- Help MODAL-->
-@Html.Partial("~/Views/Help/Archive.cshtml", null);
+@Html.Partial("~/Views/Help/Archive.cshtml", null)
 
 <!-- JAVA MEUK -->
 @section Scripts {
@@ -30,8 +51,11 @@
         $(function () {
             checkArchiveButton();
             $("#confirm").on("input", function () {
-                console.log($("#confirm").val());
-                checkArchiveButton();
+                checkArchiveButton()
+            });
+
+            $("#btn_copyCohort").on("click", function () {
+                $(".txt_ToCohort").attr('disabled', this.checked ? null : 'disabled');
             });
 
             function checkArchiveButton() {

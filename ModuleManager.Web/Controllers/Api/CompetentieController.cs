@@ -20,7 +20,7 @@ namespace ModuleManager.Web.Controllers.Api
         public IEnumerable<Competentie> GetAll()
         {
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)).ToArray();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
             return competenties;
         }
 

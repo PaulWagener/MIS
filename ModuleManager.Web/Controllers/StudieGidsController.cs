@@ -110,12 +110,11 @@ namespace ModuleManager.Web.Controllers
         public FileStreamResult GetCompetentiesExport()
         {
             CompetentieExportArguments args = new CompetentieExportArguments() { ExportAll = true };
-            var data = _unitOfWork.GetRepository<Competentie>().GetAll();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll();
 
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            var lastYearData = (from element in data where element.Schooljaar.Equals(maxSchooljaar) select element).ToList();
 
-            IExportablePack<Competentie> pack = new CompetentieExportablePack(args, lastYearData);
+            IExportablePack<Competentie> pack = new CompetentieExportablePack(args, competenties);
             Stream fStream = _competentieExporterService.ExportAllAsStream(pack);
 
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Competenties.pdf");
@@ -127,12 +126,9 @@ namespace ModuleManager.Web.Controllers
         public FileStreamResult GetLeerlijnenExport()
         {
             LeerlijnExportArguments args = new LeerlijnExportArguments() { ExportAll = true };
-            var data = _unitOfWork.GetRepository<Leerlijn>().GetAll();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
 
-            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            var lastYearData = (from element in data where element.Schooljaar.Equals(maxSchooljaar) select element).ToList();
-
-            IExportablePack<Leerlijn> pack = new LeerlijnExportablePack(args, lastYearData);
+            IExportablePack<Leerlijn> pack = new LeerlijnExportablePack(args, leerlijnen);
             Stream fStream = _leerlijnExporterService.ExportAllAsStream(pack);
 
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Leerlijnen.pdf");

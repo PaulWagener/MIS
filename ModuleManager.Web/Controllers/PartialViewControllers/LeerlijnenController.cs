@@ -33,13 +33,6 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any())
-                    return Json(new { success = false });
-                var schooljaar = schooljaren.Last();
-
-                entity.Schooljaar = schooljaar.JaarId;
-
                 var value = _unitOfWork.GetRepository<Leerlijn>().Create(entity);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
@@ -50,14 +43,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Leerlijnen/Delete")]
-        public ActionResult Delete(string naam, string schooljaar)
+        public ActionResult Delete(string naam)
         {
             if (naam == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Leerlijn leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(new object[] { naam, schooljaar });
+            Leerlijn leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(new object[] { naam });
 
             if (leerlijn == null)
             {

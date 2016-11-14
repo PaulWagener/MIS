@@ -21,7 +21,6 @@ namespace ModuleManager.Domain
         }
     
         public string Naam { get; set; }
-        public string Schooljaar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }

@@ -21,13 +21,13 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Competenties/Details")]
-        public ActionResult Details(string code, string schooljaar)
+        public ActionResult Details(string code)
         {
             if (code == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code, schooljaar });
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code });
 
             if (competentie == null)
             {
@@ -50,13 +50,6 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any())
-                    return Json(new { success = false });
-                var schooljaar = schooljaren.Last();
-
-                entity.Schooljaar = schooljaar.JaarId;
-
                 var value = _unitOfWork.GetRepository<Competentie>().Create(entity);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
@@ -67,13 +60,13 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Competenties/Edit")]
-        public ActionResult Edit(string code, string schooljaar)
+        public ActionResult Edit(string code)
         {
             if (code == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code, schooljaar });
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code });
 
             if (competentie == null)
             {
@@ -99,14 +92,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Competenties/Delete")]
-        public ActionResult Delete(string code, string schooljaar)
+        public ActionResult Delete(string code)
         {
             if (code == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code, schooljaar });
+            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code });
 
             if (competentie == null)
             {
