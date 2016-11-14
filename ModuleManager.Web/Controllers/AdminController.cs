@@ -7,6 +7,7 @@ using ModuleManager.Domain.Interfaces;
 using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using System.Collections.Generic;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -28,6 +29,11 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Index")]
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("Messages"))
+            {
+                ViewBag.Messages = TempData["Messages"];
+                ViewBag.MessageStatus = TempData["MessageStatus"];
+            }
             return View();
         }
 
@@ -147,22 +153,25 @@ namespace ModuleManager.Web.Controllers
             if (viewModel.BevestigingsCode != "ARCHIVEREN")
             {
                 ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
-                return View();
+                return View(viewModel);
             }
-
-            //ViewBag.Message = "code: " + code;
 
             using (var context = new DomainEntities())
             {
+                var messages = new List<string>();
                 if (viewModel.CopyCohort)
                 {
                     context.sp_CopyCohort(viewModel.TeArchiverenCohort, viewModel.CopyToCohort);
+                    messages.Add(string.Format("Kopiëren van cohort {0} naar cohort {1} succesvol.", viewModel.TeArchiverenCohort, viewModel.CopyToCohort.Value));
                 }
 
+                messages.Add(string.Format("Archiveren van cohort {0} succesvol.", viewModel.TeArchiverenCohort));
+                TempData["Messages"] = messages;
+                TempData["MessageStatus"] = "success";
                 context.spArchiveCohort(viewModel.TeArchiverenCohort);
             }
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
