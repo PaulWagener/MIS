@@ -118,6 +118,7 @@
     <None Include="scripts\testData\Schooljaar.sql" />
     <None Include="scripts\testData\SysteemRol.sql" />
     <None Include="scripts\storedProcedures\stored_procedures.sql" />
+    <None Include="ModuleManager.Prod.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="scripts\Script.PostDeployment.sql" />
