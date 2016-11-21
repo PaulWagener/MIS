@@ -23,7 +23,7 @@ namespace ModuleManager.Web.Controllers.Api
 
         [HttpGet, Route("api/Onderdeel/Get/{key}")]
         //public Onderdeel GetOne(string key)
-        public Onderdeel GetOne(string schooljaar, string key)
+        public Onderdeel GetOne(int schooljaar, string key)
         {
             var keys = new object[] { key };
             return _onderdeelRepository.GetOne(keys);

@@ -22,7 +22,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Lock(string CursusCode, string Schooljaar, bool Blocked)
+        public ActionResult Lock(string CursusCode, int Schooljaar, bool Blocked)
         {
             if (CursusCode == null || Schooljaar == null)
             {

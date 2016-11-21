@@ -25,7 +25,7 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpGet, Route("api/Competentie/Get/{schooljaar}/{key}")]
-        public Competentie GetOne(string schooljaar, string key)
+        public Competentie GetOne(int schooljaar, string key)
         {
             var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { key, schooljaar });
             return competentie;
