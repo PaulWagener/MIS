@@ -3,7 +3,7 @@
     public class StudiePuntenViewModel
     {
         public string CursusCode { get; set; }
-        public string Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public string ToetsCode { get; set; }
         public string Toetsvorm { get; set; }
         public decimal EC { get; set; }

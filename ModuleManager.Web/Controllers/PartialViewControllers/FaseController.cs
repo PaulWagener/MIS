@@ -112,7 +112,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Fases/Delete")]
-        public ActionResult Delete(string naam, string schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
+        public ActionResult Delete(string naam, int schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
         {
             if (naam == null)
             {

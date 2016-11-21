@@ -65,7 +65,7 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
-        public ActionResult Details(string schooljaar, string cursusCode)
+        public ActionResult Details(int schooljaar, string cursusCode)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
             var moduleVM = Mapper.Map<Module, ModuleViewModel>(module);
@@ -74,7 +74,7 @@ namespace ModuleManager.Web.Controllers
 
         [Authorize]
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
-        public ActionResult Edit(string schooljaar, string cursusCode)
+        public ActionResult Edit(int schooljaar, string cursusCode)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
 
@@ -193,7 +193,7 @@ namespace ModuleManager.Web.Controllers
         //PDF Download Code
 
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
-        public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
+        public FileStreamResult ExportSingleModule(int schooljaar, string cursusCode)
         {
             Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar }));
 

@@ -107,7 +107,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Modules/Edit")]
-        public ActionResult Edit(string cursusCode, string schooljaar)
+        public ActionResult Edit(string cursusCode, int schooljaar)
         {
             if (cursusCode == null || schooljaar == null)
             {
@@ -207,7 +207,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Modules/Delete")]
-        public ActionResult Delete(string cursusCode, string schooljaar)
+        public ActionResult Delete(string cursusCode, int schooljaar)
         {
             if (cursusCode == null)
             {

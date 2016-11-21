@@ -8,7 +8,7 @@ namespace ModuleManager.Web.Controllers.Api.Interfaces
     public interface IModuleApiController
     {
         ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value);
-        Module GetOne(string schooljaar, string key);
+        Module GetOne(int schooljaar, string key);
         void Delete(Module entity);
         void Create(Module entity);  
     }

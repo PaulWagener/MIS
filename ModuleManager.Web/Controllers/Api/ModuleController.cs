@@ -124,7 +124,7 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
-        public Module GetOne(string schooljaar, string key)
+        public Module GetOne(int schooljaar, string key)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { key, schooljaar });
             return module;
