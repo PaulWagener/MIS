@@ -114,7 +114,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            Module module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
 
             if (module == null)
             {
@@ -154,8 +154,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                 Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
-
+                Module module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == entity.CursusCode && m.Schooljaar == entity.Schooljaar);
 
                 /* Studie Punten */
                 ICollection<StudiePunt> studiepuntenList = new List<StudiePunt>();
@@ -189,7 +188,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 var faseRepo = _unitOfWork.GetRepository<Fase>();
                 foreach (var faseNaam in entity.SelectedFases)
                 {
-                    module.Fases.Add(faseRepo.GetOne(new object[] { faseNaam }));
+                    module.Fases.Add(faseRepo.GetOne(f => f.Naam == faseNaam));
                 }
 
                 var value = _unitOfWork.GetRepository<Module>().Edit(module);
@@ -214,7 +213,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            Module module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
 
             if (module == null)
             {

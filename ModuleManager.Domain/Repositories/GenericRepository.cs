@@ -6,6 +6,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using ModuleManager.Domain.Interfaces;
 using ModuleManager.Domain.Utility;
+using System.Linq.Expressions;
 
 namespace ModuleManager.Domain.Repositories
 {
@@ -23,9 +24,9 @@ namespace ModuleManager.Domain.Repositories
             return _context.Set<T>().ToList();
         }
 
-        public T GetOne(object[] keys)
+        public T GetOne(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Find(keys);
+            return _context.Set<T>().FirstOrDefault(predicate);
         }
 
         public string Create(T entity)

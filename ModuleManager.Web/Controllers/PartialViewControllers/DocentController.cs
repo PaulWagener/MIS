@@ -47,7 +47,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
           if (id <= 0 ) {
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
           }
-          var docent = _unitOfWork.GetRepository<Docent>().GetOne(new object[] { id });
+          var docent = _unitOfWork.GetRepository<Docent>().GetOne(d => d.Id == id);
 
           if (docent == null) {
             return HttpNotFound();
@@ -82,7 +82,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Docent docent = _unitOfWork.GetRepository<Docent>().GetOne(new object[] { id.Value });
+            Docent docent = _unitOfWork.GetRepository<Docent>().GetOne(d => d.Id == id);
 
             if (docent == null)
             {
@@ -103,7 +103,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
             try
             {
-                Docent docent = _unitOfWork.GetRepository<Docent>().GetOne(new object[] { entity.Id });
+                Docent docent = _unitOfWork.GetRepository<Docent>().GetOne(d => d.Id == entity.Id);
 
                 var value = _unitOfWork.GetRepository<Docent>().Delete(docent);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });

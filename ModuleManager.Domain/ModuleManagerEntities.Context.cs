@@ -47,13 +47,13 @@ namespace ModuleManager.Domain
         public virtual DbSet<Beoordeling> Beoordelingen { get; set; }
         public virtual DbSet<Leerdoel> Leerdoelen { get; set; }
         public virtual DbSet<Leermiddel> Leermiddelen { get; set; }
-        public virtual DbSet<StudiePunt> StudiePunten { get; set; }
         public virtual DbSet<Icon> Icons { get; set; }
         public virtual DbSet<ModuleWerkvorm> ModuleWerkvormen { get; set; }
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<SysteemRol> SysteemRol { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Schooljaar> Schooljaren { get; set; }
+        public virtual DbSet<StudiePunt> StudiePunten { get; set; }
     
         public virtual ObjectResult<Nullable<int>> spAuthenticateUser(string userName, string password)
         {

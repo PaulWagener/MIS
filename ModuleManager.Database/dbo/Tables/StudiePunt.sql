@@ -3,7 +3,7 @@
     [Schooljaar] INT		  NOT NULL,
     [ToetsCode]  VARCHAR (50) NOT NULL,
     [Toetsvorm]  VARCHAR (50) NULL,
-    [EC]         DECIMAL (18) NOT NULL,
+    [EC]         FLOAT NOT NULL,
     [Minimum]    VARCHAR (50) NULL,
     CONSTRAINT [PK_StudiePunten] PRIMARY KEY CLUSTERED ([CursusCode] ASC, [Schooljaar] ASC, [ToetsCode] ASC),
     CONSTRAINT [FK_StudiePunten_Module] FOREIGN KEY ([CursusCode], [Schooljaar]) REFERENCES [dbo].[Module] ([CursusCode], [Schooljaar]),

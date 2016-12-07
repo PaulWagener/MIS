@@ -65,7 +65,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             }
 
             var faseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList();
-            var fase = _unitOfWork.GetRepository<Fase>().GetOne(new object[] { naam });
+            var fase = _unitOfWork.GetRepository<Fase>().GetOne(f => f.Naam == naam);
 
             if (fase == null)
             {
@@ -119,7 +119,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Fase fase = _unitOfWork.GetRepository<Fase>().GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
+            // TODO: Opleidingsnaam & opleidingsschooljaar uit het request halen.
+            Fase fase = _unitOfWork.GetRepository<Fase>().GetOne(f => f.Naam == naam && f.OpleidingNaam == opleidingsNaam);
 
             if (fase == null)
             {

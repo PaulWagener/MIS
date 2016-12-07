@@ -43,7 +43,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Tag tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { naam });
+            Tag tag = _unitOfWork.GetRepository<Tag>().GetOne(t => t.Naam == naam);
 
             if (tag == null)
             {

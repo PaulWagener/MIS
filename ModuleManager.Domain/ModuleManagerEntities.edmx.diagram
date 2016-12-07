@@ -38,11 +38,8 @@
         <EntityTypeShape EntityType="Domain.Beoordeling" Width="1.5" PointX="17.625" PointY="13" />
         <EntityTypeShape EntityType="Domain.Leerdoel" Width="1.5" PointX="5" PointY="9.25" />
         <EntityTypeShape EntityType="Domain.Leermiddel" Width="1.5" PointX="21.125" PointY="13" />
-        <EntityTypeShape EntityType="Domain.StudiePunt" Width="1.5" PointX="2.875" PointY="9.25" />
         <AssociationConnector Association="Domain.FK_Beoordelingen_Module" />
         <AssociationConnector Association="Domain.FK_Leerdoelen_Module" />
-        <AssociationConnector Association="Domain.FK_StudiePunten_Module" />
-        <AssociationConnector Association="Domain.FK_StudiePunten_Toetsvorm" />
         <EntityTypeShape EntityType="Domain.Icon" Width="1.5" PointX="10.875" PointY="13" />
         <AssociationConnector Association="Domain.FK_Module_Icon" />
         <EntityTypeShape EntityType="Domain.ModuleWerkvorm" Width="1.5" PointX="9.375" PointY="20.5" />
@@ -56,6 +53,9 @@
         <EntityTypeShape EntityType="Domain.Schooljaar" Width="1.5" PointX="14.125" PointY="6.125" />
         <AssociationConnector Association="Domain.FK_Leermiddelen_Module" />
         <AssociationConnector Association="Domain.FK_Module_Schooljaar" />
+        <EntityTypeShape EntityType="Domain.StudiePunt" Width="1.5" PointX="3.125" PointY="9" />
+        <AssociationConnector Association="Domain.FK_StudiePunten_Module" />
+        <AssociationConnector Association="Domain.FK_StudiePunten_Toetsvorm" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

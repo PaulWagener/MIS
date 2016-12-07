@@ -67,7 +67,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(int schooljaar, string cursusCode)
         {
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
             var moduleVM = Mapper.Map<Module, ModuleViewModel>(module);
             return View(moduleVM);
         }
@@ -76,7 +76,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(int schooljaar, string cursusCode)
         {
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
 
             var moduleEditViewModel = new ModuleEditViewModel
             {
@@ -108,7 +108,7 @@ namespace ModuleManager.Web.Controllers
             using(var context = new DomainEntities()){
 
                 //Ophalen originele module
-                var module = context.Modules.Find(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+                var module = context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
 
                 //simpel fields
                 module.Beschrijving = moduleVm.Module.Beschrijving;
@@ -119,7 +119,7 @@ namespace ModuleManager.Web.Controllers
                 var leerlijnen = new List<Leerlijn>();
                 foreach(var leerlijn in moduleVm.Module.Leerlijnen)
                 {
-                    leerlijnen.Add(context.Leerlijnen.Find(new object[] { leerlijn.Naam }));
+                    leerlijnen.Add(context.Leerlijnen.FirstOrDefault(ll => ll.Naam == leerlijn.Naam));
                 }
                 module.Leerlijnen = leerlijnen;
 
@@ -128,7 +128,7 @@ namespace ModuleManager.Web.Controllers
                 var tags = new List<Tag>();
                 foreach (var tag in moduleVm.Module.Tags)
                 {
-                    tags.Add(context.Tags.Find(new object[] { tag.Naam }));
+                    tags.Add(context.Tags.FirstOrDefault(t => t.Naam == tag.Naam));
                 }
                 module.Tags = tags;
 
@@ -137,7 +137,7 @@ namespace ModuleManager.Web.Controllers
                 var voorkennis = new List<Module>();
                 foreach (var moduleVoorkennis in moduleVm.Module.Voorkennis)
                 {
-                    voorkennis.Add(context.Modules.Find(moduleVoorkennis.CursusCode, moduleVoorkennis.Schooljaar));
+                    voorkennis.Add(context.Modules.FirstOrDefault(m => m.CursusCode == moduleVoorkennis.CursusCode && m.Schooljaar == moduleVoorkennis.Schooljaar));
                 }
                 module.Voorkennis = voorkennis;
 
@@ -146,7 +146,7 @@ namespace ModuleManager.Web.Controllers
                 var docenten = new List<Docent>();
                 foreach (var docent in moduleVm.Module.Docenten)
                 {
-                    docenten.Add(context.Docenten.Find(docent.Id));
+                    docenten.Add(context.Docenten.FirstOrDefault(d => d.Id == docent.Id));
                 }
                 module.Docenten = docenten;
 
@@ -195,7 +195,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(int schooljaar, string cursusCode)
         {
-            Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar }));
+            Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar));
 
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 

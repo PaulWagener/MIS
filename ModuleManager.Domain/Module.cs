@@ -27,10 +27,10 @@ namespace ModuleManager.Domain
             this.Docenten = new HashSet<Docent>();
             this.Beoordelingen = new HashSet<Beoordeling>();
             this.Leerdoelen = new HashSet<Leerdoel>();
-            this.StudiePunten = new HashSet<StudiePunt>();
             this.ModuleWerkvormen = new HashSet<ModuleWerkvorm>();
             this.Fases = new HashSet<Fase>();
             this.Leermiddelen = new HashSet<Leermiddel>();
+            this.StudiePunten = new HashSet<StudiePunt>();
         }
     
         public string CursusCode { get; set; }
@@ -68,13 +68,13 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Leerdoel> Leerdoelen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudiePunt> StudiePunten { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ModuleWerkvorm> ModuleWerkvormen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fase> Fases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Leermiddel> Leermiddelen { get; set; }
         public virtual Schooljaar SchooljaarReference { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudiePunt> StudiePunten { get; set; }
     }
 }

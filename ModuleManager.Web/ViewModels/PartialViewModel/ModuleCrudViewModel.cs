@@ -26,8 +26,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public string Toetscode2 { get; set; }
 
         [Required]
-        public decimal Ec1 { get; set; }
-        public decimal Ec2 { get; set; }
+        public double Ec1 { get; set; }
+        public double Ec2 { get; set; }
 
         public IEnumerable<Fase> Fases { get; set; }
         public IEnumerable<string> SelectedFases { get; set; }

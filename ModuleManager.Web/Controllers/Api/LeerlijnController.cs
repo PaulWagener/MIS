@@ -27,7 +27,8 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Leerlijn/Get/{schooljaar}/{key}")]
         public Leerlijn GetOne(int schooljaar, string key)
         {
-            var leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(new object[] { key, schooljaar });
+            // TODO: Schooljaar uit het request halen.
+            var leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(ll => ll.Naam == key);
             return leerlijn;
         }
 

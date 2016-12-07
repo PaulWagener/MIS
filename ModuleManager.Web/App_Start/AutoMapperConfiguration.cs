@@ -60,8 +60,6 @@ namespace ModuleManager.Web
                     src => string.Join(Delimiter, src.Docenten.Select(inSrc => inSrc.Naam))));
 
             Mapper.CreateMap<Module, ModuleTabelViewModel>()
-                .ForMember(dest => dest.Onderdeel, opt => opt.MapFrom(
-                    src => src.OnderdeelCode)) // TODO:
                 .ForMember(dest => dest.Cursuscode, opt => opt.MapFrom(
                     src => src.CursusCode)) // TODO:
                 .ForMember(dest => dest.Omschrijving, opt => opt.MapFrom(

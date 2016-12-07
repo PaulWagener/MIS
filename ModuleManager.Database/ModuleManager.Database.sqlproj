@@ -125,6 +125,11 @@
     <None Include="scripts\testData\SysteemRol.sql" />
     <None Include="ModuleManager.Prod.Database.publish.xml" />
     <None Include="scripts\Users.sql" />
+    <None Include="scripts\testData\FaseModule.sql" />
+    <None Include="scripts\testData\ModuleWerkvorm.sql" />
+    <None Include="scripts\testData\Studiebelasting.sql" />
+    <None Include="scripts\testData\Toetsvorm.sql" />
+    <None Include="scripts\testData\Studiepunt.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="scripts\Script.PostDeployment.sql" />

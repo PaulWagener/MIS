@@ -13,6 +13,7 @@ using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces;
 using System.IO;
 using System.Web.UI.WebControls.Expressions;
+using System.Data.Entity;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -35,69 +36,51 @@ namespace ModuleManager.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //var vm = new StudiegidsViewModel();
+            var maxSchooljaar = _unitOfWork.Context.Schooljaren.Max(sj => sj.JaarId);
 
-            //foreach (var ft in _unitOfWork.GetRepository<FaseType>().GetAll()) // Geen Jaar
-            //{
-            //    var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            //    var tabellenlijst = new LessenTabelViewModel { FaseType = ft.Type };
-            //    var fasems = _unitOfWork.GetRepository<Fase>().GetAll()
-            //        .Where(src => src.Module.Status.Equals("Compleet (gecontroleerd)"));
+            var fases = _unitOfWork.Context.Fases
+                            .Include(f => f.Modules)
+                            .Include(f => f.Modules.Select(m => m.StudiePunten))
+                            .Include(f => f.Modules.Select(m => m.StudieBelastingen))
+                            .Include(f => f.Modules.Select(m => m.ModuleWerkvormen))
+                            .Select(f => new
+                            {
+                                Fase = f,
+                                Blokken = f.Modules
+                                           .Where(m => m.Schooljaar == maxSchooljaar && m.Status == "Compleet")
+                                           .GroupBy(m => m.Blok)
+                                           .OrderBy(group => group.Key)
+                            })
+                            .Where(f => f.Blokken.Any())
+                            .OrderBy(f => f.Fase.FaseType)
+                            .ThenBy(f => f.Fase.Naam);
 
-            //    var fases = _unitOfWork.GetRepository<Fase>().GetAll()
-            //        .ToList();
-            //    //return CollectionA
-            //    //  .Join(CollectionB,
-            //    //      a => new { a.KeyA, a.KeyB },
-            //    //      b => new { b.KeyA, b.KeyB },
-            //    //      (a, b) => new { a, b })
-            //    var joined = fasems
-            //        .Join(fases,
-            //            a => new { fnaam = a.FaseNaam },
-            //            b => new { fnaam = b.Naam},
-            //            (a, b) => new { a, b }).ToList();
-            //    foreach (var random in joined
-            //        .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))
-            //        .DistinctBy(src => src.a.FaseNaam))
-            //    {
-            //        var tabel = new LesTabelViewModel { FaseNaam = random.a.FaseNaam };
-            //        var rows = new List<ModuleTabelViewModel>();
-            //        foreach (var fm2 in fasems
-            //             .Where(src => src.FaseNaam.Equals(tabel.FaseNaam)))
-            //        {
-            //            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar }); //
-            //            if (module != null && module.Status.Equals("Compleet (gecontroleerd)"))
-            //            {
-            //                var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
-            //                rows.Add(row);
-            //            }
-            //        }
-            //        var orderedRows = rows.OrderBy(src => src.Onderdeel).ToList();
-            //        var uniqueOnderdelen = orderedRows.Select(src => src.Onderdeel).Distinct();
-            //        foreach (var onderdeel in uniqueOnderdelen)
-            //        {
-            //            tabel.Onderdelen.Add(new OnderdeelTabelViewModel { Onderdeel = onderdeel });
-            //        }
-            //        foreach (var module in orderedRows)
-            //        {
-            //            if (module.Onderdeel != null)
-            //            {
-            //                OnderdeelTabelViewModel onderdeelTabelViewModel = tabel.Onderdelen.FirstOrDefault(src => src.Onderdeel.Equals(module.Onderdeel));
-            //                if (onderdeelTabelViewModel != null)
-            //                    onderdeelTabelViewModel.Modules.Add(module);
-            //            }
-            //        }
-            //        tabellenlijst.Tabellen.Add(tabel);
-            //    }
-            //    vm.Opleidingsfasen.Add(tabellenlijst);
-            //    vm.Opleidingsfasen = vm.Opleidingsfasen.OrderBy(src => src.FaseType).ToList();
-            //    var last = vm.Opleidingsfasen.LastOrDefault();
-            //    vm.Opleidingsfasen.Remove(last);
-            //    vm.Opleidingsfasen.Insert(0, last);
-            //}
+            var vm = new StudiegidsViewModel()
+            {
+                Opleidingsfasen = fases.Select(faseItem => new LessenTabelViewModel()
+                {
+                    FaseType = faseItem.Fase.FaseType,
+                    FaseNaam = faseItem.Fase.Naam,
+                    Tabellen = faseItem.Blokken.Select(modulesByBlok => new LesTabelViewModel()
+                    {
+                        Blok = modulesByBlok.Key,
+                        Onderdelen = modulesByBlok.GroupBy(m => m.OnderdeelCode).Select(modulesInBlokByOnderdeel => new OnderdeelTabelViewModel()
+                        {
+                            Onderdeel = modulesInBlokByOnderdeel.Key,
+                            Modules = modulesInBlokByOnderdeel.Select(module => new ModuleTabelViewModel()
+                            {
+                                Contacturen = module.StudieBelastingen.Where(sb => sb.ContactUren > 0).Select(sb => sb.SBU).ToList(),
+                                Cursuscode = module.CursusCode,
+                                Omschrijving = module.Naam,
+                                Studiepunten = module.StudiePunten.ToList(),
+                                Werkvormen = module.ModuleWerkvormen.Select(vw => vw.WerkvormType).ToList()
+                            }).ToList()
+                        }).ToList()
+                    }).ToList()
+                }).ToList()
+            };
 
-            //Kapot na refactor slag Fases
-            return View();
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)

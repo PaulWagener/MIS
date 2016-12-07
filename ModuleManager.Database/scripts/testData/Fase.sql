@@ -1,7 +1,8 @@
 ﻿MERGE INTO Fase AS Target  
 USING (values 
 	('SO', 'Software ontwikkeling', 'Major', 'Informatica'), 
-	('BI', 'Bedrijfskundige Informatica', 'Major', 'Informatica')
+	('BI', 'Bedrijfskundige Informatica', 'Major', 'Informatica'),
+	(N'Regulier', NULL, N'Propedeuse', N'Informatica')
 ) AS Source (Naam, Beschrijving, FaseType, Opleidingnaam)  
 ON Target.Naam = Source.Naam  
 WHEN NOT MATCHED BY TARGET THEN  

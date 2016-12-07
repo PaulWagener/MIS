@@ -22,13 +22,13 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Lock(string CursusCode, int Schooljaar, bool Blocked)
+        public ActionResult Lock(string cursusCode, int schooljaar, bool Blocked)
         {
-            if (CursusCode == null || Schooljaar == null)
+            if (cursusCode == null || schooljaar == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { CursusCode, Schooljaar });
+            var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
             if (module == null)
             {
                 return HttpNotFound();
@@ -44,7 +44,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             if (ModelState.IsValid)
             {
-                var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVM.CursusCode, moduleVM.Schooljaar });
+                var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == moduleVM.CursusCode && m.Schooljaar == moduleVM.Schooljaar);
                 if (moduleVM.Blocked)
                 {
                     module.Status = "Compleet (gecontroleerd)";

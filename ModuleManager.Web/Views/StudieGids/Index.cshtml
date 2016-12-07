@@ -11,23 +11,14 @@
     <a class="btn btn-success" href="@Url.Action("GetCompetentiesExport", "StudieGids")"><i class="fa fa-download"></i> Competenties</a>
     <a class="btn btn-success" href="@Url.Action("GetLessentabelExport","StudieGids")"><i class="fa fa-download"></i> Lessentabel</a>
 </div>
-@{
-    string hoofdTitle = null;
-}
-@foreach (var opleidingsfasen in Model.Opleidingsfasen)
-{
-    
-    foreach (var tabellen in opleidingsfasen.Tabellen)
-    {
-        var hoofdTitle2 = opleidingsfasen.FaseType + " - " + tabellen.FaseNaam;
-        if (@hoofdTitle != opleidingsfasen.FaseType + " - " + tabellen.FaseNaam)
-        {
-            hoofdTitle = hoofdTitle2;
-            <h1>@hoofdTitle</h1>
-        }
-        var title = "Blok " + tabellen.Blok + " (" + tabellen.Semester + "e Semester)";
 
-        <h3>@title</h3>
+@foreach (var opleidingsfase in Model.Opleidingsfasen)
+{
+    <h1>@opleidingsfase.FaseType - @opleidingsfase.FaseNaam</h1>
+
+    foreach (var tabel in opleidingsfase.Tabellen)
+    {
+        <h3>Blok @tabel.Blok (@(tabel.Semester)e Semester)</h3>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr style="background: #DA0046; color: #FFFFFF;"><!-- style="background: #FDF4EA -->
@@ -35,82 +26,28 @@
                 </tr>
             </thead>
             <tbody>
-                @{ var onderdeelName = ""; }
-                @foreach(var onderdeel in tabellen.Onderdelen)
+                @for (int oIx = 0; oIx < tabel.Onderdelen.Count; oIx++)
                 {
-                    var onderdeelSpan = onderdeel.Modules.Aggregate(0, (current, i) => current + i.Studiepunten.Count);
-
-                    foreach (var module in onderdeel.Modules)
+                    var onderdeelSpan = tabel.Onderdelen[oIx].Modules.SelectMany(m => m.Studiepunten.DefaultIfEmpty(new ModuleManager.Domain.StudiePunt())).Count();
+                    for (int mIx = 0; mIx < tabel.Onderdelen[oIx].Modules.Count; mIx++)
                     {
-                        if (module.Studiepunten.Count == 1)
+                        if (tabel.Onderdelen[oIx].Modules[mIx].Studiepunten.Count == 0)
                         {
-                            
-                            <tr>
-                                @if (onderdeelName != module.Onderdeel)
-                                {
-                                    onderdeelName = module.Onderdeel;
-                                    <td rowspan="@onderdeelSpan">@module.Onderdeel</td>
-                                }
-                                <td>@module.Cursuscode</td>
-                                <td>@module.Omschrijving</td>
-                                <td>@module.Contacturen</td>
-                                <td>@module.Werkvormen</td>
-                                <td>@module.Studiepunten.First().ToetsCode</td>
-                                <td>@module.Studiepunten.First().Toetsvorm</td>
-                                <td>@module.Studiepunten.First().EC</td>
-                                <td>@module.Studiepunten.First().Minimum</td>
-                            </tr>
+                            @TableRow(tabel, onderdeelSpan, oIx, mIx)
                         }
-                        else if (module.Studiepunten.Count >= 2)
+                        for (int sbIx = 0; sbIx < tabel.Onderdelen[oIx].Modules[mIx].Studiepunten.Count; sbIx++)
                         {
-                            int count = @module.Studiepunten.Count;
-                            <tr>
-                                @if (onderdeelName != module.Onderdeel)
-                                {
-                                    onderdeelName = module.Onderdeel;
-                                    if (onderdeelSpan == 1)
-                                    {
-                                        <td rowspan="@count">@module.Onderdeel</td>
-                                    }
-                                    else
-                                    {
-                                        <td rowspan="@onderdeelSpan">@module.Onderdeel</td>
-                                    }
-                                }
-                                else
-                                {
-                                    <td rowspan="@count">@module.Onderdeel</td>
-                                }
-                                <td rowspan="@count">@module.Cursuscode</td>
-                                <td rowspan="@count">@module.Omschrijving</td>
-                                <td rowspan="@count">@module.Contacturen</td>
-                                <td rowspan="@count">@module.Werkvormen</td>
-                                <td>@module.Studiepunten.First().ToetsCode</td>
-                                <td>@module.Studiepunten.First().Toetsvorm</td>
-                                <td>@module.Studiepunten.First().EC</td>
-                                <td>@module.Studiepunten.First().Minimum</td>
-                            </tr>
-
-                            var module1 = module;
-                            foreach (var studiePunt in module.Studiepunten.Where(s => s != module1.Studiepunten.First()))
-                            {
-                                <tr>
-                                    <td>@studiePunt.ToetsCode</td>
-                                    <td>@studiePunt.Toetsvorm</td>
-                                    <td>@studiePunt.EC</td>
-                                    <td>@studiePunt.Minimum</td>
-                                </tr>
-                            }
+                            @TableRow(tabel, onderdeelSpan, oIx, mIx, sbIx)
                         }
                     }
                 }
                 <tr style="background: #CDEBF0;">
                     <td colspan="2"></td>
                     <th>Totaal</th>
-                    <th>@tabellen.TotaleContactUren</th>
+                    <th>@tabel.TotaleContactUren</th>
                     <td colspan="2"></td>
                     <th>Totaal</th>
-                    <th>@tabellen.TotaleEcs</th>
+                    <th>@tabel.TotaleEcs</th>
                     <td></td>
                 </tr>
             </tbody>
@@ -119,3 +56,28 @@
 }
 <!-- Help MODAL -->
 @Html.Partial("~/Views/Help/StudieGids.cshtml", null)
+
+@helper TableRow(ModuleManager.Web.ViewModels.PartialViewModel.LesTabelViewModel tabel, int onderdeelSpan, int oIx, int mIx, int? sbIx = null)
+{
+    var module = tabel.Onderdelen[oIx].Modules[mIx];
+    var studiepunt = sbIx.HasValue ? module.Studiepunten[sbIx.Value] : new ModuleManager.Domain.StudiePunt();
+
+    <tr style="background : @(oIx % 2 == 0 ? "" : "#FDF4EA")">
+        @if (mIx == 0 && (!sbIx.HasValue || sbIx.Value == 0))
+        {
+            <td rowspan="@onderdeelSpan">@tabel.Onderdelen[oIx].Onderdeel</td>
+        }
+        @if (!sbIx.HasValue || sbIx.Value == 0)
+        {
+            <td rowspan="@(module.Studiepunten.Count)">IIIN-@module.Cursuscode</td>
+                                    <td rowspan="@(module.Studiepunten.Count)">@module.Omschrijving</td>
+                                    <td rowspan="@(module.Studiepunten.Count)">@String.Join("+", module.Contacturen)</td>
+                                    <td rowspan="@(module.Studiepunten.Count)">@String.Join("+", module.Werkvormen)</td>
+        }
+
+        <td>@studiepunt.ToetsCode</td>
+        <td>@studiepunt.Toetsvorm</td>
+        <td>@studiepunt.EC</td>
+        <td>@studiepunt.Minimum</td>
+    </tr>
+}

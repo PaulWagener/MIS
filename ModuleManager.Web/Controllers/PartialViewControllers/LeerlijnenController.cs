@@ -50,7 +50,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Leerlijn leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(new object[] { naam });
+            Leerlijn leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(ll => ll.Naam == naam);
 
             if (leerlijn == null)
             {

@@ -11,6 +11,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         }
 
         public string FaseType { get; set; }
+        public string FaseNaam { get; set; }
 
         public ICollection<LesTabelViewModel> Tabellen { get; set; }
     }

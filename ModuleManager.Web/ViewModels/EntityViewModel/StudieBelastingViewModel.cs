@@ -1,7 +1,7 @@
 ﻿using ModuleManager.Domain;
 using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
@@ -27,7 +27,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         internal Domain.StudieBelasting ToPoco(DomainEntities context)
         {
-            Domain.StudieBelasting studieBelasting = context.StudieBelastings.Find(CursusCode, Schooljaar, Activiteit);
+            Domain.StudieBelasting studieBelasting = context.StudieBelastings.FirstOrDefault(sb => sb.CursusCode == CursusCode && sb.Schooljaar == Schooljaar && sb.Activiteit == Activiteit);
 
             if (studieBelasting == null)
             {

@@ -126,7 +126,7 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
         public Module GetOne(int schooljaar, string key)
         {
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { key, schooljaar });
+            var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == key && m.Schooljaar == schooljaar);
             return module;
         }
 

@@ -12,7 +12,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             Onderdelen = new List<OnderdeelTabelViewModel>();
         }
 
-        public string FaseNaam { get; set; }
         public string Blok { get; set; }
 
         public string Semester
@@ -23,23 +22,22 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             }
         }
 
-        //string[] values = s.Split(',').Select(sValue => sValue.Trim()).ToArray();
         public int TotaleContactUren
         {
             get
             {
-                return Onderdelen.SelectMany(src => src.Modules)
-                    .Aggregate("", (current, m) => current + (m.Contacturen + "+"))
-                    .Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Sum(retValue => Convert.ToInt32(retValue));
+                return Onderdelen.SelectMany(src => src.Modules).Sum(m => m.Contacturen.Sum());
             }
         }
 
         public int TotaleEcs
         {
-            get { return (int)Onderdelen.SelectMany(src => src.Modules).SelectMany(src => src.Studiepunten).Sum(src => src.EC); }
+            get
+            {
+                return (int)Onderdelen.SelectMany(src => src.Modules).Sum(m => m.Studiepunten.Sum(sp => sp.EC));
+            }
         }
 
-        public ICollection<OnderdeelTabelViewModel> Onderdelen { get; set; }
+        public IList<OnderdeelTabelViewModel> Onderdelen { get; set; }
     }
 }

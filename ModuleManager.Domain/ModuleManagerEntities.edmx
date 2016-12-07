@@ -226,7 +226,7 @@
           <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="ToetsCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Toetsvorm" Type="varchar" MaxLength="50" />
-          <Property Name="EC" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EC" Type="float" Nullable="false" />
           <Property Name="Minimum" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SysteemRol">
@@ -884,7 +884,6 @@
           <NavigationProperty Name="Docenten" Relationship="Domain.ModuleDocent" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
           <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />
-          <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
           <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Fases" Relationship="Domain.FaseModule" FromRole="Module" ToRole="Fase" />
@@ -892,6 +891,7 @@
           <Property Name="ReadOnly" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Leermiddelen" Relationship="Domain.FK_Leermiddelen_Module" FromRole="Module" ToRole="Leermiddel" />
           <NavigationProperty Name="SchooljaarReference" Relationship="Domain.FK_Module_Schooljaar" FromRole="Module" ToRole="Schooljaar" />
+          <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -961,7 +961,7 @@
             <PropertyRef Name="Type" />
           </Key>
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="StudiePunts" Relationship="Domain.FK_StudiePunten_Toetsvorm" FromRole="Toetsvorm" ToRole="StudiePunt" />
+          <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Toetsvorm" FromRole="Toetsvorm" ToRole="StudiePunt" />
         </EntityType>
         <EntityType Name="Weekplanning">
           <Key>
@@ -1155,7 +1155,6 @@
           <EntitySet Name="Beoordelingen" EntityType="Domain.Beoordeling" />
           <EntitySet Name="Leerdoelen" EntityType="Domain.Leerdoel" />
           <EntitySet Name="Leermiddelen" EntityType="Domain.Leermiddel" />
-          <EntitySet Name="StudiePunten" EntityType="Domain.StudiePunt" />
           <AssociationSet Name="FK_Beoordelingen_Module" Association="Domain.FK_Beoordelingen_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="Beoordeling" EntitySet="Beoordelingen" />
@@ -1163,14 +1162,6 @@
           <AssociationSet Name="FK_Leerdoelen_Module" Association="Domain.FK_Leerdoelen_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="Leerdoel" EntitySet="Leerdoelen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudiePunten_Module" Association="Domain.FK_StudiePunten_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="StudiePunt" EntitySet="StudiePunten" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Domain.FK_StudiePunten_Toetsvorm">
-            <End Role="Toetsvorm" EntitySet="Toetsvorms" />
-            <End Role="StudiePunt" EntitySet="StudiePunten" />
           </AssociationSet>
           <EntitySet Name="Icons" EntityType="Domain.Icon" />
           <AssociationSet Name="FK_Module_Icon" Association="Domain.FK_Module_Icon">
@@ -1233,6 +1224,15 @@
           <AssociationSet Name="FK_Module_Schooljaar" Association="Domain.FK_Module_Schooljaar">
             <End Role="Schooljaar" EntitySet="Schooljaren" />
             <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <EntitySet Name="StudiePunten" EntityType="Domain.StudiePunt" />
+          <AssociationSet Name="FK_StudiePunten_Module" Association="Domain.FK_StudiePunten_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="StudiePunt" EntitySet="StudiePunten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudiePunten_Toetsvorm" Association="Domain.FK_StudiePunten_Toetsvorm">
+            <End Role="Toetsvorm" EntitySet="Toetsvorms" />
+            <End Role="StudiePunt" EntitySet="StudiePunten" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
@@ -1305,21 +1305,6 @@
           <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_Leermiddelen_Module" FromRole="Leermiddel" ToRole="Module" />
         </EntityType>
-        <EntityType Name="StudiePunt">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="ToetsCode" />
-          </Key>
-          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
-          <Property Name="ToetsCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EC" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="Minimum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Module" Relationship="Domain.FK_StudiePunten_Module" FromRole="StudiePunt" ToRole="Module" />
-          <NavigationProperty Name="Toetsvorm1" Relationship="Domain.FK_StudiePunten_Toetsvorm" FromRole="StudiePunt" ToRole="Toetsvorm" />
-        </EntityType>
         <Association Name="FK_Beoordelingen_Module">
           <End Type="Domain.Module" Role="Module" Multiplicity="1" />
           <End Type="Domain.Beoordeling" Role="Beoordeling" Multiplicity="*" />
@@ -1345,32 +1330,6 @@
             <Dependent Role="Leerdoel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudiePunten_Module">
-          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
-          <End Type="Domain.StudiePunt" Role="StudiePunt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="StudiePunt">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudiePunten_Toetsvorm">
-          <End Type="Domain.Toetsvorm" Role="Toetsvorm" Multiplicity="0..1" />
-          <End Type="Domain.StudiePunt" Role="StudiePunt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Toetsvorm">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="StudiePunt">
-              <PropertyRef Name="Toetsvorm" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1502,6 +1461,47 @@
             </Principal>
             <Dependent Role="Module">
               <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StudiePunt">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="ToetsCode" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
+          <Property Name="ToetsCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EC" Type="Double" Nullable="false" />
+          <Property Name="Minimum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_StudiePunten_Module" FromRole="StudiePunt" ToRole="Module" />
+          <NavigationProperty Name="Toetsvorm1" Relationship="Domain.FK_StudiePunten_Toetsvorm" FromRole="StudiePunt" ToRole="Toetsvorm" />
+        </EntityType>
+        <Association Name="FK_StudiePunten_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1" />
+          <End Type="Domain.StudiePunt" Role="StudiePunt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="StudiePunt">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudiePunten_Toetsvorm">
+          <End Type="Domain.Toetsvorm" Role="Toetsvorm" Multiplicity="0..1" />
+          <End Type="Domain.StudiePunt" Role="StudiePunt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toetsvorm">
+              <PropertyRef Name="Type" />
+            </Principal>
+            <Dependent Role="StudiePunt">
+              <PropertyRef Name="Toetsvorm" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1728,18 +1728,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StudiePunten">
-            <EntityTypeMapping TypeName="Domain.StudiePunt">
-              <MappingFragment StoreEntitySet="StudiePunt">
-                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
-                <ScalarProperty Name="EC" ColumnName="EC" />
-                <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
-                <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Icons">
             <EntityTypeMapping TypeName="Domain.Icon">
               <MappingFragment StoreEntitySet="Icon">
@@ -1801,6 +1789,18 @@
             <EntityTypeMapping TypeName="Domain.Schooljaar">
               <MappingFragment StoreEntitySet="Schooljaar">
                 <ScalarProperty Name="JaarId" ColumnName="JaarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudiePunten">
+            <EntityTypeMapping TypeName="Domain.StudiePunt">
+              <MappingFragment StoreEntitySet="StudiePunt">
+                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
+                <ScalarProperty Name="EC" ColumnName="EC" />
+                <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
+                <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

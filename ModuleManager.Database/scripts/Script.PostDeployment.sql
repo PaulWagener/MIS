@@ -25,7 +25,11 @@ go
 :r .\testData\Competentie.sql
 :r .\testData\Docent.sql
 :r .\testData\Icon.sql
+:r .\testData\Toetsvorm.sql
 :r .\testData\Module.sql
-:r .\testData\SysteemRol.sql
+:r .\testData\FaseModule.sql
+:r .\testData\Studiebelasting.sql
+:r .\testData\Studiepunt.sql
 
+:r .\testData\SysteemRol.sql
 :r .\Users.sql

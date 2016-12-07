@@ -18,7 +18,7 @@ namespace ModuleManager.Domain
         public int Schooljaar { get; set; }
         public string ToetsCode { get; set; }
         public string Toetsvorm { get; set; }
-        public decimal EC { get; set; }
+        public double EC { get; set; }
         public string Minimum { get; set; }
     
         public virtual Module Module { get; set; }

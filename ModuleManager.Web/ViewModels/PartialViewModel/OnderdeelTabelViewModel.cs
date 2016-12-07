@@ -10,6 +10,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         }
 
         public string Onderdeel { get; set; }
-        public ICollection<ModuleTabelViewModel> Modules { get; set; }
+        public IList<ModuleTabelViewModel> Modules { get; set; }
     }
 }

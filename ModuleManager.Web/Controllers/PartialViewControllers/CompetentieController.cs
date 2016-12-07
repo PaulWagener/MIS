@@ -27,7 +27,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code });
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Code == code);
 
             if (competentie == null)
             {
@@ -66,7 +66,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code });
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Code == code);
 
             if (competentie == null)
             {
@@ -99,7 +99,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code });
+            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Code == code);
 
             if (competentie == null)
             {

@@ -50,7 +50,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Onderdeel onderdeel = _unitOfWork.GetRepository<Onderdeel>().GetOne(new object[] { code });
+            Onderdeel onderdeel = _unitOfWork.GetRepository<Onderdeel>().GetOne(o => o.Code == code);
 
             if (onderdeel == null)
             {

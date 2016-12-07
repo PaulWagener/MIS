@@ -25,8 +25,7 @@ namespace ModuleManager.Web.Controllers.Api
         //public Onderdeel GetOne(string key)
         public Docent GetOne(int id)
         {
-            var keys = new object[] { id };
-            return _docentRepository.GetOne(keys);
+            return _docentRepository.GetOne(d => d.Id == id);
         }
 
         [HttpPost, Route("api/Docent/Delete")]
