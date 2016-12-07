@@ -63,6 +63,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             ICollection<StudiePunt> studiepuntenList = new List<StudiePunt>();
             var studiepunt1 = new StudiePunt()
             {
+                Schooljaar = schooljaar.JaarId,
                 ToetsCode = String.Format("{0}-{1}", entity.Toetscode1Prefix, entity.Toetscode1),
                 EC = entity.Ec1
             };
@@ -72,6 +73,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             {
                 var studiepunt2 = new StudiePunt()
                 {
+                    Schooljaar = schooljaar.JaarId,
                     ToetsCode = String.Format("{0}-{1}", entity.Toetscode2Prefix, entity.Toetscode2),
                     EC = entity.Ec2
                 };
