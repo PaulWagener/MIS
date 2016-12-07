@@ -1,8 +1,8 @@
 # Avans Module Manager!
 
 # Omgevingen
-* [development - studiegids-dev](http://studiegids-dev.azurewebsites.net)
-* [productie - studiegids](http://studiegids.azurewebsites.net)
+* [development - branch:master - mis-avans-dev](http://mis-avans-dev.azurewebsites.net/)
+* [productie - branch:production - mis-avans](http://mis-avans.azurewebsites.net/)
 
 
 # Databases
@@ -11,6 +11,9 @@
 # Getting Started
 * Visual Studio > Team explorer > Manage Connections > Studiegids
 * Solution Explorer > ModuleManager.Database > ModuleManager.Local.Database.publish
-* Solution Explorer > ModuleManager.Database > Scripts > StoredProcedures > Stored_procedures.sql
+
+#Enviroment settings
+* DomainEntities - connection string naar database 
+
 
 Happy coding!
