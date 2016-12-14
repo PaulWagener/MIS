@@ -74,7 +74,8 @@
                 <option></option>
                 @foreach (var docent in Model.Docenten)
                 {
-                    <option value="@docent.Id">@docent.Naam</option>
+                    var selectedText = Model.VerantwoordelijkeDocentId == docent.Id ? "selected" : "";
+                    <option value="@docent.Id" @selectedText>@docent.Naam</option>
                 }
             </select>
             @Html.ValidationMessageFor(model => model.VerantwoordelijkeDocentId, "", new { @class = "text-danger" })
@@ -86,7 +87,8 @@
                 <option></option>
                 @foreach (var faseType in Model.Fases)
                 {
-                    <option>@faseType.Naam</option>
+                    var selectedText = Model.SelectedFases != null && Model.SelectedFases.Any(faseNaam => faseType.Naam == faseNaam) ? "selected" : "";
+                    <option value="@faseType.Naam" @selectedText>@faseType.Naam</option>
                 }
             </select>
             @Html.ValidationMessageFor(model => model.SelectedFases, "", new { @class = "text-danger" })
@@ -98,7 +100,8 @@
                 <option></option>
                 @foreach (var blok in Model.Blokken)
                 {
-                    <option>@blok.BlokId</option>
+                    var selectedText = Model.Blok == blok.BlokId ? "selected" : "";
+                    <option @selectedText>@blok.BlokId</option>
                 }
             </select>
             @Html.ValidationMessageFor(model => model.Blok, "", new { @class = "text-danger" })
@@ -110,7 +113,8 @@
                 <option></option>
                 @foreach (var onderdeel in Model.Onderdelen)
                 {
-                    <option>@onderdeel.Code</option>
+                    var selectedText = Model.Onderdeel == onderdeel.Code ? "selected" : "";
+                    <option @selectedText>@onderdeel.Code</option>
                 }
             </select>
             @Html.ValidationMessageFor(model => model.Onderdeel, "", new { @class = "text-danger" })
@@ -124,7 +128,8 @@
                         <option></option>
                         @foreach (var icon in Model.Icons)
                         {
-                            <option>@icon.Naam</option>
+                            var selectedText = icon.Naam.Equals(Model.Icon) ? "selected" : "";
+                            <option value="@icon.Naam" @selectedText>@icon.Naam</option>
                         }
                     </select>
                     @Html.ValidationMessageFor(model => model.Icon, "", new { @class = "text-danger" })
