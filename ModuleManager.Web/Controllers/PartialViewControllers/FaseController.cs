@@ -36,21 +36,20 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
         [HttpPost, Route("Fases/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Fase entity)
+        public ActionResult Create(FaseCrudViewModel fase)
         {
+            if (_unitOfWork.Context.Fases.Any(f => f.Naam == fase.Naam))
+                ModelState.AddModelError("Naam", String.Format("De fase met de naam {0} bestaat al.", fase.Naam));
+
+
             if (!ModelState.IsValid)
             {
                 var faseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList();
-                var fase = new FaseCrudViewModel()
-                {
-                    Naam = entity.Naam,
-                    Beschrijving = entity.Beschrijving,
-                    FaseType = entity.FaseType,
-                    FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList()
-                };
-                return PartialView("~/Views/Admin/Curriculum/Fase/_Add.cshtml", entity);
+                fase.FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList();
+                return PartialView("~/Views/Admin/Curriculum/Fase/_Add.cshtml", fase);
             }
 
+            Fase entity = fase.ToPoco();
             entity.OpleidingNaam = "Informatica"; //Nog geen opleidingen
             var value = _unitOfWork.GetRepository<Fase>().Create(entity);
             return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
@@ -75,6 +74,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             var faseVM = new FaseCrudViewModel()
             {
                 FaseType = fase.FaseType,
+                Opleiding = fase.OpleidingNaam,
                 Naam = fase.Naam,
                 Beschrijving = fase.Beschrijving,
                 FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList()
@@ -85,23 +85,18 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
 
         [HttpPost, Route("Fases/Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Fase entity)
+        public ActionResult Edit(FaseCrudViewModel fase)
         {
+            if (!ModelState.IsValid)
+            {
+                var faseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList();
+                fase.FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList();
+                return PartialView("~/Views/Admin/Curriculum/Fase/_Edit.cshtml", fase);
+            }
+
             try
             {
-                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any())
-                    return Json(new { success = false });
-                var schooljaar = schooljaren.Last();
-
-                var opleidingen = _unitOfWork.GetRepository<Opleiding>().GetAll().ToArray();
-                if (!opleidingen.Any())
-                    return Json(new { success = false });
-                var opleiding = opleidingen.Last();
-
-
-                entity.OpleidingNaam = opleiding.Naam;
-
+                Fase entity = fase.ToPoco();
                 var value = _unitOfWork.GetRepository<Fase>().Edit(entity);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
@@ -112,7 +107,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         }
 
         [HttpGet, Route("Fases/Delete")]
-        public ActionResult Delete(string naam, int schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
+        public ActionResult Delete(string naam, string opleidingsNaam)
         {
             if (naam == null)
             {

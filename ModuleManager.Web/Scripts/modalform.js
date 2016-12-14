@@ -36,9 +36,12 @@ function bindForm(dialog) {
                 } else {
                     if (result.strError != null) {
                         alert(result.strError);
+                        $('#myModal').modal('hide');
                     } else {
-                        alert("Er is een fout opgetreden.");
+                        $('#myModalContent').html(result);
+                        bindForm();
                     }
+                  
                 }
             }
         });

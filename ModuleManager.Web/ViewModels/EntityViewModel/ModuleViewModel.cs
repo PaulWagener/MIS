@@ -15,7 +15,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         }
         public string Beschrijving { get; set; }
         public string Naam { get; set; }
-        public string Verantwoordelijke { get; set; }
+        public Docent Verantwoordelijke { get; set; }
         public string Status { get; set; }
         public string OnderdeelCode { get; set; }
         public string Icon { get; set; }

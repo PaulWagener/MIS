@@ -1,22 +1,24 @@
 ﻿using ModuleManager.Domain;
-using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
-    public class LeerlijnViewModel
+    public class OnderdeelViewModel
     {
         [Required]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(50)]
-        public string Naam { get; set; }
+        public string Code { get; set; }
 
-        internal Domain.Leerlijn ToPoco()
+        internal Onderdeel ToPoco()
         {
-            return new Domain.Leerlijn()
+            return new Onderdeel()
             {
-                Naam = this.Naam
+                Code = this.Code,
             };
         }
     }

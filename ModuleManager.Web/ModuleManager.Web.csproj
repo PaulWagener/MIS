@@ -291,7 +291,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\dataTables.dutch.js" />
-    <None Include="Properties\PublishProfiles\MIS-Avans-Dev - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Studiegids - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\studiegids - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Studiegids - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -360,6 +362,7 @@
     <Compile Include="ViewModels\EntityViewModel\ModuleViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\ModuleWerkvormViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\NiveauViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\OnderdeelViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudieBelastingViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
@@ -437,7 +440,6 @@
     <Content Include="Views\Admin\Curriculum\Leerlijn\_Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Leerlijn\_Delete.cshtml" />
     <Content Include="Views\Admin\Curriculum\Tag\_Add.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Tag\_Edit.cshtml" />
     <Content Include="Views\Admin\Curriculum\Tag\_Delete.cshtml" />
     <Content Include="Views\Admin\Curriculum\Onderdeel\_Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Onderdeel\_Delete.cshtml" />

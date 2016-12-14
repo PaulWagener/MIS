@@ -3,7 +3,7 @@
     [Schooljaar]        INT			  NOT NULL,
     [Beschrijving]      NVARCHAR(MAX) NULL,
     [Naam]              NVARCHAR(50)  NOT NULL,
-    [Verantwoordelijke] NVARCHAR(50)  NOT NULL,
+    [VerantwoordelijkeDocentId] INT  NOT NULL,
     [Status]            VARCHAR(50)  NOT NULL,
 	[Gecontroleerd]		BIT NOT NULL,
     [OnderdeelCode]     VARCHAR(50)  NOT NULL,
@@ -14,7 +14,8 @@
     CONSTRAINT [FK_Module_Icons] FOREIGN KEY ([Icon]) REFERENCES [dbo].[Icon] ([Naam]),
     CONSTRAINT [FK_Module_Onderdeel] FOREIGN KEY ([OnderdeelCode]) REFERENCES [dbo].[Onderdeel] ([Code]),
     CONSTRAINT [FK_Module_Status] FOREIGN KEY ([Status]) REFERENCES [dbo].[Status] ([Status1]),
-	CONSTRAINT [FK_Module_Schooljaar] FOREIGN KEY ([Schooljaar]) REFERENCES [dbo].[Schooljaar] ([JaarId])
+	CONSTRAINT [FK_Module_Schooljaar] FOREIGN KEY ([Schooljaar]) REFERENCES [dbo].[Schooljaar] ([JaarId]),
+	CONSTRAINT [FK_Module_Docent] FOREIGN KEY (VerantwoordelijkeDocentId) REFERENCES [dbo].[Docent] ([Id])
 );
 
 

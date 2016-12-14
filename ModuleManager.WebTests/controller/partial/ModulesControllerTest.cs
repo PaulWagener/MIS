@@ -31,7 +31,7 @@ namespace ModuleManager.WebTests.controller.partial
             {
                 CursusCode = "a",
                 Schooljaar = 1516,
-                Verantwoordelijke = "c",
+                Verantwoordelijke = new Docent() { Naam = "Stijn " },
                 Status = "d",
                 Icon = "e",
                 Onderdeel = new Onderdeel() {  Code = "h" },
@@ -51,7 +51,7 @@ namespace ModuleManager.WebTests.controller.partial
                 Toetscode2 = "n",
                 Ec1 = 1,
                 Ec2 = 3,
-                Verantwoordelijke = "o",
+                //Verantwoordelijke = "o",
                 Onderdeel = "q",
                 Icon = "r"
             };
@@ -85,7 +85,7 @@ namespace ModuleManager.WebTests.controller.partial
             Assert.IsTrue(resultModule.StudiePunten.Any(s => s.EC == 1));
             Assert.IsTrue(resultModule.StudiePunten.Any(s => s.ToetsCode == "n"));
             Assert.IsTrue(resultModule.StudiePunten.Any(s => s.EC == 3));
-            Assert.AreEqual("o", resultModule.Verantwoordelijke);
+            Assert.AreEqual("o", resultModule.Verantwoordelijke.Naam);
             Assert.AreEqual("q", resultModule.OnderdeelCode);
             Assert.AreEqual("r", resultModule.Icon);
         }

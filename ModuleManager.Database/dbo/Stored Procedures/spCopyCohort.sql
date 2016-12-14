@@ -13,7 +13,7 @@ BEGIN
            ,[Schooljaar]
            ,[Beschrijving]
            ,[Naam]
-           ,[Verantwoordelijke]
+           ,[VerantwoordelijkeDocentId]
            ,[Status]
            ,[Gecontroleerd]
            ,[OnderdeelCode]
@@ -25,7 +25,7 @@ BEGIN
            ,@schooljaarTo
            ,[Beschrijving]
            ,[Naam]
-           ,[Verantwoordelijke]
+           ,[VerantwoordelijkeDocentId]
            ,[Status]
            ,[Gecontroleerd]
            ,[OnderdeelCode]

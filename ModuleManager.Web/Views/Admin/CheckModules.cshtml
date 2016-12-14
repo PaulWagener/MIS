@@ -42,7 +42,7 @@
                 <td class="status">@item.Status</td>
                 @*<td class="status">
                         @{ var item1 = @item; }
-                        @Model.Users.Data.First(src => src.Naam.Equals(item1.Verantwoordelijke)).Email
+                        @Model.Users.Data.First(src => src.Naam.Equals(item1.Verantwoordelijke.Naam)).Email
                     </td>*@
                 <td class="actions">
                     @if (item.Status.Equals("Compleet (ongecontroleerd)"))

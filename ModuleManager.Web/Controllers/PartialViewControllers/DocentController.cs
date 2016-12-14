@@ -23,14 +23,18 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [HttpGet, Route("Docent/Create")]
         public ActionResult Create()
         {
-            var docent = new Docent();
+            var docent = new DocentViewModel();
             return PartialView("~/Views/Admin/Curriculum/Docent/_Add.cshtml", docent);
         }
 
         [HttpPost, Route("Docent/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Docent entity)
+        public ActionResult Create(DocentViewModel docent)
         {
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Docent/_Add.cshtml", docent);
+
+            Docent entity = docent.ToPoco();
             try
             {
                 var value = _unitOfWork.GetRepository<Docent>().Create(entity);
@@ -48,30 +52,32 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
           }
           var docent = _unitOfWork.GetRepository<Docent>().GetOne(d => d.Id == id);
+            var model = new DocentViewModel(docent);
 
           if (docent == null) {
             return HttpNotFound();
           }
 
-          return PartialView("~/Views/Admin/Curriculum/Docent/_Edit.cshtml", docent);
+          return PartialView("~/Views/Admin/Curriculum/Docent/_Edit.cshtml", model);
         }
 
         [HttpPost, Route("Docent/Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Docent entity) {
-          try {
-            var value = _unitOfWork.GetRepository<Docent>().Edit(entity);
-            return value != null ? Json(new {
-              success = false,
-              strError = value
-            }) : Json(new {
-              success = true
-            });
-          } catch (Exception) {
-            return Json(new {
-              success = false
-            });
-          }
+        public ActionResult Edit(DocentViewModel docent) {
+
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Docent/_Edit.cshtml", docent);
+
+            Docent entity = docent.ToPoco();
+            try
+            {
+                var value = _unitOfWork.GetRepository<Docent>().Edit(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
         }
 
         [HttpGet, Route("Docent/Delete")]

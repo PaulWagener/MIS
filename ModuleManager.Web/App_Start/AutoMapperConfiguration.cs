@@ -57,7 +57,9 @@ namespace ModuleManager.Web
                     src => src.StudiePunten
                         .Select(sp => sp.EC).Sum()))
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
-                    src => string.Join(Delimiter, src.Docenten.Select(inSrc => inSrc.Naam))));
+                    src => string.Join(Delimiter, src.Docenten.Select(inSrc => inSrc.Naam))))
+                .ForMember(dest => dest.Verantwoordelijke, opt => opt.MapFrom(
+                    src => src.Verantwoordelijke.Naam));
 
             Mapper.CreateMap<Module, ModuleTabelViewModel>()
                 .ForMember(dest => dest.Cursuscode, opt => opt.MapFrom(

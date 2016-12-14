@@ -23,14 +23,24 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [HttpGet, Route("Onderdelen/Create")]
         public ActionResult Create()
         {
-            var onderdeel = new Onderdeel();
+            var onderdeel = new OnderdeelViewModel();
             return PartialView("~/Views/Admin/Curriculum/Onderdeel/_Add.cshtml", onderdeel);
         }
 
         [HttpPost, Route("Onderdelen/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Onderdeel entity)
+        public ActionResult Create(OnderdeelViewModel onderdeel)
         {
+            if (_unitOfWork.Context.Onderdeels.Any(l => l.Code == onderdeel.Code))
+                ModelState.AddModelError("Code", String.Format("Het onderdeel met de code {0} bestaat al.", onderdeel.Code));
+
+
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Onderdeel/_Add.cshtml", onderdeel);
+
+
+            Onderdeel entity = onderdeel.ToPoco();
+
             try
             {
                 var value = _unitOfWork.GetRepository<Onderdeel>().Create(entity);

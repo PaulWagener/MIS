@@ -10,6 +10,7 @@
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Schooljaar)
 
            <div class="form-group">
             @Html.LabelFor(model => model.CursusCode)
@@ -68,51 +69,65 @@
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Verantwoordelijke)
-            @Html.EditorFor(model => model.Verantwoordelijke, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Verantwoordelijke, "", new { @class = "text-danger" })
+            <label for="VerantwoordelijkeDocentId">Verantwoordelijke</label>
+            <select name="VerantwoordelijkeDocentId" class="form-control ajax" id="Blok">
+                <option></option>
+                @foreach (var docent in Model.Docenten)
+                {
+                    <option value="@docent.Id">@docent.Naam</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.VerantwoordelijkeDocentId, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Fases)
             <select name="SelectedFases" class="form-control ajax" id="SelectedFases" multiple>
+                <option></option>
                 @foreach (var faseType in Model.Fases)
                 {
                     <option>@faseType.Naam</option>
                 }
             </select>
+            @Html.ValidationMessageFor(model => model.SelectedFases, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Blokken)
             <select name="Blok" class="form-control ajax" id="Blok">
+                <option></option>
                 @foreach (var blok in Model.Blokken)
                 {
                     <option>@blok.BlokId</option>
                 }
             </select>
+            @Html.ValidationMessageFor(model => model.Blok, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Onderdelen)
             <select name="Onderdeel" class="form-control ajax" id="Onderdeel">
+                <option></option>
                 @foreach (var onderdeel in Model.Onderdelen)
-            {
+                {
                     <option>@onderdeel.Code</option>
                 }
             </select>
+            @Html.ValidationMessageFor(model => model.Onderdeel, "", new { @class = "text-danger" })
         </div>
 
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
-                    Icon
+                    <label for="Icon">Icon</label>  
                     <select name="Icon" class="form-control ajax" id="Icon">
+                        <option></option>
                         @foreach (var icon in Model.Icons)
                         {
                             <option>@icon.Naam</option>
                         }
                     </select>
+                    @Html.ValidationMessageFor(model => model.Icon, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-2">

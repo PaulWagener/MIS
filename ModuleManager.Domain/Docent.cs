@@ -18,6 +18,7 @@ namespace ModuleManager.Domain
         public Docent()
         {
             this.Modules = new HashSet<Module>();
+            this.Modules_Eigenaar = new HashSet<Module>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace ModuleManager.Domain
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Module> Modules_Eigenaar { get; set; }
     }
 }

@@ -415,7 +415,7 @@ namespace ModuleManager.WebTests
                     new TagViewModel(){ Naam = "Architectuur" }
                     
                 },
-                Verantwoordelijke = "E. Test",
+                Verantwoordelijke = new Docent() { Naam = "E. Test" },
                 Weekplanningen = new List<WeekplanningViewModel>()
                 {
                     new WeekplanningViewModel() { Onderwerp = "C#", Week = "1" }

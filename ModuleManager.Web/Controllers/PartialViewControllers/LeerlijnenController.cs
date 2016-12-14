@@ -23,16 +23,24 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [HttpGet, Route("Leerlijnen/Create")]
         public ActionResult Create()
         {
-            var leerlijn = new Leerlijn();
+            var leerlijn = new LeerlijnViewModel();
             return PartialView("~/Views/Admin/Curriculum/Leerlijn/_Add.cshtml", leerlijn);
         }
 
         [HttpPost, Route("Leerlijnen/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Leerlijn entity)
+        public ActionResult Create(LeerlijnViewModel leerlijn)
         {
+            if(_unitOfWork.Context.Leerlijnen.Any(l => l.Naam == leerlijn.Naam))
+                ModelState.AddModelError("Naam", String.Format("De leerlijn met de naam {0} bestaat al.", leerlijn.Naam));
+            
+
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Leerlijn/_Add.cshtml", leerlijn);
+
             try
             {
+                Leerlijn entity = leerlijn.ToPoco();
                 var value = _unitOfWork.GetRepository<Leerlijn>().Create(entity);
                 return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }

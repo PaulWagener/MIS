@@ -37,13 +37,13 @@ namespace ModuleManager.Domain
         public int Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string Naam { get; set; }
-        public string Verantwoordelijke { get; set; }
         public string Status { get; set; }
         public string OnderdeelCode { get; set; }
         public string Icon { get; set; }
         public string Blok { get; set; }
         public bool Gecontroleerd { get; set; }
         public bool ReadOnly { get; set; }
+        public int VerantwoordelijkeDocentId { get; set; }
     
         public virtual Onderdeel Onderdeel { get; set; }
         public virtual Status Status1 { get; set; }
@@ -76,5 +76,6 @@ namespace ModuleManager.Domain
         public virtual Schooljaar SchooljaarReference { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudiePunt> StudiePunten { get; set; }
+        public virtual Docent Verantwoordelijke { get; set; }
     }
 }

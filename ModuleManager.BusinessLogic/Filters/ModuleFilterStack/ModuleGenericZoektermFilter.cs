@@ -28,7 +28,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                               (from lm in m.Leermiddelen select (lm.CursusCode ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||
                               (m.Naam ?? "").ToLower().Contains(args.ZoektermFilter.ToLower()) ||
                               (from t in m.Tags select (t.Naam ?? "").ToLower()).Contains(args.ZoektermFilter.ToLower()) ||
-                              (m.Verantwoordelijke ?? "").ToLower().Contains(args.ZoektermFilter.ToLower()) 
+                              (m.Verantwoordelijke.Naam ?? "").ToLower().Contains(args.ZoektermFilter.ToLower()) 
                               )
                           select m; 
             }

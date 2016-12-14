@@ -11,6 +11,7 @@
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(f => f.Opleiding)
 
         <div class="form-group">
             @Html.LabelFor(model => model.FaseType)

@@ -1,5 +1,4 @@
-﻿@using ModuleManager.Domain
-@model  ModuleManager.Web.ViewModels.PartialViewModel.ModuleCrudViewModel
+﻿@model  ModuleManager.Web.ViewModels.PartialViewModel.ModuleCrudViewModel
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -48,22 +47,32 @@
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Verantwoordelijke)
-            @Html.EditorFor(model => model.Verantwoordelijke, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Verantwoordelijke, "", new { @class = "text-danger" })
+            <label for="VerantwoordelijkeDocentId">Verantwoordelijke</label>
+            <select name="VerantwoordelijkeDocentId" class="form-control ajax" id="Blok">
+                <option></option>
+                @foreach (var docent in Model.Docenten)
+                {
+                    var selectedText = Model.VerantwoordelijkeDocentId == docent.Id ? "selected" : "";
+                    <option value="@docent.Id" @selectedText>@docent.Naam</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.VerantwoordelijkeDocentId, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Fases)
             <select name="SelectedFases" class="form-control ajax" id="SelectedFases" multiple>
+                <option></option>
                 @foreach (var faseType in Model.Fases)
                 {
-                    var selectedText = Model.SelectedFases.Any(faseNaam => faseType.Naam == faseNaam) ? "selected" : "";
+
+                    var selectedText = Model.SelectedFases != null && Model.SelectedFases.Any(faseNaam => faseType.Naam == faseNaam) ? "selected" : "";
                     <option value="@faseType.Naam" @selectedText>@faseType.Naam</option>
-                }              
+                }
             </select>
+            @Html.ValidationMessageFor(model => model.SelectedFases, "", new { @class = "text-danger" })
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Blokken)
             <select name="Blok" class="form-control ajax" id="Blok">
@@ -72,31 +81,36 @@
                     var selectedText = Model.Blok == blok.BlokId ? "selected" : "";
                     <option @selectedText>@blok.BlokId</option>
                 }
-            </select>
+          </select>
+            @Html.ValidationMessageFor(model => model.Blok, "", new { @class = "text-danger" })
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Onderdelen)
             <select name="Onderdeel" class="form-control ajax" id="Onderdeel">
+                <option></option>
                 @foreach (var onderdeel in Model.Onderdelen)
                 {
                     var selectedText = Model.Onderdeel == onderdeel.Code ? "selected" : "";
                     <option @selectedText>@onderdeel.Code</option>
                 }
-            </select>
+       </select>
+            @Html.ValidationMessageFor(model => model.Onderdeel, "", new { @class = "text-danger" })
         </div>
-        
+
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Icons)
+                    <label for="Icon">Icon - @Model.Icon</label>
                     <select name="Icon" class="form-control ajax" id="Icon">
+                        <option></option>
                         @foreach (var icon in Model.Icons)
                         {
-                            var selectedText = Model.Icon == icon.Naam ? "selected" : "";
-                            <option @selectedText>@icon.Naam</option>
+                            var selectedText = icon.Naam.Equals(Model.Icon) ? "selected" : "";
+                            <option value="@icon.Naam" @selectedText>@icon.Naam</option>
                         }
                     </select>
+                    @Html.ValidationMessageFor(model => model.Icon, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-2">

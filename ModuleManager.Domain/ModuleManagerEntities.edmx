@@ -111,7 +111,7 @@
           <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Beschrijving" Type="nvarchar(max)" />
           <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Verantwoordelijke" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VerantwoordelijkeDocentId" Type="int" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Gecontroleerd" Type="bit" Nullable="false" />
           <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
@@ -365,6 +365,18 @@
             <Dependent Role="Leermiddel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Docent">
+          <End Role="Docent" Type="Self.Docent" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="VerantwoordelijkeDocentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -737,6 +749,10 @@
             <End Role="Module" EntitySet="Module" />
             <End Role="Leermiddel" EntitySet="Leermiddel" />
           </AssociationSet>
+          <AssociationSet Name="FK_Module_Docent" Association="Self.FK_Module_Docent">
+            <End Role="Docent" EntitySet="Docent" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
           <AssociationSet Name="FK_Module_Icons" Association="Self.FK_Module_Icons">
             <End Role="Icon" EntitySet="Icon" />
             <End Role="Module" EntitySet="Module" />
@@ -868,7 +884,6 @@
           <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Verantwoordelijke" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OnderdeelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Icon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
@@ -892,6 +907,8 @@
           <NavigationProperty Name="Leermiddelen" Relationship="Domain.FK_Leermiddelen_Module" FromRole="Module" ToRole="Leermiddel" />
           <NavigationProperty Name="SchooljaarReference" Relationship="Domain.FK_Module_Schooljaar" FromRole="Module" ToRole="Schooljaar" />
           <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
+          <Property Name="VerantwoordelijkeDocentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Verantwoordelijke" Relationship="Domain.FK_Module_Docent" FromRole="Module" ToRole="Docent" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -1234,6 +1251,10 @@
             <End Role="Toetsvorm" EntitySet="Toetsvorms" />
             <End Role="StudiePunt" EntitySet="StudiePunten" />
           </AssociationSet>
+          <AssociationSet Name="FK_Module_Docent" Association="Domain.FK_Module_Docent">
+            <End Role="Docent" EntitySet="Docenten" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
           <Key>
@@ -1264,6 +1285,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Naam" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Modules" Relationship="Domain.ModuleDocent" FromRole="Docent" ToRole="Module" />
+          <NavigationProperty Name="Modules_Eigenaar" Relationship="Domain.FK_Module_Docent" FromRole="Docent" ToRole="Module" />
         </EntityType>
         <Association Name="ModuleDocent">
           <End Type="Domain.Docent" Role="Docent" Multiplicity="*" />
@@ -1505,6 +1527,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Module_Docent">
+          <End Type="Domain.Docent" Role="Docent" Multiplicity="1" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="VerantwoordelijkeDocentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1544,6 +1578,7 @@
           <EntitySetMapping Name="Modules">
             <EntityTypeMapping TypeName="Domain.Module">
               <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="VerantwoordelijkeDocentId" ColumnName="VerantwoordelijkeDocentId" />
                 <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
                 <ScalarProperty Name="Gecontroleerd" ColumnName="Gecontroleerd" />
                 <ScalarProperty Name="Blok" ColumnName="Blok" />
@@ -1551,7 +1586,6 @@
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Verantwoordelijke" ColumnName="Verantwoordelijke" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="OnderdeelCode" ColumnName="OnderdeelCode" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />

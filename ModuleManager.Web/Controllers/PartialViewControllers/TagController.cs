@@ -23,14 +23,24 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [HttpGet, Route("Tags/Create")]
         public ActionResult Create()
         {
-            var tag = new Tag();
+            var tag = new TagViewModel();
             return PartialView("~/Views/Admin/Curriculum/Tag/_Add.cshtml", tag);
         }
 
         [HttpPost, Route("Tags/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Tag entity)
+        public ActionResult Create(TagViewModel tag)
         {
+            if (_unitOfWork.Context.Tags.Any(t => t.Naam == tag.Naam))
+                ModelState.AddModelError("Naam", String.Format("De tag met de naam {0} bestaat al.", tag.Naam));
+
+
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Tag/_Add.cshtml", tag);
+
+
+            Tag entity = tag.ToPoco();
+
             var value = _unitOfWork.GetRepository<Tag>().Create(entity);
             return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
         }

@@ -37,7 +37,7 @@ namespace ModuleManager.WebTests
                  {
                      CursusCode = "PROG1", //key
                      Schooljaar = 1516, //key
-                     Verantwoordelijke = "P. Rog",
+                     Verantwoordelijke = new Docent() { Naam = "P. Rog" },
                      Naam = "Programmeren 1",
                      Beschrijving = "building software",
                      Icon = "database",
@@ -50,7 +50,7 @@ namespace ModuleManager.WebTests
                 {
                     CursusCode = "DB1", //key
                     Schooljaar = 1516, //key
-                    Verantwoordelijke = "D. Atab",
+                    Verantwoordelijke = new Docent() {  Naam = "D. Atab" },
                     Naam = "Databases 1",
                     Beschrijving = "building databases",
                     Icon = "code",
@@ -63,7 +63,7 @@ namespace ModuleManager.WebTests
                     CursusCode = "Test1", //key
                     Schooljaar = 1516, //key
                     Naam = "Testing 101",
-                    Verantwoordelijke = "T. Est",
+                    Verantwoordelijke = new Docent() { Naam = "T. Est" },
                     Beschrijving = "Testing if software works",
                     Icon = "code",
                     OnderdeelCode = "ABV1",

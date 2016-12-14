@@ -40,14 +40,24 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [HttpGet, Route("Competenties/Create")]
         public ActionResult Create()
         {
-            var competentie = new Competentie();
+            var competentie = new CompetentieViewModel();
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Add.cshtml", competentie);
         }
 
         [HttpPost, Route("Competenties/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Competentie entity)
+        public ActionResult Create(CompetentieViewModel competentie)
         {
+            if (_unitOfWork.Context.Competenties.Any(l => l.Code == competentie.Code))
+                ModelState.AddModelError("Code", String.Format("De competentie met de code {0} bestaat al.", competentie.Code));
+
+
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Competentie/_Add.cshtml", competentie);
+
+
+            Competentie entity = competentie.ToPoco();
+
             try
             {
                 var value = _unitOfWork.GetRepository<Competentie>().Create(entity);
@@ -73,13 +83,20 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return HttpNotFound();
             }
 
-            return PartialView("~/Views/Admin/Curriculum/Competentie/_Edit.cshtml", competentie);
+            var model = new CompetentieViewModel(competentie);
+
+            return PartialView("~/Views/Admin/Curriculum/Competentie/_Edit.cshtml", model);
         }
 
         [HttpPost, Route("Competenties/Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Competentie entity)
+        public ActionResult Edit(CompetentieViewModel competentie)
         {
+            Competentie entity = competentie.ToPoco();
+
+            if (!ModelState.IsValid)
+                return PartialView("~/Views/Admin/Curriculum/Competentie/_Add.cshtml", competentie);
+
             try
             {
                 var value = _unitOfWork.GetRepository<Competentie>().Edit(entity);
