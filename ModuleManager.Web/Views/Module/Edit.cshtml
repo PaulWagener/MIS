@@ -203,6 +203,7 @@
                                     <tr data-type="@werkvorm.WerkvormType">
                                         <td>@Html.EditorFor(item => werkvorm.WerkvormType, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })</td>
                                         <td>@Html.EditorFor(item => werkvorm.Organisatie, new { htmlAttributes = new { @class = "form-control orgDesc" } })</td>
+   
                                     </tr>
                                 }
                             </tbody>
@@ -244,6 +245,7 @@
                                             @Html.EditorFor(item => Model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
                                             @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
 
+                                            <input type="hidden" name="Module.StudieBelastingen.Index" value="@i" />
                                             @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new {  @class = "form-control" } )
                                             @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].Schooljaar, new {  @class = "form-control" } )
                                         </td>
@@ -283,6 +285,8 @@
                                         <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanningen[i].Week, new { htmlAttributes = new { @class = "form-control" } })</td>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Weekplanningen[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })
+
+                                            <input type="hidden" name="Module.Weekplanningen.Index" value="@i" />
                                             @Html.HiddenFor(item => Model.Module.Weekplanningen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Weekplanningen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -316,6 +320,8 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+
+                                            <input type="hidden" name="Module.Beoordelingen.Index" value="@i" />
                                             @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -349,6 +355,8 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+
+                                            <input type="hidden" name="Module.Leermiddelen.Index" value="@i" />
                                             @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -382,6 +390,8 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+
+                                            <input type="hidden" name="Module.Leerdoelen.Index" value="@i" />
                                             @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
                                         </td>
@@ -615,9 +625,10 @@
 
 
         var newRow = "<tr>";
+        
+
         if (columns == properties.length) {
             if (columns == 1 && typeof (options) != 'undefined') {
-                debugger;
                 newRow += "<td><select>";
                 for (var optionName in options) {
                     newRow += "<option>" + optionName + "</option>"
@@ -634,6 +645,8 @@
             }
         }
 
+        debugger;
+        newRow += "<input name='Module." + collName + ".Index' type='hidden' value='" + newIndex + "'>";
         newRow += "<input id='Module_" + collName + "_" + newIndex + "__CursusCode' name='Module." + collName + "[" + newIndex + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
         newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
 
