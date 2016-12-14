@@ -5,7 +5,7 @@
     [Niveau]                VARCHAR (50) NOT NULL,
     CONSTRAINT [PK_ModuleCompetentie] PRIMARY KEY CLUSTERED ([CursusCode] ASC, [Schooljaar] ASC, [CompetentieCode] ASC),
     CONSTRAINT [FK_ModuleCompetentie_Competentie] FOREIGN KEY ([CompetentieCode]) REFERENCES [dbo].[Competentie] ([Code]),
-    CONSTRAINT [FK_ModuleCompetentie_Module] FOREIGN KEY ([CursusCode], [Schooljaar]) REFERENCES [dbo].[Module] ([CursusCode], [Schooljaar]),
+    CONSTRAINT [FK_ModuleCompetentie_Module] FOREIGN KEY ([CursusCode], [Schooljaar]) REFERENCES [dbo].[Module] ([CursusCode], [Schooljaar]) ON DELETE CASCADE,
     CONSTRAINT [FK_ModuleCompetentie_Niveau] FOREIGN KEY ([Niveau]) REFERENCES [dbo].[Niveau] ([Niveau1])
 );
 

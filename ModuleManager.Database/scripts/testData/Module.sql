@@ -32,7 +32,7 @@ WHEN MATCHED THEN
 	UPDATE SET
 		Beschrijving = Source.Beschrijving, 
 		Naam = Source.Naam, 
-		VerantwoordelijkeDocentId = Source.Verantwoordelijke.NaamDocentId,
+		VerantwoordelijkeDocentId = Source.VerantwoordelijkeDocentId,
 		Status = Source.Status, 
 		OnderdeelCode = Source.OnderdeelCode, 
 		Icon = Source.Icon,
