@@ -370,3 +370,5 @@ body.modal-open {
 table#modules{
     cursor:pointer;
 }
+
+body { padding-bottom: 70px; }
