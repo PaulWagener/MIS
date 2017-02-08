@@ -55,7 +55,7 @@ namespace ModuleManager.WebTests
             vm.Module.Beschrijving = "a";
               
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
            
             using (var context = new DomainEntities())
             {
@@ -80,7 +80,7 @@ namespace ModuleManager.WebTests
             vm.Module.Leerlijnen.Add(new LeerlijnViewModel() { Naam = "Architectuur" });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
 
             using (var context = new DomainEntities())
@@ -102,7 +102,7 @@ namespace ModuleManager.WebTests
             vm.Module.Tags.Add(new TagViewModel() { Naam = "MVVM", });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -124,7 +124,7 @@ namespace ModuleManager.WebTests
             vm.Module.Leerdoelen.Add( new LeerdoelenViewModel(){ Beschrijving = "Leerdoel 3", CursusCode = "Test1", Schooljaar = 1516});
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -146,7 +146,7 @@ namespace ModuleManager.WebTests
             vm.Module.Leermiddelen.Add( new LeermiddelenViewModel(){ Beschrijving = "Leermiddel 3", CursusCode = "Test1", Schooljaar = 1516 });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -170,7 +170,7 @@ namespace ModuleManager.WebTests
                    { Activiteit = "A3", ContactUren = 22, Duur = "3 weken", Frequentie = "3x per week", CursusCode = "Test1", Schooljaar = 1516});
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -192,7 +192,7 @@ namespace ModuleManager.WebTests
             vm.Module.Weekplanningen.Add(new WeekplanningViewModel() { Onderwerp = "drie", Week = "3", CursusCode = "Test1", Schooljaar = 1516 });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -224,7 +224,7 @@ namespace ModuleManager.WebTests
           });
 
           //2. Act
-          controller.Edit(vm);
+          controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
           using (var context = new DomainEntities()) {
             //3. Assert (always in new context
@@ -242,7 +242,7 @@ namespace ModuleManager.WebTests
             vm.Module.Docenten.Add(new DocentViewModel() { Id = 3 });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -263,7 +263,7 @@ namespace ModuleManager.WebTests
             vm.Module.ModuleCompetenties.Add(new ModuleCompetentieViewModel() { CompetentieCode = "BC3", Niveau = "Expert" });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -283,7 +283,7 @@ namespace ModuleManager.WebTests
             vm.Module.ModuleCompetenties.Add(new ModuleCompetentieViewModel() { CompetentieCode = null, Niveau = "Beginner" });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -303,7 +303,7 @@ namespace ModuleManager.WebTests
             vm.Module.ModuleWerkvormen.Add(new ModuleWerkvormViewModel() { WerkvormType = "PR", Organisatie = "3 Practicums", CursusCode = "Test1", Schooljaar = 1516 });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -324,7 +324,7 @@ namespace ModuleManager.WebTests
             vm.Module.Beoordelingen.Add(new BeoordelingenViewModel() { Beschrijving = "b3", CursusCode = "Test1", Schooljaar = 1516 });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -345,7 +345,7 @@ namespace ModuleManager.WebTests
             vm.Module.Voorkennis.Add(new ModuleVoorkennisViewModel() { Schooljaar = 1516, CursusCode = "PROG1", });
 
             //2. Act
-            controller.Edit(vm);
+            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
@@ -423,7 +423,7 @@ namespace ModuleManager.WebTests
             };
 
             //2. Act
-            controller.Edit(new ModuleEditViewModel(vm));
+            controller.Edit(vm.Schooljaar, vm.CursusCode, new ModuleEditViewModel(vm));
 
             unit.Context.Dispose();
             unit = new UnitOfWork();

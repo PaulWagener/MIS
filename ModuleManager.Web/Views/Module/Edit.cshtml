@@ -22,7 +22,7 @@
 }
 
 
-@using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { @id = "module_edit_form" }))
+@using (Html.BeginForm())
 {
     <div id="hidden-values">
         @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" })

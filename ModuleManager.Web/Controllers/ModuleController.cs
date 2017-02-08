@@ -96,8 +96,8 @@ namespace ModuleManager.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost, Route("Module/Edit")]
-        public ActionResult Edit(ModuleEditViewModel moduleVm)
+        [HttpPost, Route("Module/Edit/{schooljaar}/{cursusCode}")]
+        public ActionResult Edit(int schooljaar, string cursusCode, ModuleEditViewModel moduleVm)
         {
             if (!ModelState.IsValid)
             {
