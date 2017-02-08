@@ -50,8 +50,8 @@ namespace ModuleManager.Web.Controllers.Api
                 if (value.Filter.Fases.First() != null)
                     faseFilters = value.Filter.Fases;
 
-                ICollection<string> blokFilters = null;
-                if (value.Filter.Blokken.First() != null)
+                ICollection<int> blokFilters = null;
+                if (value.Filter.Blokken.First() > 0)
                     blokFilters = value.Filter.Blokken.ToArray();
 
                 string zoektermFilter = null;

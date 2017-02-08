@@ -98,13 +98,20 @@ function initDatatable() {
             {
                 bSortable: false,
                 mRender: function (data, type, full) {
+                    return data;
+                },
+                aTargets: [4]
+            },
+            {
+                bSortable: false,
+                mRender: function (data, type, full) {
                     return data + " EC";
                 },
                 aTargets: [5]
             },
             {
                 bSortable: false,
-                aTargets: [4,6,8]
+                aTargets: [6,8]
             },
         ],
         order: [[1, "asc"]],
