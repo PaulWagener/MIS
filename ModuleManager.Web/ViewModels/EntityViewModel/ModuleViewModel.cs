@@ -3,6 +3,9 @@ using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using System;
+using System.Web.Mvc;
+using ModuleManager.Web.Helpers;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
@@ -63,6 +66,20 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             Tags = new List<TagViewModel>();
             Voorkennis = new List<ModuleVoorkennisViewModel>();
             Fases = new List<Fase>();
+        }
+
+        internal bool Validate(ModelStateDictionary modelState)
+        {
+            if (ModuleCompetenties.ContainsDoubles(c => c.CompetentieCode))
+                modelState.AddModelError(String.Empty, "Competenties mogen niet dubbel opgenomen worden.");
+            if (Leerlijnen.ContainsDoubles(ll => ll.Naam))
+                modelState.AddModelError(String.Empty, "Leerlijnen mogen niet dubbel opgenomen worden.");
+            if (Tags.ContainsDoubles(t => t.Naam))
+                modelState.AddModelError(String.Empty, "Tags mogen niet dubbel opgenomen worden.");
+            if (ModuleWerkvormen.ContainsDoubles(w => w.WerkvormType))
+                modelState.AddModelError(String.Empty, "Werkvormen mogen niet dubbel opgenomen worden.");
+
+            return modelState.IsValid;
         }
     }
 

@@ -10,10 +10,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
 
-        [Required(ErrorMessage="Verplicht")]
+
+        [Required(ErrorMessage="{0} dient ingevuld te worden")]
         public string Activiteit { get; set; }
 
-        [Required(ErrorMessage = "Verplicht")]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
+        [Display(Name="Uren")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:G29}")]
         public decimal? ContactUren { get; set; }
 
@@ -21,7 +23,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public string Frequentie { get; set; }
 
-        [Required(ErrorMessage = "Verplicht")]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:G29}")]
         public decimal SBU { get; set; }
 

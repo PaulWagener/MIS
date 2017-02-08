@@ -12,12 +12,12 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     {
         public IEnumerable<FaseTypeViewModel> FaseTypes { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         public string FaseType { get; set; }
 
         public string Opleiding { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(2)]
         [MaxLength(50)]
         public string Naam { get; set; }

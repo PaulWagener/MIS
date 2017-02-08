@@ -16,14 +16,14 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     {
         public int Schooljaar { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(2)]
         [MaxLength(128)]
         public string CursusCode { get; set; }
 
         public string OpleidingsPrefix { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(2)]
         [MaxLength(128)]
         public string Naam { get; set; }
@@ -31,25 +31,25 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         [Required(ErrorMessage = "The verantwoordelijke field is required")]
         public int VerantwoordelijkeDocentId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         public int Blok { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         public string Icon { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         public string Onderdeel { get; set; }
 
         public string Toetscode1Prefix { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         public string Toetscode1 { get; set; }
 
         public string Toetscode2Prefix { get; set; }
 
         public string Toetscode2 { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         public double Ec1 { get; set; }
         public double Ec2 { get; set; }
 

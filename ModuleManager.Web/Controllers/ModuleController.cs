@@ -12,8 +12,6 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.IO;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
-using WebGrease;
-
 
 namespace ModuleManager.Web.Controllers
 {
@@ -99,9 +97,11 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(int schooljaar, string cursusCode, ModuleEditViewModel moduleVm)
         {
+            moduleVm.Options = new ModuleEditOptionsViewModel(_unitOfWork);
+
+            moduleVm.Module.Validate(ModelState);
             if (!ModelState.IsValid)
             {
-                moduleVm.Options = new ModuleEditOptionsViewModel(_unitOfWork);
                 return View(moduleVm);
             }
 

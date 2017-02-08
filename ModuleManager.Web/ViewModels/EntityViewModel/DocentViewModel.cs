@@ -8,7 +8,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Docent dient ingevuld te worden")]
         [MinLength(2)]
         [MaxLength(128)]
         public string Naam { get; set; }

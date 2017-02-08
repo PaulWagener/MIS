@@ -343,6 +343,8 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\ActionLinkHelper.cs" />
+    <Compile Include="Helpers\Expression.cs" />
+    <Compile Include="Helpers\LinqHelper.cs" />
     <Compile Include="Helpers\NumberWordComparer.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

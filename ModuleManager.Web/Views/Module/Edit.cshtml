@@ -18,9 +18,8 @@
 <h2>Module bewerken</h2>
 
 @if (!ViewData.ModelState.IsValid)
-{   <div class="col-md-12 validation-summary">
-        <span class="field-validation-error">Niet alle velden zijn correct ingevuld</span>
-    </div>
+{
+    @Html.ValidationSummary(false, "", new { @class = "col-md-12 validation-summary" })
 }
 
 
@@ -233,23 +232,18 @@
                                     <tr>
                                         <td>
                                             @Html.EditorFor(model => model.Module.StudieBelastingen[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Activiteit)
                                         </td>
                                         <td>
                                             @Html.EditorFor(model => model.Module.StudieBelastingen[i].Duur, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Duur)
                                         </td>
                                         <td>
                                             @Html.EditorFor(model => model.Module.StudieBelastingen[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Frequentie)
                                         </td>
                                         <td>
                                             @Html.EditorFor(model => model.Module.StudieBelastingen[i].ContactUren, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].ContactUren)
                                         </td>
                                         <td>
                                             @Html.EditorFor(model => model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
 
                                             <input type="hidden" name="Module.StudieBelastingen.Index" value="@i" />
                                             @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new { @class = "form-control" })

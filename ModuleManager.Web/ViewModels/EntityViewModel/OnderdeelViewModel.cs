@@ -9,7 +9,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class OnderdeelViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Onderdeel dient ingevuld te worden")]
         [MinLength(2)]
         [MaxLength(50)]
         public string Code { get; set; }

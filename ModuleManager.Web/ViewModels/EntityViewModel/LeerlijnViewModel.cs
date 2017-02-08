@@ -7,7 +7,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class LeerlijnViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Leerlijn dient ingevuld te worden")]
         [MinLength(3)]
         [MaxLength(50)]
         public string Naam { get; set; }
