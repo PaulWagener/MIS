@@ -46,7 +46,7 @@ namespace ModuleManager.Web.Controllers
             //Collect the possible filter options the user can choose.
 
             var filterOptions = new FilterOptionsViewModel();
-            filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
+            filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll().OrderBy(blok => blok.BlokId));
             filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
             filterOptions.AddECs();
             filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().ToList());

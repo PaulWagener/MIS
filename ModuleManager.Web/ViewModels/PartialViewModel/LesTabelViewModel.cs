@@ -12,7 +12,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             Onderdelen = new List<OnderdeelTabelViewModel>();
         }
 
-        public string Blok { get; set; }
+        public int Blok { get; set; }
 
         public string Semester
         {

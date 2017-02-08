@@ -32,7 +32,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public int VerantwoordelijkeDocentId { get; set; }
 
         [Required]
-        public string Blok { get; set; }
+        public int Blok { get; set; }
 
         [Required]
         public string Icon { get; set; }
@@ -113,7 +113,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             Blokken = unitOfWork.GetRepository<Blok>()
                 .GetAll()
                 .ToList()
-                .OrderBy(B => B.BlokId, new NumberWordComparer());
+                .OrderBy(B => B.BlokId);
         }
 
 

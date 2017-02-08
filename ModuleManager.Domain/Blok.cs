@@ -14,6 +14,15 @@ namespace ModuleManager.Domain
     
     public partial class Blok
     {
-        public string BlokId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Blok()
+        {
+            this.Modules = new HashSet<Module>();
+        }
+    
+        public int BlokId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Module> Modules { get; set; }
     }
 }

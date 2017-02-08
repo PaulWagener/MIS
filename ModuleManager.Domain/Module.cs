@@ -40,7 +40,7 @@ namespace ModuleManager.Domain
         public string Status { get; set; }
         public string OnderdeelCode { get; set; }
         public string Icon { get; set; }
-        public string Blok { get; set; }
+        public int Blok { get; set; }
         public bool Gecontroleerd { get; set; }
         public bool ReadOnly { get; set; }
         public int VerantwoordelijkeDocentId { get; set; }
@@ -77,5 +77,6 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudiePunt> StudiePunten { get; set; }
         public virtual Docent Verantwoordelijke { get; set; }
+        public virtual Blok Blok1 { get; set; }
     }
 }
