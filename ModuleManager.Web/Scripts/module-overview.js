@@ -132,7 +132,7 @@ function initFilters() {
         $("#modules").dataTable().fnDraw();
     });
 
-    $("#ResetFilters").on("click", function(e) {
+    $("#ResetFilters").on("click", function (e) {
         e.preventDefault();
         resetSelect2();
     });
