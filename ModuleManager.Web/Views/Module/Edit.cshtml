@@ -482,7 +482,7 @@
     function calulcateTotal(columnName) {
         var sum = 0;
         $('.' + columnName).each(function () {
-            sum += parseInt($(this).val()) || 0;
+            sum += parseFloat($(this).val()) || 0;
         });
         $('#' + columnName + 'Total').html(sum)
     }

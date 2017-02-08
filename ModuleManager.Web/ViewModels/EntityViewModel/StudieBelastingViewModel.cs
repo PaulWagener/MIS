@@ -17,10 +17,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:G29}")]
         public decimal? ContactUren { get; set; }
 
-        [Required(ErrorMessage = "Verplicht")]
         public string Duur { get; set; }
 
-        [Required(ErrorMessage = "Verplicht")]
         public string Frequentie { get; set; }
 
         [Required(ErrorMessage = "Verplicht")]

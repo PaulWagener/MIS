@@ -212,8 +212,8 @@
           <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Activiteit" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ContactUren" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="Duur" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Frequentie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duur" Type="varchar" MaxLength="50" />
+          <Property Name="Frequentie" Type="varchar" MaxLength="50" />
           <Property Name="SBU" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="StudiePunt">
@@ -1566,8 +1566,8 @@
           <Property Name="Schooljaar" Type="Int32" Nullable="false" />
           <Property Name="Activiteit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ContactUren" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="Duur" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Frequentie" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Frequentie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SBU" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_StudieBelasting_Module" FromRole="StudieBelasting" ToRole="Module" />
         </EntityType>
