@@ -96,8 +96,8 @@ namespace ModuleManager.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost, Route("Module/Edit")]
-        public ActionResult Edit(ModuleEditViewModel moduleVm)
+        [HttpPost, Route("Module/Edit/{schooljaar}/{cursusCode}")]
+        public ActionResult Edit(int schooljaar, string cursusCode, ModuleEditViewModel moduleVm)
         {
             if (!ModelState.IsValid)
             {
@@ -105,7 +105,8 @@ namespace ModuleManager.Web.Controllers
                 return View(moduleVm);
             }
 
-            using(var context = new DomainEntities()){
+            using (var context = new DomainEntities())
+            {
 
                 //Ophalen originele module
                 var module = context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
@@ -117,7 +118,7 @@ namespace ModuleManager.Web.Controllers
                 //#leerlijnen
                 module.Leerlijnen.Clear();
                 var leerlijnen = new List<Leerlijn>();
-                foreach(var leerlijn in moduleVm.Module.Leerlijnen)
+                foreach (var leerlijn in moduleVm.Module.Leerlijnen)
                 {
                     leerlijnen.Add(context.Leerlijnen.FirstOrDefault(ll => ll.Naam == leerlijn.Naam));
                 }
@@ -186,7 +187,7 @@ namespace ModuleManager.Web.Controllers
             {
                 return RedirectToAction("Edit/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
             }
-                
+
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }
 
@@ -208,7 +209,7 @@ namespace ModuleManager.Web.Controllers
         {
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
-            if (!User.Identity.IsAuthenticated) 
+            if (!User.Identity.IsAuthenticated)
             {
                 modules = modules.Where(element => element.Status.Equals("Compleet (gecontroleerd)"));
             }
@@ -256,7 +257,7 @@ namespace ModuleManager.Web.Controllers
 
             return new FileStreamResult(fStream, "application/pdf");
 
-        
+
         }
 
 

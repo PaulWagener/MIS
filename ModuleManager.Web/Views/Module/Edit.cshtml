@@ -1,6 +1,6 @@
 ﻿@model ModuleManager.Web.ViewModels.ModuleEditViewModel
 
-@{    
+@{
     HashSet<String> selected = new HashSet<string>();
 
     Model.Options.Filter(Model.Module);
@@ -22,12 +22,12 @@
 }
 
 
-@using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { @id = "module_edit_form" }))
+@using (Html.BeginForm())
 {
     <div id="hidden-values">
         @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" })
         @Html.HiddenFor(model => model.Module.Schooljaar, new { @id = "schooljaar" })
-   
+
 
         <div id="hidden-leerlijnen">
 
@@ -78,8 +78,8 @@
 
 
     var moduleCompetenties = Html.Raw(Json.Encode(Model.Module.ModuleCompetenties));
-    var options = Html.Raw(Json.Encode(Model.Options));    
-    
+    var options = Html.Raw(Json.Encode(Model.Options));
+
     <section ng-controller="CompetentieCtrl" ng-init='init(@moduleCompetenties, @options)'>
         <h2>Competentie</h2>
         <table class="table">
@@ -116,7 +116,7 @@
                         <i class="fa fa-plus"></i>
                     </button>
                 </td>
-             </tr>
+            </tr>
         </table>
     </section>
 
@@ -203,7 +203,7 @@
                                     <tr data-type="@werkvorm.WerkvormType">
                                         <td>@Html.EditorFor(item => werkvorm.WerkvormType, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })</td>
                                         <td>@Html.EditorFor(item => werkvorm.Organisatie, new { htmlAttributes = new { @class = "form-control orgDesc" } })</td>
-   
+
                                     </tr>
                                 }
                             </tbody>
@@ -229,37 +229,41 @@
                                 @for (int i = 0; i < Model.Module.StudieBelastingen.Count; i++)
                                 {
                                     <tr>
-                                        <td>@Html.EditorFor(item => Model.Module.StudieBelastingen[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Activiteit)
-                                        </td>
-                                        <td>@Html.EditorFor(item => Model.Module.StudieBelastingen[i].Duur, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Duur)
-                                        </td>
-                                        <td>@Html.EditorFor(item => Model.Module.StudieBelastingen[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Frequentie)
-                                        </td>
-                                        <td>@Html.EditorFor(item => Model.Module.StudieBelastingen[i].ContactUren, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].ContactUren)
-                                        </td>
                                         <td>
-                                            @Html.EditorFor(item => Model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
-                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
+                                            @Html.EditorFor(item => Model.Module.StudieBelastingen[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Activiteit)
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(item => Model.Module.StudieBelastingen[i].Duur, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Duur)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(item => Model.Module.StudieBelastingen[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Frequentie)
+                            </td>
+                            <td>
+                                @Html.EditorFor(item => Model.Module.StudieBelastingen[i].ContactUren, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].ContactUren)
+                        </td>
+                        <td>
+                            @Html.EditorFor(item => Model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
+                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
 
-                                            <input type="hidden" name="Module.StudieBelastingen.Index" value="@i" />
-                                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new {  @class = "form-control" } )
-                                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].Schooljaar, new {  @class = "form-control" } )
-                                        </td>
-                                        <td style="width: 90px; text-align:center">
-                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
+                            <input type="hidden" name="Module.StudieBelastingen.Index" value="@i" />
+                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new { @class = "form-control" })
+                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].Schooljaar, new { @class = "form-control" })
+                        </td>
+                        <td style="width: 90px; text-align:center">
+                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
                                 }
 
                                 <tr>
                                     <td colspan="3"></td>
                                     <th>Totaal</th>
                                     <td><span id="SBUTotal"></span></td>
-                                    <td style="width: 90px; text-align:right; padding-right:30px" >
+                                    <td style="width: 90px; text-align:right; padding-right:30px">
                                         <button data-target="sb" data-columns="5" data-collectionname="StudieBelastingen" data-properties='["Activiteit", "Duur", "Frequentie", "ContactUren", "SBU"]' data-nextindex="@Model.Module.StudieBelastingen.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
                                     </td>
                                 </tr>
@@ -412,7 +416,7 @@
                 <tr>
                     <th>Status</th>
                     <td>
-                        @Html.DropDownListFor(item => item.Module.Status, selectList: Model.Options.Statussen.Select(s => new SelectListItem { Value=s.Status1, Text= s.Status1}), htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(item => item.Module.Status, selectList: Model.Options.Statussen.Select(s => new SelectListItem { Value = s.Status1, Text = s.Status1 }), htmlAttributes: new { @class = "form-control" })
                     </td>
                 </tr>
             </tbody>
@@ -526,7 +530,7 @@
                     if (findAttempt != "")
                         organisatie = findAttempt;
                 }
-                
+
             })
 
             var newRow1 = "<input name='Module.ModuleWerkvormen[" + index + "].Organisatie' type='hidden' value='" + organisatie + "'>";
@@ -625,7 +629,7 @@
 
 
         var newRow = "<tr>";
-        
+
 
         if (columns == properties.length) {
             if (columns == 1 && typeof (options) != 'undefined') {
@@ -699,6 +703,6 @@
                  @Html.Raw("$('#" + @niveau.Niveau1 + "-select').select2({ placeholder: 'Werkvorm' });")
             }
     });
-</script>
+    </script>
 
 }
