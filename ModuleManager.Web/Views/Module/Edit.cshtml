@@ -9,8 +9,10 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="@Url.Action("Overview", "Module")">Home</a></li>
-    <li class="active">Module bewerken</li>
+    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+    <li><a href="@Url.Action("Overview", "Module")">Module-overzicht</a></li>
+    <li><a href="@Url.Action("Details", "Module", new { schooljaar = Model.Module.Schooljaar, cursusCode = Model.Module.CursusCode })">@Model.Module.Naam</a></li>
+    <li>Bewerken</li>
 </ol>
 
 <h2>Module bewerken</h2>
