@@ -2,6 +2,7 @@
 using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
@@ -36,6 +37,15 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public IList<TagViewModel> Tags { get; set; }
         public IList<ModuleVoorkennisViewModel> Voorkennis { get; set; }
         public IList<Fase> Fases { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:G29}")]
+        public decimal StudieBelastingTotaal
+        {
+            get
+            {
+                return StudieBelastingen.Sum(sb => sb.SBU);
+            }
+        }
 
         public ModuleViewModel()
         {

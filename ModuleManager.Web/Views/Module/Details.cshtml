@@ -202,24 +202,23 @@
             <th>Uren</th>
             <th>SBU</th>
         </tr>
-        @{ var studieBelastingTotaal = 0; }
-        @foreach (var studieBelasting in Model.StudieBelastingen)
+        
+        @for (int i = 0; i < Model.StudieBelastingen.Count; i++)
         {
             <tr>
-                <td>@studieBelasting.Activiteit</td>
-                <td>@studieBelasting.Duur</td>
-                <td>@studieBelasting.Frequentie</td>
-                <td>@studieBelasting.ContactUren</td>
-                <td>@studieBelasting.SBU</td>
+                <td>@Html.DisplayFor(m => m.StudieBelastingen[i].Activiteit)</td>
+                <td>@Html.DisplayFor(m => m.StudieBelastingen[i].Duur)</td>
+                <td>@Html.DisplayFor(m => m.StudieBelastingen[i].Frequentie)</td>
+                <td>@Html.DisplayFor(m => m.StudieBelastingen[i].ContactUren)</td>
+                <td>@Html.DisplayFor(m => m.StudieBelastingen[i].SBU)</td>
             </tr>
-            studieBelastingTotaal = studieBelastingTotaal + studieBelasting.SBU;
         }
         <tr>
             <td></td>
             <td></td>
             <td></td>
             <th>Totaal</th>
-            <td>@studieBelastingTotaal</td>
+            <td>@Html.DisplayFor(m => m.StudieBelastingTotaal)</td>
         </tr>
     <tbody>
 </table>
@@ -275,4 +274,4 @@
 </p>
 
 <!-- Help MODAL-->
-@Html.Partial("~/Views/Help/ModuleDetails.cshtml", null);
+@Html.Partial("~/Views/Help/ModuleDetails.cshtml", null)

@@ -230,33 +230,33 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.EditorFor(item => Model.Module.StudieBelastingen[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Activiteit)
-                                    </td>
-                                    <td>
-                                        @Html.EditorFor(item => Model.Module.StudieBelastingen[i].Duur, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Duur)
-                                </td>
-                                <td>
-                                    @Html.EditorFor(item => Model.Module.StudieBelastingen[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Frequentie)
-                            </td>
-                            <td>
-                                @Html.EditorFor(item => Model.Module.StudieBelastingen[i].ContactUren, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].ContactUren)
-                        </td>
-                        <td>
-                            @Html.EditorFor(item => Model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
-                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
+                                            @Html.EditorFor(model => model.Module.StudieBelastingen[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Activiteit)
+                                        </td>
+                                        <td>
+                                            @Html.EditorFor(model => model.Module.StudieBelastingen[i].Duur, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Duur)
+                                        </td>
+                                        <td>
+                                            @Html.EditorFor(model => model.Module.StudieBelastingen[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].Frequentie)
+                                        </td>
+                                        <td>
+                                            @Html.EditorFor(model => model.Module.StudieBelastingen[i].ContactUren, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].ContactUren)
+                                        </td>
+                                        <td>
+                                            @Html.EditorFor(model => model.Module.StudieBelastingen[i].SBU, new { htmlAttributes = new { @class = "form-control SBU" } })
+                                            @Html.ValidationMessageFor(item => Model.Module.StudieBelastingen[i].SBU)
 
-                            <input type="hidden" name="Module.StudieBelastingen.Index" value="@i" />
-                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new { @class = "form-control" })
-                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].Schooljaar, new { @class = "form-control" })
-                        </td>
-                        <td style="width: 90px; text-align:center">
-                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
+                                            <input type="hidden" name="Module.StudieBelastingen.Index" value="@i" />
+                                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].CursusCode, new { @class = "form-control" })
+                                            @Html.HiddenFor(item => Model.Module.StudieBelastingen[i].Schooljaar, new { @class = "form-control" })
+                                        </td>
+                                        <td style="width: 90px; text-align:center">
+                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
                                 }
 
                                 <tr>

@@ -14,7 +14,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string Activiteit { get; set; }
 
         [Required(ErrorMessage = "Verplicht")]
-        public Nullable<int> ContactUren { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:G29}")]
+        public decimal? ContactUren { get; set; }
 
         [Required(ErrorMessage = "Verplicht")]
         public string Duur { get; set; }
@@ -23,7 +24,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string Frequentie { get; set; }
 
         [Required(ErrorMessage = "Verplicht")]
-        public int SBU { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:G29}")]
+        public decimal SBU { get; set; }
 
         internal Domain.StudieBelasting ToPoco(DomainEntities context)
         {

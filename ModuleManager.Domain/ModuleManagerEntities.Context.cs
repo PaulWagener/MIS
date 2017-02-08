@@ -36,7 +36,6 @@ namespace ModuleManager.Domain
         public virtual DbSet<Onderdeel> Onderdeels { get; set; }
         public virtual DbSet<Opleiding> Opleidings { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<StudieBelasting> StudieBelastings { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Toetsvorm> Toetsvorms { get; set; }
         public virtual DbSet<Weekplanning> Weekplannings { get; set; }
@@ -54,6 +53,7 @@ namespace ModuleManager.Domain
         public virtual DbSet<Schooljaar> Schooljaren { get; set; }
         public virtual DbSet<StudiePunt> StudiePunten { get; set; }
         public virtual DbSet<Blok> Bloks { get; set; }
+        public virtual DbSet<StudieBelasting> StudieBelastings { get; set; }
     
         public virtual ObjectResult<Nullable<int>> spAuthenticateUser(string userName, string password)
         {

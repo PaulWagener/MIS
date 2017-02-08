@@ -17,10 +17,10 @@ namespace ModuleManager.Domain
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
         public string Activiteit { get; set; }
-        public Nullable<int> ContactUren { get; set; }
+        public Nullable<decimal> ContactUren { get; set; }
         public string Duur { get; set; }
         public string Frequentie { get; set; }
-        public int SBU { get; set; }
+        public decimal SBU { get; set; }
     
         public virtual Module Module { get; set; }
     }

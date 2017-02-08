@@ -9,7 +9,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     {
         public string Cursuscode { get; set; }
         public string Omschrijving { get; set; }
-        public IList<int> Contacturen { get; set; }
+        public IList<decimal> Contacturen { get; set; }
         public IList<string> Werkvormen { get; set; }
         public IList<StudiePunt> Studiepunten { get; set; }
     }

@@ -22,7 +22,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             }
         }
 
-        public int TotaleContactUren
+        public decimal TotaleContactUren
         {
             get
             {
