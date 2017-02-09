@@ -22,9 +22,7 @@
     @Html.ValidationSummary(false, "", new { @class = "col-md-12 validation-summary" })
 }
 
-
-@using (Html.BeginForm())
-{
+<form id="module_edit_form" action="@Url.Action("Edit", "Module", new { schooljaar = Model.Module.Schooljaar, cursusCode = Model.Module.CursusCode })" method="post">
     <div id="hidden-values">
         @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" })
         @Html.HiddenFor(model => model.Module.Schooljaar, new { @id = "schooljaar" })
@@ -77,9 +75,10 @@
     </table>
 
 
-
-    var moduleCompetenties = Html.Raw(Json.Encode(Model.Module.ModuleCompetenties));
-    var options = Html.Raw(Json.Encode(Model.Options));
+    @{ 
+        var moduleCompetenties = Html.Raw(Json.Encode(Model.Module.ModuleCompetenties));
+        var options = Html.Raw(Json.Encode(Model.Options));
+    }
 
     <section ng-controller="CompetentieCtrl" ng-init='init(@moduleCompetenties, @options)'>
         <h2>Competentie</h2>
@@ -149,7 +148,7 @@
         </tr>
         <tr>
             <td>
-                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Voorkennis.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
+                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "CursusCode", "Naam", Model.Module.Voorkennis.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
             </td>
         </tr>
     </table>
@@ -418,12 +417,10 @@
             </tbody>
         </table>
     </div>
-
     <button name="afterSubmit" value="stay" type="submit" class="btn btn-success btn-lg">Opslaan</button>
     <button name="afterSubmit" value="close" class="btn btn-success btn-lg">Opslaan & Sluiten</button>
-    <a href="@Url.Action("Overview", "Module")" class="btn btn-default">Annuleren</a>
-
-}
+    <a href="@Url.Action("Details", "Module", new { schooljaar = Model.Module.Schooljaar, cursusCode = Model.Module.CursusCode })" class="btn btn-default">Annuleren</a>
+</form>
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/ModuleEdit.cshtml", null)
@@ -431,135 +428,135 @@
 <!-- JAVA MEUK -->
 @section Scripts {
     <script>
-    function UpdateOrganisatie() {
-        $("#organisatie tr").each(function (i, org) {
-            $orgType = $(org).data("type");
+        function UpdateOrganisatie() {
+            $("#organisatie tr").each(function (i, org) {
+                $orgType = $(org).data("type");
 
-            var shouldDelete = true;
+                var shouldDelete = true;
+
+                $("#werkvorm option:selected").each(function (i, selected) {
+                    $selected_type = $(selected).data("type");
+
+                    if ($selected_type == $orgType)
+                        shouldDelete = false;
+                })
+
+                if (shouldDelete)
+                    $(org).closest("tr").remove();
+            });
 
             $("#werkvorm option:selected").each(function (i, selected) {
                 $selected_type = $(selected).data("type");
 
-                if ($selected_type == $orgType)
-                    shouldDelete = false;
-            })
+                var shouldAdd = true;
 
-            if (shouldDelete)
-                $(org).closest("tr").remove();
-        });
+                $("#organisatie tr").each(function (i, org) {
+                    $orgType = $(org).data("type");
 
-        $("#werkvorm option:selected").each(function (i, selected) {
-            $selected_type = $(selected).data("type");
+                    if ($selected_type == $orgType)
+                        shouldAdd = false;
+                })
 
-            var shouldAdd = true;
+                if (shouldAdd) {
+                    var newRow = "<tr data-type='" + $selected_type + "'>";
+                    newRow += "<td><input class='form-control text-box single-line' disabled='disabled' id='werkvorm_WerkvormType' name='werkvorm.WerkvormType' type='text' value='" + $selected_type + "'></td>"
+                    newRow += "<td><input class='form-control text-box single-line' id='werkvorm_Organisatie' name='werkvorm.Organisatie' type='text'></td>"
+                    newRow += "</tr>"
 
-            $("#organisatie tr").each(function (i, org) {
-                $orgType = $(org).data("type");
-
-                if ($selected_type == $orgType)
-                    shouldAdd = false;
-            })
-
-            if (shouldAdd) {
-                var newRow = "<tr data-type='" + $selected_type + "'>";
-                newRow += "<td><input class='form-control text-box single-line' disabled='disabled' id='werkvorm_WerkvormType' name='werkvorm.WerkvormType' type='text' value='" + $selected_type + "'></td>"
-                newRow += "<td><input class='form-control text-box single-line' id='werkvorm_Organisatie' name='werkvorm.Organisatie' type='text'></td>"
-                newRow += "</tr>"
-
-                $("#organisatie tbody").append(newRow)
-            }
-        });
-    }
-
-    function AddRow(targettable, values) {
-        UpdateOrganisatie();
-    }
-
-    function calulcateTotal(columnName) {
-        var sum = 0;
-        $('.' + columnName).each(function () {
-            sum += parseFloat($(this).val()) || 0;
-        });
-        $('#' + columnName + 'Total').html(sum)
-    }
-
-    //initial count
-    calulcateTotal('SBU');
-
-    //after change
-    $('body').on('change', '.SBU', function () {
-        calulcateTotal('SBU');
-    });
-
-
-    $("#werkvorm").on("change", function (e) {
-        UpdateOrganisatie();
-    })
-
-
-    $("#module_edit_form").submit(function () {
-        $hidden_leerlijnen = $("#hidden-leerlijnen");
-        $hidden_voorkennis = $("#hidden-voorkennis");
-        $hidden_tags = $("#hidden-tags");
-        $hidden_competenties = $("#hidden-competenties");
-        $hidden_docenten = $("#hidden-docenten");
-        $hidden_werkvormen = $("#hidden-werkvormen");
-
-        $hidden_leerlijnen.empty();
-        $hidden_voorkennis.empty();
-        $hidden_tags.empty();
-        $hidden_competenties.empty();
-        $hidden_werkvormen.empty();
-
-        var index = 0;
-
-        $("#werkvorm option:selected").each(function (i, selected) {
-            var wvType = $(selected).data("type");
-
-            var organisatie = "";
-
-            $("#organisatie tr").each(function (i, org) {
-                var orgType = $(org).data("type");
-
-                if (orgType == wvType) {
-                    var findAttempt = $(org).find("input[name='werkvorm.Organisatie']").val();
-                    if (findAttempt != "")
-                        organisatie = findAttempt;
+                    $("#organisatie tbody").append(newRow)
                 }
+            });
+        }
 
-            })
+        function AddRow(targettable, values) {
+            UpdateOrganisatie();
+        }
 
-            var newRow1 = "<input name='Module.ModuleWerkvormen[" + index + "].Organisatie' type='hidden' value='" + organisatie + "'>";
-            var newRow2 = "<input name='Module.ModuleWerkvormen[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-            var newRow3 = "<input name='Module.ModuleWerkvormen[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-            var newRow4 = "<input name='Module.ModuleWerkvormen[" + index + "].WerkvormType' type='hidden' value='" + wvType + "'>";
+        function calulcateTotal(columnName) {
+            var sum = 0;
+            $('.' + columnName).each(function () {
+                sum += parseFloat($(this).val()) || 0;
+            });
+            $('#' + columnName + 'Total').html(sum)
+        }
+
+        //initial count
+        calulcateTotal('SBU');
+
+        //after change
+        $('body').on('change', '.SBU', function () {
+            calulcateTotal('SBU');
+        });
 
 
-
-            $hidden_werkvormen.append(newRow1 + newRow2 + newRow3 + newRow4);
-            ++index;
+        $("#werkvorm").on("change", function (e) {
+            UpdateOrganisatie();
         })
 
 
-        index = 0;
+        $("#module_edit_form").submit(function () {
+            $hidden_leerlijnen = $("#hidden-leerlijnen");
+            $hidden_voorkennis = $("#hidden-voorkennis");
+            $hidden_tags = $("#hidden-tags");
+            $hidden_competenties = $("#hidden-competenties");
+            $hidden_docenten = $("#hidden-docenten");
+            $hidden_werkvormen = $("#hidden-werkvormen");
 
-        $("#leerlijnen option:selected").each(function (i, selected) {
+            $hidden_leerlijnen.empty();
+            $hidden_voorkennis.empty();
+            $hidden_tags.empty();
+            $hidden_competenties.empty();
+            $hidden_werkvormen.empty();
 
-            var newRow1 = "<input name='Module.Leerlijnen[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Leerlijnen[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var index = 0;
 
-            $hidden_leerlijnen.append(newRow1 + newRow2);
+            $("#werkvorm option:selected").each(function (i, selected) {
+                var wvType = $(selected).data("type");
 
-            ++index;
-        });
+                var organisatie = "";
 
-        index = 0;
+                $("#organisatie tr").each(function (i, org) {
+                    var orgType = $(org).data("type");
 
-        $("#voorkennis option:selected").each(function (i, selected) {
+                    if (orgType == wvType) {
+                        var findAttempt = $(org).find("input[name='werkvorm.Organisatie']").val();
+                        if (findAttempt != "")
+                            organisatie = findAttempt;
+                    }
 
-            var newRow1 = "<input name='Module.Voorkennis[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Voorkennis[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-            var newRow3 = "<input name='Module.Voorkennis[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+                })
+
+                var newRow1 = "<input name='Module.ModuleWerkvormen[" + index + "].Organisatie' type='hidden' value='" + organisatie + "'>";
+                var newRow2 = "<input name='Module.ModuleWerkvormen[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+                var newRow3 = "<input name='Module.ModuleWerkvormen[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+                var newRow4 = "<input name='Module.ModuleWerkvormen[" + index + "].WerkvormType' type='hidden' value='" + wvType + "'>";
+
+
+
+                $hidden_werkvormen.append(newRow1 + newRow2 + newRow3 + newRow4);
+                ++index;
+            })
+
+
+            index = 0;
+
+            $("#leerlijnen option:selected").each(function (i, selected) {
+
+                var newRow1 = "<input name='Module.Leerlijnen[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+                var newRow2 = "<input name='Module.Leerlijnen[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+                $hidden_leerlijnen.append(newRow1 + newRow2);
+
+                ++index;
+            });
+
+            index = 0;
+
+            $("#voorkennis option:selected").each(function (i, selected) {
+                console.log(selected);
+                var newRow1 = "<input name='Module.Voorkennis[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+                var newRow2 = "<input name='Module.Voorkennis[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+                var newRow3 = "<input name='Module.Voorkennis[" + index + "].CursusCode' type='hidden' value='" + $(selected).attr('value') + "'>";
 
             $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
 
@@ -579,37 +576,9 @@
         index = 0;
 
         $("#tags option:selected").each(function (i, selected) {
-
-            var newRow1 = "<input name='Module.Tags[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-            var newRow2 = "<input name='Module.Tags[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-
-            $hidden_tags.append(newRow1 + newRow2);
-
+            $hidden_tags.append("<input name='Module.Tags[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">");
             ++index;
         });
-
-        $comp_table = $("#comp-table");
-        $niveaus = $comp_table.data("niveaus");
-
-        index = 0;
-
-        for (var i = 0; i < $niveaus.length; i++) {
-            $niveau = $niveaus[i];
-            $("#" + $niveau + "-select option:selected").each(function (i, selected) {
-
-                var newRow1 = "<input name='Module.ModuleCompetenties[" + index + "].Niveau' type='hidden' value=" + $niveau + ">"
-                var newRow2 = "<input name='Module.ModuleCompetenties[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>"
-                var newRow3 = "<input name='Module.ModuleCompetenties[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>"
-
-                $hidden_competenties.append(newRow1 + newRow2 + newRow3);
-
-                ++index;
-            });
-        }
-    });
-
-    $(document).on("click", ".werkvorm_option", function () {
-        alert($(this).data("type"))
     });
 
     $(".row_add").click(function () {
@@ -645,60 +614,59 @@
             }
         }
 
-        debugger;
         newRow += "<input name='Module." + collName + ".Index' type='hidden' value='" + newIndex + "'>";
         newRow += "<input id='Module_" + collName + "_" + newIndex + "__CursusCode' name='Module." + collName + "[" + newIndex + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-        newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
 
-        newRow += "</td>"
+            newRow += "</td>"
 
-        newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
+            newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
 
-        newRow += "</tr>";
+            newRow += "</tr>";
 
-        $("#" + target + " tr:last").before(newRow);
+            $("#" + target + " tr:last").before(newRow);
 
-        $(this).data("nextindex", newIndex + 1);
+            $(this).data("nextindex", newIndex + 1);
 
-    });
-
-    $(document).on("click", ".remove_row", function () {
-        var self = $(this);
-        self.closest("tr").remove();
-    });
-
-    $(function () {
-        // SELECT2
-        $("#competenties").select2({
-            placeholder: "Competenties"
         });
 
-        $("#leerlijnen").select2({
-            placeholder: "Leerlijnen"
+        $(document).on("click", ".remove_row", function () {
+            var self = $(this);
+            self.closest("tr").remove();
         });
 
-        $("#tags").select2({
-            placeholder: "Tags"
-        });
+        $(function () {
+            // SELECT2
+            $("#competenties").select2({
+                placeholder: "Competenties"
+            });
 
-        $("#werkvorm").select2({
-            placeholder: "Werkvorm"
-        });
+            $("#leerlijnen").select2({
+                placeholder: "Leerlijnen"
+            });
 
-        $("#voorkennis").select2({
-            placeholder: "Voorkennis"
-        });
+            $("#tags").select2({
+                placeholder: "Tags"
+            });
 
-        $("#docenten").select2({
-            placeholder: "Docenten"
-        })
+            $("#werkvorm").select2({
+                placeholder: "Werkvorm"
+            });
+
+            $("#voorkennis").select2({
+                placeholder: "Voorkennis"
+            });
+
+            $("#docenten").select2({
+                placeholder: "Docenten"
+            })
 
 
-        @foreach (var niveau in Model.Options.Niveaus)
+            @foreach (var niveau in Model.Options.Niveaus)
             {
                  @Html.Raw("$('#" + @niveau.Niveau1 + "-select').select2({ placeholder: 'Werkvorm' });")
             }
-    });
+        });
     </script>
 
 }
