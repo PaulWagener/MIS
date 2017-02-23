@@ -42,6 +42,7 @@ function initDatatable() {
                 "<'row'<'col-sm-6'p><'col-sm-6'i>>",
         processing: true,
         serverSide: true,
+        paging: true,
         language: {
             url: "/Scripts/dataTables.dutch.js"
         },

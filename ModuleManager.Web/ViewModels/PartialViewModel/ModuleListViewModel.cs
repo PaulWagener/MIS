@@ -8,7 +8,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     public class ModuleListViewModel
     {
         public ICollection<ModulePartialViewModel> data { get; set; }
-        public int recordsFiltered { get { return data.Count; } }
+        public int recordsFiltered { get; private set; }
         public int recordsTotal { get; private set; }
         /// <summary>
         /// Constructor
@@ -16,8 +16,16 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <param name="recordsTotal">Totaal aantal modules in de datasource"</param>
         public ModuleListViewModel(int recordsTotal)
         {
+            this.recordsFiltered = recordsTotal;
             this.recordsTotal = recordsTotal;
         }
+
+        public ModuleListViewModel(int recordsTotal, IEnumerable<Module> modules)
+            :this(recordsTotal)
+        {
+            AddModules(modules);
+        }
+
         public void AddModules(IEnumerable<Module> moduleList)
         {
             data = moduleList

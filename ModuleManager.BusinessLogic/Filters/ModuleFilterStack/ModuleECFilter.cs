@@ -16,19 +16,11 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         {
             if (args.ECfilters != null && args.ECfilters.Count > 0)
             {
-                List<Module> result = new List<Module>();
-                foreach (int arg in args.ECfilters)
+                foreach (var ec in args.ECfilters)
                 {
-                    var selectedModule = 
-                        from m in toQuery
-                            where
-                                m.StudiePunten.Select(element => element.EC).Contains(arg)
-                        select m;
-
-                    result.AddRange(selectedModule.Where(x => !result.Contains(x)));
+                    var tmp = ec; // because of capture problem
+                    toQuery = toQuery.Where(module => module.StudiePunten.Any(sp => sp.EC == tmp));
                 }
-
-                toQuery = result.AsQueryable();
             }
 
             return base.Filter(toQuery, args);

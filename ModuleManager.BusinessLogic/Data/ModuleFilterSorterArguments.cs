@@ -21,7 +21,6 @@ namespace ModuleManager.BusinessLogic.Data
         string _zoektermFilter;
         int? _leerjaarFilter;
 
-
         public bool IsEmpty
         {
             get
@@ -41,6 +40,15 @@ namespace ModuleManager.BusinessLogic.Data
         /// Geeft aan of sorting oplopend of aflopen gebeurt. true = desc,  false = asc
         /// </summary>
         public bool SortDesc { get; set; }
+
+        /// <summary>
+        /// Geeft aan vanaf het hoeveelste resultaat teruggegeven dient te worden.
+        /// </summary>
+        public int? Offset { get; set; } = 0;
+        /// <summary>
+        /// Geeft aan hoeveel items teruggegeven dienen te worden.
+        /// </summary>
+        public int? Limit { get; set; } = 10;
 
         /// <summary>
         /// Geselecteerde/mogelijke competentie(s) om op te filteren

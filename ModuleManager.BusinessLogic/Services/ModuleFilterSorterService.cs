@@ -21,11 +21,23 @@ namespace ModuleManager.BusinessLogic.Services
             sorter = new ModuleSorterService();
         }
 
-        public IEnumerable<Module> ProcessData(IQueryablePack<Module> inputData)
+        public IQueryable<Module> ProcessData(IQueryablePack<Module> inputData, out int totalRecordCount)
         {
             var filtered = filter.Filter(inputData);
             ModuleQueryablePack toSort = new ModuleQueryablePack(inputData.Args, filtered.AsQueryable());
             var sorted = sorter.Sort(toSort);
+
+            totalRecordCount = sorted.Count();
+
+            if (inputData.Args.Offset.HasValue)
+            {
+                sorted = sorted.Skip(inputData.Args.Offset.Value);
+            }
+            if (inputData.Args.Limit.HasValue)
+            {
+                sorted = sorted.Take(inputData.Args.Limit.Value);
+            }
+
             return sorted;
         }
     }

@@ -30,97 +30,17 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
-            var modules = _unitOfWork.GetRepository<Module>().GetAll();
+            ModuleFilterSorterArguments arguments = value != null ? value.ToModuleFilterSorterArguments() : new ModuleFilterSorterArguments();
 
-            if (value != null)
+            if (!User.Identity.IsAuthenticated)
             {
-                ICollection<string> competentieFilters = null;
-                if (value.Filter.Competenties.First() != null)
-                    competentieFilters = value.Filter.Competenties;
-
-                ICollection<string> tagFilters = null;
-                if (value.Filter.Tags.First() != null)
-                    tagFilters = value.Filter.Tags;
-
-                ICollection<string> leerlijnFilters = null;
-                if (value.Filter.Leerlijnen.First() != null)
-                    leerlijnFilters = value.Filter.Leerlijnen;
-
-                ICollection<string> faseFilters = null;
-                if (value.Filter.Fases.First() != null)
-                    faseFilters = value.Filter.Fases;
-
-                ICollection<int> blokFilters = null;
-                if (value.Filter.Blokken.First() > 0)
-                    blokFilters = value.Filter.Blokken.ToArray();
-
-                string zoektermFilter = null;
-                if (value.Filter.Zoekterm != null)
-                    zoektermFilter = value.Filter.Zoekterm;
-
-                int? leerjaarFilter = null;
-                if (value.Filter.Leerjaar.HasValue)
-                    leerjaarFilter = value.Filter.Leerjaar;
-
-                int column = value.OrderBy.Column;
-                string columnName;
-                switch (column)
-                {
-                    case 1: columnName = "Naam"; break;
-                    case 2:
-                        columnName = "CursusCode";
-                        break;
-                    case 3:
-                        columnName = "Schooljaar";
-                        break;
-                    case 7:
-                        columnName = "Verantwoordelijke";
-                        break;
-                    default:
-                        columnName = "Naam";
-                        break;
-                }
-
-                bool dir;
-                if (value.OrderBy.Dir == "desc")
-                {
-                    dir = true;
-                }
-                else
-                {
-                    dir = false;
-                }
-
-                var arguments = new ModuleFilterSorterArguments
-                {
-                    CompetentieFilters = competentieFilters,
-                    TagFilters = tagFilters,
-                    LeerlijnFilters = leerlijnFilters,
-                    FaseFilters = faseFilters,
-                    BlokFilters = blokFilters,
-                    ZoektermFilter = zoektermFilter,
-                    LeerjaarFilter = leerjaarFilter,
-                    SortBy = columnName,
-                    SortDesc = dir
-                };
-
-                var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-                modules = _filterSorterService.ProcessData(queryPack);
-
+                arguments.StatusFilter = "Compleet (gecontroleerd)";
             }
 
-            var enumerable = modules as Module[] ?? modules.ToArray();
-            var modArray = enumerable.ToArray().Where(m => m.Status.Equals("Compleet (gecontroleerd)"));
-            if (User.Identity.IsAuthenticated)
-            {
-                modArray = enumerable.ToArray();
-            }
-            var moduleList = modArray as Module[] ?? modArray.ToArray();
-            var moduleListVm = new ModuleListViewModel(moduleList.Count());
-            moduleListVm.AddModules(moduleList);
-            
+            int totalRecordCount;
+            var modules = _filterSorterService.ProcessData(new ModuleQueryablePack(arguments, _unitOfWork.Context.Modules), out totalRecordCount);
 
-            return moduleListVm;
+            return new ModuleListViewModel(totalRecordCount, modules);
         }
 
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
