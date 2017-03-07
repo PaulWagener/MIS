@@ -16,11 +16,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         {
             if (args.StatusFilter != null && args.StatusFilter.Length > 0)
             {
-                foreach (var status in args.StatusFilter)
-                {
-                    var tmp = status; // because of capture problem
-                    toQuery = toQuery.Where(module => module.Status.Any(s => s == tmp));
-                }
+                toQuery = toQuery.Where(module => module.Status == args.StatusFilter);
             }
 
             return base.Filter(toQuery, args);
