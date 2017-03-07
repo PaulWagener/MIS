@@ -121,7 +121,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Mogelijke blok(ken) om op te filteren
         /// </summary>
-        public IEnumerable<string> Blokken { get; set; }
+        public IEnumerable<int> Blokken { get; set; }
         /// <summary>
         /// Mogelijke fasenaam(namen) om op te filteren
         /// </summary>

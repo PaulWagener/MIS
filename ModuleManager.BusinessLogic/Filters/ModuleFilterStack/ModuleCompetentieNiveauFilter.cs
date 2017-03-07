@@ -16,21 +16,11 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         {
             if (args.CompetentieNiveauFilters != null && args.CompetentieNiveauFilters.Count > 0)
             {
-                List<Module> result = new List<Module>();
-                foreach (string arg in args.CompetentieNiveauFilters)
+                foreach (var niveau in args.CompetentieNiveauFilters)
                 {
-                    var selectedModule = 
-                        from m in toQuery
-                            where
-                                m.ModuleCompetenties.Any(
-                                element => (element.Niveau ?? "").ToLower().Contains((arg ?? "").ToLower())
-                                )
-                        select m;
-
-                    result.AddRange(selectedModule.Where(x => !result.Contains(x)));
+                    var tmp = niveau; // because of capture problem
+                    toQuery = toQuery.Where(module => module.ModuleCompetenties.Any(mc => mc.Niveau == tmp));
                 }
-
-                toQuery = result.AsQueryable();
             }
 
             return base.Filter(toQuery, args);

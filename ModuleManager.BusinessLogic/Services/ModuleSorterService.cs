@@ -46,11 +46,11 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="qPack">Pack with Data and required Arguments</param>
         /// <returns>List of Sorted Modules</returns>
-        public IEnumerable<Domain.Module> Sort(Interfaces.IQueryablePack<Domain.Module> qPack)
+        public IQueryable<Domain.Module> Sort(Interfaces.IQueryablePack<Domain.Module> qPack)
         {
             if (qPack.Args.SortBy != null)
             {
-                return moduleSorterStrategy.Sort(qPack.Data, qPack.Args).AsEnumerable();
+                return moduleSorterStrategy.Sort(qPack.Data, qPack.Args);
             }
             return qPack.Data;
         }

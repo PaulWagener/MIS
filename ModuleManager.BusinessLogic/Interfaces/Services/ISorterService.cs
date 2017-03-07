@@ -17,6 +17,6 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// </summary>
         /// <param name="toSort">Complete pack with Data and Arguments</param>
         /// <returns>Sorted Data</returns>
-        IEnumerable<T> Sort(IQueryablePack<T> toSort);
+        IQueryable<T> Sort(IQueryablePack<T> toSort);
     }
 }

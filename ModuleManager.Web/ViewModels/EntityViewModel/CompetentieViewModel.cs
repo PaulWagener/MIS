@@ -6,18 +6,18 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class CompetentieViewModel
     {
-      
-        [Required]
+
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(3)]
         [MaxLength(50)]
         public string Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(3)]
         [MaxLength(50)]
         public string Naam { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(3)]
         [MaxLength(512)]
         public string Beschrijving { get; set; }

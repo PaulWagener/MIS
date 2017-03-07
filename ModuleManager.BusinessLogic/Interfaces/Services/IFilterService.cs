@@ -18,6 +18,6 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// </summary>
         /// <param name="toQuery">Complete pack with Data and Arguments</param>
         /// <returns>Filtered Data</returns>
-        IEnumerable<T> Filter(IQueryablePack<T> toQuery);
+        IQueryable<T> Filter(IQueryablePack<T> toQuery);
     }
 }
