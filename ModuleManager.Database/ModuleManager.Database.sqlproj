@@ -64,6 +64,9 @@
     <Folder Include="scripts" />
     <Folder Include="scripts\testData" />
     <Folder Include="dbo\Stored Procedures" />
+    <Folder Include="dbo\Tables\Competenties" />
+    <Folder Include="dbo\Schemas" />
+    <Folder Include="scripts\testData\Competenties" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Beoordeling.sql" />
@@ -106,7 +109,6 @@
     <None Include="scripts\testData\Leerlijn.sql" />
     <None Include="scripts\testData\Tag.sql" />
     <None Include="scripts\testData\Werkvorm.sql" />
-    <None Include="scripts\testData\Competentie.sql" />
     <None Include="scripts\testData\Docent.sql" />
     <None Include="scripts\testData\Icon.sql" />
     <Build Include="dbo\Tables\User.sql" />
@@ -117,6 +119,14 @@
     <Build Include="dbo\Stored Procedures\spRegisterUser.sql" />
     <Build Include="dbo\Stored Procedures\spArchiveCohort.sql" />
     <Build Include="dbo\Stored Procedures\spCopyCohort.sql" />
+    <Build Include="dbo\Tables\Competenties\Competentie.sql" />
+    <Build Include="dbo\Schemas\Competenties.sql" />
+    <Build Include="dbo\Tables\Competenties\Competentieonderdeel.sql" />
+    <Build Include="dbo\Tables\Competenties\Kwaliteitskenmerk.sql" />
+    <None Include="scripts\testData\Competentie.sql" />
+    <None Include="scripts\testData\Competenties\Competentie.sql" />
+    <None Include="scripts\testData\Competenties\CompetentieOnderdeel.sql" />
+    <None Include="scripts\testData\Competenties\Kwaliteitskenmerk.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ModuleManager.Local.Database.publish.xml" />

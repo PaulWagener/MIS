@@ -31,5 +31,11 @@ go
 :r .\testData\Studiebelasting.sql
 :r .\testData\Studiepunt.sql
 
+/* ================== Competentieset ================== */
+:r .\testData\Competenties\Competentie.sql
+:r .\testData\Competenties\CompetentieOnderdeel.sql
+:r .\testData\Competenties\Kwaliteitskenmerk.sql
+/* ================== /Competentieset ================== */
+
 :r .\testData\SysteemRol.sql
 :r .\Users.sql
