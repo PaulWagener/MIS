@@ -27,12 +27,9 @@ namespace ModuleManager.Domain
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Competentie> Competenties { get; set; }
         public virtual DbSet<FaseType> FaseTypes { get; set; }
         public virtual DbSet<Leerlijn> Leerlijnen { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
-        public virtual DbSet<ModuleCompetentie> ModuleCompetenties { get; set; }
-        public virtual DbSet<Niveau> Niveaux { get; set; }
         public virtual DbSet<Onderdeel> Onderdeels { get; set; }
         public virtual DbSet<Opleiding> Opleidings { get; set; }
         public virtual DbSet<Status> Status { get; set; }
@@ -47,13 +44,15 @@ namespace ModuleManager.Domain
         public virtual DbSet<Leermiddel> Leermiddelen { get; set; }
         public virtual DbSet<Icon> Icons { get; set; }
         public virtual DbSet<ModuleWerkvorm> ModuleWerkvormen { get; set; }
-        public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<SysteemRol> SysteemRol { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Schooljaar> Schooljaren { get; set; }
         public virtual DbSet<StudiePunt> StudiePunten { get; set; }
         public virtual DbSet<Blok> Bloks { get; set; }
         public virtual DbSet<StudieBelasting> StudieBelastings { get; set; }
+        public virtual DbSet<Competentie> Competenties { get; set; }
+        public virtual DbSet<CompetentieOnderdeel> CompetentieOnderdeels { get; set; }
+        public virtual DbSet<Kwaliteitskenmerk> Kwaliteitskenmerken { get; set; }
     
         public virtual ObjectResult<Nullable<int>> spAuthenticateUser(string userName, string password)
         {

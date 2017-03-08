@@ -17,7 +17,6 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Module()
         {
-            this.ModuleCompetenties = new HashSet<ModuleCompetentie>();
             this.Weekplanningen = new HashSet<Weekplanning>();
             this.Leerlijnen = new HashSet<Leerlijn>();
             this.Tags = new HashSet<Tag>();
@@ -47,8 +46,6 @@ namespace ModuleManager.Domain
     
         public virtual Onderdeel Onderdeel { get; set; }
         public virtual Status Status1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ModuleCompetentie> ModuleCompetenties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Weekplanning> Weekplanningen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

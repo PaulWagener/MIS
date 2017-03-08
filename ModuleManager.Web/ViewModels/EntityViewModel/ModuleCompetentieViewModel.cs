@@ -5,6 +5,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class ModuleCompetentieViewModel
     {
+        // TODO: Modulecompetenties vervangen door leerdoelen
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
         public string CompetentieCode { get; set; }
@@ -13,23 +14,24 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public CompetentieViewModel Competentie { get; set; }
 
-        internal ModuleCompetentie ToPoco(DomainEntities context, Module module)
-        {
-            Domain.ModuleCompetentie moduleCompetentie = context.ModuleCompetenties.FirstOrDefault(l => 
-                l.CursusCode == CursusCode &&
-                l.Schooljaar == Schooljaar && 
-                l.CompetentieCode == CompetentieCode);
+        // TODO: Goede representatie maken
+        //internal ModuleCompetentie ToPoco(DomainEntities context, Module module)
+        //{
+        //    Domain.ModuleCompetentie moduleCompetentie = context.ModuleCompetenties.FirstOrDefault(l => 
+        //        l.CursusCode == CursusCode &&
+        //        l.Schooljaar == Schooljaar && 
+        //        l.CompetentieCode == CompetentieCode);
 
-            if (moduleCompetentie == null)
-                moduleCompetentie = new Domain.ModuleCompetentie();
+        //    if (moduleCompetentie == null)
+        //        moduleCompetentie = new Domain.ModuleCompetentie();
 
 
-            moduleCompetentie.CursusCode = module.CursusCode;
-            moduleCompetentie.Schooljaar = module.Schooljaar;
-            moduleCompetentie.CompetentieCode = this.CompetentieCode;
-            moduleCompetentie.Niveau = this.Niveau;
+        //    moduleCompetentie.CursusCode = module.CursusCode;
+        //    moduleCompetentie.Schooljaar = module.Schooljaar;
+        //    moduleCompetentie.CompetentieCode = this.CompetentieCode;
+        //    moduleCompetentie.Niveau = this.Niveau;
 
-            return moduleCompetentie;
-        }
+        //    return moduleCompetentie;
+        //}
     }
 }

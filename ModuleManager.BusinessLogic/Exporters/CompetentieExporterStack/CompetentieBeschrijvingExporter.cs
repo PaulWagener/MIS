@@ -31,7 +31,7 @@ namespace ModuleManager.BusinessLogic.Exporters.CompetentieExporterStack
             Paragraph p = sect.AddParagraph("Over deze Competentie", "Heading2");
             p.AddLineBreak();
 
-            p = sect.AddParagraph((toExport.Beschrijving ?? "").Replace("$$", "\n"));
+            p = sect.AddParagraph((toExport.Naam ?? "").Replace("$$", "\n"));
             p.AddLineBreak();
 
             return sect;

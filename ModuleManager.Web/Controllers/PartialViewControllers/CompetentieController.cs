@@ -20,6 +20,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             _unitOfWork = unitOfWork;
         }
 
+        // TODO: Code uit competentie weghalen, op ID werken.
         [HttpGet, Route("Competenties/Details")]
         public ActionResult Details(string code)
         {
@@ -27,7 +28,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Code == code);
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Naam == code);
 
             if (competentie == null)
             {
@@ -44,11 +45,12 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Add.cshtml", competentie);
         }
 
+        // TODO: Competenties creëren niet meer met code.
         [HttpPost, Route("Competenties/Create")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CompetentieViewModel competentie)
         {
-            if (_unitOfWork.Context.Competenties.Any(l => l.Code == competentie.Code))
+            if (_unitOfWork.Context.Competenties.Any(c => c.Naam == competentie.Naam))
                 ModelState.AddModelError("Code", String.Format("De competentie met de code {0} bestaat al.", competentie.Code));
 
 
@@ -69,6 +71,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             }
         }
 
+        // TODO: Competenties niet meer met code laten werken.
         [HttpGet, Route("Competenties/Edit")]
         public ActionResult Edit(string code)
         {
@@ -76,7 +79,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Code == code);
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Naam == code);
 
             if (competentie == null)
             {
@@ -108,6 +111,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             }
         }
 
+        // TODO: Delete competentie met Id laten werken.
         [HttpGet, Route("Competenties/Delete")]
         public ActionResult Delete(string code)
         {
@@ -116,7 +120,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Code == code);
+            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(c => c.Naam == code);
 
             if (competentie == null)
             {

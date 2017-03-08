@@ -6,7 +6,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 {
     public class CompetentieViewModel
     {
-
+        // TODO: Competentie Code verwijderen
         [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(3)]
         [MaxLength(50)]
@@ -17,6 +17,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         [MaxLength(50)]
         public string Naam { get; set; }
 
+        // TODO: Competentie Beschrijving verwijderen
         [Required(ErrorMessage = "{0} dient ingevuld te worden")]
         [MinLength(3)]
         [MaxLength(512)]
@@ -24,9 +25,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public CompetentieViewModel(Competentie competentie)
         {
-            this.Code = competentie.Code;
+            this.Code = competentie.Naam;
             this.Naam = competentie.Naam;
-            this.Beschrijving = competentie.Beschrijving;
+            this.Beschrijving = competentie.Naam;
         }
 
         public CompetentieViewModel()
@@ -37,8 +38,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         {
             return new Competentie()
             {
-                Code = Code,
-                Beschrijving = Beschrijving,
+                // TODO: Competentie naar POCO ook ID meenemen.
                 Naam = Naam,
             };
         }

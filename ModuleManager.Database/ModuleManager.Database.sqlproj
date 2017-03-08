@@ -71,7 +71,6 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Beoordeling.sql" />
     <Build Include="dbo\Tables\Blok.sql" />
-    <Build Include="dbo\Tables\Competentie.sql" />
     <Build Include="dbo\Tables\Fase.sql" />
     <Build Include="dbo\Tables\FaseType.sql" />
     <Build Include="dbo\Tables\Icon.sql" />
@@ -79,9 +78,7 @@
     <Build Include="dbo\Tables\Leerlijn.sql" />
     <Build Include="dbo\Tables\Leermiddel.sql" />
     <Build Include="dbo\Tables\Module.sql" />
-    <Build Include="dbo\Tables\ModuleCompetentie.sql" />
     <Build Include="dbo\Tables\ModuleWerkvorm.sql" />
-    <Build Include="dbo\Tables\Niveau.sql" />
     <Build Include="dbo\Tables\Onderdeel.sql" />
     <Build Include="dbo\Tables\Opleiding.sql" />
     <Build Include="dbo\Tables\Schooljaar.sql" />
@@ -103,7 +100,6 @@
     <None Include="scripts\testData\Opleiding.sql" />
     <None Include="scripts\testData\Module.sql" />
     <None Include="scripts\testData\Fase.sql" />
-    <None Include="scripts\testData\Niveau.sql" />
     <None Include="scripts\testData\Onderdeel.sql" />
     <None Include="scripts\testData\Status.sql" />
     <None Include="scripts\testData\Leerlijn.sql" />
@@ -123,10 +119,10 @@
     <Build Include="dbo\Schemas\Competenties.sql" />
     <Build Include="dbo\Tables\Competenties\Competentieonderdeel.sql" />
     <Build Include="dbo\Tables\Competenties\Kwaliteitskenmerk.sql" />
-    <None Include="scripts\testData\Competentie.sql" />
     <None Include="scripts\testData\Competenties\Competentie.sql" />
     <None Include="scripts\testData\Competenties\CompetentieOnderdeel.sql" />
     <None Include="scripts\testData\Competenties\Kwaliteitskenmerk.sql" />
+    <Build Include="dbo\Tables\Competenties\LeerdoelKwaliteitskenmerk.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ModuleManager.Local.Database.publish.xml" />

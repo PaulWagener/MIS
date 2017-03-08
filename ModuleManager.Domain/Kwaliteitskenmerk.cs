@@ -12,17 +12,21 @@ namespace ModuleManager.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Niveau
+    public partial class Kwaliteitskenmerk
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Niveau()
+        public Kwaliteitskenmerk()
         {
-            this.ModuleCompetenties = new HashSet<ModuleCompetentie>();
+            this.Leerdoelen = new HashSet<Leerdoel>();
         }
     
-        public string Niveau1 { get; set; }
+        public int Id { get; set; }
+        public int CompetentieOnderdeelId { get; set; }
+        public int Volgnummer { get; set; }
+        public string Omschrijving { get; set; }
     
+        public virtual CompetentieOnderdeel CompetentieOnderdeel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ModuleCompetentie> ModuleCompetenties { get; set; }
+        public virtual ICollection<Leerdoel> Leerdoelen { get; set; }
     }
 }

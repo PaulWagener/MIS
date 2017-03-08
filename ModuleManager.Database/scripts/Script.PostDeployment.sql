@@ -16,13 +16,11 @@ go
 :r .\testData\FaseType.sql
 :r .\testData\Opleiding.sql
 :r .\testData\Fase.sql
-:r .\testData\Niveau.sql
 :r .\testData\Onderdeel.sql
 :r .\testData\Status.sql
 :r .\testData\Leerlijn.sql
 :r .\testData\Tag.sql
 :r .\testData\Werkvorm.sql
-:r .\testData\Competentie.sql
 :r .\testData\Docent.sql
 :r .\testData\Icon.sql
 :r .\testData\Toetsvorm.sql

@@ -12,19 +12,21 @@ namespace ModuleManager.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Competentie
+    public partial class CompetentieOnderdeel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Competentie()
+        public CompetentieOnderdeel()
         {
-            this.CompetentieOnderdelen = new HashSet<CompetentieOnderdeel>();
+            this.Kwaliteitskenmerken = new HashSet<Kwaliteitskenmerk>();
         }
     
         public int Id { get; set; }
+        public int CompetentieId { get; set; }
         public int Volgnummer { get; set; }
         public string Naam { get; set; }
     
+        public virtual Competentie Competentie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CompetentieOnderdeel> CompetentieOnderdelen { get; set; }
+        public virtual ICollection<Kwaliteitskenmerk> Kwaliteitskenmerken { get; set; }
     }
 }

@@ -176,7 +176,8 @@ namespace ModuleManager.Web.Controllers
                 module.Weekplanningen = EmptyIfNull(() => moduleVm.Module.Weekplanningen).Select(w => w.ToPoco(context)).ToList();
                 module.Beoordelingen = EmptyIfNull(() => moduleVm.Module.Beoordelingen).Select(b => b.ToPoco(context)).ToList();
                 module.ModuleWerkvormen = EmptyIfNull(moduleVm.Module.ModuleWerkvormen).Select(wv => wv.ToPoco(context)).ToList();
-                module.ModuleCompetenties = EmptyIfNull(() => moduleVm.Module.ModuleCompetenties).Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
+                // TODO: Leerdoelen/Modulecompetenties weer goed vullen.
+                //module.ModuleCompetenties = EmptyIfNull(() => moduleVm.Module.ModuleCompetenties).Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
 
                 module.Status1 = context.Status.SingleOrDefault(s => s.Status1 == moduleVm.Module.Status);
 
