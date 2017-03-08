@@ -29,12 +29,12 @@
                 @foreach (var item in @Model.Competenties)
             {
                     <tr class="competentie-item">
-                        <td class="ninety-width">@item.Code</td>
+                        <td class="ninety-width">@item.Naam</td>
                         <td>@item.Naam</td>
                         <td class="actions" style="width:118px">
-                            @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
-                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                         </td>
                     </tr>
                 }

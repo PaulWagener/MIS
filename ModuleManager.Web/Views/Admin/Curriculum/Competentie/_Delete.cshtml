@@ -17,9 +17,7 @@
         <input class="btn btn-danger" type="submit" value="Verwijderen" />
 
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Code)
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Naam)
-        @Html.HiddenFor(model => model.Beschrijving)
-
     </div>
 }
