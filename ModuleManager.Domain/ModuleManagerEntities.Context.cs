@@ -51,7 +51,7 @@ namespace ModuleManager.Domain
         public virtual DbSet<Blok> Bloks { get; set; }
         public virtual DbSet<StudieBelasting> StudieBelastings { get; set; }
         public virtual DbSet<Competentie> Competenties { get; set; }
-        public virtual DbSet<CompetentieOnderdeel> CompetentieOnderdeels { get; set; }
+        public virtual DbSet<CompetentieOnderdeel> CompetentieOnderdelen { get; set; }
         public virtual DbSet<Kwaliteitskenmerk> Kwaliteitskenmerken { get; set; }
     
         public virtual ObjectResult<Nullable<int>> spAuthenticateUser(string userName, string password)

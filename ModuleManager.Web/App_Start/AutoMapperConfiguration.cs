@@ -3,6 +3,7 @@ using ModuleManager.Domain;
 using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using AutoMapper;
+using ModuleManager.Web.ViewModels.EntityViewModel.Competenties;
 
 namespace ModuleManager.Web
 {
@@ -14,11 +15,6 @@ namespace ModuleManager.Web
             Mapper.CreateMap<Module, ModuleLockViewModel>();
             Mapper.CreateMap<Module, ModuleViewModel>();
             Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
-
-            // TODO: Competenties mappen in mapper.
-            //Mapper.CreateMap<ModuleCompetentie, ModuleCompetentieViewModel>();
-
-            Mapper.CreateMap<Competentie, CompetentieViewModel>();
             Mapper.CreateMap<StudiePunt, StudiePuntenViewModel>();
             Mapper.CreateMap<StudieBelasting, StudieBelastingViewModel>();
             Mapper.CreateMap<ModuleWerkvorm, ModuleWerkvormViewModel>();
@@ -33,6 +29,10 @@ namespace ModuleManager.Web
             Mapper.CreateMap<Toetsvorm, ToetsvormViewModel>();
             Mapper.CreateMap<FaseType, FaseTypeViewModel>();
             Mapper.CreateMap<Status, StatusViewModel>();
+
+            Mapper.CreateMap<Competentie, CompetentieViewModel>();
+            Mapper.CreateMap<CompetentieOnderdeel, CompetentieOnderdeelViewModel>();
+            Mapper.CreateMap<Kwaliteitskenmerk, KwaliteitskenmerkViewModel>();
 
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(

@@ -12,38 +12,6 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div id="toolbar" class="competentiesTable" style="display:none;">
-            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Competenties", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
-        </div>
-        <h3 style="margin-top: 0">Competenties</h3>
-
-        <table id="competentiesTable" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Naam</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in @Model.Competenties)
-            {
-                    <tr class="competentie-item">
-                        <td class="ninety-width">@item.Naam</td>
-                        <td>@item.Naam</td>
-                        <td class="actions" style="width:118px">
-                            @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
-                            @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Naam }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <br /><br />
-    </div>
-
-    <div class="col-md-6">
         <div id="toolbar" class="fasesTable" style="display:none;">
             @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Fases", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
         </div>

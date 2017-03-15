@@ -1,9 +1,8 @@
-﻿@using ModuleManager.Domain
-@model  ModuleManager.Web.ViewModels.EntityViewModel.CompetentieViewModel
+﻿@model  ModuleManager.Web.ViewModels.EntityViewModel.Competenties.CompetentieViewModel
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="CompetentieAdd">Competentie toevoegen</h4>
+    <h4 class="modal-title" id="CompetentieEdit">Competentie bewerken</h4>
 </div>
 
 @using (Html.BeginForm())
@@ -13,7 +12,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Code)
-            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
         </div>
 
@@ -32,7 +31,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-        <input class="btn btn-success" type="submit" value="Toevoegen" />
+        <input class="btn btn-success" type="submit" value="Bewerken" />
     </div>
 }
 

@@ -1183,14 +1183,14 @@
             <End Role="StudieBelasting" EntitySet="StudieBelastings" />
           </AssociationSet>
           <EntitySet Name="Competenties" EntityType="Domain.Competentie" />
-          <EntitySet Name="CompetentieOnderdeels" EntityType="Domain.CompetentieOnderdeel" />
+          <EntitySet Name="CompetentieOnderdelen" EntityType="Domain.CompetentieOnderdeel" />
           <EntitySet Name="Kwaliteitskenmerken" EntityType="Domain.Kwaliteitskenmerk" />
           <AssociationSet Name="FK_CompetentieOnderdeel_Competentie" Association="Domain.FK_CompetentieOnderdeel_Competentie">
             <End Role="Competentie1" EntitySet="Competenties" />
-            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdeels" />
+            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdelen" />
           </AssociationSet>
           <AssociationSet Name="FK_Kwaliteitskenmerk_CompetentieOnderdeel" Association="Domain.FK_Kwaliteitskenmerk_CompetentieOnderdeel">
-            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdeels" />
+            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdelen" />
             <End Role="Kwaliteitskenmerk" EntitySet="Kwaliteitskenmerken" />
           </AssociationSet>
           <AssociationSet Name="LeerdoelKwaliteitskenmerk" Association="Domain.LeerdoelKwaliteitskenmerk">
@@ -1858,7 +1858,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CompetentieOnderdeels">
+          <EntitySetMapping Name="CompetentieOnderdelen">
             <EntityTypeMapping TypeName="Domain.CompetentieOnderdeel">
               <MappingFragment StoreEntitySet="CompetentieOnderdeel">
                 <ScalarProperty Name="Naam" ColumnName="Naam" />

@@ -12,10 +12,6 @@ namespace ModuleManager.Web.ViewModels
         /// </summary>
         public IEnumerable<Tag> Tags { get; set; }
         /// <summary>
-        /// Bevat alle competenties om weer te geven
-        /// </summary>
-        public IEnumerable<Competentie> Competenties { get; set; }
-        /// <summary>
         /// Bevat alle leerlijnen om weer te geven
         /// </summary>
         public IEnumerable<Leerlijn> Leerlijn { get; set; }

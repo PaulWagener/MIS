@@ -1,0 +1,30 @@
+﻿@using ModuleManager.Web.Helpers
+@model IEnumerable<ModuleManager.Web.ViewModels.EntityViewModel.Competenties.CompetentieViewModel>
+
+<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+    <li class="active">Competenties beheer</li>
+</ol>
+
+<h2>Competenties beheer</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -12,7 +12,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string CompetentieSchooljaar { get; set; }
         public string Niveau { get; set; }
 
-        public CompetentieViewModel Competentie { get; set; }
+        //public CompetentieViewModel Competentie { get; set; }
 
         // TODO: Goede representatie maken
         //internal ModuleCompetentie ToPoco(DomainEntities context, Module module)

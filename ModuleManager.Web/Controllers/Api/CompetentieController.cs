@@ -7,6 +7,7 @@ using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
+    // TODO: Controller verwijderen.
     public class CompetentieController : ApiController, IGenericApiController<Competentie>
     {
         private readonly IUnitOfWork _unitOfWork;
