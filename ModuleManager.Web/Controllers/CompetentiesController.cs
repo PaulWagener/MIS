@@ -33,7 +33,7 @@ namespace ModuleManager.Web.Controllers
 
             foreach (var competentie in competenties)
             {
-                viewModels.Add(CreateViewModel(competentie));
+                viewModels.Add(Mapper.Map<CompetentieViewModel>(competentie));
             }
 
             return View(viewModels);
@@ -144,23 +144,6 @@ namespace ModuleManager.Web.Controllers
         }
 
         #region Helper methods
-        private static CompetentieViewModel CreateViewModel(Competentie competentie)
-        {
-            var competentieVm = Mapper.Map<CompetentieViewModel>(competentie);
-
-            foreach (var onderdeel in competentie.CompetentieOnderdelen)
-            {
-                var onderdeelVm = Mapper.Map<CompetentieOnderdeelViewModel>(onderdeel);
-                foreach (var kwaliteitskenmerk in onderdeel.Kwaliteitskenmerken)
-                {
-                    onderdeelVm.Kwaliteitskenmerken.Add(Mapper.Map<KwaliteitskenmerkViewModel>(kwaliteitskenmerk));
-                }
-                competentieVm.Onderdelen.Add(onderdeelVm);
-            }
-
-            return competentieVm;
-        }
-
         private IQueryable<Competentie> GetCompetentiesDeepIncluded()
         {
             return _unitOfWork.Context.Competenties

@@ -4,27 +4,60 @@
 <ol class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
     <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
-    <li class="active">Competenties beheer</li>
+    <li class="active">Competentiesbeheer</li>
 </ol>
 
-<h2>Competenties beheer</h2>
+<h2>Competentiesbeheer</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+<div class="panel-group" id="competentiesAccordion">
+    @foreach (var competentie in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#competentiesAccordion" href="#collapse@(competentie.Volgnummer)">
+                        <span class="glyphicon glyphicon-plus"></span> @competentie.Naam
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse@(competentie.Volgnummer)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="tabbable tabs-left">
+                        <ul class="nav nav-tabs">
+                            @{ bool first = true; }
+                            @foreach (var onderdeel in competentie.Onderdelen)
+                            {
+                                <li class="@(first ? "active" : "")">
+                                    <a href="#tab@(competentie.Volgnummer)-@(onderdeel.Volgnummer)" data-toggle="tab">@onderdeel.Code @onderdeel.Naam</a>
+                                </li>
+                                first = false;
+                            }
+                        </ul>
+                        <div class="tab-content">
+                            @{ first = true; }
+                            @foreach (var onderdeel in competentie.Onderdelen)
+                            {
+                                <div class="tab-pane @(first ? "active" : "")" id="tab@(competentie.Volgnummer)-@(onderdeel.Volgnummer)">
+                                    <h4>@onderdeel.Code @onderdeel.Naam</h4>
+                                    <ul class="list-group">
+                                        @foreach (var kenmerk in onderdeel.Kwaliteitskenmerken)
+                                        {
+                                            <li class="list-group-item">@kenmerk.Code @kenmerk.Omschrijving</li>
+                                        }
+                                    </ul>
+                                </div>
+                                first = false;
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/Scripts/Competenties.js"></script>
 }
-
-</table>

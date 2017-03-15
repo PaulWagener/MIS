@@ -259,6 +259,7 @@
     <Content Include="Scripts\app\controllers\CompetentieCtrl.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Competenties.js" />
     <Content Include="Scripts\dataTables.dutch.alt.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />

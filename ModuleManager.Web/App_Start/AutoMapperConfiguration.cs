@@ -30,8 +30,10 @@ namespace ModuleManager.Web
             Mapper.CreateMap<FaseType, FaseTypeViewModel>();
             Mapper.CreateMap<Status, StatusViewModel>();
 
-            Mapper.CreateMap<Competentie, CompetentieViewModel>();
-            Mapper.CreateMap<CompetentieOnderdeel, CompetentieOnderdeelViewModel>();
+            Mapper.CreateMap<Competentie, CompetentieViewModel>()
+                .ForMember(dest => dest.Onderdelen, opt => opt.MapFrom(src => src.CompetentieOnderdelen));
+            Mapper.CreateMap<CompetentieOnderdeel, CompetentieOnderdeelViewModel>()
+                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Competentie.Naam.Substring(0, 1) + src.Volgnummer));
             Mapper.CreateMap<Kwaliteitskenmerk, KwaliteitskenmerkViewModel>();
 
             Mapper.CreateMap<Module, ModulePartialViewModel>()
