@@ -431,3 +431,7 @@ body { padding-bottom: 70px; }
           *border-right-color: #ffffff;
         }
 /**  Einde tabs left ondersteuning**/
+
+table tr.alternate {
+    background-color: #f9f9f9;
+}

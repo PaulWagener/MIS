@@ -918,8 +918,8 @@
           <NavigationProperty Name="Weekplanningen" Relationship="Self.FK_Weekplanning_Module" FromRole="Module" ToRole="Weekplanning" />
           <NavigationProperty Name="Leerlijnen" Relationship="Self.ModuleLeerlijn" FromRole="Module" ToRole="Leerlijn" />
           <NavigationProperty Name="Tags" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
-          <NavigationProperty Name="Voorkennis" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
-          <NavigationProperty Name="Modules" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
+          <NavigationProperty Name="Vervolgmodules" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
+          <NavigationProperty Name="Voorkennismodules" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
           <NavigationProperty Name="Docenten" Relationship="Domain.ModuleDocent" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
           <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />

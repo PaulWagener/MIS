@@ -1,4 +1,5 @@
 ﻿using ModuleManager.Domain;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
@@ -9,6 +10,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public int Schooljaar { get; set; }
         public int Id { get; set; }
         public string Beschrijving { get; set; }
+        public List<Competenties.KwaliteitskenmerkViewModel> Kwaliteitskenmerken { get; set; }
+
+        public LeerdoelenViewModel()
+        {
+            Kwaliteitskenmerken = new List<Competenties.KwaliteitskenmerkViewModel>();
+        }
 
         public Leerdoel ToPoco(DomainEntities context)
         {
@@ -21,6 +28,12 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
             leerdoel.CursusCode = this.CursusCode;
             leerdoel.Id = this.Id;
             leerdoel.Schooljaar = this.Schooljaar;
+
+            leerdoel.Kwaliteitskenmerken.Clear();
+            foreach (var kk in Kwaliteitskenmerken)
+            {
+                leerdoel.Kwaliteitskenmerken.Add(kk.ToPoCo());
+            }
 
             return leerdoel;
 

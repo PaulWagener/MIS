@@ -20,8 +20,8 @@ namespace ModuleManager.Domain
             this.Weekplanningen = new HashSet<Weekplanning>();
             this.Leerlijnen = new HashSet<Leerlijn>();
             this.Tags = new HashSet<Tag>();
-            this.Voorkennis = new HashSet<Module>();
-            this.Modules = new HashSet<Module>();
+            this.Vervolgmodules = new HashSet<Module>();
+            this.Voorkennismodules = new HashSet<Module>();
             this.Docenten = new HashSet<Docent>();
             this.Beoordelingen = new HashSet<Beoordeling>();
             this.Leerdoelen = new HashSet<Leerdoel>();
@@ -53,9 +53,9 @@ namespace ModuleManager.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Module> Voorkennis { get; set; }
+        public virtual ICollection<Module> Vervolgmodules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Module> Modules { get; set; }
+        public virtual ICollection<Module> Voorkennismodules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Docent> Docenten { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

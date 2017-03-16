@@ -72,7 +72,7 @@ namespace ModuleManager.WebTests
                     /** Many to Many **/
                     Leerlijnen = new List<Leerlijn>() { leerlijn_prog, leerlijn_mod },
                     Tags = new List<Tag>() { tag_mvc, tag_mvvm },
-                    Voorkennis = new List<Module>{ db1 },
+                    Voorkennismodules = new List<Module>{ db1 },
                     Docenten = new List<Docent>() {  docent_stijn, docent_bart },
                     /** One to Many **/
                     Leerdoelen = new List<Leerdoel>(){ 

@@ -27,8 +27,5 @@ namespace ModuleManager.Web.ViewModels
         {
             this.Module = _module;
         }
-
-
-
     }
 }

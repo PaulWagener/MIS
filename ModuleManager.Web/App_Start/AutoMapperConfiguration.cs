@@ -4,6 +4,12 @@ using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using AutoMapper;
 using ModuleManager.Web.ViewModels.EntityViewModel.Competenties;
+using ModuleManager.Web.ViewModels;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace ModuleManager.Web
 {
@@ -13,18 +19,19 @@ namespace ModuleManager.Web
         public static void Configure()
         {
             Mapper.CreateMap<Module, ModuleLockViewModel>();
-            Mapper.CreateMap<Module, ModuleViewModel>();
+            Mapper.CreateMap<Module, ModuleViewModel>()
+                .ForMember(dest => dest.Voorkennis, opt => opt.MapFrom(src => src.Voorkennismodules));
             Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
             Mapper.CreateMap<StudiePunt, StudiePuntenViewModel>();
-            Mapper.CreateMap<StudieBelasting, StudieBelastingViewModel>();
-            Mapper.CreateMap<ModuleWerkvorm, ModuleWerkvormViewModel>();
-            Mapper.CreateMap<Weekplanning, WeekplanningViewModel>();
+            Mapper.CreateMap<StudieBelasting, StudieBelastingViewModel>().ReverseMap();
+            Mapper.CreateMap<ModuleWerkvorm, ModuleWerkvormViewModel>().ReverseMap();
+            Mapper.CreateMap<Weekplanning, WeekplanningViewModel>().ReverseMap();
             Mapper.CreateMap<Beoordeling, BeoordelingenViewModel>();
-            Mapper.CreateMap<Leermiddel, LeermiddelenViewModel>();
-            Mapper.CreateMap<Leerdoel, LeerdoelenViewModel>();
+            Mapper.CreateMap<Leermiddel, LeermiddelenViewModel>().ReverseMap();
+            Mapper.CreateMap<Leerdoel, LeerdoelenViewModel>().ReverseMap();
             Mapper.CreateMap<Docent, DocentViewModel>();
             Mapper.CreateMap<Leerlijn, LeerlijnViewModel>();
-            Mapper.CreateMap<Tag, TagViewModel>();
+            Mapper.CreateMap<Tag, TagViewModel>().ReverseMap();
             Mapper.CreateMap<Werkvorm, WerkvormViewModel>();
             Mapper.CreateMap<Toetsvorm, ToetsvormViewModel>();
             Mapper.CreateMap<FaseType, FaseTypeViewModel>();
@@ -66,6 +73,16 @@ namespace ModuleManager.Web
                     src => src.email))
                 .ForMember(dest => dest.GebruikersNaam, opt => opt.MapFrom(
                     src => src.UserNaam));
+        }
+
+        public static IEnumerable<TEntity> DbReferences<TEntity>(
+            Func<DomainEntities, DbSet<TEntity>> set, Expression<Func<TEntity, bool>> where)
+            where TEntity : class
+        {
+            using (var entities = new DomainEntities())
+            {
+                return set(entities).Where(where);
+            }
         }
     }
 }

@@ -86,7 +86,6 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             // Domain entity API controllers:
-            kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();
             kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();

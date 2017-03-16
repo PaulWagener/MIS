@@ -10,6 +10,8 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using AutoMapper;
+using ModuleManager.Web.ViewModels.EntityViewModel.Competenties;
+using System.Data.Entity;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -25,7 +27,22 @@ namespace ModuleManager.Web.Controllers.Api
             _unitOfWork = unitOfWork;
         }
 
-
+        [HttpGet, Route("api/Module/Competenties")]
+        public IEnumerable<KwaliteitskenmerkViewModel> GetKwaliteitskenmerken()
+        {
+            return _unitOfWork.Context.Kwaliteitskenmerken
+                        .Include(kk => kk.CompetentieOnderdeel)
+                        .Include(kk => kk.CompetentieOnderdeel.Competentie)
+                        .OrderBy(kk => kk.CompetentieOnderdeel.Competentie.Volgnummer)
+                        .ThenBy(kk => kk.CompetentieOnderdeel.Volgnummer)
+                        .ThenBy(kk => kk.Volgnummer)
+                        .ToList()
+                        .Select(kk => new KwaliteitskenmerkViewModel()
+                        {
+                            Omschrijving = $"{kk.CompetentieOnderdeel.Competentie.Naam}/{kk.CompetentieOnderdeel.Naam}: {kk.Omschrijving}",
+                            Id = kk.Id
+                        }).ToList();
+        }
 
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
