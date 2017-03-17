@@ -394,7 +394,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeerdoelKwaliteitskenmerk_Leerdoel">
-          <End Role="Leerdoel" Type="Self.Leerdoel" Multiplicity="1" />
+          <End Role="Leerdoel" Type="Self.Leerdoel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="LeerdoelKwaliteitskenmerk" Type="Self.LeerdoelKwaliteitskenmerk" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Leerdoel">

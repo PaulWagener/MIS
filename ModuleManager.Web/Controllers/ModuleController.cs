@@ -13,6 +13,7 @@ using System.IO;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
 using ModuleManager.Web.Helpers;
+using System.Data;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -106,32 +107,25 @@ namespace ModuleManager.Web.Controllers
                 return View(moduleVm);
             }
 
-            try
-            {
-                var module = _unitOfWork.Context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
-                module.Beschrijving = moduleVm.Module.Beschrijving;
+            var module = _unitOfWork.Context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
+            module.Beschrijving = moduleVm.Module.Beschrijving;
 
-                var dbTags = _unitOfWork.Context.Tags.ToList();
-                var vmTags = moduleVm.Module.Tags;
+            // Many to Many
+            module.Docenten.ClearAndFill<Docent>(_unitOfWork.Context.Docenten.ToList().Where(d => moduleVm.Module.Docenten.Any(tmp => tmp.Id == d.Id)));
+            module.Voorkennismodules.ClearAndFill<Module>(_unitOfWork.Context.Modules.ToList().Where(m => moduleVm.Module.Voorkennis.Any(temp => temp.CursusCode == m.CursusCode && temp.Schooljaar == m.Schooljaar)));
+            module.Tags.ClearAndFill<Tag>(_unitOfWork.Context.Tags.ToList().Where(t => moduleVm.Module.Tags.Any(temp => temp.Naam == t.Naam)));
+            module.Leerlijnen.ClearAndFill<Leerlijn>(_unitOfWork.Context.Leerlijnen.ToList().Where(ll => moduleVm.Module.Leerlijnen.Any(temp => temp.Naam == ll.Naam)));
 
-                // Many to Many
-                module.Docenten.ClearAndFill<Docent>(_unitOfWork.Context.Docenten.ToList().Where(d => moduleVm.Module.Docenten.Any(tmp => tmp.Id == d.Id)));
-                module.Voorkennismodules.ClearAndFill<Module>(_unitOfWork.Context.Modules.ToList().Where(m => moduleVm.Module.Voorkennis.Any(temp => temp.CursusCode == m.CursusCode && temp.Schooljaar == m.Schooljaar)));
-                module.Tags.ClearAndFill<Tag>(_unitOfWork.Context.Tags.ToList().Where(t => moduleVm.Module.Tags.Any(temp => temp.Naam == t.Naam)));
-                module.Leerlijnen.ClearAndFill<Leerlijn>(_unitOfWork.Context.Leerlijnen.ToList().Where(ll => moduleVm.Module.Leerlijnen.Any(temp => temp.Naam == ll.Naam)));
+            // Enkel deze module
+            module.Leermiddelen.ClearAndFill(moduleVm.Module.Leermiddelen);
+            module.ModuleWerkvormen.ClearAndFill(moduleVm.Module.ModuleWerkvormen);
+            module.StudieBelastingen.ClearAndFill(moduleVm.Module.StudieBelastingen);
+            module.Weekplanningen.ClearAndFill(moduleVm.Module.Weekplanningen);
 
-                // Enkel deze module
-                module.Leerdoelen.ClearAndFill(moduleVm.Module.Leerdoelen);
-                module.Leermiddelen.ClearAndFill(moduleVm.Module.Leermiddelen);
-                module.ModuleWerkvormen.ClearAndFill(moduleVm.Module.ModuleWerkvormen);
-                module.StudieBelastingen.ClearAndFill(moduleVm.Module.StudieBelastingen);
-                module.Weekplanningen.ClearAndFill(moduleVm.Module.Weekplanningen);
+            // Special cases: Lijst met verwijzingen.
+            UpdateModuleLeerdoelen(moduleVm, module);
 
-                _unitOfWork.Context.SaveChanges();
-            } catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            _unitOfWork.Context.SaveChanges();
             
 
             if (moduleVm.AfterSubmit == "stay")
@@ -140,6 +134,34 @@ namespace ModuleManager.Web.Controllers
             }
 
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
+        }
+
+        private void UpdateModuleLeerdoelen(ModuleEditViewModel moduleVm, Module module)
+        {
+            foreach (var leerdoel in module.Leerdoelen.ToList())
+            {
+                _unitOfWork.Context.Leerdoelen.Remove(leerdoel);
+            }
+
+            if (moduleVm.Module.Leerdoelen != null)
+            {
+                var allKwaliteitskenmerken = _unitOfWork.Context.Kwaliteitskenmerken.ToList();
+                foreach (var leerdoel in moduleVm.Module.Leerdoelen)
+                {
+                    var entity = new Leerdoel()
+                    {
+                        Beschrijving = leerdoel.Beschrijving,
+                        CursusCode = module.CursusCode,
+                        Schooljaar = module.Schooljaar
+                    };
+
+                    foreach (var kk in leerdoel.Kwaliteitskenmerken)
+                    {
+                        entity.Kwaliteitskenmerken.Add(allKwaliteitskenmerken.First(item => item.Id == kk.Id));
+                    }
+                    module.Leerdoelen.Add(entity);
+                }
+            }
         }
 
         //PDF Download Code

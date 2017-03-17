@@ -435,3 +435,6 @@ body { padding-bottom: 70px; }
 table tr.alternate {
     background-color: #f9f9f9;
 }
+.hiddenLeerdoel {
+    display: none;
+}

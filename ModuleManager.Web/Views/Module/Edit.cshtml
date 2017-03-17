@@ -87,33 +87,15 @@
     </table>
     <div class="form-group">
         <label for="general-information">Leerdoelen</label>
-        <table class="table table-bordered table-center table-striped">
+        <table class="table table-bordered table-center table-striped" id="leerdoelen">
+            @LeerdoelRowTemplate()
             @for (int i = 0; i < Model.Module.Leerdoelen.Count; i++)
             {
-                <tr>
-                    <th>
-                        <p><label>Een student kan...</label></p>
-                        <p><label>Competenties</label><br /></p>
-                    </th>
-                    <td>
-                        <p>
-                            @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                        </p>
-                        <p>
-                            <input type="hidden" name="Module.Leerdoelen.Index" value="@i" />
-                            @Html.DropDownList("Kwaliteitskenmerken", new MultiSelectList(Model.Options.Kwaliteitskenmerken, "Id", "Omschrijving"
-                                        , Model.Module.Leerdoelen[i].Kwaliteitskenmerken.Select(kk => kk.Id))
-                                        , new { index = i, @class = "kwaliteitskenmerken form-control", @multiple = "multiple" })
-                        </p>
-                    </td>
-                    <td style="width: 90px; text-align:center">
-                        <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
+                @LeerdoelRowTemplate(i, Model.Module.Leerdoelen[i])
             }
             <tr>
                 <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
-                    <button data-target="leerdoelen" data-columns="1" data-collectionname="Leerdoelen" data-properties='["Beschrijving"]' data-nextindex="@Model.Module.Leerdoelen.Count" class="btn btn-success row_add" type="button"><i class="fa fa-plus add_row"></i></button>
+                    <button class="btn btn-success" type="button" id="btn_AddLeerdoel"><i class="fa fa-plus add_row"></i></button>
                 </td>
             </tr>
         </table>
@@ -178,7 +160,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @for (int i = 0; i < Model.Module.StudieBelastingen.Count; i++)
                                 {
                                     <tr>
@@ -343,6 +324,42 @@
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/ModuleEdit.cshtml", null)
 
+@helper LeerdoelRowTemplate(int? index = null, ModuleManager.Web.ViewModels.EntityViewModel.LeerdoelenViewModel ld = null) {
+    string indexString = index.HasValue ? index.ToString() : "<<index>>";
+
+    <tr class="leerdoelTemplate @(ld == null ? "hiddenLeerdoel" : "")">
+        <th>
+            <p><label>Een student kan...</label></p>
+            <p><label>Competenties</label><br /></p>
+        </th>
+        <td>
+            <p>
+                <input class="form-control text-box single-line" id="Module_Leerdoelen_@(indexString)__Beschrijving" name="Module.Leerdoelen[@(indexString)].Beschrijving" type="text" value="@(ld != null ? ld.Beschrijving : "")" placeholder="Een student kan...">
+            </p>
+            <p>
+                @if (ld != null)
+                {
+                    @Html.DropDownList("Kwaliteitskenmerken", new MultiSelectList(Model.Options.Kwaliteitskenmerken, "Id", "Omschrijving"
+                                                 , Model.Module.Leerdoelen[index.Value].Kwaliteitskenmerken.Select(kk => kk.Id))
+                                                 , new { @class = "kwaliteitskenmerken form-control", @multiple = "multiple" })
+                }
+                    else
+                    {
+                    <select class="kwaliteitskenmerken form-control" id="Kwaliteitskenmerken" multiple="multiple" name="Kwaliteitskenmerken">
+                        @foreach (var kk in Model.Options.Kwaliteitskenmerken)
+                        {
+                            <option value="@kk.Id">@kk.Omschrijving</option>
+                        }
+                    </select>
+                }
+            </p>
+        </td>
+        <td style="width: 90px; text-align:center">
+            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+        </td>
+    </tr>
+}
+
 <!-- JAVA MEUK -->
 @section Scripts {
     <script>
@@ -498,11 +515,10 @@
             ++index;
         });
 
-        $(".kwaliteitskenmerken option:selected").each(function (i, selected) {
-            //debugger;
-            var parent = $(selected).parent();
-            console.log('index: ' + parent.attr('index'));
-            $hidden_kwaliteitskenmerken.append("<input name='Module.Leerdoelen[" + parent.attr("index") + "].Kwaliteitskenmerken[" + i + "].Id' type='hidden' value=" + $(selected).val() + ">");
+        $(".leerdoelTemplate:not(.hiddenLeerdoel) .kwaliteitskenmerken").each(function (i, kenmerk) {
+            $(kenmerk).find('option:selected').each(function (j, selected) {
+                $hidden_kwaliteitskenmerken.append('<input name="Module.Leerdoelen[' + i + '].Kwaliteitskenmerken[' + j + '].Id" type="hidden" value="' + $(selected).val() + '">');
+            });
         });
     });
 
@@ -570,22 +586,7 @@
                 placeholder: "Tags"
             });
 
-            function formatTags(data) {
-                var slashIndex = data.text.indexOf('/') + 1;
-                var splitIndex = data.text.indexOf(':') + 1;
-                return '<b>' + data.text.substring(0, slashIndex) + 
-                        '<i>' + data.text.substring(slashIndex, splitIndex) + '</i>' +
-                       '</b> ' + data.text.substring(splitIndex);
-            }
-
-            $(".kwaliteitskenmerken").select2({
-                placeholder: "Competenties",
-                templateSelection: formatTags,
-                templateResult: formatTags,
-                escapeMarkup: function (m) {
-                    return m;
-                }
-            });
+            select2Competenties();
 
             $("#werkvorm").select2({
                 placeholder: "Werkvorm"
@@ -599,6 +600,43 @@
                 placeholder: "Docenten"
             })
         });
+
+        $('#btn_AddLeerdoel').click(function () {
+            var lastRow = $('#leerdoelen .leerdoelTemplate:last');
+            var template = $('#leerdoelen .leerdoelTemplate.hiddenLeerdoel');
+            var nextIndex = $('#leerdoelen .leerdoelTemplate').length - 1; // -1 for the hidden one.
+
+            var newElement = $(template[0].outerHTML.replace(new RegExp('<<index>>', 'g'), nextIndex));
+
+            newElement.toggleClass("hiddenLeerdoel");
+            lastRow.after(newElement);
+            select2Competenties(newElement);
+        });
+
+        function select2Competenties(el) {
+            var element;
+            if (el)
+                element = el.find(".kwaliteitskenmerken");
+            else
+                element = $(".leerdoelTemplate:not(.hiddenLeerdoel) .kwaliteitskenmerken");
+
+            element.select2({
+                placeholder: "Competenties",
+                templateSelection: formatTags,
+                templateResult: formatTags,
+                escapeMarkup: function (m) {
+                    return m;
+                }
+            });
+        }
+
+        function formatTags(data) {
+            var slashIndex = data.text.indexOf('/') + 1;
+            var splitIndex = data.text.indexOf(':') + 1;
+            return '<b>' + data.text.substring(0, slashIndex) +
+                    '<i>' + data.text.substring(slashIndex, splitIndex) + '</i>' +
+                   '</b> ' + data.text.substring(splitIndex);
+        }
     </script>
 
 }
