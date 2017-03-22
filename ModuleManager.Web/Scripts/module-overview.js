@@ -42,6 +42,7 @@ function initDatatable() {
                 "<'row'<'col-sm-6'p><'col-sm-6'i>>",
         processing: true,
         serverSide: true,
+        paging: true,
         language: {
             url: "/Scripts/dataTables.dutch.js"
         },
@@ -98,13 +99,20 @@ function initDatatable() {
             {
                 bSortable: false,
                 mRender: function (data, type, full) {
+                    return data;
+                },
+                aTargets: [4]
+            },
+            {
+                bSortable: false,
+                mRender: function (data, type, full) {
                     return data + " EC";
                 },
                 aTargets: [5]
             },
             {
                 bSortable: false,
-                aTargets: [4,6,8]
+                aTargets: [6,8]
             },
         ],
         order: [[1, "asc"]],
@@ -132,7 +140,7 @@ function initFilters() {
         $("#modules").dataTable().fnDraw();
     });
 
-    $("#ResetFilters").on("click", function(e) {
+    $("#ResetFilters").on("click", function (e) {
         e.preventDefault();
         resetSelect2();
     });

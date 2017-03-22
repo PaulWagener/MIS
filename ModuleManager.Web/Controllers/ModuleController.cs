@@ -12,8 +12,6 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.IO;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
-using WebGrease;
-
 
 namespace ModuleManager.Web.Controllers
 {
@@ -46,7 +44,7 @@ namespace ModuleManager.Web.Controllers
             //Collect the possible filter options the user can choose.
 
             var filterOptions = new FilterOptionsViewModel();
-            filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
+            filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll().OrderBy(blok => blok.BlokId));
             filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
             filterOptions.AddECs();
             filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().ToList());
@@ -96,16 +94,19 @@ namespace ModuleManager.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost, Route("Module/Edit")]
-        public ActionResult Edit(ModuleEditViewModel moduleVm)
+        [HttpPost, Route("Module/Edit/{schooljaar}/{cursusCode}")]
+        public ActionResult Edit(int schooljaar, string cursusCode, ModuleEditViewModel moduleVm)
         {
+            moduleVm.Options = new ModuleEditOptionsViewModel(_unitOfWork);
+
+            moduleVm.Module.Validate(ModelState);
             if (!ModelState.IsValid)
             {
-                moduleVm.Options = new ModuleEditOptionsViewModel(_unitOfWork);
                 return View(moduleVm);
             }
 
-            using(var context = new DomainEntities()){
+            using (var context = new DomainEntities())
+            {
 
                 //Ophalen originele module
                 var module = context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
@@ -117,7 +118,7 @@ namespace ModuleManager.Web.Controllers
                 //#leerlijnen
                 module.Leerlijnen.Clear();
                 var leerlijnen = new List<Leerlijn>();
-                foreach(var leerlijn in moduleVm.Module.Leerlijnen)
+                foreach (var leerlijn in moduleVm.Module.Leerlijnen)
                 {
                     leerlijnen.Add(context.Leerlijnen.FirstOrDefault(ll => ll.Naam == leerlijn.Naam));
                 }
@@ -186,7 +187,7 @@ namespace ModuleManager.Web.Controllers
             {
                 return RedirectToAction("Edit/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
             }
-                
+
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
         }
 
@@ -206,13 +207,6 @@ namespace ModuleManager.Web.Controllers
         [HttpPost]
         public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
-            var modules = _unitOfWork.GetRepository<Module>().GetAll();
-
-            if (!User.Identity.IsAuthenticated) 
-            {
-                modules = modules.Where(element => element.Status.Equals("Compleet (gecontroleerd)"));
-            }
-
             var arguments = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = value.Filters.Competenties,
@@ -221,11 +215,14 @@ namespace ModuleManager.Web.Controllers
                 FaseFilters = value.Filters.Fases,
                 BlokFilters = value.Filters.Blokken,
                 ZoektermFilter = value.Filters.Zoekterm,
-                LeerjaarFilter = value.Filters.Leerjaar
+                LeerjaarFilter = value.Filters.Leerjaar,
+                StatusFilter = User.Identity.IsAuthenticated ? null : "Compleet (gecontroleerd)",
+                Offset = 0,
+                Limit = null
             };
 
-            var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-            modules = _filterSorterService.ProcessData(queryPack);
+            int totalRecordCount;
+            var modules = _filterSorterService.ProcessData(new ModuleQueryablePack(arguments, _unitOfWork.Context.Modules), out totalRecordCount);
 
             var exportArguments = new ModuleExportArguments
             {
@@ -256,7 +253,7 @@ namespace ModuleManager.Web.Controllers
 
             return new FileStreamResult(fStream, "application/pdf");
 
-        
+
         }
 
 

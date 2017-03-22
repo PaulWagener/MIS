@@ -26,7 +26,7 @@
           <Key>
             <PropertyRef Name="BlokId" />
           </Key>
-          <Property Name="BlokId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="BlokId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Competentie">
           <Key>
@@ -116,7 +116,7 @@
           <Property Name="Gecontroleerd" Type="bit" Nullable="false" />
           <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
-          <Property Name="Blok" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Blok" Type="int" Nullable="false" />
           <Property Name="ReadOnly" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
@@ -211,10 +211,10 @@
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="Activiteit" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ContactUren" Type="int" />
-          <Property Name="Duur" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Frequentie" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SBU" Type="int" Nullable="false" />
+          <Property Name="ContactUren" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Duur" Type="varchar" MaxLength="50" />
+          <Property Name="Frequentie" Type="varchar" MaxLength="50" />
+          <Property Name="SBU" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="StudiePunt">
           <Key>
@@ -327,7 +327,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FaseModules_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FaseModule" Type="Self.FaseModule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
@@ -365,6 +367,18 @@
             <Dependent Role="Leermiddel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Blok">
+          <End Role="Blok" Type="Self.Blok" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blok">
+              <PropertyRef Name="BlokId" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Blok" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -441,7 +455,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ModuleCompetentie_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
@@ -479,7 +495,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ModuleDocent_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ModuleDocent" Type="Self.ModuleDocent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
@@ -505,7 +523,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ModuleLeerlijn_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ModuleLeerlijn" Type="Self.ModuleLeerlijn" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
@@ -571,7 +591,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StudieBelasting_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudieBelasting" Type="Self.StudieBelasting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
@@ -585,7 +607,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StudiePunten_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudiePunt" Type="Self.StudiePunt" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Module">
@@ -749,6 +773,10 @@
             <End Role="Module" EntitySet="Module" />
             <End Role="Leermiddel" EntitySet="Leermiddel" />
           </AssociationSet>
+          <AssociationSet Name="FK_Module_Blok" Association="Self.FK_Module_Blok">
+            <End Role="Blok" EntitySet="Blok" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
           <AssociationSet Name="FK_Module_Docent" Association="Self.FK_Module_Docent">
             <End Role="Docent" EntitySet="Docent" />
             <End Role="Module" EntitySet="Module" />
@@ -846,12 +874,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Blok">
-          <Key>
-            <PropertyRef Name="BlokId" />
-          </Key>
-          <Property Name="BlokId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="Competentie">
           <Key>
             <PropertyRef Name="Code" />
@@ -890,7 +912,6 @@
           <NavigationProperty Name="Onderdeel" Relationship="Self.FK_Module_Onderdeel" FromRole="Module" ToRole="Onderdeel" />
           <NavigationProperty Name="Status1" Relationship="Self.FK_Module_Status" FromRole="Module" ToRole="Status" />
           <NavigationProperty Name="ModuleCompetenties" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="Module" ToRole="ModuleCompetenties" />
-          <NavigationProperty Name="StudieBelastingen" Relationship="Self.FK_StudieBelasting_Module" FromRole="Module" ToRole="StudieBelasting" />
           <NavigationProperty Name="Weekplanningen" Relationship="Self.FK_Weekplanning_Module" FromRole="Module" ToRole="Weekplanning" />
           <NavigationProperty Name="Leerlijnen" Relationship="Self.ModuleLeerlijn" FromRole="Module" ToRole="Leerlijn" />
           <NavigationProperty Name="Tags" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
@@ -900,7 +921,7 @@
           <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
           <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Module" FromRole="Module" ToRole="ModuleWerkvorm" />
-          <Property Name="Blok" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Blok" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Fases" Relationship="Domain.FaseModule" FromRole="Module" ToRole="Fase" />
           <Property Name="Gecontroleerd" Type="Boolean" Nullable="false" />
           <Property Name="ReadOnly" Type="Boolean" Nullable="false" />
@@ -909,6 +930,8 @@
           <NavigationProperty Name="StudiePunten" Relationship="Domain.FK_StudiePunten_Module" FromRole="Module" ToRole="StudiePunt" />
           <Property Name="VerantwoordelijkeDocentId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Verantwoordelijke" Relationship="Domain.FK_Module_Docent" FromRole="Module" ToRole="Docent" />
+          <NavigationProperty Name="BlokReference" Relationship="Domain.FK_Module_Blok" FromRole="Module" ToRole="Blok" />
+          <NavigationProperty Name="StudieBelastingen" Relationship="Domain.FK_StudieBelasting_Module" FromRole="Module" ToRole="StudieBelasting" />
         </EntityType>
         <EntityType Name="ModuleCompetentie">
           <Key>
@@ -950,21 +973,6 @@
           </Key>
           <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Modules" Relationship="Self.FK_Module_Status" FromRole="Status" ToRole="Module" />
-        </EntityType>
-        <EntityType Name="StudieBelasting">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="Activiteit" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
-          <Property Name="Activiteit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ContactUren" Type="Int32" />
-          <Property Name="Duur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Frequentie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SBU" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_StudieBelasting_Module" FromRole="StudieBelasting" ToRole="Module" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -1051,20 +1059,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudieBelasting_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="StudieBelasting" Type="Self.StudieBelasting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="StudieBelasting">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Weekplanning_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
           <End Role="Weekplanning" Type="Self.Weekplanning" Multiplicity="*" />
@@ -1104,7 +1098,6 @@
           <End Role="Module1" Type="Self.Module" Multiplicity="*" />
         </Association>
         <EntityContainer Name="DomainEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Bloks" EntityType="Self.Blok" />
           <EntitySet Name="Competenties" EntityType="Self.Competentie" />
           <EntitySet Name="FaseTypes" EntityType="Self.FaseType" />
           <EntitySet Name="Leerlijnen" EntityType="Self.Leerlijn" />
@@ -1114,7 +1107,6 @@
           <EntitySet Name="Onderdeels" EntityType="Self.Onderdeel" />
           <EntitySet Name="Opleidings" EntityType="Self.Opleiding" />
           <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="StudieBelastings" EntityType="Self.StudieBelasting" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="Toetsvorms" EntityType="Self.Toetsvorm" />
           <EntitySet Name="Weekplannings" EntityType="Self.Weekplanning" />
@@ -1134,10 +1126,6 @@
           <AssociationSet Name="FK_ModuleCompetentie_Module" Association="Self.FK_ModuleCompetentie_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="ModuleCompetenties" EntitySet="ModuleCompetenties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudieBelasting_Module" Association="Self.FK_StudieBelasting_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="StudieBelasting" EntitySet="StudieBelastings" />
           </AssociationSet>
           <AssociationSet Name="FK_Weekplanning_Module" Association="Self.FK_Weekplanning_Module">
             <End Role="Module" EntitySet="Modules" />
@@ -1254,6 +1242,16 @@
           <AssociationSet Name="FK_Module_Docent" Association="Domain.FK_Module_Docent">
             <End Role="Docent" EntitySet="Docenten" />
             <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <EntitySet Name="Bloks" EntityType="Domain.Blok" />
+          <AssociationSet Name="FK_Module_Blok" Association="Domain.FK_Module_Blok">
+            <End Role="Blok" EntitySet="Bloks" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <EntitySet Name="StudieBelastings" EntityType="Domain.StudieBelasting" />
+          <AssociationSet Name="FK_StudieBelasting_Module" Association="Domain.FK_StudieBelasting_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="StudieBelasting" EntitySet="StudieBelastings" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
@@ -1539,19 +1537,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Blok">
+          <Key>
+            <PropertyRef Name="BlokId" />
+          </Key>
+          <Property Name="BlokId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modules" Relationship="Domain.FK_Module_Blok" FromRole="Blok" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_Module_Blok">
+          <End Type="Domain.Blok" Role="Blok" Multiplicity="1" />
+          <End Type="Domain.Module" Role="Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blok">
+              <PropertyRef Name="BlokId" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Blok" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StudieBelasting">
+          <Key>
+            <PropertyRef Name="CursusCode" />
+            <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="Activiteit" />
+          </Key>
+          <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
+          <Property Name="Activiteit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactUren" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Duur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Frequentie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SBU" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <NavigationProperty Name="Module" Relationship="Domain.FK_StudieBelasting_Module" FromRole="StudieBelasting" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_StudieBelasting_Module">
+          <End Type="Domain.Module" Role="Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Domain.StudieBelasting" Role="StudieBelasting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="StudieBelasting">
+              <PropertyRef Name="CursusCode" />
+              <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DomainDalModelStoreContainer" CdmEntityContainer="DomainEntities">
-          <EntitySetMapping Name="Bloks">
-            <EntityTypeMapping TypeName="Domain.Blok">
-              <MappingFragment StoreEntitySet="Blok">
-                <ScalarProperty Name="BlokId" ColumnName="BlokId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Competenties">
             <EntityTypeMapping TypeName="Domain.Competentie">
               <MappingFragment StoreEntitySet="Competentie">
@@ -1628,19 +1669,6 @@
             <EntityTypeMapping TypeName="Domain.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="Status1" ColumnName="Status1" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StudieBelastings">
-            <EntityTypeMapping TypeName="Domain.StudieBelasting">
-              <MappingFragment StoreEntitySet="StudieBelasting">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="Activiteit" ColumnName="Activiteit" />
-                <ScalarProperty Name="ContactUren" ColumnName="ContactUren" />
-                <ScalarProperty Name="Duur" ColumnName="Duur" />
-                <ScalarProperty Name="Frequentie" ColumnName="Frequentie" />
-                <ScalarProperty Name="SBU" ColumnName="SBU" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1833,6 +1861,26 @@
                 <ScalarProperty Name="EC" ColumnName="EC" />
                 <ScalarProperty Name="Toetsvorm" ColumnName="Toetsvorm" />
                 <ScalarProperty Name="ToetsCode" ColumnName="ToetsCode" />
+                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
+                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bloks">
+            <EntityTypeMapping TypeName="Domain.Blok">
+              <MappingFragment StoreEntitySet="Blok">
+                <ScalarProperty Name="BlokId" ColumnName="BlokId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudieBelastings">
+            <EntityTypeMapping TypeName="Domain.StudieBelasting">
+              <MappingFragment StoreEntitySet="StudieBelasting">
+                <ScalarProperty Name="SBU" ColumnName="SBU" />
+                <ScalarProperty Name="Frequentie" ColumnName="Frequentie" />
+                <ScalarProperty Name="Duur" ColumnName="Duur" />
+                <ScalarProperty Name="ContactUren" ColumnName="ContactUren" />
+                <ScalarProperty Name="Activiteit" ColumnName="Activiteit" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
               </MappingFragment>

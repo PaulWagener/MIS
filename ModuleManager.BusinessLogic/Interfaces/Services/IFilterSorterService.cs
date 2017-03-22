@@ -16,7 +16,8 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// basic data manipulation function
         /// </summary>
         /// <param name="inputData">Complete pack with Data and Arguments</param>
+        /// <param name="totalRecordCount">The recordcount before paging.</param>
         /// <returns>The resulting Data List</returns>
-        IEnumerable<T> ProcessData(IQueryablePack<T> inputData);
+        IQueryable<T> ProcessData(IQueryablePack<T> inputData, out int totalRecordCount);
     }
 }

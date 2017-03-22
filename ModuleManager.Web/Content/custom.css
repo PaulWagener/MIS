@@ -338,9 +338,14 @@ body.modal-open {
 
 
 /** Validation */
-.field-validation-error{
+.field-validation-error, .validation-summary li{
     color:red;
     font-size:12px;
+}
+
+.input-validation-error {
+    border-color: #a94442;
+    background:#ffc9c9;
 }
 
 .validation-summary{

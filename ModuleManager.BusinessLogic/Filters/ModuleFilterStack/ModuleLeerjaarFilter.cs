@@ -16,13 +16,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         {
             if (args.LeerjaarFilter.HasValue)
             {
-                List<Module> result = new List<Module>();
-
-                var selectedModule = toQuery.Where(m => m.Schooljaar == args.LeerjaarFilter);
-
-                result.AddRange(selectedModule.Where(x => !result.Contains(x)));
-
-                toQuery = result.AsQueryable();
+                toQuery = toQuery.Where(m => m.Schooljaar == args.LeerjaarFilter);
             }
 
             return base.Filter(toQuery, args);
