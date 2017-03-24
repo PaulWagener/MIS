@@ -15,7 +15,7 @@ namespace ModuleManager.BusinessLogic.Services
             Document pre = new Document();
             pre.AddSection();
 
-            PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+            PdfDocumentRenderer rend = new PdfDocumentRenderer(false);
             rend.Document = pre;
             rend.RenderDocument();
             return rend.PdfDocument;
@@ -26,7 +26,7 @@ namespace ModuleManager.BusinessLogic.Services
             Document pre = new Document();
             pre.AddSection();
 
-            PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+            PdfDocumentRenderer rend = new PdfDocumentRenderer(false);
             rend.Document = pre;
             rend.RenderDocument();
             return rend.PdfDocument;

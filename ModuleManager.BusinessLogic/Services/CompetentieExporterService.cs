@@ -59,7 +59,7 @@ namespace ModuleManager.BusinessLogic.Services
                 sect.AddParagraph("An error has occured while invoking an export-function on Competentie: " + toExport.Naam + "\n" + e.Message, "error");
             }
 
-            PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+            PdfDocumentRenderer rend = new PdfDocumentRenderer(false);
             rend.Document = prePdf;
             rend.RenderDocument();
             return rend.PdfDocument;
@@ -104,7 +104,7 @@ namespace ModuleManager.BusinessLogic.Services
                 sect.Footers.EvenPage.Add(p.Clone());
             }
 
-            PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+            PdfDocumentRenderer rend = new PdfDocumentRenderer(false);
             rend.Document = prePdf;
             rend.RenderDocument();
             return rend.PdfDocument;
