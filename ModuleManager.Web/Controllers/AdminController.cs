@@ -105,13 +105,14 @@ namespace ModuleManager.Web.Controllers
         {
             var arguments = new ModuleFilterSorterArguments
             {
-                LeerjaarFilter = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId)
+                LeerjaarFilter = _unitOfWork.Context.Schooljaren.Max(src => src.JaarId),
+                Offset = 0,
+                Limit = null
             };
-            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
-            var modules = _filterSorterService.ProcessData(queryPack).ToList();
-            var moduleList = new ModuleListViewModel(modules.Count());
-            moduleList.AddModules(modules);
+
+            int totalNumberOfRecords;
+            var modules = _filterSorterService.ProcessData(new ModuleQueryablePack(arguments, _unitOfWork.Context.Modules), out totalNumberOfRecords);
+            var moduleList = new ModuleListViewModel(modules.Count(), modules);
 
             var users = _userRepository.GetAll().AsQueryable();
             var userList = new UserListViewModel(users.Count());

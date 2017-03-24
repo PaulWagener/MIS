@@ -9,10 +9,8 @@
                 <h4 class="modal-title" id="Help">Module(s) Exporten</h4>
             </div>
             <div class="modal-body">
-
-                @Html.BeginForm("ExportAllModules", "Module", FormMethod.Post, new { id = "exportForm", onsubmit = "exportOnSubmit()" }){
-              
-
+                @using (Html.BeginForm("ExportAllModules", "Module", FormMethod.Post, new { id = "exportForm", onsubmit = "exportOnSubmit()" }))
+                {
                     <div id="exportAlert"></div>
                     <div class="row">
                         <div class="col-md-6">

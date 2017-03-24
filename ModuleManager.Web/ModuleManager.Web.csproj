@@ -291,6 +291,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\dataTables.dutch.js" />
+    <None Include="Properties\PublishProfiles\MIS-Avans-Dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Studiegids - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\studiegids - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Studiegids - Web Deploy.pubxml" />
@@ -343,6 +344,8 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\ActionLinkHelper.cs" />
+    <Compile Include="Helpers\Expression.cs" />
+    <Compile Include="Helpers\LinqHelper.cs" />
     <Compile Include="Helpers\NumberWordComparer.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

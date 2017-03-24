@@ -50,10 +50,9 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="qPack">Pack with Data and required Arguments</param>
         /// <returns>List of Filtered Modules</returns>
-        public IEnumerable<Domain.Module> Filter(IQueryablePack<Domain.Module> qPack)
+        public IQueryable<Domain.Module> Filter(IQueryablePack<Domain.Module> qPack)
         {
-            var temp = moduleFilterStrategy.Filter(qPack.Data, qPack.Args);
-            return temp.ToList();
+            return moduleFilterStrategy.Filter(qPack.Data, qPack.Args);
         }
     }
 }

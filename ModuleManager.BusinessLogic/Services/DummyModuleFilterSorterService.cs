@@ -11,9 +11,10 @@ namespace ModuleManager.BusinessLogic.Services
 {
     public class DummyModuleFilterSorterService : IFilterSorterService<Module>
     {
-        public IEnumerable<Module> ProcessData(IQueryablePack<Module> inputData)
+        public IQueryable<Module> ProcessData(IQueryablePack<Module> inputData, out int totalRecordsCount)
         {
-            return inputData.Data as IEnumerable<Module>;
+            totalRecordsCount = inputData.Data.Count();
+            return inputData.Data;
         }
     }
 }

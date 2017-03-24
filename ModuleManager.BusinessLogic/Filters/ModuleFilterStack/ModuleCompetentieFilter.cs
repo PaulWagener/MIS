@@ -1,11 +1,7 @@
 ﻿using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Filters;
 using ModuleManager.Domain;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
 {
@@ -16,21 +12,11 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         {
             if (args.CompetentieFilters != null && args.CompetentieFilters.Count > 0)
             {
-                List<Module> result = new List<Module>();
-                foreach (string arg in args.CompetentieFilters)
+                foreach (var competentie in args.CompetentieFilters)
                 {
-                    var selectedModule = 
-                        from m in toQuery
-                            where
-                                m.ModuleCompetenties.Any(
-                                element => (element.Competentie.Naam ?? "").ToLower().Contains((arg ?? "").ToLower())
-                                )
-                        select m;
-
-                    result.AddRange(selectedModule.Where(x => !result.Contains(x)));
+                    var tmp = competentie; // because of capture problem
+                    toQuery = toQuery.Where(module => module.ModuleCompetenties.Any(mc => mc.Competentie.Naam == tmp));
                 }
-
-                toQuery = result.AsQueryable();
             }
 
             return base.Filter(toQuery, args);
