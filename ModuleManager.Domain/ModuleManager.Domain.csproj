@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -60,7 +64,7 @@
     <Compile Include="Competentie.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="C__RefactorLog.cs">
+    <Compile Include="CompetentieOnderdeel.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Docent.cs">
@@ -79,6 +83,9 @@
     <Compile Include="Interfaces\ISysteemRolRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Kwaliteitskenmerk.cs">
+      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Leerdoel.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
@@ -89,9 +96,6 @@
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Module.cs">
-      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleCompetentie.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ModuleManagerEntities.Context.cs">
@@ -110,9 +114,6 @@
       <DependentUpon>ModuleManagerEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="ModuleWerkvorm.cs">
-      <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Niveau.cs">
       <DependentUpon>ModuleManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Onderdeel.cs">

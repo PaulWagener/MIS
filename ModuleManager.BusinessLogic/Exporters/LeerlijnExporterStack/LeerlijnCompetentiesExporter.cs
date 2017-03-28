@@ -33,23 +33,38 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
 
             p = sect.AddParagraph();
 
-            List<Competentie> accumulatedCompetences = new List<Competentie>();
+            List<Kwaliteitskenmerk> allKwaliteitskenmerken = new List<Kwaliteitskenmerk>();
 
-            foreach (Module m in toExport.Modules) 
+            foreach (Leerdoel leerdoel in toExport.Modules.SelectMany(m => m.Leerdoelen)) 
             {
-                accumulatedCompetences = new List<Competentie>();
-                foreach(ModuleCompetentie mc in m.ModuleCompetenties)
+                foreach (var kenmerk in leerdoel.Kwaliteitskenmerken)
                 {
-                    if(!accumulatedCompetences.Contains(mc.Competentie))
+                    if (!allKwaliteitskenmerken.Contains(kenmerk))
                     {
-                        accumulatedCompetences.Add(mc.Competentie);
+                        allKwaliteitskenmerken.Add(kenmerk);
                     }
                 }
             }
 
-            foreach (Competentie c in accumulatedCompetences) 
+            var ordered = allKwaliteitskenmerken.OrderBy(k => k.CompetentieOnderdeel.Competentie.Volgnummer)
+                                                .ThenBy(k => k.CompetentieOnderdeel.Volgnummer)
+                                                .ThenBy(k => k.Volgnummer);
+
+            foreach (var kenmerk in ordered) 
             {
-                p.AddText(" - " + (c.Naam ?? "Data incompleet"));
+                // TODO: Een tostring of iets dergelijks in de domain class.
+                StringBuilder sb = new StringBuilder();
+                sb.Append(kenmerk.CompetentieOnderdeel.Competentie.Naam);
+                sb.Append(" - ");
+                sb.Append(kenmerk.CompetentieOnderdeel.Competentie.Naam.Substring(0, 1).ToUpper());
+                sb.Append(kenmerk.CompetentieOnderdeel.Volgnummer);
+                sb.Append(" ");
+                sb.Append(kenmerk.CompetentieOnderdeel.Naam);
+                sb.Append(" - K");
+                sb.Append(kenmerk.Volgnummer);
+                sb.Append(" ");
+                sb.Append(kenmerk.Omschrijving);
+                p.AddText(sb.ToString());
                 p.AddLineBreak();
             }
             p.AddLineBreak();

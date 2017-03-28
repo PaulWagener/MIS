@@ -29,9 +29,10 @@ namespace ModuleManager.WebTests
                 var docent_bart = new Docent() { Id = 2, Naam = "Bart Mutsaers" };
                 var docent_ger = new Docent() { Id = 3, Naam = "Ger Saris" };
 
-                var competentie_bc1 = new Competentie() { Code = "BC1", Naam = "Procesanalyse uitvoeren", Beschrijving = "Stelt de student in staat.. " };
-                var competentie_bc2 = new Competentie() { Code = "BC2", Naam = "Testplan opzetten", Beschrijving = "Stelt de student in staat.. " };
-                var competentie_bc3 = new Competentie() { Code = "BC3", Naam = "Technisch ontwerp", Beschrijving = "Stelt de student in staat.. " };
+                // TODO: Competenties testen.
+                var competentie_bc1 = new Competentie() { Naam = "Procesanalyse uitvoeren" };
+                var competentie_bc2 = new Competentie() { Naam = "Testplan opzetten" };
+                var competentie_bc3 = new Competentie() { Naam = "Technisch ontwerp" };
 
                 var prog1 = new Domain.Module()
                  {
@@ -71,7 +72,7 @@ namespace ModuleManager.WebTests
                     /** Many to Many **/
                     Leerlijnen = new List<Leerlijn>() { leerlijn_prog, leerlijn_mod },
                     Tags = new List<Tag>() { tag_mvc, tag_mvvm },
-                    Voorkennis = new List<Module>{ db1 },
+                    Voorkennismodules = new List<Module>{ db1 },
                     Docenten = new List<Docent>() {  docent_stijn, docent_bart },
                     /** One to Many **/
                     Leerdoelen = new List<Leerdoel>(){ 
@@ -101,13 +102,13 @@ namespace ModuleManager.WebTests
                     {
                         new StudieBelasting() { Activiteit = "A1", ContactUren = 11, Duur = "1 weken", Frequentie = "1x per week",  Schooljaar = 1516 },
                         new StudieBelasting() { Activiteit = "A2", ContactUren = 22, Duur = "2 weken", Frequentie = "2x per week",  Schooljaar = 1516 },
-                    },
-                    ModuleCompetenties = new List<ModuleCompetentie>()
-                    {
-                        new ModuleCompetentie() { CompetentieCode = "BC1", Niveau = "Beginner", Schooljaar = 1516 },
-                        new ModuleCompetentie() { CompetentieCode = "BC2", Niveau = "Expert", Schooljaar = 1516 }
                     }
-
+                    //,ModuleCompetenties = new List<ModuleCompetentie>()
+                    //{
+                    //    new ModuleCompetentie() { CompetentieCode = "BC1", Niveau = "Beginner", Schooljaar = 1516 },
+                    //    new ModuleCompetentie() { CompetentieCode = "BC2", Niveau = "Expert", Schooljaar = 1516 }
+                    //}
+                    // TODO: Competenties testen.
                 };
 
                 context.Competenties.Add(competentie_bc1);

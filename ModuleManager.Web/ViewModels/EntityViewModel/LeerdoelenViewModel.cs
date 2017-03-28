@@ -1,4 +1,6 @@
 ﻿using ModuleManager.Domain;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.EntityViewModel
@@ -8,22 +10,13 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
         public int Id { get; set; }
+        [Required]
         public string Beschrijving { get; set; }
+        public List<Competenties.KwaliteitskenmerkViewModel> Kwaliteitskenmerken { get; set; }
 
-        public Leerdoel ToPoco(DomainEntities context)
+        public LeerdoelenViewModel()
         {
-            Leerdoel leerdoel = context.Leerdoelen.FirstOrDefault(l => l.CursusCode == CursusCode && l.Schooljaar == Schooljaar && l.Id == Id);
-
-            if (leerdoel == null)
-                leerdoel = new Leerdoel();
-
-            leerdoel.Beschrijving = this.Beschrijving;
-            leerdoel.CursusCode = this.CursusCode;
-            leerdoel.Id = this.Id;
-            leerdoel.Schooljaar = this.Schooljaar;
-
-            return leerdoel;
-
+            Kwaliteitskenmerken = new List<Competenties.KwaliteitskenmerkViewModel>();
         }
     }
 }

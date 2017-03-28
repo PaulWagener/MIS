@@ -32,34 +32,38 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             Paragraph p = sect.AddParagraph("Competenties", "Heading2");
             p.AddLineBreak();
 
-            foreach (ModuleCompetentie cp in toExport.ModuleCompetenties) 
-            {
-                Table table = sect.AddTable();
-                Column codeCol = table.AddColumn();
-                Column lvlCol = table.AddColumn(Unit.FromCentimeter(3));
-                codeCol.Width = sect.Document.DefaultPageSetup.PageWidth - sect.Document.DefaultPageSetup.RightMargin - sect.Document.DefaultPageSetup.LeftMargin - lvlCol.Width;
-                table.Borders.Width = 0.75;
-                table.Borders.Color = Colors.DarkGray;
+            sect.AddParagraph("Competentie export komt later nog...");
 
-                Row row = table.AddRow();
-                row.Cells[0].AddParagraph("Naam").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph("Niveau").Format.Font.Bold = true;
+            // TODO: Competenties exporteren goed maken.
 
-                row = table.AddRow();
-                row.Cells[0].AddParagraph(cp.Competentie.Naam ?? "NOT FOUND");
-                row.Cells[1].AddParagraph(cp.Niveau ?? "NOT FOUND");
+            //foreach (ModuleCompetentie cp in toExport.Leerdoelen.SelectMany(ld => ld.Kwaliteitskenmerken) 
+            //{
+            //    Table table = sect.AddTable();
+            //    Column codeCol = table.AddColumn();
+            //    Column lvlCol = table.AddColumn(Unit.FromCentimeter(3));
+            //    codeCol.Width = sect.Document.DefaultPageSetup.PageWidth - sect.Document.DefaultPageSetup.RightMargin - sect.Document.DefaultPageSetup.LeftMargin - lvlCol.Width;
+            //    table.Borders.Width = 0.75;
+            //    table.Borders.Color = Colors.DarkGray;
 
-                row = table.AddRow();
-                row.Cells[0].AddParagraph("Beschrijving").Format.Font.Bold = true;
-                row.Cells[0].MergeRight = 1;
+            //    Row row = table.AddRow();
+            //    row.Cells[0].AddParagraph("Naam").Format.Font.Bold = true;
+            //    row.Cells[1].AddParagraph("Niveau").Format.Font.Bold = true;
 
-                row = table.AddRow();
-                row.Cells[0].AddParagraph((cp.Competentie.Beschrijving ?? "").Replace("$$", "\n"));
-                row.Cells[0].MergeRight = 1;
+            //    row = table.AddRow();
+            //    row.Cells[0].AddParagraph(cp.Competentie.Naam ?? "NOT FOUND");
+            //    row.Cells[1].AddParagraph(cp.Niveau ?? "NOT FOUND");
 
-                p = sect.AddParagraph();
-                p.AddLineBreak();
-            }
+            //    row = table.AddRow();
+            //    row.Cells[0].AddParagraph("Beschrijving").Format.Font.Bold = true;
+            //    row.Cells[0].MergeRight = 1;
+
+            //    row = table.AddRow();
+            //    row.Cells[0].AddParagraph((cp.Competentie.Beschrijving ?? "").Replace("$$", "\n"));
+            //    row.Cells[0].MergeRight = 1;
+
+            //    p = sect.AddParagraph();
+            //    p.AddLineBreak();
+            //}
 
             return sect;
         }

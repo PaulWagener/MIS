@@ -27,7 +27,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool Gecontroleerd { get; set; }
 
-        public IList<ModuleCompetentieViewModel> ModuleCompetenties { get; set; }
         public IList<StudiePuntenViewModel> StudiePunten { get; set; }
         public IList<StudieBelastingViewModel> StudieBelastingen { get; set; }
         public IList<ModuleWerkvormViewModel> ModuleWerkvormen { get; set; }
@@ -53,7 +52,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ModuleViewModel()
         {
             //lege lijsten aanmaken
-            ModuleCompetenties = new List<ModuleCompetentieViewModel>();
             StudiePunten = new List<StudiePuntenViewModel>();
             StudieBelastingen = new List<StudieBelastingViewModel>();
             ModuleWerkvormen = new List<ModuleWerkvormViewModel>();
@@ -70,8 +68,6 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         internal bool Validate(ModelStateDictionary modelState)
         {
-            if (ModuleCompetenties.ContainsDoubles(c => c.CompetentieCode))
-                modelState.AddModelError(String.Empty, "Competenties mogen niet dubbel opgenomen worden.");
             if (Leerlijnen.ContainsDoubles(ll => ll.Naam))
                 modelState.AddModelError(String.Empty, "Leerlijnen mogen niet dubbel opgenomen worden.");
             if (Tags.ContainsDoubles(t => t.Naam))

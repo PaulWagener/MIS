@@ -14,14 +14,16 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleCompetentieNiveauFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.CompetentieNiveauFilters != null && args.CompetentieNiveauFilters.Count > 0)
-            {
-                foreach (var niveau in args.CompetentieNiveauFilters)
-                {
-                    var tmp = niveau; // because of capture problem
-                    toQuery = toQuery.Where(module => module.ModuleCompetenties.Any(mc => mc.Niveau == tmp));
-                }
-            }
+            // TODO: Niveaufilter er uit halen en goed met competentieset laten werken.
+
+            //if (args.CompetentieNiveauFilters != null && args.CompetentieNiveauFilters.Count > 0)
+            //{
+            //    foreach (var niveau in args.CompetentieNiveauFilters)
+            //    {
+            //        var tmp = niveau; // because of capture problem
+            //        toQuery = toQuery.Where(module => module.ModuleCompetenties.Any(mc => mc.Niveau == tmp));
+            //    }
+            //}
 
             return base.Filter(toQuery, args);
         }

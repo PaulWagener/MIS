@@ -14,11 +14,19 @@ namespace ModuleManager.Domain
     
     public partial class Leerdoel
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Leerdoel()
+        {
+            this.Kwaliteitskenmerken = new HashSet<Kwaliteitskenmerk>();
+        }
+    
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
         public int Id { get; set; }
         public string Beschrijving { get; set; }
     
         public virtual Module Module { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kwaliteitskenmerk> Kwaliteitskenmerken { get; set; }
     }
 }

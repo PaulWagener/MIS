@@ -12,6 +12,8 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.IO;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
+using ModuleManager.Web.Helpers;
+using System.Data;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -105,83 +107,26 @@ namespace ModuleManager.Web.Controllers
                 return View(moduleVm);
             }
 
-            using (var context = new DomainEntities())
-            {
+            var module = _unitOfWork.Context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
+            module.Beschrijving = moduleVm.Module.Beschrijving;
 
-                //Ophalen originele module
-                var module = context.Modules.FirstOrDefault(m => m.CursusCode == moduleVm.Module.CursusCode && m.Schooljaar == moduleVm.Module.Schooljaar);
+            // Many to Many
+            module.Docenten.ClearAndFill<Docent>(_unitOfWork.Context.Docenten.ToList().Where(d => moduleVm.Module.Docenten.Any(tmp => tmp.Id == d.Id)));
+            module.Voorkennismodules.ClearAndFill<Module>(_unitOfWork.Context.Modules.ToList().Where(m => moduleVm.Module.Voorkennis.Any(temp => temp.CursusCode == m.CursusCode && temp.Schooljaar == m.Schooljaar)));
+            module.Tags.ClearAndFill<Tag>(_unitOfWork.Context.Tags.ToList().Where(t => moduleVm.Module.Tags.Any(temp => temp.Naam == t.Naam)));
+            module.Leerlijnen.ClearAndFill<Leerlijn>(_unitOfWork.Context.Leerlijnen.ToList().Where(ll => moduleVm.Module.Leerlijnen.Any(temp => temp.Naam == ll.Naam)));
 
-                //simpel fields
-                module.Beschrijving = moduleVm.Module.Beschrijving;
+            // Enkel deze module
+            module.Leermiddelen.ClearAndFill(moduleVm.Module.Leermiddelen);
+            module.ModuleWerkvormen.ClearAndFill(moduleVm.Module.ModuleWerkvormen);
+            module.StudieBelastingen.ClearAndFill(moduleVm.Module.StudieBelastingen);
+            module.Weekplanningen.ClearAndFill(moduleVm.Module.Weekplanningen);
 
-                //### many to many ###
-                //#leerlijnen
-                module.Leerlijnen.Clear();
-                var leerlijnen = new List<Leerlijn>();
-                foreach (var leerlijn in moduleVm.Module.Leerlijnen)
-                {
-                    leerlijnen.Add(context.Leerlijnen.FirstOrDefault(ll => ll.Naam == leerlijn.Naam));
-                }
-                module.Leerlijnen = leerlijnen;
+            // Special cases: Lijst met verwijzingen.
+            UpdateModuleLeerdoelen(moduleVm, module);
 
-                //#tags
-                module.Tags.Clear();
-                var tags = new List<Tag>();
-                foreach (var tag in moduleVm.Module.Tags)
-                {
-                    tags.Add(context.Tags.FirstOrDefault(t => t.Naam == tag.Naam));
-                }
-                module.Tags = tags;
-
-                //#modules voorkennis
-                module.Voorkennis.Clear();
-                var voorkennis = new List<Module>();
-                foreach (var moduleVoorkennis in moduleVm.Module.Voorkennis)
-                {
-                    voorkennis.Add(context.Modules.FirstOrDefault(m => m.CursusCode == moduleVoorkennis.CursusCode && m.Schooljaar == moduleVoorkennis.Schooljaar));
-                }
-                module.Voorkennis = voorkennis;
-
-                //#modules docenten
-                module.Docenten.Clear();
-                var docenten = new List<Docent>();
-                foreach (var docent in moduleVm.Module.Docenten)
-                {
-                    docenten.Add(context.Docenten.FirstOrDefault(d => d.Id == docent.Id));
-                }
-                module.Docenten = docenten;
-
-
-                // Implementation details of MS's EntityFramework have reached our code. 
-                //
-                // We need to load every navigation property before the corresponding property
-                // may be updated via assignment. If not loaded, entities that should no longer
-                // be part of a relationship will not be deleted.
-                //
-                // This was previously achieved by calling Clear on the ICollection<TEntity>.
-                // However that method is dangerous, as the ViewModels' ToPoco
-                // methods might then return a deleted object (which may no longer be used
-                // in relationships).
-                //
-                // Also, there is no type safe way to do this, I instead have to pass
-                // strings, mitigating the type system, making this code even
-                // more prone to runtime errors. 
-                var entry = context.Entry(module);
-                foreach (var navProperty in new string[] { "Leerdoelen", "Leermiddelen", "StudieBelastingen", "Weekplanningen", "Beoordelingen", "ModuleWerkvormen", "ModuleCompetenties" })
-                    entry.Collection(navProperty).Load();
-
-                module.Leerdoelen = EmptyIfNull(() => moduleVm.Module.Leerdoelen).Select(l => l.ToPoco(context)).ToList();
-                module.Leermiddelen = EmptyIfNull(() => moduleVm.Module.Leermiddelen).Select(l => l.ToPoco(context)).ToList();
-                module.StudieBelastingen = EmptyIfNull(() => moduleVm.Module.StudieBelastingen).Select(s => s.ToPoco(context)).ToList();
-                module.Weekplanningen = EmptyIfNull(() => moduleVm.Module.Weekplanningen).Select(w => w.ToPoco(context)).ToList();
-                module.Beoordelingen = EmptyIfNull(() => moduleVm.Module.Beoordelingen).Select(b => b.ToPoco(context)).ToList();
-                module.ModuleWerkvormen = EmptyIfNull(moduleVm.Module.ModuleWerkvormen).Select(wv => wv.ToPoco(context)).ToList();
-                module.ModuleCompetenties = EmptyIfNull(() => moduleVm.Module.ModuleCompetenties).Select(mc => mc.ToPoco(context, module)).Where(mc => mc.CompetentieCode != null).ToList();
-
-                module.Status1 = context.Status.SingleOrDefault(s => s.Status1 == moduleVm.Module.Status);
-
-                context.SaveChanges();
-            }
+            _unitOfWork.Context.SaveChanges();
+            
 
             if (moduleVm.AfterSubmit == "stay")
             {
@@ -189,6 +134,34 @@ namespace ModuleManager.Web.Controllers
             }
 
             return RedirectToAction("Details/" + moduleVm.Module.Schooljaar + "/" + moduleVm.Module.CursusCode);
+        }
+
+        private void UpdateModuleLeerdoelen(ModuleEditViewModel moduleVm, Module module)
+        {
+            foreach (var leerdoel in module.Leerdoelen.ToList())
+            {
+                _unitOfWork.Context.Leerdoelen.Remove(leerdoel);
+            }
+
+            if (moduleVm.Module.Leerdoelen != null)
+            {
+                var allKwaliteitskenmerken = _unitOfWork.Context.Kwaliteitskenmerken.ToList();
+                foreach (var leerdoel in moduleVm.Module.Leerdoelen)
+                {
+                    var entity = new Leerdoel()
+                    {
+                        Beschrijving = leerdoel.Beschrijving,
+                        CursusCode = module.CursusCode,
+                        Schooljaar = module.Schooljaar
+                    };
+
+                    foreach (var kk in leerdoel.Kwaliteitskenmerken)
+                    {
+                        entity.Kwaliteitskenmerken.Add(allKwaliteitskenmerken.First(item => item.Id == kk.Id));
+                    }
+                    module.Leerdoelen.Add(entity);
+                }
+            }
         }
 
         //PDF Download Code

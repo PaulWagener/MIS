@@ -77,7 +77,6 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
             kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
             kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
-            kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
             kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
             kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
             kernel.Bind<IGenericRepository<FaseType>>().To<GenericRepository<FaseType>>();
@@ -87,7 +86,6 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             // Domain entity API controllers:
-            kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();
             kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();

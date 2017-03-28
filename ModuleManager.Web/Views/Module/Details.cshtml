@@ -165,33 +165,34 @@
 </table>
 
 
-<h3>Competenties</h3>
-<table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th>Competentie</th>
-            <th>Niveau</th>
-            <th>Omschrijving</th>
-        </tr>
-        @foreach (var moduleCompetentie in Model.ModuleCompetenties)
-        {
+@*<h3>Competenties</h3>
+        // TODO: Competenties weer in module tonen
+    <table class="table table-bordered">
+        <tbody>
             <tr>
-                <td>@moduleCompetentie.Competentie.Naam</td>
-                <td>@moduleCompetentie.Niveau</td>
-                @{
-            string[] competenties = null;
-            competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
-                }
-                <td>
-                    @foreach (string comptentie in competenties)
-                    {
-                        @comptentie<br />
-                    }
-                </td>
+                <th>Competentie</th>
+                <th>Niveau</th>
+                <th>Omschrijving</th>
             </tr>
-        }
-    </tbody>
-</table>
+            @foreach (var moduleCompetentie in Model.ModuleCompetenties)
+            {
+                <tr>
+                    <td>@moduleCompetentie.Competentie.Naam</td>
+                    <td>@moduleCompetentie.Niveau</td>
+                    @{
+                string[] competenties = null;
+                competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
+                    }
+                    <td>
+                        @foreach (string comptentie in competenties)
+                        {
+                            @comptentie<br />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
 
 <h3>Studiebelasting</h3>
 <table class="table table-bordered">

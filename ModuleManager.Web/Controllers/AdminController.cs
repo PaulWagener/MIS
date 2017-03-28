@@ -8,6 +8,9 @@ using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Collections.Generic;
+using System.Data.Entity;
+using AutoMapper;
+using ModuleManager.Web.ViewModels.EntityViewModel.Competenties;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -54,7 +57,6 @@ namespace ModuleManager.Web.Controllers
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);*/
 
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
             var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
@@ -70,7 +72,6 @@ namespace ModuleManager.Web.Controllers
 
             var adminCurriculumVm = new AdminCurriculumViewModel
             {
-                Competenties = competenties,
                 Leerlijn = leerlijnen,
                 Tags = tags,
                 Fases = fases,
@@ -83,7 +84,6 @@ namespace ModuleManager.Web.Controllers
 
             return View(adminCurriculumVm);
         }
-
 
         [HttpGet, Route("Admin/UserOverview")]
         public ActionResult UserOverview()

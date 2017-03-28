@@ -4,13 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="53">
-        <EntityTypeShape EntityType="Domain.Competentie" Width="1.75" PointX="5.75" PointY="24" IsExpanded="true" />
+      <Diagram DiagramId="b73a1c838598436da93e584fa7fb93a7" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="Domain.FaseType" Width="1.5" PointX="3" PointY="24.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Leerlijn" Width="1.5" PointX="13.375" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Module" Width="6.375" PointX="2.75" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="Domain.ModuleCompetentie" Width="1.875" PointX="6.875" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Domain.Niveau" Width="1.75" PointX="7.75" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Onderdeel" Width="1.5" PointX="12.625" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Opleiding" Width="1.5" PointX="12.375" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Status" Width="1.5" PointX="14.25" PointY="13" IsExpanded="true" />
@@ -18,13 +15,9 @@
         <EntityTypeShape EntityType="Domain.Toetsvorm" Width="1.5" PointX="3.125" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Weekplanning" Width="1.5" PointX="19.375" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Domain.Werkvorm" Width="1.75" PointX="10" PointY="24" IsExpanded="true" />
-        <AssociationConnector Association="Domain.FK_ModuleCompetenties_Competentie" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.FK_Module_Onderdeel" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.FK_Module_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="Domain.FK_ModuleCompetentie_Module" ManuallyRouted="false" >
-        </AssociationConnector>
         <AssociationConnector Association="Domain.FK_Weekplanning_Module" ManuallyRouted="false" ></AssociationConnector>
-        <AssociationConnector Association="Domain.FK_ModuleCompetentie_Niveau" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.ModuleLeerlijn" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.ModuleTag" ManuallyRouted="false" />
         <AssociationConnector Association="Domain.Voorkennis" ManuallyRouted="false" />
@@ -33,7 +26,7 @@
         <EntityTypeShape EntityType="Domain.Docent" Width="1.5" PointX="17.375" PointY="17.5" />
         <AssociationConnector Association="Domain.ModuleDocent" ></AssociationConnector>
         <EntityTypeShape EntityType="Domain.Beoordeling" Width="1.5" PointX="17.625" PointY="13" />
-        <EntityTypeShape EntityType="Domain.Leerdoel" Width="1.5" PointX="5" PointY="9.25" />
+        <EntityTypeShape EntityType="Domain.Leerdoel" Width="1.5" PointX="7.875" PointY="4" />
         <EntityTypeShape EntityType="Domain.Leermiddel" Width="1.5" PointX="21.125" PointY="13" />
         <AssociationConnector Association="Domain.FK_Beoordelingen_Module" />
         <AssociationConnector Association="Domain.FK_Leerdoelen_Module" />
@@ -43,7 +36,6 @@
         <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Module" />
         <AssociationConnector Association="Domain.FK_ModuleWerkvorm_Werkvorm" />
         <AssociationConnector Association="Domain.FaseModule" />
-        <EntityTypeShape EntityType="Domain.C__RefactorLog" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="Domain.SysteemRol" Width="1.5" PointX="18.125" PointY="7" />
         <EntityTypeShape EntityType="Domain.User" Width="1.5" PointX="20.375" PointY="6.5" />
         <AssociationConnector Association="Domain.FK_User_systeemRol" />
@@ -58,6 +50,12 @@
         <AssociationConnector Association="Domain.FK_Module_Blok" />
         <EntityTypeShape EntityType="Domain.StudieBelasting" Width="1.5" PointX="9.875" PointY="9.125" />
         <AssociationConnector Association="Domain.FK_StudieBelasting_Module" />
+        <EntityTypeShape EntityType="Domain.Competentie" Width="1.5" PointX="3.375" PointY="1.125" />
+        <EntityTypeShape EntityType="Domain.CompetentieOnderdeel" Width="1.5" PointX="5.625" PointY="0.875" />
+        <EntityTypeShape EntityType="Domain.Kwaliteitskenmerk" Width="1.5" PointX="7.875" PointY="0.875" />
+        <AssociationConnector Association="Domain.FK_CompetentieOnderdeel_Competentie" />
+        <AssociationConnector Association="Domain.FK_Kwaliteitskenmerk_CompetentieOnderdeel" />
+        <AssociationConnector Association="Domain.LeerdoelKwaliteitskenmerk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

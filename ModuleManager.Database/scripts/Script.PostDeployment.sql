@@ -16,13 +16,11 @@ go
 :r .\testData\FaseType.sql
 :r .\testData\Opleiding.sql
 :r .\testData\Fase.sql
-:r .\testData\Niveau.sql
 :r .\testData\Onderdeel.sql
 :r .\testData\Status.sql
 :r .\testData\Leerlijn.sql
 :r .\testData\Tag.sql
 :r .\testData\Werkvorm.sql
-:r .\testData\Competentie.sql
 :r .\testData\Docent.sql
 :r .\testData\Icon.sql
 :r .\testData\Toetsvorm.sql
@@ -30,6 +28,12 @@ go
 :r .\testData\FaseModule.sql
 :r .\testData\Studiebelasting.sql
 :r .\testData\Studiepunt.sql
+
+/* ================== Competentieset ================== */
+:r .\testData\Competenties\Competentie.sql
+:r .\testData\Competenties\CompetentieOnderdeel.sql
+:r .\testData\Competenties\Kwaliteitskenmerk.sql
+/* ================== /Competentieset ================== */
 
 :r .\testData\SysteemRol.sql
 :r .\Users.sql

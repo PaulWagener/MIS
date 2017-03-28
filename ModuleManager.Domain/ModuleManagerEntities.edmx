@@ -5,11 +5,39 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DomainDalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__RefactorLog">
+        <EntityType Name="Competentie">
           <Key>
-            <PropertyRef Name="OperationKey" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Volgnummer" Type="int" Nullable="false" />
+          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetentieOnderdeel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetentieId" Type="int" Nullable="false" />
+          <Property Name="Volgnummer" Type="int" Nullable="false" />
+          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kwaliteitskenmerk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetentieOnderdeelId" Type="int" Nullable="false" />
+          <Property Name="Volgnummer" Type="int" Nullable="false" />
+          <Property Name="Omschrijving" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeerdoelKwaliteitskenmerk">
+          <Key>
+            <PropertyRef Name="LeerdoelId" />
+            <PropertyRef Name="KwaliteitskenmerkId" />
+          </Key>
+          <Property Name="LeerdoelId" Type="int" Nullable="false" />
+          <Property Name="KwaliteitskenmerkId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Beoordeling">
           <Key>
@@ -27,14 +55,6 @@
             <PropertyRef Name="BlokId" />
           </Key>
           <Property Name="BlokId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Competentie">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Beschrijving" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Docent">
           <Key>
@@ -76,8 +96,6 @@
         </EntityType>
         <EntityType Name="Leerdoel">
           <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
@@ -119,17 +137,6 @@
           <Property Name="Blok" Type="int" Nullable="false" />
           <Property Name="ReadOnly" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="ModuleCompetentie">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="CompetentieCode" />
-          </Key>
-          <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Schooljaar" Type="int" Nullable="false" />
-          <Property Name="CompetentieCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Niveau" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="ModuleDocent">
           <Key>
             <PropertyRef Name="Docenten_Id" />
@@ -170,12 +177,6 @@
           <Property Name="Schooljaar" Type="int" Nullable="false" />
           <Property Name="WerkvormType" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Organisatie" Type="varchar(max)" />
-        </EntityType>
-        <EntityType Name="Niveau">
-          <Key>
-            <PropertyRef Name="Niveau1" />
-          </Key>
-          <Property Name="Niveau1" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Onderdeel">
           <Key>
@@ -302,6 +303,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CompetentieOnderdeel_Competentie">
+          <End Role="Competentie" Type="Self.Competentie" Multiplicity="1" />
+          <End Role="CompetentieOnderdeel" Type="Self.CompetentieOnderdeel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competentie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompetentieOnderdeel">
+              <PropertyRef Name="CompetentieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Fase_FaseType">
           <End Role="FaseType" Type="Self.FaseType" Multiplicity="1" />
           <End Role="Fase" Type="Self.Fase" Multiplicity="*" />
@@ -342,7 +355,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Leerdoelen_Module">
+        <Association Name="FK_Kwaliteitskenmerk_CompetentieOnderdeel">
+          <End Role="CompetentieOnderdeel" Type="Self.CompetentieOnderdeel" Multiplicity="1" />
+          <End Role="Kwaliteitskenmerk" Type="Self.Kwaliteitskenmerk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetentieOnderdeel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kwaliteitskenmerk">
+              <PropertyRef Name="CompetentieOnderdeelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leerdoel_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
           <End Role="Leerdoel" Type="Self.Leerdoel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -353,6 +378,32 @@
             <Dependent Role="Leerdoel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeerdoelKwaliteitskenmerk_Kwaliteitskenmerk">
+          <End Role="Kwaliteitskenmerk" Type="Self.Kwaliteitskenmerk" Multiplicity="1" />
+          <End Role="LeerdoelKwaliteitskenmerk" Type="Self.LeerdoelKwaliteitskenmerk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kwaliteitskenmerk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LeerdoelKwaliteitskenmerk">
+              <PropertyRef Name="KwaliteitskenmerkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeerdoelKwaliteitskenmerk_Leerdoel">
+          <End Role="Leerdoel" Type="Self.Leerdoel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LeerdoelKwaliteitskenmerk" Type="Self.LeerdoelKwaliteitskenmerk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leerdoel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LeerdoelKwaliteitskenmerk">
+              <PropertyRef Name="LeerdoelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -439,46 +490,6 @@
             </Principal>
             <Dependent Role="Module">
               <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Competentie">
-          <End Role="Competentie" Type="Self.Competentie" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Competentie">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="CompetentieCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Niveau">
-          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Niveau">
-              <PropertyRef Name="Niveau1" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="Niveau" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -717,10 +728,12 @@
           <Parameter Name="naam" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="DomainDalModelStoreContainer">
-          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competentie" EntityType="Self.Competentie" Schema="Competenties" store:Type="Tables" />
+          <EntitySet Name="CompetentieOnderdeel" EntityType="Self.CompetentieOnderdeel" Schema="Competenties" store:Type="Tables" />
+          <EntitySet Name="Kwaliteitskenmerk" EntityType="Self.Kwaliteitskenmerk" Schema="Competenties" store:Type="Tables" />
+          <EntitySet Name="LeerdoelKwaliteitskenmerk" EntityType="Self.LeerdoelKwaliteitskenmerk" Schema="Competenties" store:Type="Tables" />
           <EntitySet Name="Beoordeling" EntityType="Self.Beoordeling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blok" EntityType="Self.Blok" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Competentie" EntityType="Self.Competentie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Docent" EntityType="Self.Docent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fase" EntityType="Self.Fase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FaseModule" EntityType="Self.FaseModule" Schema="dbo" store:Type="Tables" />
@@ -730,12 +743,10 @@
           <EntitySet Name="Leerlijn" EntityType="Self.Leerlijn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leermiddel" EntityType="Self.Leermiddel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ModuleCompetentie" EntityType="Self.ModuleCompetentie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDocent" EntityType="Self.ModuleDocent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleLeerlijn" EntityType="Self.ModuleLeerlijn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleTag" EntityType="Self.ModuleTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleWerkvorm" EntityType="Self.ModuleWerkvorm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Niveau" EntityType="Self.Niveau" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Onderdeel" EntityType="Self.Onderdeel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Opleiding" EntityType="Self.Opleiding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schooljaar" EntityType="Self.Schooljaar" Schema="dbo" store:Type="Tables" />
@@ -753,6 +764,10 @@
             <End Role="Module" EntitySet="Module" />
             <End Role="Beoordeling" EntitySet="Beoordeling" />
           </AssociationSet>
+          <AssociationSet Name="FK_CompetentieOnderdeel_Competentie" Association="Self.FK_CompetentieOnderdeel_Competentie">
+            <End Role="Competentie" EntitySet="Competentie" />
+            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdeel" />
+          </AssociationSet>
           <AssociationSet Name="FK_Fase_FaseType" Association="Self.FK_Fase_FaseType">
             <End Role="FaseType" EntitySet="FaseType" />
             <End Role="Fase" EntitySet="Fase" />
@@ -765,9 +780,21 @@
             <End Role="Module" EntitySet="Module" />
             <End Role="FaseModule" EntitySet="FaseModule" />
           </AssociationSet>
-          <AssociationSet Name="FK_Leerdoelen_Module" Association="Self.FK_Leerdoelen_Module">
+          <AssociationSet Name="FK_Kwaliteitskenmerk_CompetentieOnderdeel" Association="Self.FK_Kwaliteitskenmerk_CompetentieOnderdeel">
+            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdeel" />
+            <End Role="Kwaliteitskenmerk" EntitySet="Kwaliteitskenmerk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leerdoel_Module" Association="Self.FK_Leerdoel_Module">
             <End Role="Module" EntitySet="Module" />
             <End Role="Leerdoel" EntitySet="Leerdoel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeerdoelKwaliteitskenmerk_Kwaliteitskenmerk" Association="Self.FK_LeerdoelKwaliteitskenmerk_Kwaliteitskenmerk">
+            <End Role="Kwaliteitskenmerk" EntitySet="Kwaliteitskenmerk" />
+            <End Role="LeerdoelKwaliteitskenmerk" EntitySet="LeerdoelKwaliteitskenmerk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeerdoelKwaliteitskenmerk_Leerdoel" Association="Self.FK_LeerdoelKwaliteitskenmerk_Leerdoel">
+            <End Role="Leerdoel" EntitySet="Leerdoel" />
+            <End Role="LeerdoelKwaliteitskenmerk" EntitySet="LeerdoelKwaliteitskenmerk" />
           </AssociationSet>
           <AssociationSet Name="FK_Leermiddelen_Module" Association="Self.FK_Leermiddelen_Module">
             <End Role="Module" EntitySet="Module" />
@@ -796,18 +823,6 @@
           <AssociationSet Name="FK_Module_Status" Association="Self.FK_Module_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Module" EntitySet="Module" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="Self.FK_ModuleCompetentie_Competentie">
-            <End Role="Competentie" EntitySet="Competentie" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Module" Association="Self.FK_ModuleCompetentie_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Niveau" Association="Self.FK_ModuleCompetentie_Niveau">
-            <End Role="Niveau" EntitySet="Niveau" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
           </AssociationSet>
           <AssociationSet Name="FK_ModuleDocent_Docent" Association="Self.FK_ModuleDocent_Docent">
             <End Role="Docent" EntitySet="Docent" />
@@ -874,15 +889,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Competentie">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ModuleCompetenties" Relationship="Domain.FK_ModuleCompetenties_Competentie" FromRole="Competentie" ToRole="ModuleCompetenties" />
-        </EntityType>
         <EntityType Name="FaseType">
           <Key>
             <PropertyRef Name="Type" />
@@ -911,12 +917,11 @@
           <Property Name="Icon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Onderdeel" Relationship="Self.FK_Module_Onderdeel" FromRole="Module" ToRole="Onderdeel" />
           <NavigationProperty Name="Status1" Relationship="Self.FK_Module_Status" FromRole="Module" ToRole="Status" />
-          <NavigationProperty Name="ModuleCompetenties" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="Module" ToRole="ModuleCompetenties" />
           <NavigationProperty Name="Weekplanningen" Relationship="Self.FK_Weekplanning_Module" FromRole="Module" ToRole="Weekplanning" />
           <NavigationProperty Name="Leerlijnen" Relationship="Self.ModuleLeerlijn" FromRole="Module" ToRole="Leerlijn" />
           <NavigationProperty Name="Tags" Relationship="Self.ModuleTag" FromRole="Module" ToRole="Tag" />
-          <NavigationProperty Name="Voorkennis" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
-          <NavigationProperty Name="Modules" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
+          <NavigationProperty Name="Vervolgmodules" Relationship="Self.Voorkennis" FromRole="Module" ToRole="Module1" />
+          <NavigationProperty Name="Voorkennismodules" Relationship="Self.Voorkennis" FromRole="Module1" ToRole="Module" />
           <NavigationProperty Name="Docenten" Relationship="Domain.ModuleDocent" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="Beoordelingen" Relationship="Domain.FK_Beoordelingen_Module" FromRole="Module" ToRole="Beoordeling" />
           <NavigationProperty Name="Leerdoelen" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Module" ToRole="Leerdoel" />
@@ -932,26 +937,6 @@
           <NavigationProperty Name="Verantwoordelijke" Relationship="Domain.FK_Module_Docent" FromRole="Module" ToRole="Docent" />
           <NavigationProperty Name="BlokReference" Relationship="Domain.FK_Module_Blok" FromRole="Module" ToRole="Blok" />
           <NavigationProperty Name="StudieBelastingen" Relationship="Domain.FK_StudieBelasting_Module" FromRole="Module" ToRole="StudieBelasting" />
-        </EntityType>
-        <EntityType Name="ModuleCompetentie">
-          <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
-            <PropertyRef Name="CompetentieCode" />
-          </Key>
-          <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Schooljaar" Type="Int32" Nullable="false" />
-          <Property Name="CompetentieCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Niveau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Competentie" Relationship="Domain.FK_ModuleCompetenties_Competentie" FromRole="ModuleCompetenties" ToRole="Competentie" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleCompetentie_Module" FromRole="ModuleCompetenties" ToRole="Module" />
-        </EntityType>
-        <EntityType Name="Niveau">
-          <Key>
-            <PropertyRef Name="Niveau1" />
-          </Key>
-          <Property Name="Niveau1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ModuleCompetenties" Relationship="Self.FK_ModuleCompetentie_Niveau" FromRole="Niveau" ToRole="ModuleCompetentie" />
         </EntityType>
         <EntityType Name="Onderdeel">
           <Key>
@@ -1009,18 +994,6 @@
           <Property Name="Omschrijving" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ModuleWerkvormen" Relationship="Domain.FK_ModuleWerkvorm_Werkvorm" FromRole="Werkvorm" ToRole="ModuleWerkvorm" />
         </EntityType>
-        <Association Name="FK_ModuleCompetenties_Competentie">
-          <End Role="Competentie" Type="Self.Competentie" Multiplicity="1" />
-          <End Role="ModuleCompetenties" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Competentie">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="ModuleCompetenties">
-              <PropertyRef Name="CompetentieCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Module_Onderdeel">
           <End Role="Onderdeel" Type="Self.Onderdeel" Multiplicity="1" />
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
@@ -1045,20 +1018,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ModuleCompetentie_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="1" />
-          <End Role="ModuleCompetenties" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="ModuleCompetenties">
-              <PropertyRef Name="CursusCode" />
-              <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Weekplanning_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
           <End Role="Weekplanning" Type="Self.Weekplanning" Multiplicity="*" />
@@ -1070,18 +1029,6 @@
             <Dependent Role="Weekplanning">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ModuleCompetentie_Niveau">
-          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
-          <End Role="ModuleCompetentie" Type="Self.ModuleCompetentie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Niveau">
-              <PropertyRef Name="Niveau1" />
-            </Principal>
-            <Dependent Role="ModuleCompetentie">
-              <PropertyRef Name="Niveau" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1098,12 +1045,9 @@
           <End Role="Module1" Type="Self.Module" Multiplicity="*" />
         </Association>
         <EntityContainer Name="DomainEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Competenties" EntityType="Self.Competentie" />
           <EntitySet Name="FaseTypes" EntityType="Self.FaseType" />
           <EntitySet Name="Leerlijnen" EntityType="Self.Leerlijn" />
           <EntitySet Name="Modules" EntityType="Self.Module" />
-          <EntitySet Name="ModuleCompetenties" EntityType="Self.ModuleCompetentie" />
-          <EntitySet Name="Niveaux" EntityType="Self.Niveau" />
           <EntitySet Name="Onderdeels" EntityType="Self.Onderdeel" />
           <EntitySet Name="Opleidings" EntityType="Self.Opleiding" />
           <EntitySet Name="Status" EntityType="Self.Status" />
@@ -1111,10 +1055,6 @@
           <EntitySet Name="Toetsvorms" EntityType="Self.Toetsvorm" />
           <EntitySet Name="Weekplannings" EntityType="Self.Weekplanning" />
           <EntitySet Name="Werkvormen" EntityType="Self.Werkvorm" />
-          <AssociationSet Name="FK_ModuleCompetentie_Competentie" Association="Domain.FK_ModuleCompetenties_Competentie">
-            <End Role="Competentie" EntitySet="Competenties" />
-            <End Role="ModuleCompetenties" EntitySet="ModuleCompetenties" />
-          </AssociationSet>
           <AssociationSet Name="FK_Module_Onderdeel" Association="Self.FK_Module_Onderdeel">
             <End Role="Onderdeel" EntitySet="Onderdeels" />
             <End Role="Module" EntitySet="Modules" />
@@ -1123,17 +1063,9 @@
             <End Role="Status" EntitySet="Status" />
             <End Role="Module" EntitySet="Modules" />
           </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Module" Association="Self.FK_ModuleCompetentie_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="ModuleCompetenties" EntitySet="ModuleCompetenties" />
-          </AssociationSet>
           <AssociationSet Name="FK_Weekplanning_Module" Association="Self.FK_Weekplanning_Module">
             <End Role="Module" EntitySet="Modules" />
             <End Role="Weekplanning" EntitySet="Weekplannings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ModuleCompetentie_Niveau" Association="Self.FK_ModuleCompetentie_Niveau">
-            <End Role="Niveau" EntitySet="Niveaux" />
-            <End Role="ModuleCompetentie" EntitySet="ModuleCompetenties" />
           </AssociationSet>
           <AssociationSet Name="ModuleLeerlijn" Association="Self.ModuleLeerlijn">
             <End Role="Leerlijn" EntitySet="Leerlijnen" />
@@ -1186,7 +1118,6 @@
             <End Role="Fase" EntitySet="Fases" />
             <End Role="Module" EntitySet="Modules" />
           </AssociationSet>
-          <EntitySet Name="C__RefactorLog" EntityType="Domain.C__RefactorLog" />
           <EntitySet Name="SysteemRol" EntityType="Domain.SysteemRol" />
           <EntitySet Name="User" EntityType="Domain.User" />
           <AssociationSet Name="FK_User_systeemRol" Association="Domain.FK_User_systeemRol">
@@ -1253,6 +1184,21 @@
             <End Role="Module" EntitySet="Modules" />
             <End Role="StudieBelasting" EntitySet="StudieBelastings" />
           </AssociationSet>
+          <EntitySet Name="Competenties" EntityType="Domain.Competentie" />
+          <EntitySet Name="CompetentieOnderdelen" EntityType="Domain.CompetentieOnderdeel" />
+          <EntitySet Name="Kwaliteitskenmerken" EntityType="Domain.Kwaliteitskenmerk" />
+          <AssociationSet Name="FK_CompetentieOnderdeel_Competentie" Association="Domain.FK_CompetentieOnderdeel_Competentie">
+            <End Role="Competentie1" EntitySet="Competenties" />
+            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdelen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kwaliteitskenmerk_CompetentieOnderdeel" Association="Domain.FK_Kwaliteitskenmerk_CompetentieOnderdeel">
+            <End Role="CompetentieOnderdeel" EntitySet="CompetentieOnderdelen" />
+            <End Role="Kwaliteitskenmerk" EntitySet="Kwaliteitskenmerken" />
+          </AssociationSet>
+          <AssociationSet Name="LeerdoelKwaliteitskenmerk" Association="Domain.LeerdoelKwaliteitskenmerk">
+            <End Role="Kwaliteitskenmerk" EntitySet="Kwaliteitskenmerken" />
+            <End Role="Leerdoel" EntitySet="Leerdoelen" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
           <Key>
@@ -1303,8 +1249,6 @@
         </EntityType>
         <EntityType Name="Leerdoel">
           <Key>
-            <PropertyRef Name="CursusCode" />
-            <PropertyRef Name="Schooljaar" />
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CursusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1312,6 +1256,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Beschrijving" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="Domain.FK_Leerdoelen_Module" FromRole="Leerdoel" ToRole="Module" />
+          <NavigationProperty Name="Kwaliteitskenmerken" Relationship="Domain.LeerdoelKwaliteitskenmerk" FromRole="Leerdoel" ToRole="Kwaliteitskenmerk" />
         </EntityType>
         <EntityType Name="Leermiddel">
           <Key>
@@ -1415,12 +1360,6 @@
           <End Type="Domain.Fase" Role="Fase" Multiplicity="*" />
           <End Type="Domain.Module" Role="Module" Multiplicity="*" />
         </Association>
-        <EntityType Name="C__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="Guid" Nullable="false" />
-        </EntityType>
         <EntityType Name="SysteemRol">
           <Key>
             <PropertyRef Name="Role" />
@@ -1587,21 +1526,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Competentie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Volgnummer" Type="Int32" Nullable="false" />
+          <Property Name="Naam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompetentieOnderdelen" Relationship="Domain.FK_CompetentieOnderdeel_Competentie" FromRole="Competentie1" ToRole="CompetentieOnderdeel" />
+        </EntityType>
+        <EntityType Name="CompetentieOnderdeel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetentieId" Type="Int32" Nullable="false" />
+          <Property Name="Volgnummer" Type="Int32" Nullable="false" />
+          <Property Name="Naam" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Competentie" Relationship="Domain.FK_CompetentieOnderdeel_Competentie" FromRole="CompetentieOnderdeel" ToRole="Competentie1" />
+          <NavigationProperty Name="Kwaliteitskenmerken" Relationship="Domain.FK_Kwaliteitskenmerk_CompetentieOnderdeel" FromRole="CompetentieOnderdeel" ToRole="Kwaliteitskenmerk" />
+        </EntityType>
+        <EntityType Name="Kwaliteitskenmerk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetentieOnderdeelId" Type="Int32" Nullable="false" />
+          <Property Name="Volgnummer" Type="Int32" Nullable="false" />
+          <Property Name="Omschrijving" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompetentieOnderdeel" Relationship="Domain.FK_Kwaliteitskenmerk_CompetentieOnderdeel" FromRole="Kwaliteitskenmerk" ToRole="CompetentieOnderdeel" />
+          <NavigationProperty Name="Leerdoelen" Relationship="Domain.LeerdoelKwaliteitskenmerk" FromRole="Kwaliteitskenmerk" ToRole="Leerdoel" />
+        </EntityType>
+        <Association Name="FK_CompetentieOnderdeel_Competentie">
+          <End Type="Domain.Competentie" Role="Competentie1" Multiplicity="1" />
+          <End Type="Domain.CompetentieOnderdeel" Role="CompetentieOnderdeel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competentie1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompetentieOnderdeel">
+              <PropertyRef Name="CompetentieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kwaliteitskenmerk_CompetentieOnderdeel">
+          <End Type="Domain.CompetentieOnderdeel" Role="CompetentieOnderdeel" Multiplicity="1" />
+          <End Type="Domain.Kwaliteitskenmerk" Role="Kwaliteitskenmerk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetentieOnderdeel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kwaliteitskenmerk">
+              <PropertyRef Name="CompetentieOnderdeelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LeerdoelKwaliteitskenmerk">
+          <End Type="Domain.Kwaliteitskenmerk" Role="Kwaliteitskenmerk" Multiplicity="*" />
+          <End Type="Domain.Leerdoel" Role="Leerdoel" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DomainDalModelStoreContainer" CdmEntityContainer="DomainEntities">
-          <EntitySetMapping Name="Competenties">
-            <EntityTypeMapping TypeName="Domain.Competentie">
-              <MappingFragment StoreEntitySet="Competentie">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FaseTypes">
             <EntityTypeMapping TypeName="Domain.FaseType">
               <MappingFragment StoreEntitySet="FaseType">
@@ -1630,23 +1619,6 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="OnderdeelCode" ColumnName="OnderdeelCode" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ModuleCompetenties">
-            <EntityTypeMapping TypeName="Domain.ModuleCompetentie">
-              <MappingFragment StoreEntitySet="ModuleCompetentie">
-                <ScalarProperty Name="CursusCode" ColumnName="CursusCode" />
-                <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
-                <ScalarProperty Name="CompetentieCode" ColumnName="CompetentieCode" />
-                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Niveaux">
-            <EntityTypeMapping TypeName="Domain.Niveau">
-              <MappingFragment StoreEntitySet="Niveau">
-                <ScalarProperty Name="Niveau1" ColumnName="Niveau1" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1816,13 +1788,6 @@
               <ScalarProperty Name="Naam" ColumnName="FaseNaam" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="C__RefactorLog">
-            <EntityTypeMapping TypeName="Domain.C__RefactorLog">
-              <MappingFragment StoreEntitySet="__RefactorLog">
-                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SysteemRol">
             <EntityTypeMapping TypeName="Domain.SysteemRol">
               <MappingFragment StoreEntitySet="SysteemRol">
@@ -1886,6 +1851,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Competenties">
+            <EntityTypeMapping TypeName="Domain.Competentie">
+              <MappingFragment StoreEntitySet="Competentie">
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Volgnummer" ColumnName="Volgnummer" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetentieOnderdelen">
+            <EntityTypeMapping TypeName="Domain.CompetentieOnderdeel">
+              <MappingFragment StoreEntitySet="CompetentieOnderdeel">
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Volgnummer" ColumnName="Volgnummer" />
+                <ScalarProperty Name="CompetentieId" ColumnName="CompetentieId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kwaliteitskenmerken">
+            <EntityTypeMapping TypeName="Domain.Kwaliteitskenmerk">
+              <MappingFragment StoreEntitySet="Kwaliteitskenmerk">
+                <ScalarProperty Name="Omschrijving" ColumnName="Omschrijving" />
+                <ScalarProperty Name="Volgnummer" ColumnName="Volgnummer" />
+                <ScalarProperty Name="CompetentieOnderdeelId" ColumnName="CompetentieOnderdeelId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LeerdoelKwaliteitskenmerk" TypeName="Domain.LeerdoelKwaliteitskenmerk" StoreEntitySet="LeerdoelKwaliteitskenmerk">
+            <EndProperty Name="Leerdoel">
+              <ScalarProperty Name="Id" ColumnName="LeerdoelId" />
+            </EndProperty>
+            <EndProperty Name="Kwaliteitskenmerk">
+              <ScalarProperty Name="Id" ColumnName="KwaliteitskenmerkId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -6,11 +6,9 @@ namespace ModuleManager.Web {
         public static void RegisterBundles(BundleCollection bundles) {
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/main").Include(
-                        "~/Scripts/angular.min.js",
                         "~/Scripts/bootstrap.min.js",
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/select2.min.js",
-                        "~/Scripts/app/app.js").IncludeDirectory("~/Scripts/app/controllers", "*.js")); //Our angular app
+                        "~/Scripts/select2.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css/main").Include(
                       "~/Content/bootstrap.css",
