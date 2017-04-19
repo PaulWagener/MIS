@@ -32,10 +32,10 @@
                         </div>
                         <div id="competentie" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <select name="filters.competenties" class="form-control ajax" id="FilterCompetenties" multiple>
-                                    @foreach (var competentie in Model.FilterOptions.CompetentieFilter)
+                                <select name="filters.kwaliteitskenmerken" class="form-control ajax" id="FilterCompetenties" multiple>
+                                    @foreach (var kk in Model.FilterOptions.KwaliteitskenmerkFilter)
                                     {
-                                        <option value="@competentie">@competentie</option>
+                                        <option value="@kk.Id">@kk.Omschrijving</option>
                                     }
                                 </select>
 

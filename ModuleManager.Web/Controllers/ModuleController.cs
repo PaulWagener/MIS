@@ -41,13 +41,12 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
-
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
             //Collect the possible filter options the user can choose.
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll().OrderBy(blok => blok.BlokId));
-            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
+            filterOptions.AddKwaliteitskenmerken(_unitOfWork.GetRepository<Kwaliteitskenmerk>().GetAll());
             filterOptions.AddECs();
             filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().ToList());
             filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
@@ -182,7 +181,7 @@ namespace ModuleManager.Web.Controllers
         {
             var arguments = new ModuleFilterSorterArguments
             {
-                CompetentieFilters = value.Filters.Competenties,
+                KwaliteitskenmerkIds = value.Filters.Kwaliteitskenmerken,
                 TagFilters = value.Filters.Tags,
                 LeerlijnFilters = value.Filters.Leerlijnen,
                 FaseFilters = value.Filters.Fases,

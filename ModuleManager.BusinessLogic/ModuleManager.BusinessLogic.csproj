@@ -116,7 +116,6 @@
     <Compile Include="Filters\ModuleFilterStack\ModuleECFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleStatusFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleTagFilter.cs" />
-    <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieNiveauFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleGenericZoektermFilter.cs" />
     <Compile Include="Filters\ModulePassiveFilter.cs" />

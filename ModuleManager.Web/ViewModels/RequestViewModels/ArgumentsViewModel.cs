@@ -19,7 +19,7 @@ namespace ModuleManager.Web.ViewModels.RequestViewModels
                 Offset = Start ?? 0
             };
 
-            if (Filter.Competenties.Any(item => item != null)) args.CompetentieFilters = Filter.Competenties;
+            args.KwaliteitskenmerkIds = Filter.Kwaliteitskenmerken.Where(kk => kk > 0).ToList();
             if (Filter.Tags.Any(item => item != null)) args.TagFilters = Filter.Tags;
             if (Filter.Leerlijnen.Any(item => item != null)) args.LeerlijnFilters = Filter.Leerlijnen;
             if (Filter.Fases.Any(item => item != null)) args.FaseFilters = Filter.Fases;
