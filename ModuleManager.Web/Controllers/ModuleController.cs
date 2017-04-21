@@ -168,9 +168,10 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(int schooljaar, string cursusCode)
         {
-            Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar));
+            var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
+            Stream fStream = _moduleExporterService.ExportAsStream(module);
 
-            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+            HttpContext.Response.AddHeader("content-disposition", $"attachment; filename={ module.CursusCode} { module.Schooljaar} - { module.Naam}.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
         }
@@ -208,7 +209,6 @@ namespace ModuleManager.Web.Controllers
                 ExportBeoordeling = value.Export.Beoordeling,
                 ExportLeermiddelen = value.Export.Leermiddelen,
                 ExportLeerdoelen = value.Export.Leerdoelen,
-                ExportCompetenties = value.Export.Competenties,
                 ExportLeerlijnen = value.Export.Leerlijnen,
                 ExportTags = value.Export.Tags
             };

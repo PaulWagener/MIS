@@ -49,10 +49,6 @@ namespace ModuleManager.BusinessLogic.Data
         /// </summary>
         public bool ExportLeerdoelen { get; set; }
         /// <summary>
-        /// Export the associated skills
-        /// </summary>
-        public bool ExportCompetenties { get; set; }
-        /// <summary>
         /// Export the associated skill-trees
         /// </summary>
         public bool ExportLeerlijnen { get; set; }

@@ -28,16 +28,13 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             base.Export(toExport, sect);
 
             //custom code
+            //custom code
             Paragraph p = sect.AddParagraph("Beoordeling", "Heading2");
-            p.AddLineBreak();
 
-            p = sect.AddParagraph();
-            foreach (Beoordeling bd in toExport.Beoordelingen) 
+            foreach (Beoordeling bd in toExport.Beoordelingen)
             {
-                p.AddText(" - " + (bd.Beschrijving ?? ""));
-                p.AddLineBreak();
+                p = sect.AddParagraph(bd.Beschrijving, "bulletlist");
             }
-            p.AddLineBreak();
 
             return sect;
         }

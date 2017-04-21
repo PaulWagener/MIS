@@ -37,6 +37,14 @@ namespace ModuleManager.BusinessLogic.Services
             Style err = doc.AddStyle("error", "Normal");
             err.Font.Name = "Arial";
             err.Font.Color = Colors.Red;
+
+            Style list = doc.AddStyle("bulletlist", "Normal");
+            list.ParagraphFormat.LeftIndent = new Unit(0.5, UnitType.Centimeter);
+            list.ParagraphFormat.ListInfo.ListType = ListType.BulletList1;
+
+            Style list2 = doc.AddStyle("bulletlist2", "Normal");
+            list2.ParagraphFormat.LeftIndent = new Unit(1.5, UnitType.Centimeter);
+            list2.ParagraphFormat.ListInfo.ListType = ListType.BulletList2;
         }
 
         /// <summary>
