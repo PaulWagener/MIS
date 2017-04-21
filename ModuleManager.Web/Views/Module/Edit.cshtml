@@ -23,6 +23,8 @@
 }
 
 <form id="module_edit_form" action="@Url.Action("Edit", "Module", new { schooljaar = Model.Module.Schooljaar, cursusCode = Model.Module.CursusCode })" method="post">
+@using (Html.BeginForm())
+{
     <div id="hidden-values">
         @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" })
         @Html.HiddenFor(model => model.Module.Schooljaar, new { @id = "schooljaar" })

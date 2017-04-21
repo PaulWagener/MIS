@@ -227,7 +227,7 @@ namespace ModuleManager.WebTests
             });
 
             //2. Act
-            controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
+          controller.Edit(vm.Module.Schooljaar, vm.Module.CursusCode, vm);
 
             using (var context = new DomainEntities())
             {
