@@ -268,9 +268,17 @@
 <p>
     De student kan...
     <ul>
-       @foreach (var leerdoelen in Model.Leerdoelen)
+       @foreach (var leerdoel in Model.Leerdoelen)
        {
-           <li>@leerdoelen.Beschrijving</li>
+           <li>
+               @leerdoel.Beschrijving
+               <ul>
+                    @foreach(var kwaliteitskenmerk in leerdoel.Kwaliteitskenmerken)
+                    {
+                        <li>@kwaliteitskenmerk.Omschrijving</li>
+                    }
+                </ul>
+           </li>
        }
     </ul>
 </p>

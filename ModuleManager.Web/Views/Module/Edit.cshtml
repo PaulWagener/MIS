@@ -51,7 +51,7 @@
         <tr><td><label for="tags">Beschrijving</label></td></tr>
         <tr>
             <td>
-                @Html.TextAreaFor(m => m.Module.Beschrijving, new { @class="form-control", placeholder="Beschrijving" })
+                @Html.TextAreaFor(m => m.Module.Beschrijving, new { @class = "form-control", placeholder = "Beschrijving" })
             </td>
         </tr>
     </table>
@@ -321,7 +321,7 @@
     <button name="afterSubmit" value="stay" type="submit" class="btn btn-success btn-lg">Opslaan</button>
     <button name="afterSubmit" value="close" class="btn btn-success btn-lg">Opslaan & Sluiten</button>
     <a href="@Url.Action("Details", "Module", new { schooljaar = Model.Module.Schooljaar, cursusCode = Model.Module.CursusCode })" class="btn btn-default">Annuleren</a>
-</form>
+}
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/ModuleEdit.cshtml", null)

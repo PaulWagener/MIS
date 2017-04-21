@@ -29,17 +29,11 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph("Leerlijnen", "Heading2");
-            p.AddLineBreak();
 
-            p = sect.AddParagraph();
-
-            foreach (Leerlijn l in toExport.Leerlijnen) 
+            foreach (Leerlijn ll in toExport.Leerlijnen)
             {
-                p.AddText(" - " + (l.Naam ?? ""));
-                p.AddLineBreak();
+                p = sect.AddParagraph(ll.Naam, "bulletlist");
             }
-            
-            p.AddLineBreak();
 
             return sect;
         }

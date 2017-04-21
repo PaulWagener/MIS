@@ -41,7 +41,8 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Onderdelen, opt => opt.MapFrom(src => src.CompetentieOnderdelen));
             Mapper.CreateMap<CompetentieOnderdeel, CompetentieOnderdeelViewModel>()
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Competentie.Naam.Substring(0, 1) + src.Volgnummer));
-            Mapper.CreateMap<Kwaliteitskenmerk, KwaliteitskenmerkViewModel>();
+            Mapper.CreateMap<Kwaliteitskenmerk, KwaliteitskenmerkViewModel>()
+                .ForMember(dest => dest.Omschrijving, opt => opt.MapFrom(src => $"{src.CompetentieOnderdeel.Competentie.Naam}/{src.CompetentieOnderdeel.Naam}: {src.Omschrijving}"));
 
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(

@@ -1,4 +1,6 @@
+using AutoMapper;
 using ModuleManager.Domain;
+using ModuleManager.Web.ViewModels.EntityViewModel.Competenties;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,12 +15,10 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Verkrijgt uit een lijst van alle 'Competentie'-objecten alleen de namen en zet deze in het 'CompetentieFilter' Property
         /// </summary>
-        /// <param name="competentieList">Lijst van alle 'Competentie'-objecten</param>
-        public void AddCompetenties(IEnumerable<Competentie> competentieList)
+        /// <param name="kwaliteitskenmerken">Lijst van alle 'Competentie'-objecten</param>
+        public void AddKwaliteitskenmerken(IEnumerable<Kwaliteitskenmerk> kwaliteitskenmerken)
         {
-            CompetentieFilter = competentieList
-            .Select(comp => comp.Naam)
-            .ToList();
+            KwaliteitskenmerkFilter = kwaliteitskenmerken.Select(kk => Mapper.Map<KwaliteitskenmerkViewModel>(kk)).ToList();
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Mogelijke competentie(s) om op te filteren
         /// </summary>
-        public IEnumerable<string> CompetentieFilter { get; set; }
+        public IEnumerable<KwaliteitskenmerkViewModel> KwaliteitskenmerkFilter { get; set; }
         /// <summary>
         /// Mogelijke tag(s) om op te filteren
         /// </summary>

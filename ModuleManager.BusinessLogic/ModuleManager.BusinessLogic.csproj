@@ -98,7 +98,6 @@
     <Compile Include="Exporters\ModuleExporterStack\ModuleBeoordelingExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleLeermiddelenExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleLeerdoelenExporter.cs" />
-    <Compile Include="Exporters\ModuleExporterStack\ModuleCompetentieExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleLeerlijnenExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleTagExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleNaamExporter.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="Filters\ModuleFilterStack\ModuleECFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleStatusFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleTagFilter.cs" />
-    <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieNiveauFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleGenericZoektermFilter.cs" />
     <Compile Include="Filters\ModulePassiveFilter.cs" />

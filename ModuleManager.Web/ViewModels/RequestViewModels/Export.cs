@@ -17,7 +17,6 @@ namespace ModuleManager.Web.ViewModels.RequestViewModels
         public bool Beoordeling { get; set; }
         public bool Leermiddelen { get; set; }
         public bool Leerdoelen { get; set; }
-        public bool Competenties { get; set; }
         public bool Leerlijnen { get; set; }
         public bool Tags { get; set; }
     }

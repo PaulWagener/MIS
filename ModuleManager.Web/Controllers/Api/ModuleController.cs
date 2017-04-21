@@ -45,7 +45,7 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
+        public ModuleListViewModel GetOverview(ArgumentsViewModel value)
         {
             ModuleFilterSorterArguments arguments = value != null ? value.ToModuleFilterSorterArguments() : new ModuleFilterSorterArguments();
 

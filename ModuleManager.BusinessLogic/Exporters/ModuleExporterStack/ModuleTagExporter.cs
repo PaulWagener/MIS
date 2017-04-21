@@ -29,13 +29,11 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph("Relevante Tags", "Heading2");
-            p.AddLineBreak();
 
-            p = sect.AddParagraph();
-            foreach (Tag t in toExport.Tags) 
+            foreach (Tag t in toExport.Tags)
             {
-                p.AddText(" - " + (t.Naam ?? ""));
-                p.AddLineBreak();
+                p = sect.AddParagraph(t.Naam, "bulletlist");
+                p.Format.ListInfo.ListType = ListType.BulletList1;
             }
 
             return sect;
