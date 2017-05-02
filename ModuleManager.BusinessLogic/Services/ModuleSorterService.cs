@@ -48,11 +48,8 @@ namespace ModuleManager.BusinessLogic.Services
         /// <returns>List of Sorted Modules</returns>
         public IQueryable<Domain.Module> Sort(Interfaces.IQueryablePack<Domain.Module> qPack)
         {
-            if (qPack.Args.SortBy != null)
-            {
-                return moduleSorterStrategy.Sort(qPack.Data, qPack.Args);
-            }
-            return qPack.Data;
+            qPack.Args.SortBy = qPack.Args.SortBy ?? "CursusCode";
+            return moduleSorterStrategy.Sort(qPack.Data, qPack.Args);
         }
     }
 }

@@ -23,8 +23,6 @@
 }
 
 <form id="module_edit_form" action="@Url.Action("Edit", "Module", new { schooljaar = Model.Module.Schooljaar, cursusCode = Model.Module.CursusCode })" method="post">
-@using (Html.BeginForm())
-{
     <div id="hidden-values">
         @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" })
         @Html.HiddenFor(model => model.Module.Schooljaar, new { @id = "schooljaar" })
@@ -51,7 +49,7 @@
         <tr><td><label for="tags">Beschrijving</label></td></tr>
         <tr>
             <td>
-                @Html.TextAreaFor(m => m.Module.Beschrijving, new { @class="form-control", placeholder="Beschrijving" })
+                @Html.TextAreaFor(m => m.Module.Beschrijving, new { @class = "form-control", placeholder = "Beschrijving" })
             </td>
         </tr>
     </table>
@@ -327,7 +325,7 @@
 @Html.Partial("~/Views/Help/ModuleEdit.cshtml", null)
 
 @helper LeerdoelRowTemplate(int? index = null, ModuleManager.Web.ViewModels.EntityViewModel.LeerdoelenViewModel ld = null) {
-    string indexString = index.HasValue ? index.ToString() : "<<index>>";
+string indexString = index.HasValue ? index.ToString() : "<<index>>";
 
     <tr class="leerdoelTemplate @(ld == null ? "hiddenLeerdoel" : "")">
         <th>
@@ -342,11 +340,11 @@
                 @if (ld != null)
                 {
                     @Html.DropDownList("Kwaliteitskenmerken", new MultiSelectList(Model.Options.Kwaliteitskenmerken, "Id", "Omschrijving"
-                                                 , Model.Module.Leerdoelen[index.Value].Kwaliteitskenmerken.Select(kk => kk.Id))
-                                                 , new { @class = "kwaliteitskenmerken form-control", @multiple = "multiple" })
+                                          , Model.Module.Leerdoelen[index.Value].Kwaliteitskenmerken.Select(kk => kk.Id))
+                                          , new { @class = "kwaliteitskenmerken form-control", @multiple = "multiple" })
                 }
-                    else
-                    {
+                else
+                {
                     <select class="kwaliteitskenmerken form-control" id="Kwaliteitskenmerken" multiple="multiple" name="Kwaliteitskenmerken">
                         @foreach (var kk in Model.Options.Kwaliteitskenmerken)
                         {

@@ -213,7 +213,7 @@ function getFilters() {
     
     data = {
         Zoekterm: $("#Zoekterm").val(),
-        Competenties: $("#FilterCompetenties").val(),
+        Kwaliteitskenmerken: $("#FilterCompetenties").val(),
         Fases: $("#FilterFases").val(),
         Leerjaar: $("#FilterLeerjaar").val(),
         Blokken: $("#FilterBlokken").val(),

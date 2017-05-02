@@ -29,16 +29,22 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph("Leerdoelen", "Heading2");
-            p.AddLineBreak();
-
-            p = sect.AddParagraph();
+            p = sect.AddParagraph("De student kan...");
 
             foreach (Leerdoel ld in toExport.Leerdoelen) 
             {
-                p.AddText(" - " + (ld.Beschrijving ?? "NOT FOUND"));
-                p.AddLineBreak();
+                p = sect.AddParagraph(ld.Beschrijving, "bulletlist");
+
+                foreach (var kk in ld.Kwaliteitskenmerken)
+                {
+                    p = sect.AddParagraph();
+                    p.Style = "bulletlist2";
+
+                    p.AddFormattedText(kk.CompetentieOnderdeel.Competentie.Naam + " / ", TextFormat.Bold);
+                    p.AddFormattedText(kk.CompetentieOnderdeel.Naam + ": ", TextFormat.Italic | TextFormat.Bold);
+                    p.AddText(kk.Omschrijving);
+                }
             }
-            p.AddLineBreak();
 
             return sect;
         }

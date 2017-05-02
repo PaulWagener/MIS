@@ -41,13 +41,12 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
-
             var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
             //Collect the possible filter options the user can choose.
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll().OrderBy(blok => blok.BlokId));
-            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
+            filterOptions.AddKwaliteitskenmerken(_unitOfWork.GetRepository<Kwaliteitskenmerk>().GetAll());
             filterOptions.AddECs();
             filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().ToList());
             filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
@@ -169,9 +168,10 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(int schooljaar, string cursusCode)
         {
-            Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar));
+            var module = _unitOfWork.GetRepository<Module>().GetOne(m => m.CursusCode == cursusCode && m.Schooljaar == schooljaar);
+            Stream fStream = _moduleExporterService.ExportAsStream(module);
 
-            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+            HttpContext.Response.AddHeader("content-disposition", $"attachment; filename={ module.CursusCode} { module.Schooljaar} - { module.Naam}.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
         }
@@ -182,7 +182,7 @@ namespace ModuleManager.Web.Controllers
         {
             var arguments = new ModuleFilterSorterArguments
             {
-                CompetentieFilters = value.Filters.Competenties,
+                KwaliteitskenmerkIds = value.Filters.Kwaliteitskenmerken,
                 TagFilters = value.Filters.Tags,
                 LeerlijnFilters = value.Filters.Leerlijnen,
                 FaseFilters = value.Filters.Fases,
@@ -209,7 +209,6 @@ namespace ModuleManager.Web.Controllers
                 ExportBeoordeling = value.Export.Beoordeling,
                 ExportLeermiddelen = value.Export.Leermiddelen,
                 ExportLeerdoelen = value.Export.Leerdoelen,
-                ExportCompetenties = value.Export.Competenties,
                 ExportLeerlijnen = value.Export.Leerlijnen,
                 ExportTags = value.Export.Tags
             };

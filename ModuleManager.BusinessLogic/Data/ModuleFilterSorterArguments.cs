@@ -11,8 +11,6 @@ namespace ModuleManager.BusinessLogic.Data
     /// </summary>
     public class ModuleFilterSorterArguments
     {
-        ICollection<string> _competentieFilters;
-        ICollection<string> _competentieNiveauFilters;
         ICollection<string> _tagFilters;
         ICollection<string> _leerlijnFilters;
         ICollection<string> _faseFilters;
@@ -25,8 +23,8 @@ namespace ModuleManager.BusinessLogic.Data
         {
             get
             {
-                return (SortBy == null) && (ZoektermFilter == null) && (CompetentieFilters == null) &&
-                       (CompetentieNiveauFilters == null) && (TagFilters == null) && (LeerlijnFilters == null) &&
+                return (SortBy == null) && (ZoektermFilter == null) && (KwaliteitskenmerkIds == null) &&
+                       (TagFilters == null) && (LeerlijnFilters == null) &&
                        (BlokFilters == null) && (FaseFilters == null) && (LeerjaarFilter == null) && (ECfilters == null) && (StatusFilter == null);
             }
         }
@@ -53,31 +51,9 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke competentie(s) om op te filteren
         /// </summary>
-        public ICollection<string> CompetentieFilters 
+        public ICollection<int> KwaliteitskenmerkIds
         {
-            get { return _competentieFilters; }
-            set 
-            { 
-                if (value != null) 
-                { 
-                    _competentieFilters = value.Where(element => element.Length > 0).ToList(); 
-                } 
-            } 
-        }
-        
-        /// <summary>
-        /// Geselecteerde/mogelijke competentieniveau(s) om op te filteren
-        /// </summary>
-        public ICollection<string> CompetentieNiveauFilters 
-        {
-            get { return _competentieNiveauFilters; }
-            set
-            {
-                if (value != null)
-                {
-                    _competentieNiveauFilters = value.Where(element => element.Length > 0).ToList();
-                }
-            }
+            get;set;
         }
         
         /// <summary>

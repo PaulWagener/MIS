@@ -157,17 +157,6 @@ namespace ModuleManager.BusinessLogic.Factories
                 }
             }
 
-            if (opt.ExportAll || opt.ExportCompetenties)
-            {
-                Type t = usableTypes["ModuleCompetentieExporter"];
-                var ctor = t.GetConstructor(typeArgs);
-                if (ctor != null)
-                {
-                    object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<Domain.Module>;
-                }
-            }
-
             if (opt.ExportAll || opt.ExportLeerlijnen)
             {
                 Type t = usableTypes["ModuleLeerlijnenExporter"];

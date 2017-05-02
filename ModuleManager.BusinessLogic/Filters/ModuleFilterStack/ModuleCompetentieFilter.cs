@@ -10,16 +10,14 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleCompetentieFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            // TODO: Competentiefilter weer goed maken.
-
-            //if (args.CompetentieFilters != null && args.CompetentieFilters.Count > 0)
-            //{
-            //    foreach (var competentie in args.CompetentieFilters)
-            //    {
-            //        var tmp = competentie; // because of capture problem
-            //        toQuery = toQuery.Where(module => module.ModuleCompetenties.Any(mc => mc.Competentie.Naam == tmp));
-            //    }
-            //}
+            if (args.KwaliteitskenmerkIds != null && args.KwaliteitskenmerkIds.Count > 0)
+            {
+                foreach (var kkId in args.KwaliteitskenmerkIds)
+                {
+                    var tmp = kkId; // because of capture problem
+                    toQuery = toQuery.Where(module => module.Leerdoelen.Any(ld => ld.Kwaliteitskenmerken.Any(kk => kk.Id == tmp)));
+                }
+            }
 
             return base.Filter(toQuery, args);
         }
