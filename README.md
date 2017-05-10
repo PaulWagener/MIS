@@ -1,8 +1,8 @@
 # Avans Module Manager!
 
 # Omgevingen
-* [development - branch:master - mis-avans-dev](http://mis-avans-dev.azurewebsites.net/)
-* [productie - branch:production - mis-avans](http://mis-avans.azurewebsites.net/)
+* development - branch:master - local machine
+* [productie - branch:production - mis.aii.avans.nl](http://mis.aii.avans.nl/)
 
 # Feedback
 * [google sheet - feedback](https://docs.google.com/spreadsheets/d/1_eINKqNi2Mof2ggGrEJtAamTv1q5q2b_qjBAlZHBeZ4/edit#gid=445747771)
