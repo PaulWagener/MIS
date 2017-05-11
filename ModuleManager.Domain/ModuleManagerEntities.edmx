@@ -62,6 +62,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Naam" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LinkedUser" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Fase">
           <Key>
@@ -257,6 +258,7 @@
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="naam" Type="varchar" MaxLength="50" />
           <Property Name="Blocked" Type="bit" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Voorkennis">
           <Key>
@@ -418,6 +420,18 @@
             <Dependent Role="Leermiddel">
               <PropertyRef Name="CursusCode" />
               <PropertyRef Name="Schooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkedUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Docent" Type="Self.Docent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserNaam" />
+            </Principal>
+            <Dependent Role="Docent">
+              <PropertyRef Name="LinkedUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -799,6 +813,10 @@
           <AssociationSet Name="FK_Leermiddelen_Module" Association="Self.FK_Leermiddelen_Module">
             <End Role="Module" EntitySet="Module" />
             <End Role="Leermiddel" EntitySet="Leermiddel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkedUser_User" Association="Self.FK_LinkedUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Docent" EntitySet="Docent" />
           </AssociationSet>
           <AssociationSet Name="FK_Module_Blok" Association="Self.FK_Module_Blok">
             <End Role="Blok" EntitySet="Blok" />
@@ -1199,6 +1217,10 @@
             <End Role="Kwaliteitskenmerk" EntitySet="Kwaliteitskenmerken" />
             <End Role="Leerdoel" EntitySet="Leerdoelen" />
           </AssociationSet>
+          <AssociationSet Name="FK_LinkedUser_User" Association="Domain.FK_LinkedUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Docent" EntitySet="Docenten" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Fase">
           <Key>
@@ -1230,6 +1252,8 @@
           <Property Name="Naam" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Modules" Relationship="Domain.ModuleDocent" FromRole="Docent" ToRole="Module" />
           <NavigationProperty Name="Modules_Eigenaar" Relationship="Domain.FK_Module_Docent" FromRole="Docent" ToRole="Module" />
+          <Property Name="LinkedUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Domain.FK_LinkedUser_User" FromRole="Docent" ToRole="User" />
         </EntityType>
         <Association Name="ModuleDocent">
           <End Type="Domain.Docent" Role="Docent" Multiplicity="*" />
@@ -1377,6 +1401,8 @@
           <Property Name="naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Blocked" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="SysteemRol1" Relationship="Domain.FK_User_systeemRol" FromRole="User" ToRole="SysteemRol" />
+          <NavigationProperty Name="Docents" Relationship="Domain.FK_LinkedUser_User" FromRole="User" ToRole="Docent" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_User_systeemRol">
           <End Type="Domain.SysteemRol" Role="SysteemRol" Multiplicity="1" />
@@ -1585,6 +1611,18 @@
           <End Type="Domain.Kwaliteitskenmerk" Role="Kwaliteitskenmerk" Multiplicity="*" />
           <End Type="Domain.Leerdoel" Role="Leerdoel" Multiplicity="*" />
         </Association>
+        <Association Name="FK_LinkedUser_User">
+          <End Type="Domain.User" Role="User" Multiplicity="0..1" />
+          <End Type="Domain.Docent" Role="Docent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserNaam" />
+            </Principal>
+            <Dependent Role="Docent">
+              <PropertyRef Name="LinkedUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1718,6 +1756,7 @@
           <EntitySetMapping Name="Docenten">
             <EntityTypeMapping TypeName="Domain.Docent">
               <MappingFragment StoreEntitySet="Docent">
+                <ScalarProperty Name="LinkedUser" ColumnName="LinkedUser" />
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1798,6 +1837,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="Domain.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Blocked" ColumnName="Blocked" />
                 <ScalarProperty Name="naam" ColumnName="naam" />
                 <ScalarProperty Name="email" ColumnName="email" />

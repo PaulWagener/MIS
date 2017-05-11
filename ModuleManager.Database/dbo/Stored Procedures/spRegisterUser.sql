@@ -19,7 +19,7 @@ Begin
 	Begin
 		Set @ReturnCode = 1
 		
-		Insert into [User] values (@UserNaam, @SysteemRol, 0, @email, @naam)
+		Insert into [User] values (@UserNaam, @SysteemRol, 0, @email, @naam, null)
 	End
 
 	select @ReturnCode

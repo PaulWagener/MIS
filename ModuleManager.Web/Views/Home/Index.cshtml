@@ -1,12 +1,64 @@
-﻿<div class="row">
-    <div class="col-md-8 col-md-offset-2 text-center">
-        <h1 style="font-size: 4em">Informaticamodules</h1><br />
+﻿@model ModuleManager.Web.ViewModels.PortalVM
+<div class="text-center">
+    @if (Model.User != null)
+    {
+        <h2>Welkom op het module informatie systeem</h2><br />
+
+        <div class="row">
+            <div class="col-md-6">
+                @{ string result = "data:image/jpeg;base64," + Model.User.Image; }
+                <div class="profile">
+                    <div>   
+                        <img src='@result'>
+                    </div>
+                    
+                    <div class="content">
+                        <h1>@Model.User.UserNaam</h1>
+                        <span class="email">@Model.User.email</span>
+                        <hr />
+                        <div>Eigenaar van <b>@Model.ModulesOwned.Count()</b> modules</div>
+                        <div>Docent in <b>@Model.ModulesContributed.Count()</b> modules</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-6" style="padding: 20px">
+                @if(Model.ModulesContributed.Count() == 0 && Model.ModulesOwned.Count() == 0)
+                {
+                    <div class="mx-auto">
+                        Ik zie dat je nog geen eigenaar bent van een module, of les geeft bij een module! 
+                        Vraag aan de systeembeheerder om je toe te voegen aan een module.
+                    </div>
+                }
+
+                <ul>
+                    @foreach (var module in Model.ModulesOwned)
+                    {
+                        <li>
+                            <a href="http://localhost:8903/Module/Details/@module.Schooljaar/@module.CursusCode">
+                                [@module.CursusCode] @module.Naam (eigenaar)
+                            </a>
+                        </li>
+                    }
+                    @foreach (var module in Model.ModulesOwned)
+                    {
+                        <li>
+                            <a href="http://localhost:8903/Module/Details/@module.Schooljaar/@module.CursusCode">
+                                [@module.CursusCode] @module.Naam (docent)
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+        <h2>Bekijk curriculum</h2><br />
         <!--<input name="search" type="text" class="form-control search-query ajax input-lg" placeholder="Zoekterm" />-->
         <div class="text-center">
-            <a class="btn btn-default fa-button-big" href="@Url.Action("Index","StudieGids")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>
-            <a class="btn btn-default fa-button-big" href="@Url.Action("Overview","Module")"><i class="fa fa-search fa-big"></i><br />Module-overzicht</a>
+            <a class="btn btn-default fa-button-medium" href="@Url.Action("Index","StudieGids")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>
+            <a class="btn btn-default fa-button-medium" href="@Url.Action("Overview","Module")"><i class="fa fa-search fa-big"></i><br />Module-overzicht</a>
         </div>
-    </div>
 </div>
 
 @Html.Partial("~/Views/Help/Homepage.cshtml", null)

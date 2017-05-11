@@ -180,7 +180,12 @@ namespace ModuleManager.Web.Controllers
                 var email = (string)avansDetails["emails"][0];
                 var username = (string)avansDetails["accounts"]["username"];
 
-                if(!isEmployee)
+
+
+            
+
+
+                if (!isEmployee)
                 {
                     throw new Exception("Alleen docenten mogen inloggen!");
                 }
@@ -191,11 +196,17 @@ namespace ModuleManager.Web.Controllers
 
                     if(user == null)
                     {
+                        //retrieve image
+                        var responseStreamImage = consumer.PrepareAuthorizedRequestAndSend(new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/medewerkersgids/image/" + username, HttpDeliveryMethods.GetRequest), accessToken.AccessToken).ResponseStream;
+                        var responseImage = new StreamReader(responseStreamImage).ReadToEnd();
+                        var avansImage = JObject.Parse('{' + responseImage.Split('{')[1]);
+
                         // Create new user
                         user = context.User.Create();
                         user.UserNaam = username;
                         user.email = email;
                         user.naam = name;
+                        user.Image = (string)avansImage["image"];
                         user.SysteemRol = "Docent";
                         context.User.Add(user);
                         context.SaveChanges();

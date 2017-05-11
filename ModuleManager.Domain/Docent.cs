@@ -23,10 +23,12 @@ namespace ModuleManager.Domain
     
         public int Id { get; set; }
         public string Naam { get; set; }
+        public string LinkedUser { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules_Eigenaar { get; set; }
+        public virtual User User { get; set; }
     }
 }

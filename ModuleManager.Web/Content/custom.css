@@ -4,6 +4,32 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
+.profile{
+    text-align:left;
+    display: flex;
+    margin:10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    background-color:#fafafa;
+}
+
+.profile .content{
+    padding:10px;
+    flex:1;
+}
+
+.profile .content h1{
+    margin: 0px;
+    font-size:150%;
+}
+
+.profile .content hr{
+    margin:5px;
+}
+
+.profile img {
+    width:130px;
+}
+
 /*@media (min-width: 1200px) {
   .container {
     width: 1040px;

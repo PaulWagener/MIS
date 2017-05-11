@@ -14,12 +14,21 @@ namespace ModuleManager.Domain
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Docents = new HashSet<Docent>();
+        }
+    
         public string UserNaam { get; set; }
         public string SysteemRol { get; set; }
         public string email { get; set; }
         public string naam { get; set; }
         public bool Blocked { get; set; }
+        public string Image { get; set; }
     
         public virtual SysteemRol SysteemRol1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Docent> Docents { get; set; }
     }
 }

@@ -389,6 +389,7 @@
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\ModuleOverviewViewModel.cs" />
+    <Compile Include="ViewModels\PortalVM.cs" />
     <Compile Include="ViewModels\RequestViewModels\Export.cs" />
     <Compile Include="ViewModels\RequestViewModels\ExportArgumentsViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModels\Filter.cs" />
@@ -495,7 +496,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8902</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8902/</IISUrl>
+          <IISUrl>http://localhost:8903/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
