@@ -211,6 +211,15 @@ namespace ModuleManager.Web.Controllers
                         context.User.Add(user);
                         context.SaveChanges();
                     }
+                    else if(user.Image == null)
+                    {
+                        //retrieve image
+                        var responseStreamImage = consumer.PrepareAuthorizedRequestAndSend(new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/medewerkersgids/image/" + username, HttpDeliveryMethods.GetRequest), accessToken.AccessToken).ResponseStream;
+                        var responseImage = new StreamReader(responseStreamImage).ReadToEnd();
+                        var avansImage = JObject.Parse('{' + responseImage.Split('{')[1]);
+                        user.Image = (string)avansImage["image"];
+                        context.SaveChanges();
+                    }
 
                     // Save role of the user in ticket
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, user.UserNaam, DateTime.Now, DateTime.Now.AddYears(10), true, user.SysteemRol, "/");

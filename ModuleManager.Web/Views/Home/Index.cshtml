@@ -43,7 +43,7 @@
                     @foreach (var module in Model.ModulesOwned)
                     {
                         <li>
-                            <a href="http://localhost:8903/Module/Details/@module.Schooljaar/@module.CursusCode">
+                            <a href="http://localhost:8903/Module/Details/@module.Schooljaar/@module.CursusCode" >
                                 [@module.CursusCode] @module.Naam (docent)
                             </a>
                         </li>
@@ -52,13 +52,21 @@
             </div>
         </div>
     }
+    else
+    {
+        <p>Je bent nog niet ingelogd.</p>
 
-        <h2>Bekijk curriculum</h2><br />
-        <!--<input name="search" type="text" class="form-control search-query ajax input-lg" placeholder="Zoekterm" />-->
-        <div class="text-center">
-            <a class="btn btn-default fa-button-medium" href="@Url.Action("Index","StudieGids")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>
-            <a class="btn btn-default fa-button-medium" href="@Url.Action("Overview","Module")"><i class="fa fa-search fa-big"></i><br />Module-overzicht</a>
-        </div>
+        <a href="@Url.Action("Login", "Account")" type="button" class="btn btn-primary">
+            <i class="fa fa-sign-in"></i> Inloggen
+        </a>
+    }
+
+    <h2>Bekijk curriculum</h2><br />
+    <!--<input name="search" type="text" class="form-control search-query ajax input-lg" placeholder="Zoekterm" />-->
+    <div class="text-center">
+        <a class="btn btn-default fa-button-medium" href="@Url.Action("Index","StudieGids")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>
+        <a class="btn btn-default fa-button-medium" href="@Url.Action("Overview","Module")"><i class="fa fa-search fa-big"></i><br />Module-overzicht</a>
+    </div>
 </div>
 
 @Html.Partial("~/Views/Help/Homepage.cshtml", null)
