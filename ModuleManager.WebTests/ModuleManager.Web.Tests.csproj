@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModuleManager.WebTests</RootNamespace>
-    <AssemblyName>ModuleManager.WebTests</AssemblyName>
+    <AssemblyName>ModuleManager.Web.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -104,9 +104,9 @@
     <Compile Include="controller\ModuleControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModuleManager.BusinessLogicTests\ModuleManager.BusinessLogicTests.csproj">
+    <ProjectReference Include="..\ModuleManager.BusinessLogicTests\ModuleManager.BusinessLogic.Tests.csproj">
       <Project>{a8315b83-c3a3-4296-907d-17a79f7b29ed}</Project>
-      <Name>ModuleManager.BusinessLogicTests</Name>
+      <Name>ModuleManager.BusinessLogic.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj">
       <Project>{89c16482-39d4-4861-928d-d59a7db808e9}</Project>

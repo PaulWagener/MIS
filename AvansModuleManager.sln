@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.Web", "Module
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.BusinessLogic", "ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj", "{89C16482-39D4-4861-928D-D59A7DB808E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.WebTests", "ModuleManager.WebTests\ModuleManager.WebTests.csproj", "{E1D35D32-BA2F-4E18-8A75-DCA6E6677EEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.Web.Tests", "ModuleManager.WebTests\ModuleManager.Web.Tests.csproj", "{E1D35D32-BA2F-4E18-8A75-DCA6E6677EEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.BusinessLogicTests", "ModuleManager.BusinessLogicTests\ModuleManager.BusinessLogicTests.csproj", "{A8315B83-C3A3-4296-907D-17A79F7B29ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleManager.BusinessLogic.Tests", "ModuleManager.BusinessLogicTests\ModuleManager.BusinessLogic.Tests.csproj", "{A8315B83-C3A3-4296-907D-17A79F7B29ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{02884BCC-A3DA-433B-B76D-72042B2ECEC6}"
 	ProjectSection(SolutionItems) = preProject
