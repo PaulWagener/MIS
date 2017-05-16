@@ -1,4 +1,6 @@
-# Avans Module Manager!
+
+# MIS
+Module Informatie Systeem
 
 # Omgevingen
 * development - branch:master - local machine
@@ -11,7 +13,7 @@
 * ModuleManager.Domain
 
 # Getting Started
-* Visual Studio > Team explorer > Manage Connections > Studiegids
+* Clone repository
 * Solution Explorer > ModuleManager.Database > ModuleManager.Local.Database.publish
 
 #Enviroment settings
@@ -19,3 +21,6 @@
 
 
 Happy coding!
+=======
+
+
